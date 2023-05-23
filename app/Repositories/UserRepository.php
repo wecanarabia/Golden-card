@@ -40,23 +40,13 @@ class UserRepository extends AbstractRepository
     {
 
         $model = $this->model->create([
-            'name'=>$data->name,
+            'first_name'=>$data->first_name,
+            'last_name'=>$data->last_name,
             'email'=>$data->email,
-           // 'phone'=>$data->phone,
-            //'step'=>$data->step,
-            //'active'=>$data->active,
+           'phone'=>$data->phone,
             'password'=>Hash::make($data->password),
         ]);
-        // $model->profile()->create($data->except([
-        //     'name',
-        //     'email',
-        //     'phone',
-        //     'step',
-        //     'active',
-        //     'image',
-        //     'password',
 
-        // ]));
 
         return $model->fresh();
 

@@ -59,15 +59,32 @@ class AuthController extends Controller
     public function store(UserRequest $request)
     {
         try {
+
             DB::beginTransaction();
-            $user = $this->userRepositry->save($request);
+
+
+            if (isset($request->email)) {
+                $check = User::where('email', $request->email)
+                    ->first();
+
+                if ($check) {
+
+                    return $this->returnError('The email address is already used!');
+                }
+            }
 
             if (isset($request->phone)) {
-                $otp = $this->sendOTP($request->phone);
+                $check = User::where('phone', $request->phone)
+                    ->first();
 
-                $user->otp = $otp;
-                $user->save();
+                if ($check) {
+
+                    return $this->returnError('The phone number is already used!');
+                }
             }
+
+            $user = $this->userRepositry->save($request);
+
 
             DB::commit();
             Auth::login($user);
