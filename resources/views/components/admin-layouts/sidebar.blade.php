@@ -17,7 +17,7 @@
 						</a>
 
 					</li>
-                    <li><a href="{{ route('admin.subscriptions.index') }}" class="" aria-expanded="false">
+                    {{-- <li><a href="{{ route('admin.subscriptions.index') }}" class="" aria-expanded="false">
 						<div class="menu-icon">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path fill-rule="evenodd" clip-rule="evenodd" d="M8.79222 13.9396C12.1738 13.9396 15.0641 14.452 15.0641 16.4989C15.0641 18.5458 12.1931 19.0729 8.79222 19.0729C5.40972 19.0729 2.52039 18.5651 2.52039 16.5172C2.52039 14.4694 5.39047 13.9396 8.79222 13.9396Z" stroke="#888888" stroke-linecap="round" stroke-linejoin="round"/>
@@ -28,8 +28,8 @@
 						</div>
 							<span class="nav-text">Subscriptions</span>
 						</a>
-					</li>
-                    <li><a href="{{ route('admin.admin-pages.index') }}" class="" aria-expanded="false">
+					</li> --}}
+                    <li><a href="{{ route('admin.pages.index') }}" class="" aria-expanded="false">
                         <div class="menu-icon">
 							<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M14.4065 14.8714H7.78821" stroke="#888888" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -38,7 +38,7 @@
 								<path fill-rule="evenodd" clip-rule="evenodd" d="M14.5829 2.52066C14.5829 2.52066 7.54563 2.52433 7.53463 2.52433C5.00463 2.53991 3.43805 4.20458 3.43805 6.74374V15.1734C3.43805 17.7254 5.01655 19.3965 7.56855 19.3965C7.56855 19.3965 14.6049 19.3937 14.6168 19.3937C17.1468 19.3782 18.7143 17.7126 18.7143 15.1734V6.74374C18.7143 4.19174 17.1349 2.52066 14.5829 2.52066Z" stroke="#888888" stroke-linecap="round" stroke-linejoin="round"></path>
 							</svg>
 						</div>
-							<span class="nav-text">Admin Pages</span>
+							<span class="nav-text">Pages</span>
 						</a>
 					</li>
 					<li><a href="{{ route('admin.introductions.index') }}" class="" aria-expanded="false">
@@ -63,28 +63,7 @@
 						<span class="nav-text">Admins</span>
 						</a>
 					</li>
-                    <li><a href="{{ route('admin.companies.index') }}" class="" aria-expanded="false">
-						<div class="menu-icon">
-							<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M6.75713 9.35157V15.64" stroke="#888888" stroke-linecap="round" stroke-linejoin="round"/>
-								<path d="M11.0349 6.34253V15.64" stroke="#888888" stroke-linecap="round" stroke-linejoin="round"/>
-								<path d="M15.2428 12.6746V15.64" stroke="#888888" stroke-linecap="round" stroke-linejoin="round"/>
-								<path fill-rule="evenodd" clip-rule="evenodd" d="M15.2952 1.83333H6.70474C3.7103 1.83333 1.83331 3.95274 1.83331 6.95306V15.0469C1.83331 18.0473 3.70157 20.1667 6.70474 20.1667H15.2952C18.2984 20.1667 20.1666 18.0473 20.1666 15.0469V6.95306C20.1666 3.95274 18.2984 1.83333 15.2952 1.83333Z" stroke="#888888" stroke-linecap="round" stroke-linejoin="round"/>
-							</svg>
-						</div>
-							<span class="nav-text">Companies</span>
-						</a>
-					</li>
-					<li><a href="{{ route('admin.company-admins.index') }}" class="" aria-expanded="false">
-						<div class="menu-icon">
-                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path fill-rule="evenodd" clip-rule="evenodd" d="M10.986 14.0673C7.4407 14.0673 4.41309 14.6034 4.41309 16.7501C4.41309 18.8969 7.4215 19.4521 10.986 19.4521C14.5313 19.4521 17.5581 18.9152 17.5581 16.7693C17.5581 14.6234 14.5505 14.0673 10.986 14.0673Z" stroke="#888888" stroke-linecap="round" stroke-linejoin="round"></path>
-								<path fill-rule="evenodd" clip-rule="evenodd" d="M10.986 11.0054C13.3126 11.0054 15.1983 9.11881 15.1983 6.79223C15.1983 4.46564 13.3126 2.57993 10.986 2.57993C8.65944 2.57993 6.77285 4.46564 6.77285 6.79223C6.76499 9.11096 8.63849 10.9975 10.9563 11.0054H10.986Z" stroke="#888888" stroke-linecap="round" stroke-linejoin="round"></path>
-							</svg>
-						</div>
-						<span class="nav-text">Company Admins</span>
-						</a>
-					</li>
+
 					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 						<div class="menu-icon">
 							<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
