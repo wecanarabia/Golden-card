@@ -27,7 +27,9 @@ class DatabaseSeeder extends Seeder
             $user->email = 'aya@gmail.com';
             $user->password = Hash::make(123456789);
             $user->save();
-
+            $this->call([
+                AdminSeeder::class,
+            ]);
 
 
     }
