@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\AdminPage;
+use App\Models\Page;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\AdminPageRequest;
+use App\Http\Requests\Admin\PageRequest;
 
 class PageController extends Controller
 {
@@ -15,7 +15,7 @@ class PageController extends Controller
     public function index()
     {
         $data = Page::paginate(5);
-        return view('admin.admin-pages.index',compact('data'));
+        return view('admin.pages.index',compact('data'));
     }
 
     /**
@@ -23,17 +23,17 @@ class PageController extends Controller
      */
     public function create()
     {
-        return view('admin.admin-pages.create');
+        return view('admin.pages.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AdminPageRequest $request)
+    public function store(PageRequest $request)
     {
         $request['title']=['en'=>$request->english_title,'ar'=>$request->arabic_title];
         $request['body']=['en'=>$request->english_body,'ar'=>$request->arabic_body];
-        AdminPage::create($request->except([
+        Page::create($request->except([
             'english_title',
             'arabic_title',
             'english_body',
@@ -41,7 +41,7 @@ class PageController extends Controller
         ]));
 
 
-        return redirect()->route('admin.admin-pages.index')
+        return redirect()->route('admin.pages.index')
                         ->with('success','Page has been added successfully');
     }
 
@@ -50,8 +50,8 @@ class PageController extends Controller
      */
     public function show(string $id)
     {
-        $page = AdminPage::findOrFail($id);
-        return view('admin.admin-pages.show',compact('page'));
+        $page = Page::findOrFail($id);
+        return view('admin.pages.show',compact('page'));
     }
 
     /**
@@ -59,16 +59,16 @@ class PageController extends Controller
      */
     public function edit(string $id)
     {
-        $page = AdminPage::findOrFail($id);
-        return view('admin.admin-pages.edit',compact('page'));
+        $page = Page::findOrFail($id);
+        return view('admin.pages.edit',compact('page'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(AdminPageRequest $request, string $id)
+    public function update(PageRequest $request, string $id)
     {
-        $page = AdminPage::findOrFail($id);
+        $page = Page::findOrFail($id);
         $request['title']=['en'=>$request->english_title,'ar'=>$request->arabic_title];
         $request['body']=['en'=>$request->english_body,'ar'=>$request->arabic_body];
         $page->update($request->except([
@@ -79,7 +79,7 @@ class PageController extends Controller
         ]));
 
 
-        return redirect()->route('admin.admin-pages.index')
+        return redirect()->route('admin.pages.index')
                         ->with('success','Page has been updated successfully');
     }
 
@@ -88,7 +88,7 @@ class PageController extends Controller
      */
     public function destroy(Request $request)
     {
-        AdminPage::findOrFail($request->id)->delete();
-        return redirect()->route('admin.admin-pages.index')->with('success','Page has been removed successfully');
+        Page::findOrFail($request->id)->delete();
+        return redirect()->route('admin.pages.index')->with('success','Page has been removed successfully');
     }
 }

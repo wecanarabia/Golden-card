@@ -7,7 +7,7 @@
         <div class="page-titles">
             <ol class="breadcrumb">
                 <li>
-                    <h5 class="bc-title">{{ __('Admin Pages') }}</h5>
+                    <h5 class="bc-title">{{ __('Pages') }}</h5>
                 </li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">
                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
@@ -20,9 +20,9 @@
                         </svg>
                         Home </a>
                 </li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Admin Pages') }} </a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Pages') }} </a></li>
             </ol>
-            <a class="text-primary fs-13" href="{{ route('admin.admin-pages.create') }}">+ Add Admin Page</a>
+            <a class="text-primary fs-13" href="{{ route('admin.pages.create') }}">+ Add Page</a>
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -78,10 +78,10 @@
                                                                 </button>
                                                                 <div class="dropdown-menu">
                                                                     <a class="dropdown-item"
-                                                                        href="{{ route('admin.admin-pages.edit', $page->id) }}">Edit</a>
+                                                                        href="{{ route('admin.pages.edit', $page->id) }}">Edit</a>
                                                                     <a class="dropdown-item"
-                                                                        href="{{ route('admin.admin-pages.show', $page->id) }}">Show</a>
-                                                         
+                                                                        href="{{ route('admin.pages.show', $page->id) }}">Show</a>
+
                                                                     <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"
                                                                     data-id="{{ $page->id }}" data-name="{{ $page->title }}">Delete</button>
                                                                 </div>
