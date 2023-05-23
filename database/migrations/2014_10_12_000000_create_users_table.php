@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->string('phone')->unique();
-            $table->string('lat')->nullable();
-            $table->string('long')->nullable();
+            $table->double('lat')->nullable();
+            $table->double('long')->nullable();
             $table->timestamps();
         });
     }
