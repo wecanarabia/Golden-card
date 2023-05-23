@@ -34,17 +34,11 @@ class AuthController extends Controller
 
     public function login(AuthRequest $request)
     {
-        $auth = Auth::attempt(
+        if (!Auth::attempt(
             $request->only([
                 'phone',
                 'password',
-            ])
-        );
-
-
-
-        if (!$auth) {
-
+            ]))) {
             return response()->json([
                 'status' => false,
                 'code' => 500,
