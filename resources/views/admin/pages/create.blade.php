@@ -14,9 +14,9 @@
                     </svg>
                     Home </a>
                 </li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{  __('Add Admin Page') }} </a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{  __('Add Page') }} </a></li>
             </ol>
-            <a class="text-primary fs-13" href="{{ route('admin.pages.index') }}" >{{  __('Admin Pages') }}</a>
+            <a class="text-primary fs-13" href="{{ route('admin.pages.index') }}" >{{  __('Pages') }}</a>
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -25,7 +25,7 @@
                         <div class="card-body p-0">
                             <div class="offcanvas-body">
                                 <div class="container-fluid">
-                                <h4 class="heading mb-0"> {{ __('Add Admin Page') }}</h4>
+                                <h4 class="heading mb-0"> {{ __('Add Page') }}</h4>
 
                             <form method="POST" action="{{ route('admin.pages.store') }}">
                                 @csrf

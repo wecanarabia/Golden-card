@@ -34,7 +34,7 @@
                                     <x-admin-layouts.alerts />
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
-                                            <h4 class="heading mb-0"> {{ __('Admin Pages') }}</h4>
+                                            <h4 class="heading mb-0"> {{ __('Introduction') }}</h4>
                                         </div>
                                         <table class="table">
                                             <thead>
