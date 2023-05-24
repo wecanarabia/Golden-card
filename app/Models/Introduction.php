@@ -21,4 +21,13 @@ class Introduction extends Model
             $this->attributes['image'] =  'img/introduction/'.$filename;
         }
     }
+
+    protected static function booted()
+    {
+        static::deleted(function ($introduction) {
+            if ($introduction->image  && \Illuminate\Support\Facades\File::exists($introduction->image)) {
+                unlink($introduction->image);
+            }
+        });
+    }
 }
