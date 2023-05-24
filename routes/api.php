@@ -29,6 +29,13 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::post('user-reg', [AuthController::class, 'store']);
 
+Route::middleware(['auth:api'])->group(function () {
+
+
+Route::post('/user-update', [AuthController::class, 'updateProfile']);
+
+});
+
 //Introduction
 Route::get('introductions', [IntroductionController::class, 'list']);
 Route::post('introduction-create', [IntroductionController::class, 'save']);
