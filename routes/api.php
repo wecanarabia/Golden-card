@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\IntroductionController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PageController;
+use App\Http\Controllers\Api\SliderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,3 +46,11 @@ Route::post('introduction/edit/{id}', [IntroductionController::class, 'edit']);
  Route::get('page/{id}', [PageController::class, 'view']);
  Route::get('page/delete/{id}', [PageController::class, 'delete']);
  Route::post('page/edit/{id}', [PageController::class, 'edit']);
+
+
+ //Slider
+Route::get('sliders', [SliderController::class, 'pagination']);
+Route::post('slider-create', [SliderController::class, 'save']);
+Route::get('slider/{id}', [SliderController::class, 'view']);
+Route::get('slider/delete/{id}', [SliderController::class, 'delete']);
+Route::post('slider/edit/{id}', [SliderController::class, 'edit']);
