@@ -23,8 +23,8 @@ class IntroductionRequest extends FormRequest
     {
         return [
             'image'=>'required_without:id|mimes:jpg,jpeg,gif,png',
-            'english_title' => 'required|min:4|max:255',
-            'arabic_title' => 'required|min:4|max:255',
+            // 'english_title' => 'required|min:4|max:255',
+            // 'arabic_title' => 'required|min:4|max:255',
             'english_body' => 'required|min:4|max:10000',
             'arabic_body' => 'required|min:4|max:10000',
         ];

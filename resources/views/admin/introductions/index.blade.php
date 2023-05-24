@@ -39,8 +39,8 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>English Title</th>
-                                                    <th>Arabic Title</th>
+                                                    <th>English Body</th>
+                                                    <th>Arabic Body</th>
 
 
                                                     <th>actions</th>
@@ -50,9 +50,9 @@
                                                 @forelse ($data as $introduction)
                                                     <tr>
 
-                                                        <td><span>{{ $introduction->getTranslation('title', 'en') }}</span></td>
+                                                        <td><span>{{ $introduction->getTranslation('body', 'en') }}</span></td>
                                                         <td>
-                                                            <span>{{ $introduction->getTranslation('title', 'ar')}}</span>
+                                                            <span>{{ $introduction->getTranslation('body', 'ar')}}</span>
                                                         </td>
 
 

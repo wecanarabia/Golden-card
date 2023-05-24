@@ -27,8 +27,8 @@
                                 <div class="container-fluid">
                                 <h4 class="heading mb-5"> {{ $introduction->title }}</h4>
 
-                                    <p class="mb-3"><strong>English title : </strong> {{ $introduction->getTranslation('title', 'en') }}</p>
-                                    <p class="mb-3"><strong>Arabic Title : </strong> {{ $introduction->getTranslation('title', 'ar') }}</p>
+                                    {{-- <p class="mb-3"><strong>English title : </strong> {{ $introduction->getTranslation('title', 'en') }}</p>
+                                    <p class="mb-3"><strong>Arabic Title : </strong> {{ $introduction->getTranslation('title', 'ar') }}</p> --}}
                                     <p class="mb-3"><strong>English body : </strong> {{ $introduction->getTranslation('body', 'en') }}</p>
                                     <p class="mb-3"><strong>Arabic body :</strong> {{ $introduction->getTranslation('body', 'ar') }}</p>
                         </div>
