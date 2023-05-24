@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\SliderController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\SubcategoryController;
+use App\Http\Controllers\Api\CityController;
+use App\Http\Controllers\Api\AreaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -72,3 +74,18 @@ Route::post('subcategory-create', [SubcategoryController::class, 'save']);
 Route::get('subcategory/{id}', [SubcategoryController::class, 'view']);
 Route::get('subcategory/delete/{id}', [SubcategoryController::class, 'delete']);
 Route::post('subcategory/edit/{id}', [SubcategoryController::class, 'edit']);
+
+
+//City
+Route::get('cities', [CityController::class, 'list']);
+Route::post('city-create', [CityController::class, 'save']);
+Route::get('city/{id}', [CityController::class, 'view']);
+Route::get('city/delete/{id}', [CityController::class, 'delete']);
+Route::post('city/edit/{id}', [CityController::class, 'edit']);
+
+//Area
+Route::get('areas', [AreaController::class, 'list']);
+Route::post('area-create', [AreaController::class, 'save']);
+Route::get('area/{id}', [AreaController::class, 'view']);
+Route::get('area/delete/{id}', [AreaController::class, 'delete']);
+Route::post('area/edit/{id}', [AreaController::class, 'edit']);
