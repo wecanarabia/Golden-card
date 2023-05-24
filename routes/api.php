@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\IntroductionController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,12 @@ Route::post('introduction-create', [IntroductionController::class, 'save']);
 Route::get('introduction/{id}', [IntroductionController::class, 'view']);
 Route::get('introduction/delete/{id}', [IntroductionController::class, 'delete']);
 Route::post('introduction/edit/{id}', [IntroductionController::class, 'edit']);
+
+
+ //pages
+
+ Route::get('pages', [PageController::class, 'list']);
+ Route::post('page-create', [PageController::class, 'save']);
+ Route::get('page/{id}', [PageController::class, 'view']);
+ Route::get('page/delete/{id}', [PageController::class, 'delete']);
+ Route::post('page/edit/{id}', [PageController::class, 'edit']);
