@@ -76,12 +76,6 @@ Route::get('subcategory/delete/{id}', [SubcategoryController::class, 'delete']);
 Route::post('subcategory/edit/{id}', [SubcategoryController::class, 'edit']);
 
 
-//City
-Route::get('cities', [CityController::class, 'list']);
-Route::post('city-create', [CityController::class, 'save']);
-Route::get('city/{id}', [CityController::class, 'view']);
-Route::get('city/delete/{id}', [CityController::class, 'delete']);
-Route::post('city/edit/{id}', [CityController::class, 'edit']);
 
 //Area
 Route::get('areas', [AreaController::class, 'list']);
