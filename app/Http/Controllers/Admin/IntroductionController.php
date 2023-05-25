@@ -15,7 +15,7 @@ class IntroductionController extends Controller
      */
     public function index()
     {
-        $data = Introduction::paginate(5);
+        $data = Introduction::paginate(10);
         return view('admin.introductions.index',compact('data'));
     }
 

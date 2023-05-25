@@ -7,7 +7,7 @@
         <div class="page-titles">
             <ol class="breadcrumb">
                 <li>
-                    <h5 class="bc-title">{{ __('Introductions') }}</h5>
+                    <h5 class="bc-title">{{ __('Categories') }}</h5>
                 </li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">
                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
@@ -20,9 +20,9 @@
                         </svg>
                         Home </a>
                 </li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Introductions') }} </a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Categories') }} </a></li>
             </ol>
-            <a class="text-primary fs-13" href="{{ route('admin.introductions.create') }}">+ Add Introduction</a>
+            <a class="text-primary fs-13" href="{{ route('admin.categories.create') }}">+ Add Introduction</a>
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -34,25 +34,25 @@
                                     <x-admin-layouts.alerts />
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
-                                            <h4 class="heading mb-0"> {{ __('Introductions') }}</h4>
+                                            <h4 class="heading mb-0"> {{ __('Categories') }}</h4>
                                         </div>
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>English Body</th>
-                                                    <th>Arabic Body</th>
+                                                    <th>English Name</th>
+                                                    <th>Arabic Name</th>
 
 
                                                     <th>actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @forelse ($data as $introduction)
+                                                @forelse ($data as $category)
                                                     <tr>
 
-                                                        <td><span>{{ $introduction->getTranslation('body', 'en') }}</span></td>
+                                                        <td><span>{{ $category->getTranslation('name', 'en') }}</span></td>
                                                         <td>
-                                                            <span>{{ $introduction->getTranslation('body', 'ar')}}</span>
+                                                            <span>{{ $category->getTranslation('name', 'ar')}}</span>
                                                         </td>
 
 
@@ -78,11 +78,11 @@
                                                                 </button>
                                                                 <div class="dropdown-menu">
                                                                     <a class="dropdown-item"
-                                                                        href="{{ route('admin.introductions.edit', $introduction->id) }}">Edit</a>
+                                                                        href="{{ route('admin.categories.edit', $category->id) }}">Edit</a>
                                                                     <a class="dropdown-item"
-                                                                        href="{{ route('admin.introductions.show', $introduction->id) }}">Show</a>
+                                                                        href="{{ route('admin.categories.show', $category->id) }}">Show</a>
                                                                     <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                                    data-id="{{ $introduction->id }}" data-name="{{ $introduction->title }}">Delete</button>
+                                                                    data-id="{{ $category->id }}" data-name="{{ $category->name }}">Delete</button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -118,10 +118,10 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Delete Introduction</h5>
+          <h5 class="modal-title" id="deleteModalLabel">Delete Category</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="{{ route('admin.introductions.destroy','test') }}" method="post">
+        <form action="{{ route('admin.categories.destroy','test') }}" method="post">
             {{ method_field('delete') }}
             @csrf
             <div class="modal-body">
