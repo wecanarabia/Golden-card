@@ -2,15 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class ImageService extends Model
 {
-    use HasFactory,HasTranslations;
+    use HasFactory;
     protected $guarded = [];
-    public $translatable = ['name'];
 
     public function setImageAttribute($value){
         if ($value){
@@ -31,27 +29,8 @@ class Category extends Model
         });
     }
 
-    public function subcategories()
+    public function service()
     {
-        return $this->hasMany(Category::class, 'parent_id');
+        return $this->belongsTo(Service::class,'service_id','id');
     }
-
-    public function parentcategory()
-    {
-        return $this->belongsTo(Category::class, 'parent_id');
-    }
-
-    public function services()
-    {
-        return $this->hasMany(Service::class);
-    }
-    public function scopeParent($query){
-        return $query->whereNull('parent_id');
-    }
-    public function scopeSub($query){
-        return $query->whereNotNull('parent_id');
-    }
-
-
-
 }

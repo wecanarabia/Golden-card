@@ -12,5 +12,9 @@ class Area extends Model
     protected $guarded = [];
     public $translatable = ['name'];
 
+    public function branches()
+    {
+        return $this->hasMany(Branch::class);
+    }
 
 }
