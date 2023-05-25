@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class ImageService extends Model
 {
     use HasFactory;
     protected $guarded = [];
@@ -29,19 +29,8 @@ class Category extends Model
         });
     }
 
-    public function subcategories()
+    public function service()
     {
-        return $this->hasMany(Category::class, 'parent_id');
+        return $this->belongsTo(Service::class,'service_id','id');
     }
-
-    public function parent()
-    {
-        return $this->belongsTo(Category::class, 'parent_id');
-    }
-
-    public function services()
-    {
-        return $this->hasMany(Service::class);
-    }
-
 }

@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\SubcategoryController;
 use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\Api\AreaController;
+use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\BranchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -83,3 +85,19 @@ Route::post('area-create', [AreaController::class, 'save']);
 Route::get('area/{id}', [AreaController::class, 'view']);
 Route::get('area/delete/{id}', [AreaController::class, 'delete']);
 Route::post('area/edit/{id}', [AreaController::class, 'edit']);
+
+//Service
+Route::get('services', [ServiceController::class, 'list']);
+Route::post('service-create', [ServiceController::class, 'save']);
+Route::get('service/{id}', [ServiceController::class, 'view']);
+Route::get('service/delete/{id}', [ServiceController::class, 'delete']);
+Route::post('service/edit/{id}', [ServiceController::class, 'edit']);
+
+
+
+//Branch
+Route::get('branches', [BranchController::class, 'list']);
+Route::post('branch-create', [BranchController::class, 'save']);
+Route::get('branch/{id}', [BranchController::class, 'view']);
+Route::get('branch/delete/{id}', [BranchController::class, 'delete']);
+Route::post('branch/edit/{id}', [BranchController::class, 'edit']);

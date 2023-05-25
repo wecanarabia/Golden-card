@@ -5,14 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Area extends Model
+class Service extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function subcategory()
+    {
+        return $this->belongsTo(Category::class,'category_id','id');
+    }
 
     public function branches()
     {
         return $this->hasMany(Branch::class);
     }
 
+    public function images()
+    {
+        return $this->hasMany(ImageService::class);
+    }
 }
