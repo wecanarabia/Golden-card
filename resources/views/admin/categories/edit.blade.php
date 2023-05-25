@@ -33,50 +33,19 @@
                                 <div class="row">
                                         <input name="id" type="hidden" value="{{ $category->id }}">
                                         <div class="col-xl-8 mb-3">
-                                            <label for="exampleFormControlInputfirst" class="form-label">English Title<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="exampleFormControlInputfirst" name="english_title" placeholder="English Title" value="{{ $category->getTranslation('title', 'en')??  old('english_title') }}">
-                                            @error('english_title')
+                                            <label for="exampleFormControlInputfirst" class="form-label">English Name<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="exampleFormControlInputfirst" name="english_name" placeholder="English Name" value="{{ $category->getTranslation('name', 'en')??  old('english_name') }}">
+                                            @error('english_name')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
 
                                         <div class="col-xl-8 mb-3">
-                                            <label for="exampleFormControlInputsecond" class="form-label">Arabic Title<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="exampleFormControlInputsecond" name="arabic_title" placeholder="Arabic Title" value="{{ $category->getTranslation('title', 'ar')??old('arabic_title') }}">
-                                            @error('arabic_title')
+                                            <label for="exampleFormControlInputsecond" class="form-label">Arabic Name<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="exampleFormControlInputsecond" name="arabic_name" placeholder="Arabic Name" value="{{ $category->getTranslation('name', 'ar')??old('arabic_name') }}">
+                                            @error('arabic_name')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
-                                        </div>
-
-
-                                        <div class="col-xl-8 mb-3">
-                                            <label class="form-label">Type<span class="text-danger">*</span></label>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type" value="parent" @checked(empty($category->parentcategory))>
-                                                <label class="form-check-label">
-                                                    Parent
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type" value="child" @checked(!empty($category->parentcategory))>
-                                                <label class="form-check-label">
-                                                    Child
-                                                </label>
-                                            </div>
-                                        </div>
-                                        @if (!empty($category->parentcategory))
-
-
-                                        <div id="cats-list" class="col-xl-8 mb-3 d-none">
-                                            <label class="form-label">Categories<span class="text-danger">*</span></label>
-                                            <select class="default-select form-control wide mb-3" name="parent_id" tabindex="null">
-                                                @foreach ($categories as $category)
-                                                    <option value="{{ $category->id }}" @selected(old('parent_id')==$category->id)>{{ $category->name }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('parent_id')
-                                                <div class="text-danger">{{ $message }}</div>
-                                             @enderror
                                         </div>
                                         <div class="col-xl-8 mb-3">
                                             <label for="image" class="form-label">Image<span class="text-danger">*</span></label>
@@ -85,7 +54,40 @@
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                        @endif
+
+                                        <div class="col-xl-8 mb-3">
+                                            <label class="form-label">Type<span class="text-danger">*</span></label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" id="parent" type="radio" name="type" value="parent" @checked(empty($category->parentcategory))>
+                                                <label class="form-check-label" for="parent">
+                                                    Parent
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" id="child" type="radio" name="type" value="child" @checked(!empty($category->parentcategory))>
+                                                <label class="form-check-label" for="child">
+                                                    Child
+                                                </label>
+                                            </div>
+                                        </div>
+
+
+                                        <div id="cats-list"
+                                            @class(['col-xl-8 ','mb-3','d-none'=>empty($category->parentcategory)])
+                                        >
+                                            <label class="form-label">Parent Category<span class="text-danger">*</span></label>
+                                            <select class="default-select form-control wide mb-3" name="parent_id" tabindex="null">
+                                                @foreach ($categories as $_category)
+                                                    @if ($category->id!==$_category->id)
+                                                    <option value="{{ $_category->id }}" @selected(old('parent_id')==$_category->id)>{{ $_category->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                            @error('parent_id')
+                                                <div class="text-danger">{{ $message }}</div>
+                                             @enderror
+                                        </div>
+
                                     <div class="col-xl-8 mb-3">
                                         <input type="submit" class="btn btn-primary me-1" value='Update Subscription'>
                                     </div>
@@ -107,5 +109,15 @@
     <!--**********************************
         Content body end
     ***********************************-->
-
+    @push('javasc')
+    <script>
+        $('.form-check-input').on('click', function() {
+            if ($(this).val() == 'child') {
+                $('#cats-list').removeClass('d-none')
+            }else if ($(this).val() == 'parent') {
+                $('#cats-list').addClass('d-none')
+            }
+        })
+    </script>
+    @endpush
 </x-admin-layouts.admin-app>

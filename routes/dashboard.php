@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\AdminController;
@@ -24,7 +25,8 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         Route::resource('admins', AdminController::class)->except(['show']);
         Route::resource('slider', SliderController::class)->except(['show']);
         Route::resource('areas', AreaController::class)->except(['show']);
-        Route::resource('categories', CategoryController::class)->except(['show']);
+        Route::resource('categories', CategoryController::class);
+        Route::resource('users', UserController::class)->except(['show']);
 
     });
 });

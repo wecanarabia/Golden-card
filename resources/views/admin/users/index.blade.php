@@ -7,7 +7,7 @@
         <div class="page-titles">
             <ol class="breadcrumb">
                 <li>
-                    <h5 class="bc-title">{{ __('Categories') }}</h5>
+                    <h5 class="bc-title">{{ __('Users') }}</h5>
                 </li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">
                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
@@ -20,9 +20,9 @@
                         </svg>
                         Home </a>
                 </li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Categories') }} </a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Users') }} </a></li>
             </ol>
-            <a class="text-primary fs-13" href="{{ route('admin.categories.create') }}">+ Add Category</a>
+            <a class="text-primary fs-13" href="{{ route('admin.users.create') }}">+ Add User</a>
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -34,25 +34,31 @@
                                     <x-admin-layouts.alerts />
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
-                                            <h4 class="heading mb-0"> {{ __('Categories') }}</h4>
+                                            <h4 class="heading mb-0"> {{ __('Users') }}</h4>
                                         </div>
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>English Name</th>
-                                                    <th>Arabic Name</th>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Email</th>
+                                                    <th>Phone</th>
 
 
                                                     <th>actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @forelse ($data as $category)
+                                                @forelse ($data as $user)
                                                     <tr>
 
-                                                        <td><span>{{ $category->getTranslation('name', 'en') }}</span></td>
+                                                        <td><span>{{ $user->first_name }}</span></td>
+                                                        <td><span>{{ $user->last_name }}</span></td>
                                                         <td>
-                                                            <span>{{ $category->getTranslation('name', 'ar')}}</span>
+                                                            <span>{{ $user->email }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ $user->phone }}</span>
                                                         </td>
 
 
@@ -78,11 +84,10 @@
                                                                 </button>
                                                                 <div class="dropdown-menu">
                                                                     <a class="dropdown-item"
-                                                                        href="{{ route('admin.categories.edit', $category->id) }}">Edit</a>
-                                                                    <a class="dropdown-item"
-                                                                        href="{{ route('admin.categories.show', $category->id) }}">Show</a>
+                                                                        href="{{ route('admin.users.edit', $user->id) }}">Edit</a>
+
                                                                     <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                                    data-id="{{ $category->id }}" data-name="{{ $category->name }}">Delete</button>
+                                                                    data-id="{{ $user->id }}" data-name="{{ $user->first_name }}">Delete</button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -118,10 +123,10 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Delete Category</h5>
+          <h5 class="modal-title" id="deleteModalLabel">Delete User</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="{{ route('admin.categories.destroy','test') }}" method="post">
+        <form action="{{ route('admin.users.destroy','test') }}" method="post">
             {{ method_field('delete') }}
             @csrf
             <div class="modal-body">

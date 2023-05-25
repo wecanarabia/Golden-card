@@ -21,11 +21,15 @@ class CategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!$this->has('parent_id')||$this['type']=='parent') {
+            $this['parent_id'] = null;
+        };
+        unset($this['type']);
         return [
             'english_name' => 'required|min:4|max:255',
             'arabic_name' => 'required|min:4|max:255',
             'image'=>'required_without:id|mimes:jpg,jpeg,gif,png',
-            'parent_id'=>'nullable,exists:categories,id'
+            'parent_id'=>'nullable|exists:categories,id'
         ];
     }
 }

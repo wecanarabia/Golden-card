@@ -14,7 +14,7 @@
                     </svg>
                     Home </a>
                 </li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $category->title }} </a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $category->name }} </a></li>
             </ol>
             <a class="text-primary fs-13" href="{{ route('admin.categories.index') }}" >{{  __('Categories') }}</a>
         </div>
@@ -27,8 +27,8 @@
                                 <div class="container-fluid">
                                 <h4 class="heading mb-5"> {{ $category->name }}</h4>
 
-                                    <p class="mb-3"><strong>English title : </strong> {{ $category->getTranslation('title', 'en') }}</p>
-                                    <p class="mb-3"><strong>Arabic Title : </strong> {{ $category->getTranslation('title', 'ar') }}</p>
+                                    <p class="mb-3"><strong>English Name : </strong> {{ $category->getTranslation('name', 'en') }}</p>
+                                    <p class="mb-3"><strong>Arabic Name : </strong> {{ $category->getTranslation('name', 'ar') }}</p>
                                     @if (!empty($category->parentcategory))
                                     <p class="mb-3"><strong>Parent Category : </strong> {{ $category->parentcategory->name }}</p>
                                     @endif

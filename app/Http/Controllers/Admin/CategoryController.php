@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use App\Http\Requests\Admin\CategoryRequest;
 
 class CategoryController extends Controller
@@ -47,7 +48,7 @@ class CategoryController extends Controller
 
     public function show(string $id)
     {
-        $category = Category::with('parent')->findOrFail($id);
+        $category = Category::with('parentcategory')->findOrFail($id);
         return view('admin.categories.show',compact('category'));
     }
 
@@ -56,7 +57,7 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        $category = Category::with('parent')->findOrFail($id);
+        $category = Category::with('parentcategory')->findOrFail($id);
         $categories = Category::parent()->get();
         return view('admin.categories.edit',compact('category','categories'));
     }

@@ -64,6 +64,14 @@
 						</a>
 					</li>
 
+                    <li><a href="{{ route('admin.users.index') }}" class="" aria-expanded="false">
+						<div class="menu-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888888" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3"/><circle cx="12" cy="10" r="3"/><circle cx="12" cy="12" r="10"/></svg>
+						</div>
+						<span class="nav-text">Users</span>
+						</a>
+					</li>
+
 					<li><a href="{{ route('admin.slider.index') }}" class="" href="javascript:void(0);" aria-expanded="false">
 						<div class="menu-icon">
 
