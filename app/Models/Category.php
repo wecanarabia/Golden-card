@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
-    use HasFactory;
+    use HasFactory,HasTranslations;
     protected $guarded = [];
+    public $translatable = ['name'];
 
     public function setImageAttribute($value){
         if ($value){
@@ -34,7 +36,7 @@ class Category extends Model
         return $this->hasMany(Category::class, 'parent_id');
     }
 
-    public function parent()
+    public function parentcategory()
     {
         return $this->belongsTo(Category::class, 'parent_id');
     }
@@ -43,5 +45,13 @@ class Category extends Model
     {
         return $this->hasMany(Service::class);
     }
+    public function scopeParent($query){
+        return $query->whereNull('parent_id');
+    }
+    public function scopeSub($query){
+        return $query->whereNotNull('parent_id');
+    }
+
+
 
 }
