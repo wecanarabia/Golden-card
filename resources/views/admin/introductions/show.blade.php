@@ -29,6 +29,8 @@
 
                                     <p class="mb-3"><strong>English Title : </strong> {{ $introduction->getTranslation('title', 'en') }}</p>
                                     <p class="mb-3"><strong>Arabic Title : </strong> {{ $introduction->getTranslation('title', 'ar') }}</p>
+                                    <p class="mb-3"><strong>English Second Title : </strong> {{ $introduction->getTranslation('second_title', 'en') }}</p>
+                                    <p class="mb-3"><strong>Arabic Second Title : </strong> {{ $introduction->getTranslation('second_title', 'ar') }}</p>
                                     <p class="mb-3"><strong>English body : </strong> {{ $introduction->getTranslation('body', 'en') }}</p>
                                     <p class="mb-3"><strong>Arabic body :</strong> {{ $introduction->getTranslation('body', 'ar') }}</p>
                         </div>
