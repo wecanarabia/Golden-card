@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\IntroductionController;
+use App\Http\Controllers\Admin\ServiceImageController;
 use App\Http\Controllers\Admin\SubscriptionController;
 
 Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
@@ -28,6 +29,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         Route::resource('areas', AreaController::class)->except(['show']);
         Route::resource('categories', CategoryController::class);
         Route::resource('services', ServiceController::class);
+        Route::resource('service-images', ServiceImageController::class)->except(['show']);
         Route::resource('users', UserController::class)->except(['show']);
 
     });

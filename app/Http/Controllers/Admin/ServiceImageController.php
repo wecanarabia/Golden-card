@@ -6,6 +6,7 @@ use App\Models\Service;
 use App\Models\ImageService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use App\Http\Requests\Admin\ServiceImageRequest;
 
 class ServiceImageController extends Controller
@@ -15,8 +16,8 @@ class ServiceImageController extends Controller
      */
     public function index()
     {
-        $data = ImageService::latest()->with('service')->paginate(10);
-        return view('admin.service_images.index',compact('data'));
+        $data = ImageService::latest()->with('service')->orderBy('service_id')->paginate(10);
+        return view('admin.service-images.index',compact('data'));
     }
 
     /**
@@ -25,7 +26,7 @@ class ServiceImageController extends Controller
     public function create()
     {
         $services = Service::all();
-        return view('admin.service_images.create',compact('services'));
+        return view('admin.service-images.create',compact('services'));
     }
 
     /**
@@ -39,8 +40,8 @@ class ServiceImageController extends Controller
                 'service_id'=>$request->service_id,
             ]);
         }
-        return redirect()->route('admin.service_images.index')
-                        ->with('success','Category has been added successfully');
+        return redirect()->route('admin.service-images.index')
+                        ->with('success','Service Images has been added successfully');
     }
 
     /**
@@ -48,9 +49,9 @@ class ServiceImageController extends Controller
      */
     public function edit(string $id)
     {
-        $iamge = ImageService::with('service')->findOrFail($id);
+        $image = ImageService::with('service')->findOrFail($id);
         $services = Service::all();
-        return view('admin.service_images.edit',compact('category','services'));
+        return view('admin.service-images.edit',compact('image','services'));
     }
 
     /**
@@ -58,19 +59,15 @@ class ServiceImageController extends Controller
      */
     public function update(ServiceImageRequest $request, string $id)
     {
-        $category = ImageService::findOrFail($id);
-        if ($request->has('image')&&$category->image  && File::exists($category->image)) {
-            unlink($category->image);
+        $image = ImageService::findOrFail($id);
+        if ($request->has('image')&&$image->image  && File::exists($image->image)) {
+            unlink($image->image);
         }
-        $request['name']=['en'=>$request->english_name,'ar'=>$request->arabic_name];
-        $category->update($request->except([
-            'english_name',
-            'arabic_name',
-        ]));
+        $image->update($request->all());
 
 
-        return redirect()->route('admin.service_images.index')
-                        ->with('success','Category has been updated successfully');
+        return redirect()->route('admin.service-images.index')
+                        ->with('success','Service Image has been updated successfully');
     }
 
     /**
@@ -79,6 +76,6 @@ class ServiceImageController extends Controller
     public function destroy(Request $request)
     {
         ImageService::findOrFail($request->id)->delete();
-        return redirect()->route('admin.service_images.index')->with('success','Category has been removed successfully');
+        return redirect()->route('admin.service-images.index')->with('success','Service Image has been removed successfully');
     }
 }

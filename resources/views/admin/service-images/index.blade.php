@@ -7,7 +7,7 @@
         <div class="page-titles">
             <ol class="breadcrumb">
                 <li>
-                    <h5 class="bc-title">{{ __('Slider Images') }}</h5>
+                    <h5 class="bc-title">{{ __('Service Images') }}</h5>
                 </li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">
                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
@@ -20,9 +20,9 @@
                         </svg>
                         Home </a>
                 </li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Slider Images') }} </a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Service Images') }} </a></li>
             </ol>
-            <a class="text-primary fs-13" href="{{ route('admin.slider.create') }}">+ Add Slider Image</a>
+            <a class="text-primary fs-13" href="{{ route('admin.service-images.create') }}">+ Add Service Image</a>
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -34,12 +34,13 @@
                                     <x-admin-layouts.alerts />
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
-                                            <h4 class="heading mb-0"> {{ __('Slider Images') }}</h4>
+                                            <h4 class="heading mb-0"> {{ __('Service Images') }}</h4>
                                         </div>
                                         <table class="table">
                                             <thead>
                                                 <tr>
                                                     <th>Image</th>
+                                                    <th>Service</th>
 
 
                                                     <th>actions</th>
@@ -51,7 +52,7 @@
 
                                                         <td><span><img src="{{ asset($image->image) }}" width="150" alt=""></span></td>
 
-
+                                                        <td><span>{{ $image->service->name }}</span></td>
 
                                                         <td>
                                                             <div class="dropdown">
@@ -75,7 +76,7 @@
                                                                 </button>
                                                                 <div class="dropdown-menu">
                                                                     <a class="dropdown-item"
-                                                                        href="{{ route('admin.slider.edit', $image->id) }}">Edit</a>
+                                                                        href="{{ route('admin.service-images.edit', $image->id) }}">Edit</a>
                                                                     <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"
                                                                     data-id="{{ $image->id }}" data-name="{{ asset($image->image) }}">Delete</button>
                                                                 </div>
@@ -113,10 +114,10 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Delete Slider Image</h5>
+          <h5 class="modal-title" id="deleteModalLabel">Delete Service Image</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="{{ route('admin.slider.destroy','test') }}" method="post">
+        <form action="{{ route('admin.service-images.destroy','test') }}" method="post">
             {{ method_field('delete') }}
             @csrf
             <div class="modal-body">
