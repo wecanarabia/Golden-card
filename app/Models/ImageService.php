@@ -15,16 +15,16 @@ class ImageService extends Model
             $file = $value;
             $extension = $file->getClientOriginalExtension(); // getting image extension
             $filename =time().mt_rand(1000,9999).'.'.$extension;
-            $file->move(public_path('img/cats/'), $filename);
-            $this->attributes['image'] =  'img/cats/'.$filename;
+            $file->move(public_path('img/service_imgs/'), $filename);
+            $this->attributes['image'] =  'img/service_imgs/'.$filename;
         }
     }
 
     protected static function booted()
     {
-        static::deleted(function ($category) {
-            if ($category->image  && \Illuminate\Support\Facades\File::exists($category->image)) {
-                unlink($category->image);
+        static::deleted(function ($service) {
+            if ($service->image  && \Illuminate\Support\Facades\File::exists($service->image)) {
+                unlink($service->image);
             }
         });
     }

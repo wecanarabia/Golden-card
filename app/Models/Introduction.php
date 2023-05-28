@@ -10,7 +10,7 @@ class Introduction extends Model
 {
     use HasFactory,HasTranslations;
     protected $guarded=[];
-    public $translatable = ['name','description'];
+    public $translatable = ['body'];
 
     public function setImageAttribute($value){
         if ($value){

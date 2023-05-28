@@ -1,11 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminLoginController;
@@ -26,6 +27,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         Route::resource('slider', SliderController::class)->except(['show']);
         Route::resource('areas', AreaController::class)->except(['show']);
         Route::resource('categories', CategoryController::class);
+        Route::resource('services', ServiceController::class);
         Route::resource('users', UserController::class)->except(['show']);
 
     });

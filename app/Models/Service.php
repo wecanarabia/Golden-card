@@ -10,7 +10,7 @@ class Service extends Model
 {
     use HasFactory,HasTranslations;
     protected $guarded = [];
-    public $translatable = ['body'];
+    public $translatable = ['name','description'];
 
     public function subcategory()
     {
