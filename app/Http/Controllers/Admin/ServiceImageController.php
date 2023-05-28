@@ -15,7 +15,7 @@ class ServiceImageController extends Controller
      */
     public function index()
     {
-        $data = ImageService::with('service')->paginate(10);
+        $data = ImageService::latest()->with('service')->paginate(10);
         return view('admin.service_images.index',compact('data'));
     }
 

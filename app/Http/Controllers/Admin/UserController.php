@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::paginate(10);
+        $data = User::latest()->paginate(10);
         return view('admin.users.index',compact('data'));
     }
 

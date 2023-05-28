@@ -6,6 +6,7 @@ use App\Models\Service;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use App\Http\Requests\Admin\ServiceRequest;
 
 class ServiceController extends Controller
@@ -15,7 +16,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $data = Service::paginate(10);
+        $data = Service::latest()->paginate(10);
         return view('admin.services.index',compact('data'));
     }
 
@@ -75,6 +76,9 @@ class ServiceController extends Controller
             $request['password']=bcrypt($request->password);
         }else{
             unset($request['password']);
+        }
+        if ($request->has('logo')&&$service->logo  && File::exists($service->logo)) {
+            unlink($service->logo);
         }
         $request['name']=['en'=>$request->english_name,'ar'=>$request->arabic_name];
         $request['description']=['en'=>$request->english_description,'ar'=>$request->arabic_description];
