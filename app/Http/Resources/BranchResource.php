@@ -7,6 +7,13 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class BranchResource extends JsonResource
 {
+
+    public function __construct($resource, $distance = null)
+    {
+        $this->distance = $distance;
+
+        parent::__construct($resource);
+    }
     /**
      * Transform the resource into an array.
      *
@@ -20,7 +27,7 @@ class BranchResource extends JsonResource
             'name' => $this->name,
             'lat' => $this->lat,
             'long' => $this->long,
-            'distance' => $this->distance,
+            'distance' => $this->when(isset($this->distance), $this->distance),
             'location' => $this->location,
             'area_id' => $this->area?->id,
             'area_name' => $this->area?->name,

@@ -40,14 +40,22 @@ class BranchController extends ApiController
 
         $branches = Branch::all();
 
+        $resources = [];
+
         foreach ($branches as $branch) {
-            $branch->distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+            $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+
+            $resource = new BranchResource($branch, $distance);
+
+            $resources[] = $resource;
         }
 
-        // Sort the branches by their distance from the user's location
-        $branches = $branches->sortBy('distance');
+        // Sort the resources by their distance from the user's location
+        usort($resources, function($a, $b) {
+            return $a->distance <=> $b->distance;
+        });
 
-        return $this->returnData('data', $this->resource::collection($branches), __('Get nearby branches successfully'));
+        return $this->returnData('data', $resources, __('Get nearby branches successfully'));
     }
 
     function distance($lat1, $lon1, $lat2, $lon2)
@@ -68,23 +76,30 @@ class BranchController extends ApiController
         $long_user = Auth::user()->long;
 
         $sub = Category::where('name', $name)->first();
+
         if ($sub) {
             $services = $sub->services;
 
-            $branches = collect();
+            $resources = [];
+
             foreach ($services as $service) {
                 $serviceBranches = $service->branches;
+
                 foreach ($serviceBranches as $branch) {
                     $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
-                    $branch->distance = $distance;
-                    $branches->push($branch);
+
+                    $resource = new BranchResource($branch, $distance);
+
+                    $resources[] = $resource;
                 }
             }
 
-            // Remove duplicate branches and sort them by distance
-            $uniqueBranches = $branches->unique('id')->sortBy('distance')->values();
+            // Sort the resources by their distance from the user's location
+            usort($resources, function($a, $b) {
+                return $a->distance <=> $b->distance;
+            });
 
-            return $this->returnData('data', BranchResource::collection($uniqueBranches), __('Get branches successfully'));
+            return $this->returnData('data', array_values($resources), __('Get branches successfully'));
         }
 
         return $this->returnError(__('Sorry! Failed to get branches'));
@@ -99,40 +114,53 @@ class BranchController extends ApiController
         $sub = Category::where('name', $name)->where('parent_id', '!=', null)->first();
         if ($sub) {
             $services = $sub->services;
+            $resources = [];
 
             $branches = collect();
             foreach ($services as $service) {
                 $serviceBranches = $service->branches;
                 foreach ($serviceBranches as $branch) {
                     $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
-                    $branch->distance = $distance;
-                    $branches->push($branch);
+                    $resource = new BranchResource($branch, $distance);
+
+                    $resources[] = $resource;
                 }
             }
 
             // Remove duplicate branches and sort them by distance
-            $uniqueBranches = $branches->unique('id')->sortBy('distance')->values();
-        } else {
+            usort($resources, function($a, $b) {
+                return $a->distance <=> $b->distance;
+            });
+
+            return $this->returnData('data', array_values($resources), __('Get branches successfully'));
+        }
             $category = Category::where('name', $name)->where('parent_id', null)->first();
+
             if ($category) {
+
                 $branches = collect();
+                $resources = [];
                 foreach (Branch::all() as $branch) {
                     if ($branch->service?->subcategory?->parent?->name ==$name) {
+
                         $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
-                        $branch->distance = $distance;
-                        $branches->push($branch);
+                        $resource = new BranchResource($branch, $distance);
+
+                        $resources[] = $resource;
                     }
                 }
 
-                // Remove duplicate branches and sort them by distance
-                $uniqueBranches = $branches->unique('id')->sortBy('distance')->values();
+                    usort($resources, function($a, $b) {
+                        return $a->distance <=> $b->distance;
+                    });
+
+                    return $this->returnData('data', array_values($resources), __('Get branches successfully'));
             } else {
                 // If the name doesn't match any subcategory or category, return an error response
                 return $this->returnError(__('Invalid name'));
             }
-        }
 
-        return $this->returnData('data', BranchResource::collection($uniqueBranches), __('Get successfully'));
+
     }
 
 }
