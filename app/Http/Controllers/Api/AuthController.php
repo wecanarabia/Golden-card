@@ -181,19 +181,19 @@ class AuthController extends Controller
 
     public function changePassword(Request $request)
     {
-        $user = User::where('phone', $request->phone)->first();
+        $user = User::find($request->id);
 
         if ($user) {
 
-            User::find($user->id)
-                ->update([
+
+                $user->update([
                     'password' => Hash::make($request->password),
                 ]);
 
             return $this->returnSuccessMessage('Password has been changed');
         }
 
-        return $this->returnError('Password not matched!');
+        return $this->returnError('User not found!');
     }
 
 
