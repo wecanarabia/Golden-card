@@ -98,13 +98,14 @@
 
 					</li>
 
-                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                    <li>
+                        <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 						<div class="menu-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888888" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M21 12H3M12 3v18"/></svg>
                         </div>
                             <span class="nav-text">Services</span>
 						</a>
-						<ul aria-expanded="false">
+                        <ul aria-expanded="false" class="mm-collapse">
 							<li><a href="{{ route('admin.services.index') }}">Services</a></li>
 							<li><a href="{{ route('admin.service-images.index') }}">Images</a></li>
 							<li><a href="{{ route('admin.branches.index') }}">Branches</a></li>
@@ -112,9 +113,13 @@
 
 					</li>
 
-				<div class="help-desk">
-					<a href="javascript:void(0)" class="btn btn-primary">Help Desk</a>
-				</div>
+                    <li><a href="{{ route('admin.plans.index') }}" class="" href="javascript:void(0);" aria-expanded="false">
+						<div class="menu-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888888" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>						<span class="nav-text">Plans</span>
+						</div>
+                        </a>
+
+					</li>
 			</div>
         </div>
 

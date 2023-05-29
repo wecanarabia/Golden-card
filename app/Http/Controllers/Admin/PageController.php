@@ -9,7 +9,7 @@ use App\Http\Requests\Admin\PageRequest;
 
 class PageController extends Controller
 {
-/**
+    /**
      * Display a listing of the resource.
      */
     public function index()
