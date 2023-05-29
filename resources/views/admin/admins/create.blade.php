@@ -40,7 +40,7 @@
 
 
                                     <div class="col-xl-8 mb-3">
-                                        <label for="exampleFormControlInputsecond" class="form-label">Employees Count<span class="text-danger">*</span></label>
+                                        <label for="exampleFormControlInputsecond" class="form-label">Email<span class="text-danger">*</span></label>
                                         <input type="email" class="form-control" id="exampleFormControlInputsecond" name="email" value="{{ old('email') }}">
                                         @error('email')
                                         <div class="text-danger">{{ $message }}</div>

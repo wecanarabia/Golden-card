@@ -32,7 +32,7 @@
                                 @method('PUT')
                                 <div class="row">
                                         <input name="id" type="hidden" value="{{ $introduction->id }}">
-                                        {{-- <div class="col-xl-8 mb-3">
+                                        <div class="col-xl-8 mb-3">
                                             <label for="exampleFormControlInputfirst" class="form-label">English Title<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="exampleFormControlInputfirst" name="english_title" placeholder="English Title" value="{{ $introduction->getTranslation('title', 'en')??  old('english_title') }}">
                                             @error('english_title')
@@ -46,7 +46,24 @@
                                             @error('arabic_title')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
-                                        </div> --}}
+                                        </div>
+
+                                        <div class="col-xl-8 mb-3">
+                                            <label for="exampleFormControlInputfirst" class="form-label">English Second Title<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="exampleFormControlInputfirst" name="english_second_title" placeholder="English Second Title" value="{{ old('english_second_title',$introduction->getTranslation('second_title', 'en')) }}">
+                                            @error('english_second_title')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-xl-8 mb-3">
+                                            <label for="exampleFormControlInputsecond" class="form-label">Arabic Second Title<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="exampleFormControlInputsecond" name="arabic_second_title" placeholder="Arabic Second Title" value="{{ old('arabic_second_title',$introduction->getTranslation('second_title', 'ar')) }}">
+                                            @error('arabic_second_title')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
 
                                         <div class="col-xl-8 mb-3">
                                             <label for="exampleFormControlInputThird" class="form-label">English Body<span class="text-danger">*</span></label>

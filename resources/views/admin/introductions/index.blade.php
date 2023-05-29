@@ -34,13 +34,13 @@
                                     <x-admin-layouts.alerts />
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
-                                            <h4 class="heading mb-0"> {{ __('Introduction') }}</h4>
+                                            <h4 class="heading mb-0"> {{ __('Introductions') }}</h4>
                                         </div>
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>English Body</th>
-                                                    <th>Arabic Body</th>
+                                                    <th>English Title</th>
+                                                    <th>Arabic Title</th>
 
 
                                                     <th>actions</th>
@@ -50,9 +50,9 @@
                                                 @forelse ($data as $introduction)
                                                     <tr>
 
-                                                        <td><span>{{ $introduction->getTranslation('body', 'en') }}</span></td>
+                                                        <td><span>{{ $introduction->getTranslation('title', 'en') }}</span></td>
                                                         <td>
-                                                            <span>{{ $introduction->getTranslation('body', 'ar')}}</span>
+                                                            <span>{{ $introduction->getTranslation('title', 'ar')}}</span>
                                                         </td>
 
 

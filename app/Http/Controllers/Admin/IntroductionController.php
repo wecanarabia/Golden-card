@@ -15,7 +15,7 @@ class IntroductionController extends Controller
      */
     public function index()
     {
-        $data = Introduction::paginate(5);
+        $data = Introduction::latest()->paginate(10);
         return view('admin.introductions.index',compact('data'));
     }
 
@@ -32,11 +32,14 @@ class IntroductionController extends Controller
      */
     public function store(IntroductionRequest $request)
     {
-        // $request['title']=['en'=>$request->english_title,'ar'=>$request->arabic_title];
+        $request['title']=['en'=>$request->english_title,'ar'=>$request->arabic_title];
+        $request['second_title']=['en'=>$request->english_second_title,'ar'=>$request->arabic_second_title];
         $request['body']=['en'=>$request->english_body,'ar'=>$request->arabic_body];
         Introduction::create($request->except([
-            // 'english_title',
-            // 'arabic_title',
+            'english_title',
+            'arabic_title',
+            'english_second_title',
+            'arabic_second_title',
             'english_body',
             'arabic_body',
         ]));
@@ -73,11 +76,14 @@ class IntroductionController extends Controller
         if ($request->has('image')&&$introduction->image  && File::exists($introduction->image)) {
             unlink($introduction->image);
         }
-        // $request['title']=['en'=>$request->english_title,'ar'=>$request->arabic_title];
+        $request['title']=['en'=>$request->english_title,'ar'=>$request->arabic_title];
+        $request['second_title']=['en'=>$request->english_second_title,'ar'=>$request->arabic_second_title];
         $request['body']=['en'=>$request->english_body,'ar'=>$request->arabic_body];
         $introduction->update($request->except([
-            // 'english_title',
-            // 'arabic_title',
+            'english_title',
+            'arabic_title',
+            'english_second_title',
+            'arabic_second_title',
             'english_body',
             'arabic_body',
         ]));

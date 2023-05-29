@@ -23,7 +23,7 @@ class AdminRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'required|min:5|max:255',
+            'name'=>'required|min:4|max:255',
             'email'=>'required|min:5|email|max:255|unique:admins,email,'.$this->id,
             'password' => ['required_without:id', 'nullable',Password::min(8)],
         ];

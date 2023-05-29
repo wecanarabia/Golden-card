@@ -14,7 +14,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        $data = Page::paginate(5);
+        $data = Page::latest()->paginate(10);
         return view('admin.pages.index',compact('data'));
     }
 
