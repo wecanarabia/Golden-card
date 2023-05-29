@@ -38,6 +38,16 @@ Route::middleware(['auth:api'])->group(function () {
 
 Route::post('/user-update', [AuthController::class, 'updateProfile']);
 
+//nearbyBranches
+Route::get('nearby-branches', [BranchController::class, 'nearbyBranches']);
+
+
+//getBranchesByCatName
+Route::get('branches-by-subcategory/{name}', [BranchController::class, 'getBranchesBySubName']);
+
+//getBranchesBySubNameOrCatName
+Route::get('branches-by-sub-or-category/{name}', [BranchController::class, 'getBranchesBySubNameOrCatName']);
+
 });
 
 //Introduction
@@ -92,6 +102,15 @@ Route::post('service-create', [ServiceController::class, 'save']);
 Route::get('service/{id}', [ServiceController::class, 'view']);
 Route::get('service/delete/{id}', [ServiceController::class, 'delete']);
 Route::post('service/edit/{id}', [ServiceController::class, 'edit']);
+
+//get services by subcategory name
+Route::get('services-by-subcategory/{name}', [CategoryController::class, 'getServicesBySubName']);
+
+//get services by subcategory name or category name
+Route::get('services-by-subcategory-or-category/{name}', [CategoryController::class, 'getServicesBySubNameOrCatName']);
+
+//search
+Route::post('services-search', [ServiceController::class, 'searchS']);
 
 
 
