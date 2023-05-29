@@ -23,7 +23,7 @@ class SubcategoryResource extends JsonResource
             'name' => $this->name,
             'image' => $this->image,
             'parent_id' => $this->parent_id,
-            'category_name' => $this->parent?->name,
+            'category_name' => $this->parentcategory?->name,
             'services' => ServiceResource::collection($this->services),
             // 'parent' => $this->parent ? new CategoryResource($this->parent) : null,
 
