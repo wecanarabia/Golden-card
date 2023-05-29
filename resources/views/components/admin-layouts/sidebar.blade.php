@@ -107,6 +107,7 @@
 						<ul aria-expanded="false">
 							<li><a href="{{ route('admin.services.index') }}">Services</a></li>
 							<li><a href="{{ route('admin.service-images.index') }}">Images</a></li>
+							<li><a href="{{ route('admin.branches.index') }}">Branches</a></li>
                         </ul>
 
 					</li>

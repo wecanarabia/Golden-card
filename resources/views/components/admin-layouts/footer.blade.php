@@ -52,12 +52,14 @@
 	<script src="{{ asset('xhtml/vendor/bootstrap-datetimepicker/js/moment.js') }}"></script>
 	<script src="{{ asset('xhtml/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
 
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initialize" async defer></script>
 
 	<!-- Vectormap -->
     <script src="{{ asset('xhtml/vendor/jqvmap/js/jquery.vmap.min.js') }}"></script>
     <script src="{{ asset('xhtml/vendor/jqvmap/js/jquery.vmap.world.js') }}"></script>
     <script src="{{ asset('xhtml/vendor/jqvmap/js/jquery.vmap.usa.js') }}"></script>
     <script src="{{ asset('xhtml/js/custom.js') }}"></script>
+    <script src="{{ asset('xhtml/js/map.js') }}"></script>
 	<script src="{{ asset('xhtml/js/deznav-init.js') }}"></script>
 
 
