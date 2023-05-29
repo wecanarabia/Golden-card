@@ -20,6 +20,7 @@ class BranchResource extends JsonResource
             'name' => $this->name,
             'lat' => $this->lat,
             'long' => $this->long,
+            'distance' => $this->distance,
             'location' => $this->location,
             'area_id' => $this->area?->id,
             'area_name' => $this->area?->name,
