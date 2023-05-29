@@ -33,7 +33,11 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::post('user-reg', [AuthController::class, 'store']);
 
-Route::middleware(['auth:api'])->group(function () {
+
+Route::post('update-password', [AuthController::class, 'changePassword']);
+
+
+Route::middleware(['auth:api','changeLang'])->group(function () {
 
 
 Route::post('/user-update', [AuthController::class, 'updateProfile']);
@@ -43,12 +47,15 @@ Route::get('nearby-branches', [BranchController::class, 'nearbyBranches']);
 
 
 //getBranchesByCatName
-Route::get('branches-by-subcategory/{name}', [BranchController::class, 'getBranchesBySubName']);
+Route::get('branches-by-subcategory/{id}', [BranchController::class, 'getBranchesBySubName']);
 
-//getBranchesBySubNameOrCatName
-Route::get('branches-by-sub-or-category/{name}', [BranchController::class, 'getBranchesBySubNameOrCatName']);
+//getBranchesBySubNameOrservicename
+Route::get('branches-by-sub-or-service/{name}', [BranchController::class, 'getBranchesBySubNameOrServiceName']);
 
 });
+
+
+Route::middleware('changeLang')->group(function () {
 
 //Introduction
 Route::get('introductions', [IntroductionController::class, 'list']);
@@ -120,3 +127,4 @@ Route::post('branch-create', [BranchController::class, 'save']);
 Route::get('branch/{id}', [BranchController::class, 'view']);
 Route::get('branch/delete/{id}', [BranchController::class, 'delete']);
 Route::post('branch/edit/{id}', [BranchController::class, 'edit']);
+});

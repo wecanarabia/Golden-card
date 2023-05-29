@@ -3,8 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -29,6 +31,8 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         Route::resource('areas', AreaController::class)->except(['show']);
         Route::resource('categories', CategoryController::class);
         Route::resource('services', ServiceController::class);
+        Route::resource('branches', BranchController::class);
+        Route::resource('plans', PlanController::class);
         Route::resource('service-images', ServiceImageController::class)->except(['show']);
         Route::resource('users', UserController::class)->except(['show']);
 

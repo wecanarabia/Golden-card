@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Branch;
 use App\Models\Category;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Repositories\Repository;
 use App\Http\Requests\ServiceRequest;
@@ -70,12 +71,12 @@ class BranchController extends ApiController
     }
 
 
-    public function getBranchesBySubName($name)
+    public function getBranchesBySubName($id)
     {
         $lat_user = Auth::user()->lat;
         $long_user = Auth::user()->long;
 
-        $sub = Category::where('name', $name)->first();
+        $sub = Category::where('id', $id)->first();
 
         if ($sub) {
             $services = $sub->services;
@@ -106,12 +107,73 @@ class BranchController extends ApiController
     }
 
 
-    public function getBranchesBySubNameOrCatName($name)
+    // public function getBranchesBySubNameOrCatName($name)
+    // {
+    //     $lat_user = Auth::user()->lat;
+    //     $long_user = Auth::user()->long;
+
+    //     $sub = Category::where( 'name', 'like', '%' . $name . '%' )->where('parent_id', '!=', null)->first();
+
+    //     if ($sub) {
+    //         $services = $sub->services;
+    //         $resources = [];
+
+    //         $branches = collect();
+    //         foreach ($services as $service) {
+    //             $serviceBranches = $service->branches;
+    //             foreach ($serviceBranches as $branch) {
+    //                 $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+    //                 $resource = new BranchResource($branch, $distance);
+
+    //                 $resources[] = $resource;
+    //             }
+    //         }
+
+    //         // Remove duplicate branches and sort them by distance
+    //         usort($resources, function($a, $b) {
+    //             return $a->distance <=> $b->distance;
+    //         });
+
+    //         return $this->returnData('data', array_values($resources), __('Get branches successfully'));
+    //     }
+    //         $category = Category::where( 'name', 'like', '%' . $name . '%' )->where('parent_id', null)->first();
+
+
+    //         if ($category) {
+
+    //             $branches = collect();
+    //             $resources = [];
+    //             foreach (Branch::all() as $branch) {
+    //                 if ($branch->service?->subcategory?->parent?->name ==$name) {
+
+    //                     $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+    //                     $resource = new BranchResource($branch, $distance);
+
+    //                     $resources[] = $resource;
+    //                 }
+    //             }
+
+    //                 usort($resources, function($a, $b) {
+    //                     return $a->distance <=> $b->distance;
+    //                 });
+
+    //                 return $this->returnData('data', array_values($resources), __('Get branches successfully'));
+    //         } else {
+    //             // If the name doesn't match any subcategory or category, return an error response
+    //             return $this->returnError(__('Invalid name'));
+    //         }
+
+
+    // }
+
+
+    public function getBranchesBySubNameOrServiceName($name)
     {
         $lat_user = Auth::user()->lat;
         $long_user = Auth::user()->long;
 
-        $sub = Category::where('name', $name)->where('parent_id', '!=', null)->first();
+        $sub = Category::where( 'name', 'like', '%' . $name . '%' )->where('parent_id', '!=', null)->first();
+
         if ($sub) {
             $services = $sub->services;
             $resources = [];
@@ -134,21 +196,24 @@ class BranchController extends ApiController
 
             return $this->returnData('data', array_values($resources), __('Get branches successfully'));
         }
-            $category = Category::where('name', $name)->where('parent_id', null)->first();
+            $service = Service::where( 'name', 'like', '%' . $name . '%' )->first();
 
-            if ($category) {
 
-                $branches = collect();
+
+            if ($service) {
+
+                $branches = $service->branches;
                 $resources = [];
-                foreach (Branch::all() as $branch) {
-                    if ($branch->service?->subcategory?->parent?->name ==$name) {
 
-                        $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
-                        $resource = new BranchResource($branch, $distance);
 
-                        $resources[] = $resource;
-                    }
+                foreach ($branches as $branch) {
+                    $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+                    $resource = new BranchResource($branch, $distance);
+
+                    $resources[] = $resource;
                 }
+
+
 
                     usort($resources, function($a, $b) {
                         return $a->distance <=> $b->distance;

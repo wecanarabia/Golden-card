@@ -18,6 +18,7 @@ class IntroductionResource extends JsonResource
 
             'id'=>$this->id,
             'title'=>$this->title,
+            'second_title'=>$this->second_title,
             'image'=>$this->image,
             'body'=>$this->body,
         ];
