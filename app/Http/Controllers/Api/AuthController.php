@@ -178,6 +178,18 @@ class AuthController extends Controller
         ]]);
     }
 
+    public function checkUser(Request $request)
+    {
+        $user = User::where('phone', $request->phone)->first();
+
+        if ($user) {
+
+            return $this->returnData('user',new UserResource( $user ), 'successful');
+        }
+
+        return $this->returnError('User not found!');
+    }
+
 
     public function changePassword(Request $request)
     {

@@ -34,6 +34,10 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('user-reg', [AuthController::class, 'store']);
 
 
+//forget pw step 1
+Route::post('check-user', [AuthController::class, 'checkUser']);
+
+
 Route::post('update-password', [AuthController::class, 'changePassword']);
 
 
