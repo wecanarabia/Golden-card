@@ -10,6 +10,8 @@ use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\Api\AreaController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\BranchController;
+use App\Http\Controllers\Api\OfferController;
+use App\Http\Controllers\Api\FavoriteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -55,6 +57,24 @@ Route::get('branches-by-subcategory/{id}', [BranchController::class, 'getBranche
 
 //getBranchesBySubNameOrservicename
 Route::get('branches-by-sub-or-service/{name}', [BranchController::class, 'getBranchesBySubNameOrServiceName']);
+
+
+//get copon
+Route::post('offer/get-coupon/{id}', [OfferController::class, 'edit']);
+
+//my offers
+Route::get('my-offers', [OfferController::class, 'myOffers']);
+
+//myVouchers
+Route::get('my-vouchers', [OfferController::class, 'myVouchers']);
+
+//getVoucherOfUserByOffer
+Route::get('voucher-by-offer/{id}', [OfferController::class, 'getVoucherOfUserByOffer']);
+
+
+//myFavorites
+Route::get('my-favorites', [FavoriteController::class, 'myFavorites']);
+
 
 });
 
@@ -131,4 +151,24 @@ Route::post('branch-create', [BranchController::class, 'save']);
 Route::get('branch/{id}', [BranchController::class, 'view']);
 Route::get('branch/delete/{id}', [BranchController::class, 'delete']);
 Route::post('branch/edit/{id}', [BranchController::class, 'edit']);
+
+
+//Offers
+Route::get('offers', [OfferController::class, 'list']);
+Route::post('offer-create', [OfferController::class, 'save']);
+Route::get('offer/{id}', [OfferController::class, 'view']);
+Route::get('offer/delete/{id}', [OfferController::class, 'delete']);
+
+
+//branch of offers
+Route::get('branch-of-offers/{id}', [OfferController::class, 'branchesOfOffer']);
+
+
+
+//favorite
+
+Route::post('favorite-create', [FavoriteController::class, 'save']);
+Route::get('favorite/delete/{id}', [FavoriteController::class, 'delete']);
+
+
 });

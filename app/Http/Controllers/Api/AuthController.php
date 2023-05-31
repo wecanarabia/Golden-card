@@ -46,6 +46,7 @@ class AuthController extends Controller
             ], 500);
         }
 
+
         $accessToken = Auth::user()->createToken('authToken')->accessToken;
 
         return response(['status' => true, 'code' => 200, 'msg' => __('Log in success'), 'data' => [
