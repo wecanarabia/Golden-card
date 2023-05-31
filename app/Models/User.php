@@ -50,4 +50,18 @@ class User extends Authenticatable
     {
         return $this->hasMany(Subscription::class);
     }
+    public function offers(){
+
+        return $this->belongsToMany(Offer::class,'vouchers','user_id','offer_id');
+    }
+
+    public function vouchers(){
+
+        return $this->hasMany(Voucher::class);
+    }
+
+    public function favorites(){
+        return $this->belongsToMany(Offer::class,'favorites','user_id','offer_id');
+    }
+
 }

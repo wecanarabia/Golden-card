@@ -14,6 +14,7 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
+
         return [
 
             'id'        => $this->id,
@@ -23,7 +24,8 @@ class UserResource extends JsonResource
             'phone'     => (string)$this->phone,
             'lat'=> $this?->lat,
             'long'=> $this?->long,
-
+            'saving'=> $this?->offers?->sum('discount_value'),
+            'offers_count'=> $this?->offers?->count(),
         ];
     }
 }
