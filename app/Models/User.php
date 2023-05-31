@@ -45,4 +45,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function offers(){
+
+        return $this->belongsToMany(Offer::class,'vouchers','user_id','offer_id');
+    }
+
+    public function vouchers(){
+
+        return $this->hasMany(Voucher::class);
+    }
+
+    public function favorites(){
+        return $this->belongsToMany(Offer::class,'favorites','user_id','offer_id');
+    }
+
 }
