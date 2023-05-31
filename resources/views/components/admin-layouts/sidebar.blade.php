@@ -17,7 +17,7 @@
 						</a>
 
 					</li>
-                    {{-- <li><a href="{{ route('admin.subscriptions.index') }}" class="" aria-expanded="false">
+                    <li><a href="{{ route('admin.subscriptions.index') }}" class="" aria-expanded="false">
 						<div class="menu-icon">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path fill-rule="evenodd" clip-rule="evenodd" d="M8.79222 13.9396C12.1738 13.9396 15.0641 14.452 15.0641 16.4989C15.0641 18.5458 12.1931 19.0729 8.79222 19.0729C5.40972 19.0729 2.52039 18.5651 2.52039 16.5172C2.52039 14.4694 5.39047 13.9396 8.79222 13.9396Z" stroke="#888888" stroke-linecap="round" stroke-linejoin="round"/>
@@ -28,7 +28,7 @@
 						</div>
 							<span class="nav-text">Subscriptions</span>
 						</a>
-					</li> --}}
+					</li>
                     <li><a href="{{ route('admin.pages.index') }}" class="" aria-expanded="false">
                         <div class="menu-icon">
 							<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -98,6 +98,7 @@
 
 					</li>
 
+
                     <li>
                         <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 						<div class="menu-icon">
@@ -113,12 +114,40 @@
 
 					</li>
 
+
                     <li><a href="{{ route('admin.plans.index') }}" class="" href="javascript:void(0);" aria-expanded="false">
 						<div class="menu-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888888" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>						<span class="nav-text">Plans</span>
 						</div>
                         </a>
 
+					</li>
+
+                    <li><a href="{{ route('admin.subscriptions.index') }}" class="" aria-expanded="false">
+						<div class="menu-icon">
+                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M8.79222 13.9396C12.1738 13.9396 15.0641 14.452 15.0641 16.4989C15.0641 18.5458 12.1931 19.0729 8.79222 19.0729C5.40972 19.0729 2.52039 18.5651 2.52039 16.5172C2.52039 14.4694 5.39047 13.9396 8.79222 13.9396Z" stroke="#888888" stroke-linecap="round" stroke-linejoin="round"/>
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M8.79223 11.0182C6.57206 11.0182 4.77173 9.21874 4.77173 6.99857C4.77173 4.7784 6.57206 2.97898 8.79223 2.97898C11.0115 2.97898 12.8118 4.7784 12.8118 6.99857C12.8201 9.21049 11.0326 11.0099 8.82064 11.0182H8.79223Z" stroke="#888888" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M15.1095 9.9748C16.5771 9.76855 17.7073 8.50905 17.7101 6.98464C17.7101 5.48222 16.6147 4.23555 15.1782 3.99997" stroke="#888888" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M17.0458 13.5045C18.4675 13.7163 19.4603 14.2149 19.4603 15.2416C19.4603 15.9483 18.9928 16.4067 18.2374 16.6936" stroke="#888888" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						</div>
+							<span class="nav-text">Subscriptions</span>
+						</a>
+					</li>
+
+                    <li>
+                        <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <div class="menu-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888888" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V6l-3-4H6zM3.8 6h16.4M16 10a4 4 0 1 1-8 0"/></svg>
+                            </div>
+                            <span class="nav-text">Individual Codes</span>
+						</a>
+                        <ul aria-expanded="false" class="mm-collapse">
+							<li><a href="{{ route('admin.promo-codes.index') }}">Promo Codes</a></li>
+							<li><a href="{{ route('admin.user-codes.index') }}">User Codes</a></li>
+
+                        </ul>
 					</li>
 			</div>
         </div>

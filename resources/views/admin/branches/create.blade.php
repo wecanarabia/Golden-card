@@ -49,7 +49,8 @@
                                     <div class="col-xl-8 mb-3">
                                         <label class="form-label">Service<span class="text-danger">*</span></label>
                                         <select class="default-select form-control wide mb-3" name="service_id" tabindex="null">
-											@foreach ($services as $service)
+                                            <option selected disabled>Select Service</option>
+                                            @foreach ($services as $service)
                                                 <option value="{{ $service->id }}" @selected(old('service_id')==$service->id)>{{ $service->name }}</option>
                                             @endforeach
 										</select>
@@ -61,7 +62,8 @@
                                     <div class="col-xl-8 mb-3">
                                         <label class="form-label">Area<span class="text-danger">*</span></label>
                                         <select class="default-select form-control wide mb-3" name="area_id" tabindex="null">
-											@foreach ($areas as $area)
+                                            <option selected disabled>Select Area</option>
+                                            @foreach ($areas as $area)
                                                 <option value="{{ $area->id }}" @selected(old('area_id')==$area->id)>{{ $area->name }}</option>
                                             @endforeach
 										</select>
@@ -85,7 +87,7 @@
 
 
                                     <div class="col-xl-8 mb-3">
-                                        <input type="submit" class="btn btn-primary me-1" value='Add Subscription'>
+                                        <input type="submit" class="btn btn-primary me-1" value='Save'>
                                     </div>
 
 

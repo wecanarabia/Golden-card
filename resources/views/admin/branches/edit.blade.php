@@ -86,7 +86,7 @@
                                             </div>
 
                                     <div class="col-xl-8 mb-3">
-                                        <input type="submit" class="btn btn-primary me-1" value='Update Subscription'>
+                                        <input type="submit" class="btn btn-primary me-1" value='Update '>
                                     </div>
 
 

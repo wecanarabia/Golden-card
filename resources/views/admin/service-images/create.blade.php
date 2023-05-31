@@ -26,6 +26,7 @@
                             <div class="offcanvas-body">
                                 <div class="container-fluid">
                                 <h4 class="heading mb-0"> {{ __('Add Service images') }}</h4>
+                                <x-admin-layouts.alerts />
 
                             <form method="POST" action="{{ route('admin.service-images.store') }}" enctype="multipart/form-data">
                                 @csrf
@@ -43,7 +44,8 @@
                                     <div class="col-xl-8 mb-3">
                                         <label class="form-label">Service<span class="text-danger">*</span></label>
                                         <select class="default-select form-control wide mb-3" name="service_id" tabindex="null">
-											@foreach ($services as $service)
+                                            <option selected disabled>Select Service</option>
+                                            @foreach ($services as $service)
                                                 <option value="{{ $service->id }}" @selected(old('service_id')==$service->id)>{{ $service->name }}</option>
                                             @endforeach
 										</select>

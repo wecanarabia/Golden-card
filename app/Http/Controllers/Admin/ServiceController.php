@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\Admin\ServiceRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
@@ -36,6 +37,7 @@ class ServiceController extends Controller
     {
         $request['name']=['en'=>$request->english_name,'ar'=>$request->arabic_name];
         $request['description']=['en'=>$request->english_description,'ar'=>$request->arabic_description];
+        $request['admin_id'] = Auth::user()->id;
         Service::create($request->except([
             'english_name',
             'arabic_name',

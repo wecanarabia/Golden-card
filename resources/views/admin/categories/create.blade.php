@@ -75,7 +75,8 @@
                                     <div id="cats-list" class="col-xl-8 mb-3 d-none">
                                         <label class="form-label">Parent Category<span class="text-danger">*</span></label>
                                         <select class="default-select form-control wide mb-3" name="parent_id" tabindex="null">
-											@foreach ($categories as $category)
+                                            <option selected disabled>Select Parent Category</option>
+                                            @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}" @selected(old('parent_id')==$category->id)>{{ $category->name }}</option>
                                             @endforeach
 										</select>
@@ -84,7 +85,7 @@
                                          @enderror
                                     </div>
                                     <div class="col-xl-8 mb-3">
-                                        <input type="submit" class="btn btn-primary me-1" value='Add Subscription'>
+                                        <input type="submit" class="btn btn-primary me-1" value='Save'>
                                     </div>
 
 

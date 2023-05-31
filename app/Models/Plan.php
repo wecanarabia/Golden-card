@@ -13,4 +13,9 @@ class Plan extends Model
 
     protected $guarded = [];
     public $translatable = ['name','details'];
+
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
 }

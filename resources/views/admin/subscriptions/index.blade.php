@@ -22,7 +22,7 @@
                 </li>
                 <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Subscriptions') }} </a></li>
             </ol>
-            <a class="text-primary fs-13" href="{{ route('admin.subscriptions.create') }}">+ Add Subscription</a>
+            {{-- <a class="text-primary fs-13" href="{{ route('admin.subscriptions.create') }}">+ Add Subscription</a> --}}
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -39,10 +39,10 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>name</th>
-                                                    <th>type</th>
-                                                    <th>Employees count</th>
-                                                    <th>amount</th>
+                                                    <th>Start date</th>
+                                                    <th>End date</th>
+                                                    <th>User</th>
+                                                    <th>Plan</th>
 
                                                     <th>actions</th>
                                                 </tr>
@@ -51,15 +51,16 @@
                                                 @forelse ($data as $subscription)
                                                     <tr>
 
-                                                        <td><span>{{ $subscription->name }}</span></td>
+                                                        <td><span>{{ $subscription->start_date }}</span></td>
                                                         <td>
-                                                            <span>{{ $subscription->type }}</span>
+                                                            <span>{{ $subscription->end_date }}</span>
                                                         </td>
                                                         <td>
-                                                            <span>{{ $subscription->employees_count }}</span>
+                                                            <a href="{{ route('admin.users.show', $subscription->user->id) }}">
+                                                            <span>{{ $subscription->user->first_name }}</span></a>
                                                         </td>
                                                         <td>
-                                                            <span class="text-secondary">{{ $subscription->amount }}$</span>
+                                                            <span class="text-secondary"><a href="{{ route("admin.plans.show", $subscription->plan->id) }}">{{ $subscription->plan->name }}</a></span>
                                                         </td>
 
                                                         <td>
@@ -84,11 +85,8 @@
                                                                 </button>
                                                                 <div class="dropdown-menu">
                                                                     <a class="dropdown-item"
-                                                                        href="{{ route('admin.subscriptions.edit', $subscription->id) }}">Edit</a>
-                                                                    <a class="dropdown-item"
                                                                         href="{{ route('admin.subscriptions.show', $subscription->id) }}">Show</a>
-                                                                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                                    data-id="{{ $subscription->id }}" data-name="{{ $subscription->name }}">Delete</button>
+
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -119,44 +117,5 @@
     <!--**********************************
             Content body end
         ***********************************-->
-<!-- Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Delete Subscription</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="{{ route('admin.subscriptions.destroy','test') }}" method="post">
-            {{ method_field('delete') }}
-            @csrf
-            <div class="modal-body">
-                <p>Are you sure to delete?</p><br>
-                <input type="hidden" name="id" id="id" value="">
-                <input class="form-control" name="name" id="name" type="text" readonly>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                <button type="submit" class="btn btn-danger">Confirm</button>
-            </div>
-    </div>
-    </form>
-      </div>
-    </div>
-  </div>
 
-
-
-  @push('javasc')
-<script>
-    $('#deleteModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget)
-        var id = button.data('id')
-        var name = button.data('name')
-        var modal = $(this)
-        modal.find('.modal-body #id').val(id);
-        modal.find('.modal-body #name').val(name);
-    })
-</script>
-@endpush
 </x-admin-layouts.admin-app>

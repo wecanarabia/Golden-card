@@ -43,6 +43,7 @@
                                                     <th>Arabic Name</th>
                                                     <th>Email</th>
                                                     <th>Phone</th>
+                                                    <th>Status</th>
 
 
                                                     <th>actions</th>
@@ -62,6 +63,9 @@
                                                         </td>
                                                         <td>
                                                             <span>{{ $service->phone}}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ $service->status==1?'Active':'InActive' }}</span>
                                                         </td>
 
 

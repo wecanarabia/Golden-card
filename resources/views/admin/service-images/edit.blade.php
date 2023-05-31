@@ -26,6 +26,7 @@
                             <div class="offcanvas-body">
                                 <div class="container-fluid">
                                 <h4 class="heading mb-0"> {{ __('Edit Service Image') }}</h4>
+                                <x-admin-layouts.alerts />
 
                             <form method="POST" action="{{ route("admin.service-images.update",$image->id) }}" enctype="multipart/form-data">
                                 @csrf

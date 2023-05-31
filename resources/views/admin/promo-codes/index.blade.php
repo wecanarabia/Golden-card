@@ -7,7 +7,7 @@
         <div class="page-titles">
             <ol class="breadcrumb">
                 <li>
-                    <h5 class="bc-title">{{ __('Users') }}</h5>
+                    <h5 class="bc-title">{{ __('Promo Codes') }}</h5>
                 </li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">
                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
@@ -20,9 +20,9 @@
                         </svg>
                         Home </a>
                 </li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Users') }} </a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Promo Codes') }} </a></li>
             </ol>
-            <a class="text-primary fs-13" href="{{ route('admin.users.create') }}">+ Add User</a>
+            <a class="text-primary fs-13" href="{{ route('admin.promo-codes.create') }}">+ Add Promo Code</a>
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -34,31 +34,36 @@
                                     <x-admin-layouts.alerts />
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
-                                            <h4 class="heading mb-0"> {{ __('Users') }}</h4>
+                                            <h4 class="heading mb-0"> {{ __('Promo Codes') }}</h4>
                                         </div>
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>First Name</th>
-                                                    <th>Last Name</th>
-                                                    <th>Email</th>
-                                                    <th>Phone</th>
+                                                    <th>Code</th>
+                                                    <th>Start Date</th>
+                                                    <th>End Date</th>
+                                                    <th>Status</th>
+                                                    <th>Number Of Users</th>
 
 
                                                     <th>actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @forelse ($data as $user)
+                                                @forelse ($data as $code)
                                                     <tr>
 
-                                                        <td><span>{{ $user->first_name }}</span></td>
-                                                        <td><span>{{ $user->last_name }}</span></td>
+                                                        <td><span>{{ $code->code }}</span></td>
+                                                        <td><span>{{ $code->start_date }}</span></td>
+
                                                         <td>
-                                                            <span>{{ $user->email }}</span>
+                                                            <span>{{ $code->end_date}}</span>
                                                         </td>
                                                         <td>
-                                                            <span>{{ $user->phone }}</span>
+                                                            <span>{{ $code->status==1?'Active':'InActive'}}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ $code->num_of_users}}</span>
                                                         </td>
 
 
@@ -84,12 +89,11 @@
                                                                 </button>
                                                                 <div class="dropdown-menu">
                                                                     <a class="dropdown-item"
-                                                                        href="{{ route('admin.users.edit', $user->id) }}">Edit</a>
+                                                                        href="{{ route('admin.promo-codes.edit', $code->id) }}">Edit</a>
                                                                     <a class="dropdown-item"
-                                                                    href="{{ route('admin.users.show', $user->id) }}">Show</a>
-
+                                                                        href="{{ route('admin.promo-codes.show', $code->id) }}">Show</a>
                                                                     <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                                    data-id="{{ $user->id }}" data-name="{{ $user->first_name }}">Delete</button>
+                                                                    data-id="{{ $code->id }}" data-name="{{ $code->code }}">Delete</button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -125,10 +129,10 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Delete User</h5>
+          <h5 class="modal-title" id="deleteModalLabel">Delete Promo Code</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="{{ route('admin.users.destroy','test') }}" method="post">
+        <form action="{{ route('admin.promo-codes.destroy','test') }}" method="post">
             {{ method_field('delete') }}
             @csrf
             <div class="modal-body">

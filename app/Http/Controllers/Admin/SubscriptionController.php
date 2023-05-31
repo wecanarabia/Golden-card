@@ -14,68 +14,68 @@ class SubscriptionController extends Controller
      */
     public function index()
     {
-        $data = Subscription::latest()->paginate(10);
+        $data = Subscription::with(['user','plan'])->latest()->paginate(10);
         return view('admin.subscriptions.index',compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('admin.subscriptions.create');
-    }
+    // /**
+    //  * Show the form for creating a new resource.
+    //  */
+    // public function create()
+    // {
+    //     return view('admin.subscriptions.create');
+    // }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(SubscriptionRequest $request)
-    {
-        Subscription::create($request->all());
+    // /**
+    //  * Store a newly created resource in storage.
+    //  */
+    // public function store(SubscriptionRequest $request)
+    // {
+    //     Subscription::create($request->all());
 
 
-        return redirect()->route('admin.subscriptions.index')
-                        ->with('success','subscription has been added successfully');
-    }
+    //     return redirect()->route('admin.subscriptions.index')
+    //                     ->with('success','subscription has been added successfully');
+    // }
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        $subscription = Subscription::findOrFail($id);
+        $subscription = Subscription::with(['user','plan'])->findOrFail($id);
         return view('admin.subscriptions.show',compact('subscription'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $subscription = Subscription::findOrFail($id);
-        return view('admin.subscriptions.edit',compact('subscription'));
-    }
+    // /**
+    //  * Show the form for editing the specified resource.
+    //  */
+    // public function edit(string $id)
+    // {
+    //     $subscription = Subscription::findOrFail($id);
+    //     return view('admin.subscriptions.edit',compact('subscription'));
+    // }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(SubscriptionRequest $request, string $id)
-    {
-        $subscription = Subscription::findOrFail($id);
+    // /**
+    //  * Update the specified resource in storage.
+    //  */
+    // public function update(SubscriptionRequest $request, string $id)
+    // {
+    //     $subscription = Subscription::findOrFail($id);
 
-        $subscription->update($request->all());
+    //     $subscription->update($request->all());
 
 
-        return redirect()->route('admin.subscriptions.index')
-                        ->with('success','subscription has been updated successfully');
-    }
+    //     return redirect()->route('admin.subscriptions.index')
+    //                     ->with('success','subscription has been updated successfully');
+    // }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Request $request)
-    {
-        Subscription::findOrFail($request->id)->delete();
-        return redirect()->route('admin.subscriptions.index')->with('success','subscription has been removed successfully');
-    }
+    // /**
+    //  * Remove the specified resource from storage.
+    //  */
+    // public function destroy(Request $request)
+    // {
+    //     Subscription::findOrFail($request->id)->delete();
+    //     return redirect()->route('admin.subscriptions.index')->with('success','subscription has been removed successfully');
+    // }
 }

@@ -34,14 +34,26 @@ class ServiceImageController extends Controller
      */
     public function store(ServiceImageRequest $request)
     {
+        if(ImageService::where('service_id',$request->service_id)->count()<5){
+
         foreach($request->images as $image) {
-            ImageService::create([
-                'image'=>$image,
-                'service_id'=>$request->service_id,
-            ]);
+            if(ImageService::where('service_id',$request->service_id)->count()<5){
+                ImageService::create([
+                    'image'=>$image,
+                    'service_id'=>$request->service_id,
+                ]);
+            }elseif(ImageService::where('service_id',$request->service_id)->count()==5){
+                return redirect()->route('admin.service-images.index')
+                    ->with('success','Service Images has been added successfully');
+            }
         }
         return redirect()->route('admin.service-images.index')
                         ->with('success','Service Images has been added successfully');
+        }else{
+            return redirect()->back()
+                        ->with('info','Maximum allowed number of images for service is 5 images');
+
+        };
     }
 
     /**
@@ -60,6 +72,8 @@ class ServiceImageController extends Controller
     public function update(ServiceImageRequest $request, string $id)
     {
         $image = ImageService::findOrFail($id);
+        if($request->service_id!==$image->service_id&&ImageService::where('service_id',$request->service_id)->count()<5){
+
         if ($request->has('image')&&$image->image  && File::exists($image->image)) {
             unlink($image->image);
         }
@@ -68,6 +82,11 @@ class ServiceImageController extends Controller
 
         return redirect()->route('admin.service-images.index')
                         ->with('success','Service Image has been updated successfully');
+        }else{
+            return redirect()->back()
+                        ->with('info','Maximum allowed number of images for service is 5 images');
+
+        };
     }
 
     /**

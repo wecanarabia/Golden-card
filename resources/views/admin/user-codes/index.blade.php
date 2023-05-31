@@ -7,7 +7,7 @@
         <div class="page-titles">
             <ol class="breadcrumb">
                 <li>
-                    <h5 class="bc-title">{{ __('Users') }}</h5>
+                    <h5 class="bc-title">{{ __('User Codes') }}</h5>
                 </li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">
                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
@@ -20,9 +20,9 @@
                         </svg>
                         Home </a>
                 </li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Users') }} </a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('User Codes') }} </a></li>
             </ol>
-            <a class="text-primary fs-13" href="{{ route('admin.users.create') }}">+ Add User</a>
+            {{-- <a class="text-primary fs-13" href="{{ route('admin.subscriptions.create') }}">+ Add Subscription</a> --}}
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -31,37 +31,37 @@
                         <div class="card-body p-0">
                             <div class="offcanvas-body">
                                 <div class="container-fluid">
-                                    <x-admin-layouts.alerts />
+                                    {{-- <x-admin-layouts.alerts /> --}}
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
-                                            <h4 class="heading mb-0"> {{ __('Users') }}</h4>
+                                            <h4 class="heading mb-0"> {{ __('User Codes') }}</h4>
                                         </div>
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>First Name</th>
-                                                    <th>Last Name</th>
-                                                    <th>Email</th>
-                                                    <th>Phone</th>
 
-
-                                                    <th>actions</th>
+                                                    <th>Subscriptions</th>
+                                                    <th>Promo Code</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @forelse ($data as $user)
+                                                @forelse ($data as $code)
                                                     <tr>
 
-                                                        <td><span>{{ $user->first_name }}</span></td>
-                                                        <td><span>{{ $user->last_name }}</span></td>
+                                                        {{-- <td><span>{{ $code->start_date }}</span></td>
                                                         <td>
-                                                            <span>{{ $user->email }}</span>
+                                                            <span>{{ $code->end_date }}</span>
+                                                        </td> --}}
+                                                        <td>
+                                                            <a href="{{ route('admin.subscriptions.show', $code->subscription->id) }}">
+                                                            <span>{{ $code->subscription->user->first_name }}</span></a>
                                                         </td>
                                                         <td>
-                                                            <span>{{ $user->phone }}</span>
+                                                            <a href="{{ route("admin.promo-codes.show", $code->promo_code->id) }}"><span class="text-secondary">{{ $code->promo_code->code }}</span></a>
                                                         </td>
-
-
+                                                        <td></td>
+{{--
                                                         <td>
                                                             <div class="dropdown">
                                                                 <button type="button"
@@ -84,15 +84,11 @@
                                                                 </button>
                                                                 <div class="dropdown-menu">
                                                                     <a class="dropdown-item"
-                                                                        href="{{ route('admin.users.edit', $user->id) }}">Edit</a>
-                                                                    <a class="dropdown-item"
-                                                                    href="{{ route('admin.users.show', $user->id) }}">Show</a>
+                                                                        href="{{ route('admin.subscriptions.show', $code->id) }}">Show</a>
 
-                                                                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                                    data-id="{{ $user->id }}" data-name="{{ $user->first_name }}">Delete</button>
                                                                 </div>
                                                             </div>
-                                                        </td>
+                                                        </td> --}}
                                                     </tr>
 
                                                 @empty
@@ -120,44 +116,5 @@
     <!--**********************************
             Content body end
         ***********************************-->
-<!-- Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Delete User</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="{{ route('admin.users.destroy','test') }}" method="post">
-            {{ method_field('delete') }}
-            @csrf
-            <div class="modal-body">
-                <p>Are you sure to delete?</p><br>
-                <input type="hidden" name="id" id="id" value="">
-                <input class="form-control" name="name" id="name" type="text" readonly>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                <button type="submit" class="btn btn-danger">Confirm</button>
-            </div>
-    </div>
-    </form>
-      </div>
-    </div>
-  </div>
 
-
-
-  @push('javasc')
-<script>
-    $('#deleteModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget)
-        var id = button.data('id')
-        var name = button.data('name')
-        var modal = $(this)
-        modal.find('.modal-body #id').val(id);
-        modal.find('.modal-body #name').val(name);
-    })
-</script>
-@endpush
 </x-admin-layouts.admin-app>
