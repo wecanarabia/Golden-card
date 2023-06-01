@@ -45,6 +45,11 @@ class Category extends Model
     {
         return $this->hasMany(Service::class);
     }
+
+    public function features()
+    {
+        return $this->hasMany(Feature::class);
+    }
     public function scopeParent($query){
         return $query->whereNull('parent_id');
     }

@@ -7,7 +7,7 @@
         <div class="page-titles">
             <ol class="breadcrumb">
                 <li>
-                    <h5 class="bc-title">{{ __('Service Images') }}</h5>
+                    <h5 class="bc-title">{{ __('Notifications') }}</h5>
                 </li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">
                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
@@ -20,9 +20,9 @@
                         </svg>
                         Home </a>
                 </li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Service Images') }} </a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Notifications') }} </a></li>
             </ol>
-            <a class="text-primary fs-13" href="{{ route('admin.service-images.create') }}">+ Add Service Image</a>
+            <a class="text-primary fs-13" href="{{ route('admin.notifications.create') }}">+ Add Notification</a>
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -34,25 +34,37 @@
                                     <x-admin-layouts.alerts />
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
-                                            <h4 class="heading mb-0"> {{ __('Service Images') }}</h4>
+                                            <h4 class="heading mb-0"> {{ __('Notifications') }}</h4>
                                         </div>
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>Image</th>
-                                                    <th>Service</th>
+                                                    <th>English Title</th>
+                                                    <th>Arabic Title</th>
+                                                    <th>User</th>
 
 
                                                     <th>actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @forelse ($data as $image)
+                                                @forelse ($data as $notification)
                                                     <tr>
 
-                                                        <td><span><img src="{{ asset($image->image) }}" width="150" alt=""></span></td>
+                                                        <td><span>{{ $notification->getTranslation('title', 'en') }}</span></td>
+                                                        <td>
+                                                            <span>{{ $notification->getTranslation('title', 'ar')}}</span>
+                                                        </td>
+                                                        <td>
+                                                            @if (!empty($notification->user))
 
-                                                        <td><span><a href="{{ route('admin.services.show', $image->service->id) }}">{{ $image->service->name }}</a></span></td>
+                                                            <span><a href="{{ route('admin.users.show',$notification->user->id) }}">{{ $notification->user->first_name}}</a></span>
+
+                                                            @else
+                                                            <span>For All User</span>
+                                                            @endif
+                                                        </td>
+
 
                                                         <td>
                                                             <div class="dropdown">
@@ -75,10 +87,12 @@
                                                                     </svg>
                                                                 </button>
                                                                 <div class="dropdown-menu">
+
                                                                     <a class="dropdown-item"
-                                                                        href="{{ route('admin.service-images.edit', $image->id) }}">Edit</a>
+                                                                        href="{{ route('admin.notifications.show', $notification->id) }}">Show</a>
+
                                                                     <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                                    data-id="{{ $image->id }}" data-name="{{ asset($image->image) }}">Delete</button>
+                                                                    data-id="{{ $notification->id }}" data-name="{{ $notification->title }}">Delete</button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -114,16 +128,16 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Delete Service Image</h5>
+          <h5 class="modal-title" id="deleteModalLabel">Delete Notification</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="{{ route('admin.service-images.destroy','test') }}" method="post">
+        <form action="{{ route('admin.notifications.destroy','test') }}" method="post">
             {{ method_field('delete') }}
             @csrf
             <div class="modal-body">
                 <p>Are you sure to delete?</p><br>
                 <input type="hidden" name="id" id="id" value="">
-                <img class="img-thumbnail" width="200px" name="name" id="name">
+                <input class="form-control" name="name" id="name" type="text" readonly>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
@@ -145,7 +159,7 @@
         var name = button.data('name')
         var modal = $(this)
         modal.find('.modal-body #id').val(id);
-        modal.find('.modal-body #name').attr('src',name);
+        modal.find('.modal-body #name').val(name);
     })
 </script>
 @endpush

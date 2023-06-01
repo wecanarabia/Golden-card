@@ -34,7 +34,7 @@
                                     <p class="mb-3"><strong>Code :</strong> {{ $service->code }}</p>
                                     <p class="mb-3"><strong>Email :</strong> {{ $service->email }}</p>
                                     <p class="mb-3"><strong>Phone :</strong> {{ $service->phone }}</p>
-                                    <p class="mb-3"><strong>Category :</strong> {{ $service->subcategory->name }}</p>
+                                    <p class="mb-3"><strong>Category :</strong> <a href="{{ route('admin.categories.show',$service->subcategory->id) }}">{{ $service->subcategory->name }}</a></p>
                                     <p class="mb-3"><strong>Status :</strong> {{ $service->status==1?'Active':'InActive' }}</p>
 
                         </div>

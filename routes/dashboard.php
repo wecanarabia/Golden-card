@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PlanController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\UserCodeController;
@@ -15,6 +17,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PromoCodeController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\IntroductionController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\ServiceImageController;
 use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\EnterpriseCoponeController;
@@ -35,6 +38,9 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         Route::resource('admins', AdminController::class)->except(['show']);
         Route::resource('slider', SliderController::class)->except(['show']);
         Route::resource('areas', AreaController::class)->except(['show']);
+        Route::resource('tags', TagController::class)->except(['show']);
+        Route::resource('features', FeatureController::class)->except(['show']);
+        Route::resource('notifications', NotificationController::class)->except(['edit','update']);
         Route::resource('categories', CategoryController::class);
         Route::resource('services', ServiceController::class);
         Route::resource('branches', BranchController::class);

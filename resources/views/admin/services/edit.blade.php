@@ -96,7 +96,7 @@
                                             @enderror
                                         </div>
 
-                                        <div id="cats-list" class="col-xl-8 mb-3 d-none">
+                                        <div id="cats-list" class="col-xl-8 mb-3">
                                             <label class="form-label">Category<span class="text-danger">*</span></label>
                                             <select class="default-select form-control wide mb-3" name="category_id" tabindex="null">
                                                 @foreach ($categories as $category)

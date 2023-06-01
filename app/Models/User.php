@@ -60,6 +60,11 @@ class User extends Authenticatable
         return $this->hasMany(Voucher::class);
     }
 
+    public function notifications(){
+
+        return $this->hasMany(Notification::class);
+    }
+
     public function favorites(){
         return $this->belongsToMany(Offer::class,'favorites','user_id','offer_id');
     }
