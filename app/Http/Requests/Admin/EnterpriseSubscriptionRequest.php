@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Rules\DeterminEndDate;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EnterpriseSubscriptionRequest extends FormRequest
@@ -22,10 +23,10 @@ class EnterpriseSubscriptionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'start_date'=>'',
-            'end_date'=>'',
-            'enterprise_name'=>'',
-            'num_of_users'=>'',
+            'start_date'=>'required|date',
+            'end_date'=>['required','date',new DeterminEndDate($this->start_date)],
+            'num_of_users'=>'required_without:id|numeric|min:0',
+            'enterprise_name'=>'required|min:4|max:255',
         ];
     }
 }

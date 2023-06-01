@@ -64,4 +64,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Offer::class,'favorites','user_id','offer_id');
     }
 
+    public function enterprise_copne()
+    {
+        return $this->hasOne(EnterpriseCopone::class);
+    }
+
 }

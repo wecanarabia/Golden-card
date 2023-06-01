@@ -2,10 +2,115 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\EnterpriseCopone;
+use App\Http\Controllers\Controller;
+use App\Models\EnterpriseSubscription;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\Admin\EnterpriseSubscriptionRequest;
 
 class EnterpriseSubscriptionController extends Controller
 {
-    //
+     /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $data = EnterpriseSubscription::latest()->paginate(10);
+        return view('admin.enterprises.index',compact('data'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('admin.enterprises.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(EnterpriseSubscriptionRequest $request)
+    {
+
+        $subscription=EnterpriseSubscription::create($request->all());
+        $name_arr = explode(" ",$request->enterprise_name);
+        if (count($name_arr)>1) {
+            foreach ($name_arr as $string) {
+                $firstLetter = strtoupper(substr($string, 0, 1));
+                $firstLetters[] = $firstLetter;
+                $name = implode("",$firstLetters);
+            }
+        }else{
+            $name = strtoupper($request->enterprise_name);
+        }
+        $codes = [];
+        for ($i=0; $i < $request->num_of_users; $i++) {
+            $code = $name.'#'.rand(0,10000000);
+             if(!in_array($code,$codes)){
+                $codes[]=$code;
+             }else{
+                $codes[]=$code.'_'.Str::random(3);
+             }
+        }
+
+
+
+        foreach ($codes as $_code) {
+            if (Validator::make(['code'=>$_code], [
+                'code'=>'unique:enterprise_copones,code',
+
+            ])->fails()) {
+                $_code = Str::random(10);
+            }
+            EnterpriseCopone::create([
+                'enterprise_subscription_id'=>$subscription->id,
+                'code'=>$_code,
+            ]);
+        }
+
+        return redirect()->route('admin.enterprises.index')
+                        ->with('success','Entrprise subscription has been added successfully');
+    }
+
+
+    public function show(string $id)
+    {
+        $subscription = EnterpriseSubscription::findOrFail($id);
+        return view('admin.enterprises.show',compact('subscription'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        $subscription = EnterpriseSubscription::findOrFail($id);
+        return view('admin.enterprises.edit',compact('subscription'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(EnterpriseSubscriptionRequest $request, string $id)
+    {
+        $subscription = EnterpriseSubscription::findOrFail($id);
+
+
+        $subscription->update($request->all());
+
+        return redirect()->route('admin.enterprises.index')
+                        ->with('success','Entrprise subscription has been updated successfully');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Request $request)
+    {
+        EnterpriseSubscription::findOrFail($request->id)->delete();
+        return redirect()->route('admin.enterprises.index')->with('success','Entrprise subscription has been removed successfully');
+    }
 }

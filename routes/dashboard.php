@@ -17,6 +17,8 @@ use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\IntroductionController;
 use App\Http\Controllers\Admin\ServiceImageController;
 use App\Http\Controllers\Admin\SubscriptionController;
+use App\Http\Controllers\Admin\EnterpriseCoponeController;
+use App\Http\Controllers\Admin\EnterpriseSubscriptionController;
 
 Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
     Route::get('/login',[AdminLoginController::class, 'getLogin'])->name('login-page');
@@ -27,6 +29,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
         Route::resource('subscriptions', SubscriptionController::class)->only(['index','show']);
         Route::resource('user-codes', UserCodeController::class)->only(['index']);
+        Route::resource('enterprise-copones', EnterpriseCoponeController::class)->only(['index']);
         Route::resource('introductions', IntroductionController::class);
         Route::resource('pages', PageController::class);
         Route::resource('admins', AdminController::class)->except(['show']);
@@ -39,6 +42,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         Route::resource('promo-codes', PromoCodeController::class);
         Route::resource('service-images', ServiceImageController::class)->except(['show']);
         Route::resource('users', UserController::class);
+        Route::resource('enterprises', EnterpriseSubscriptionController::class);
 
     });
 });
