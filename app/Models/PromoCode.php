@@ -10,6 +10,4 @@ class PromoCode extends Model
 {
     use HasFactory;
     protected $guarded =[];
-
-   
 }
