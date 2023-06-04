@@ -58,6 +58,8 @@ Route::get('branches-by-subcategory/{id}', [BranchController::class, 'getBranche
 //getBranchesBySubNameOrservicename
 Route::get('branches-by-sub-or-service/{name}', [BranchController::class, 'getBranchesBySubNameOrServiceName']);
 
+//getBranchesByOffereNameOrServiceName
+Route::get('branches-by-offer-or-service/{name}', [BranchController::class, 'getBranchesByOffereNameOrServiceName']);
 
 //get copon
 Route::post('offer/get-coupon/{id}', [OfferController::class, 'edit']);
