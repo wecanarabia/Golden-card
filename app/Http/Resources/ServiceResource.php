@@ -26,6 +26,7 @@ class ServiceResource extends JsonResource
             'subcategory_id' => $this->subcategory?->id,
             'subcategory_name' => $this->subcategory?->name,
             'branches' => BranchResource::collection($this->branches),
+            'offers' => OfferResource::collection($this->offers),
 
         ];
     }
