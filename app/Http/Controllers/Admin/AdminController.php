@@ -6,6 +6,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminRequest;
+use App\Models\Role;
 
 class AdminController extends Controller
 {
@@ -14,7 +15,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $data = Admin::latest()->paginate(10);
+        $data = Admin::with('adminRole')->latest()->paginate(10);
         return view('admin.admins.index',compact('data'));
     }
 
@@ -23,7 +24,8 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('admin.admins.create');
+        $roles = Role::where('roleable_id',0)->get();
+        return view('admin.admins.create',compact('roles'));
     }
 
     /**
@@ -45,7 +47,8 @@ class AdminController extends Controller
     public function edit(string $id)
     {
         $admin = Admin::findOrFail($id);
-        return view('admin.admins.edit',compact('admin'));
+        $roles = Role::where('roleable_id',0)->get();
+        return view('admin.admins.edit',compact('admin','roles'));
     }
 
     /**

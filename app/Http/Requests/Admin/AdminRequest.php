@@ -26,6 +26,7 @@ class AdminRequest extends FormRequest
             'name'=>'required|min:4|max:255',
             'email'=>'required|min:5|email|max:255|unique:admins,email,'.$this->id,
             'password' => ['required_without:id', 'nullable',Password::min(8)],
+            'role_id'=>'required|exists:roles,id',
         ];
     }
 }

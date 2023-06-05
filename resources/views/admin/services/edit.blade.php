@@ -114,7 +114,7 @@
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
-
+                                        @can('all-services')
                                         <div class="col-xl-8 mb-3">
                                             <label class="form-label">Status<span class="text-danger">*</span></label>
                                             <div class="form-check">
@@ -133,7 +133,7 @@
                                             <div class="text-danger">{{ $message }}</div>
                                              @enderror
                                         </div>
-
+                                        @endcan
                                     <div class="col-xl-8 mb-3">
                                         <input type="submit" class="btn btn-primary me-1" value='Update '>
                                     </div>

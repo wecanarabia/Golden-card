@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Service extends Model
@@ -49,5 +50,10 @@ class Service extends Model
     public function offers()
     {
         return $this->hasMany(Offer::class);
+    }
+
+    public function role(): MorphOne
+    {
+        return $this->morphOne(Role::class, 'roleable');
     }
 }

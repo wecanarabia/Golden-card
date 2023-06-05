@@ -94,8 +94,11 @@
                                                                         href="{{ route('admin.services.edit', $service->id) }}">Edit</a>
                                                                     <a class="dropdown-item"
                                                                         href="{{ route('admin.services.show', $service->id) }}">Show</a>
+                                                                    @can('all-services')
+                                                                        
                                                                     <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"
                                                                     data-id="{{ $service->id }}" data-name="{{ $service->name }}">Delete</button>
+                                                                    @endcan
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -126,7 +129,9 @@
     <!--**********************************
             Content body end
         ***********************************-->
-<!-- Modal -->
+        @can('all-services')
+
+        <!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -166,4 +171,5 @@
     })
 </script>
 @endpush
+@endcan
 </x-admin-layouts.admin-app>

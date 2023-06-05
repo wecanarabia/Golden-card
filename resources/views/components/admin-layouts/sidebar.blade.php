@@ -17,6 +17,7 @@
 						</a>
 
 					</li>
+                    @can('subscriptions')
                     <li><a href="{{ route('admin.subscriptions.index') }}" class="" aria-expanded="false">
 						<div class="menu-icon">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,6 +30,8 @@
 							<span class="nav-text">Subscriptions</span>
 						</a>
 					</li>
+                    @endcan
+                    @can('pages')
                     <li><a href="{{ route('admin.pages.index') }}" class="" aria-expanded="false">
                         <div class="menu-icon">
 							<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,6 +44,8 @@
 							<span class="nav-text">Pages</span>
 						</a>
 					</li>
+                    @endcan
+                    @can('introductions')
 					<li><a href="{{ route('admin.introductions.index') }}" class="" aria-expanded="false">
 						<div class="menu-icon">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -53,17 +58,28 @@
 							<span class="nav-text">Introductions</span>
 						</a>
 					</li>
-					<li><a href="{{ route('admin.admins.index') }}" class="" aria-expanded="false">
+                    @endcan
+                    @if(Auth::user()?->can('admins')||Auth::user()?->can('roles'))
+                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 						<div class="menu-icon">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path fill-rule="evenodd" clip-rule="evenodd" d="M10.986 14.0673C7.4407 14.0673 4.41309 14.6034 4.41309 16.7501C4.41309 18.8969 7.4215 19.4521 10.986 19.4521C14.5313 19.4521 17.5581 18.9152 17.5581 16.7693C17.5581 14.6234 14.5505 14.0673 10.986 14.0673Z" stroke="#888888" stroke-linecap="round" stroke-linejoin="round"></path>
 								<path fill-rule="evenodd" clip-rule="evenodd" d="M10.986 11.0054C13.3126 11.0054 15.1983 9.11881 15.1983 6.79223C15.1983 4.46564 13.3126 2.57993 10.986 2.57993C8.65944 2.57993 6.77285 4.46564 6.77285 6.79223C6.76499 9.11096 8.63849 10.9975 10.9563 11.0054H10.986Z" stroke="#888888" stroke-linecap="round" stroke-linejoin="round"></path>
 							</svg>
 						</div>
-						<span class="nav-text">Admins</span>
+						<span class="nav-text">Admins & Permissions</span>
 						</a>
+                        <ul aria-expanded="false" class="mm-collapse">
+                            @can('admins')
+                            <li><a href="{{ route('admin.admins.index') }}">Admins</a></li>
+                            @endcan
+                            @can('roles')
+                            <li><a href="{{ route('admin.roles.index') }}">Permissions</a></li>
+                            @endcan
+                        </ul>
 					</li>
-
+                    @endif
+                    @can('users')
                     <li><a href="{{ route('admin.users.index') }}" class="" aria-expanded="false">
 						<div class="menu-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888888" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3"/><circle cx="12" cy="10" r="3"/><circle cx="12" cy="12" r="10"/></svg>
@@ -71,7 +87,8 @@
 						<span class="nav-text">Users</span>
 						</a>
 					</li>
-
+                    @endcan
+                    @can('slider')
 					<li><a href="{{ route('admin.slider.index') }}" class="" href="javascript:void(0);" aria-expanded="false">
 						<div class="menu-icon">
 
@@ -80,7 +97,8 @@
 						</a>
 
 					</li>
-
+                    @endcan
+                    @can('areas')
                     <li><a href="{{ route('admin.areas.index') }}" class="" href="javascript:void(0);" aria-expanded="false">
 						<div class="menu-icon">
 
@@ -89,7 +107,8 @@
 						</a>
 
 					</li>
-
+                    @endcan
+                    @can('categories')
                     <li><a href="{{ route('admin.categories.index') }}" class="" href="javascript:void(0);" aria-expanded="false">
 						<div class="menu-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888888" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg></div>
@@ -97,8 +116,8 @@
 						</a>
 
 					</li>
-
-
+                    @endcan
+                    @can('services')
                     <li>
                         <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 						<div class="menu-icon">
@@ -113,8 +132,8 @@
                         </ul>
 
 					</li>
-
-
+                    @endcan
+                    @can('plans')
                     <li><a href="{{ route('admin.plans.index') }}" class="" href="javascript:void(0);" aria-expanded="false">
 						<div class="menu-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888888" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>						<span class="nav-text">Plans</span>
@@ -122,7 +141,8 @@
                         </a>
 
 					</li>
-
+                    @endcan
+                    @can('subscriptions')
                     <li><a href="{{ route('admin.subscriptions.index') }}" class="" aria-expanded="false">
 						<div class="menu-icon">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -135,7 +155,8 @@
 							<span class="nav-text">Subscriptions</span>
 						</a>
 					</li>
-
+                    @endcan
+                    @can('user-codes')
                     <li>
                         <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <div class="menu-icon">
@@ -149,7 +170,8 @@
 
                         </ul>
 					</li>
-
+                    @endcan
+                    @can('enterprises')
                     <li>
                         <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <div class="menu-icon">
@@ -163,7 +185,8 @@
 
                         </ul>
 					</li>
-
+                    @endcan
+                    @can('tags')
                     <li><a href="{{ route('admin.tags.index') }}" class="" href="javascript:void(0);" aria-expanded="false">
 						<div class="menu-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888888" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>                        </div>
@@ -171,7 +194,8 @@
 						</a>
 
 					</li>
-
+                    @endcan
+                    @can('features')
                     <li><a href="{{ route('admin.features.index') }}" class="" href="javascript:void(0);" aria-expanded="false">
 						<div class="menu-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888888" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>                         </div>
@@ -179,7 +203,8 @@
 						</a>
 
 					</li>
-
+                    @endcan
+                    @can('notifications')
                     <li><a href="{{ route('admin.notifications.index') }}" class="" href="javascript:void(0);" aria-expanded="false">
 						<div class="menu-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888888" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3zm-8.27 4a2 2 0 0 1-3.46 0"></path></svg>                                              </div>
@@ -187,6 +212,7 @@
 						</a>
 
 					</li>
+                    @endcan
 			</div>
         </div>
 

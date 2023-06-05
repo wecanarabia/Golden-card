@@ -20,15 +20,11 @@ class DatabaseSeeder extends Seeder
     {
 
 
-            $user = new User();
-            $user->first_name = 'aya';
-            $user->last_name = 'matroud';
-            $user->phone = '+963937158233';
-            $user->email = 'aya@gmail.com';
-            $user->password = Hash::make('123456789');
-            $user->save();
+       
             $this->call([
                 AdminSeeder::class,
+                UserSeeder::class,
+                RoleSeeder::class,
             ]);
 
 

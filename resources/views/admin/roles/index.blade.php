@@ -7,7 +7,7 @@
         <div class="page-titles">
             <ol class="breadcrumb">
                 <li>
-                    <h5 class="bc-title">{{ __('Admins') }}</h5>
+                    <h5 class="bc-title">{{ __('Roles') }}</h5>
                 </li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">
                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
@@ -20,9 +20,9 @@
                         </svg>
                         Home </a>
                 </li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Admins') }} </a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Roles') }} </a></li>
             </ol>
-            <a class="text-primary fs-13" href="{{ route('admin.admins.create') }}">+ Add Admin</a>
+            <a class="text-primary fs-13" href="{{ route('admin.roles.create') }}">+ Add Role</a>
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -34,30 +34,36 @@
                                     <x-admin-layouts.alerts />
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
-                                            <h4 class="heading mb-0"> {{ __('Admins') }}</h4>
+                                            <h4 class="heading mb-0"> {{ __('Roles') }}</h4>
                                         </div>
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>name</th>
-                                                    <th>Email</th>
                                                     <th>Role</th>
+                                                    <th>Permissions</th>
 
 
                                                     <th>actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @forelse ($data as $admin)
+                                                @forelse ($data as $role)
                                                     <tr>
 
-                                                        <td><span>{{ $admin->name }}</span></td>
+                                                        <td><span>{{ $role->name }}</span></td>
                                                         <td>
-                                                            <span>{{ $admin->email }}</span>
-                                                        </td>
-                                                        
-                                                        <td>
-                                                            <span>{{ $admin->adminRole->name }}</span>
+                                                            @foreach (config('global.admin') as $name => $value)
+                                                                @if(in_array($name,$role->permissions))
+                                                                @if (in_array('all-services',$role->permissions)&&$name=='services')
+                                                                    @continue
+                                                                @endif
+                                                                    @php
+                                                                        $array[$name]= $value;
+                                                                    @endphp
+                                                                    {{ $value }}<br>
+                                                                
+                                                                @endif
+                                                            @endforeach
                                                         </td>
 
 
@@ -83,10 +89,11 @@
                                                                 </button>
                                                                 <div class="dropdown-menu">
                                                                     <a class="dropdown-item"
-                                                                        href="{{ route('admin.admins.edit', $admin->id) }}">Edit</a>
-
+                                                                        href="{{ route('admin.roles.edit', $role->id) }}">Edit</a>
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ route('admin.roles.show', $role->id) }}">Show</a>
                                                                     <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                                    data-id="{{ $admin->id }}" data-name="{{ $admin->name }}">Delete</button>
+                                                                    data-id="{{ $role->id }}" data-name="{{ $role->name }}">Delete</button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -122,10 +129,10 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Delete Admin</h5>
+          <h5 class="modal-title" id="deleteModalLabel">Delete Role</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="{{ route('admin.admins.destroy','test') }}" method="post">
+        <form action="{{ route('admin.roles.destroy','test') }}" method="post">
             {{ method_field('delete') }}
             @csrf
             <div class="modal-body">

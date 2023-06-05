@@ -1,6 +1,8 @@
 
 <x-admin-layouts.header />
-<body data-typography="poppins" data-theme-version="light" data-layout="vertical" data-nav-headerbg="black" data-headerbg="color_1">
+<body @class([
+    'vh-100'=>isset($is405Page)&&$is405Page
+]) data-typography="poppins" data-theme-version="light" data-layout="vertical" data-nav-headerbg="black" data-headerbg="color_1">
 
     <!--*******************
         Preloader start
