@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Branch;
+use App\Models\Offer;
 use App\Models\Category;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -188,6 +189,67 @@ class BranchController extends ApiController
                     $resources[] = $resource;
                 }
             }
+
+            // Remove duplicate branches and sort them by distance
+            usort($resources, function($a, $b) {
+                return $a->distance <=> $b->distance;
+            });
+
+            return $this->returnData('data', array_values($resources), __('Get branches successfully'));
+        }
+            $service = Service::where( 'name', 'like', '%' . $name . '%' )->first();
+
+
+
+            if ($service) {
+
+                $branches = $service->branches;
+                $resources = [];
+
+
+                foreach ($branches as $branch) {
+                    $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+                    $resource = new BranchResource($branch, $distance);
+
+                    $resources[] = $resource;
+                }
+
+
+
+                    usort($resources, function($a, $b) {
+                        return $a->distance <=> $b->distance;
+                    });
+
+                    return $this->returnData('data', array_values($resources), __('Get branches successfully'));
+            } else {
+                // If the name doesn't match any subcategory or category, return an error response
+                return $this->returnError(__('Invalid name'));
+            }
+
+
+    }
+
+    public function getBranchesByOffereNameOrServiceName($name)
+    {
+        $lat_user = Auth::user()->lat;
+        $long_user = Auth::user()->long;
+
+        $offer = Offer::where( 'name', 'like', '%' . $name . '%' )->first();
+
+        if ($offer) {
+            $service = $offer->service;
+            $resources = [];
+
+            $branches = collect();
+
+                $serviceBranches = $service->branches;
+                foreach ($serviceBranches as $branch) {
+                    $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+                    $resource = new BranchResource($branch, $distance);
+
+                    $resources[] = $resource;
+                }
+
 
             // Remove duplicate branches and sort them by distance
             usort($resources, function($a, $b) {
