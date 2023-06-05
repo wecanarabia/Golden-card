@@ -12,5 +12,9 @@ class Tag extends Model
     protected $guarded = [];
     public $translatable = ['name'];
 
-    
+
+    public function offers(){
+
+        return $this->belongsToMany(Offer::class,'offer_tags','tag_id','offer_id');
+    }
 }

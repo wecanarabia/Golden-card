@@ -12,6 +12,8 @@ use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\BranchController;
 use App\Http\Controllers\Api\OfferController;
 use App\Http\Controllers\Api\FavoriteController;
+use App\Http\Controllers\Api\FeatureController;
+use App\Http\Controllers\Api\SubscriptionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -76,6 +78,12 @@ Route::get('voucher-by-offer/{id}', [OfferController::class, 'getVoucherOfUserBy
 
 //myFavorites
 Route::get('my-favorites', [FavoriteController::class, 'myFavorites']);
+
+//search
+Route::post('services-search', [ServiceController::class, 'searchS']);
+
+//getFreeSub
+Route::post('free-subscription', [SubscriptionController::class, 'getFreeSub']);
 
 
 });
@@ -142,8 +150,7 @@ Route::get('services-by-subcategory/{name}', [CategoryController::class, 'getSer
 //get services by subcategory name or category name
 Route::get('services-by-subcategory-or-category/{name}', [CategoryController::class, 'getServicesBySubNameOrCatName']);
 
-//search
-Route::post('services-search', [ServiceController::class, 'searchS']);
+
 
 
 
@@ -172,5 +179,12 @@ Route::get('branch-of-offers/{id}', [OfferController::class, 'branchesOfOffer'])
 Route::post('favorite-create', [FavoriteController::class, 'save']);
 Route::get('favorite/delete/{id}', [FavoriteController::class, 'delete']);
 
+
+
+//features
+Route::get('features', [FeatureController::class, 'list']);
+Route::post('feature-create', [FeatureController::class, 'save']);
+Route::get('feature/{id}', [FeatureController::class, 'view']);
+Route::get('feature/delete/{id}', [FeatureController::class, 'delete']);
 
 });
