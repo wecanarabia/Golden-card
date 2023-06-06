@@ -26,6 +26,18 @@ class Service extends Model
     protected static function booted()
     {
         static::deleted(function ($service) {
+            if($service->branches) $service->branches()->delete();
+            foreach ($service->images as $image) {
+                if ($image->image  && \Illuminate\Support\Facades\File::exists($image->image)) {
+                    unlink($image->image);
+                }
+            }
+            if($service->images) $service->images()->delete();
+            foreach ($service->offers as $offer) {
+                if($offer->vouchers) $offer->vouchers()->delete();
+            }
+            if($service->offers) $service->offers()->delete();
+
             if ($service->logo  && \Illuminate\Support\Facades\File::exists($service->logo)) {
                 unlink($service->logo);
             }
@@ -56,4 +68,5 @@ class Service extends Model
     {
         return $this->morphOne(Role::class, 'roleable');
     }
+
 }

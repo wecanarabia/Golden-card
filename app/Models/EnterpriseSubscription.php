@@ -15,4 +15,13 @@ class EnterpriseSubscription extends Model
     {
         return $this->hasMany(EnterpriseCopone::class,'enterprise_subscription_id');
     }
+
+
+    protected static function booted()
+    {
+        static::deleted(function ($enterprise) {
+            if($enterprise->copones) $enterprise->copones()->delete();
+        });
+    }
+
 }

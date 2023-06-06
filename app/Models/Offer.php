@@ -24,6 +24,7 @@ class Offer extends Model
     protected static function booted()
     {
         static::deleted(function ($offer) {
+            if($offer->vouchers) $offer->vouchers()->delete();
             if ($offer->image  && \Illuminate\Support\Facades\File::exists($offer->image)) {
                 unlink($offer->image);
             }
@@ -49,6 +50,8 @@ class Offer extends Model
     {
         return $this->hasMany(Voucher::class);
     }
+
+
 
 }
 

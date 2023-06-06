@@ -25,6 +25,8 @@ class Category extends Model
     protected static function booted()
     {
         static::deleted(function ($category) {
+            if($category->features) $category->features()->delete();
+            if($category->subcategories) $category->subcategories()->delete();
             if ($category->image  && \Illuminate\Support\Facades\File::exists($category->image)) {
                 unlink($category->image);
             }
