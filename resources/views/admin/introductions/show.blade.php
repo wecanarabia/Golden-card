@@ -20,7 +20,7 @@
         </div>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-xl-8">
+                <div class="col-xl-12">
                     <div class="card">
                         <div class="card-body p-0">
                             <div class="offcanvas-body">
@@ -33,8 +33,9 @@
                                     <p class="mb-3"><strong>Arabic Second Title : </strong> {{ $introduction->getTranslation('second_title', 'ar') }}</p>
                                     <p class="mb-3"><strong>English body : </strong> {{ $introduction->getTranslation('body', 'en') }}</p>
                                     <p class="mb-3"><strong>Arabic body :</strong> {{ $introduction->getTranslation('body', 'ar') }}</p>
-                        </div>
-                        <img class="card-img-bottom img-thumbnail" src="{{ asset( $introduction->image ) }}" alt="{{ $introduction->title }}">
+                                    <img class="card-img-bottom img-thumbnail mb-3" style="width: 500px" src="{{ asset( $introduction->image ) }}" alt="{{ $introduction->title }}">
+
+                                </div>
 
                         </div>
                         </div>

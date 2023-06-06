@@ -23,7 +23,7 @@ class Offer extends Model
     }
     protected static function booted()
     {
-        static::deleted(function ($slider) {
+        static::deleted(function ($offer) {
             if ($offer->image  && \Illuminate\Support\Facades\File::exists($offer->image)) {
                 unlink($offer->image);
             }
@@ -40,6 +40,15 @@ class Offer extends Model
         return $this->belongsToMany(Branch::class,'branch__offers','offer_id','branch_id');
     }
 
+    public function tags(){
+
+        return $this->belongsToMany(Tag::class,'offer_tags','offer_id','tag_id');
+    }
+
+    public function vouchers()
+    {
+        return $this->hasMany(Voucher::class);
+    }
 
 }
 

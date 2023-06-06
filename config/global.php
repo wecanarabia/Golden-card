@@ -16,7 +16,7 @@ return[
         'all-services'=>'All Services',
         'plans'=>'Plans',
         'users'=>'Users',
-        'enterprises'=>'Unterprises',
+        'enterprises'=>'Enterprises',
         'roles'=>'Roles',
     ],
 

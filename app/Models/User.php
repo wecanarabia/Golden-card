@@ -74,4 +74,9 @@ class User extends Authenticatable
         return $this->hasOne(EnterpriseCopone::class);
     }
 
+    public function enterprise_copnes()
+    {
+        return $this->hasMany(EnterpriseCopone::class);
+    }
+
 }

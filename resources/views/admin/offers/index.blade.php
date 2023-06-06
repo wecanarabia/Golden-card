@@ -7,7 +7,7 @@
         <div class="page-titles">
             <ol class="breadcrumb">
                 <li>
-                    <h5 class="bc-title">{{ __('Branches') }}</h5>
+                    <h5 class="bc-title">{{ __('Offers') }}</h5>
                 </li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">
                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
@@ -20,9 +20,9 @@
                         </svg>
                         Home </a>
                 </li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Branches') }} </a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Offers') }} </a></li>
             </ol>
-            <a class="text-primary fs-13" href="{{ route('admin.branches.create') }}">+ Add Branch</a>
+            {{-- <a class="text-primary fs-13" href="{{ route('admin.offers.create') }}">+ Add Offer</a> --}}
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -34,34 +34,38 @@
                                     <x-admin-layouts.alerts />
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
-                                            <h4 class="heading mb-0"> {{ __('Branches') }}</h4>
+                                            <h4 class="heading mb-0"> {{ __('Offers') }}</h4>
                                         </div>
                                         <table class="table">
                                             <thead>
                                                 <tr>
                                                     <th>English Name</th>
-                                                    <th>Arabic Name</th>
                                                     <th>Service</th>
-                                                    <th>Location</th>
+                                                    <th>End Data</th>
+                                                    <th>Discount Value</th>
+                                                    <th>Status</th>
 
 
                                                     <th>actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @forelse ($data as $branch)
+                                                @forelse ($data as $offer)
                                                     <tr>
 
-                                                        <td><span>{{ $branch->getTranslation('name', 'en') }}</span></td>
+                                                        <td><span>{{ $offer->getTranslation('name', 'en') }}</span></td>
 
                                                         <td>
-                                                            <span>{{ $branch->getTranslation('name', 'ar')}}</span>
+                                                            <span><a href="{{ route('admin.services.show',$offer->service->id) }}"></a>{{ $offer->service->name}}</span>
                                                         </td>
                                                         <td>
-                                                            <span>{{ $branch->service->name}}</span>
+                                                            <span>{{ $offer->end_date}}</span>
                                                         </td>
                                                         <td>
-                                                            <span>{{ $branch->location}}</span>
+                                                            <span>{{ $offer->discount_value}}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ $offer->status==1?'Active':'InActive' }}</span>
                                                         </td>
 
 
@@ -87,13 +91,10 @@
                                                                 </button>
                                                                 <div class="dropdown-menu">
                                                                     <a class="dropdown-item"
-                                                                        href="{{ route('admin.branches.edit', $branch->id) }}">Edit</a>
+                                                                        href="{{ route('admin.offers.edit', $offer->id) }}">Edit</a>
                                                                     <a class="dropdown-item"
-                                                                        href="{{ route('admin.branches.show', $branch->id) }}">Show</a>
-                                                                    @if (Auth::user()->can('all-services'))
-                                                                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                                    data-id="{{ $branch->id }}" data-name="{{ $branch->name }}">Delete</button>
-                                                                    @endif
+                                                                        href="{{ route('admin.offers.show', $offer->id) }}">Show</a>
+
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -124,47 +125,5 @@
     <!--**********************************
             Content body end
         ***********************************-->
-@if (Auth::user()->can('all-services'))
 
-<!-- Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Delete Branch</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="{{ route('admin.branches.destroy','test') }}" method="post">
-            {{ method_field('delete') }}
-            @csrf
-            <div class="modal-body">
-                <p>Are you sure to delete?</p><br>
-                <input type="hidden" name="id" id="id" value="">
-                <input class="form-control" name="name" id="name" type="text" readonly>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                <button type="submit" class="btn btn-danger">Confirm</button>
-            </div>
-    </div>
-    </form>
-      </div>
-    </div>
-  </div>
-
-
-
-  @push('javasc')
-<script>
-    $('#deleteModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget)
-        var id = button.data('id')
-        var name = button.data('name')
-        var modal = $(this)
-        modal.find('.modal-body #id').val(id);
-        modal.find('.modal-body #name').val(name);
-    })
-</script>
-@endpush
-@endif
 </x-admin-layouts.admin-app>

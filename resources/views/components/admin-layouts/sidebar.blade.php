@@ -129,6 +129,8 @@
 							<li><a href="{{ route('admin.services.index') }}">Services</a></li>
 							<li><a href="{{ route('admin.service-images.index') }}">Images</a></li>
 							<li><a href="{{ route('admin.branches.index') }}">Branches</a></li>
+							<li><a href="{{ route('admin.offers.index') }}">Offers</a></li>
+							<li><a href="{{ route('admin.vouchers.index') }}">Vouchers</a></li>
                         </ul>
 
 					</li>

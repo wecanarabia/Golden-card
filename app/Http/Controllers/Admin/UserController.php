@@ -44,7 +44,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::with(['subscriptions','enterprise_copnes'])->findOrFail($id);
         return view('admin.users.show',compact('user'));
     }
 
