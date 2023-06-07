@@ -22,6 +22,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if(Request::getHost()=="goldencard.com.jo")
-            Config::set('app.asset_alt','main/public');
+            Config::set('app.asset_alt','main/public/');
     }
 }
