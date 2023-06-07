@@ -18,17 +18,14 @@ class DashboardController extends Controller
         $data['user_count'] = User::count();
         $data['offer_count'] = Offer::whereStatus(1)->count();
         $data['voucher_count'] = Voucher::count();
-        $data['subs'] = Category::sub()->withCount('services')->get();
-        $data['categories'] = Category::with(['subcategories'=>function($q)use($data){
-            $q->whereIn('parent_id',$data['subs']->pluck('id')->toArray());
-        }])->parent()->get();
-        foreach ($data['categories']as $category) {
+        $data['categories'] = Category::with(['subcategories'])->parent()->get();
+        foreach ($data['categories'] as $category) {
             if (!empty($category->subcategories)) {
-                $count = Service::whereIn('category_id',$category->subcategories->pluck('id')->toArray())->count();
-                $category['service_count']=$count;
+                $category['service_count'] = Service::whereIn('category_id',$category->subcategories->pluck('id')->toArray())->count();
             }
            
         }
+        dd($data['categories']);
         return view('admin.index',compact('data'));
     }
 }
