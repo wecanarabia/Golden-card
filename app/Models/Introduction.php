@@ -26,7 +26,7 @@ class Introduction extends Model
     {
         static::deleted(function ($introduction) {
             if ($introduction->image  && \Illuminate\Support\Facades\File::exists(config('app.asset_alt').$introduction->image)) {
-                unlink($introduction->image);
+                unlink(config('app.asset_alt').$introduction->image);
             }
         });
     }
