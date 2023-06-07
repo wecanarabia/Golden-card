@@ -23,8 +23,11 @@ class DashboardController extends Controller
             $q->whereIn('parent_id',$data['subs']->pluck('id')->toArray());
         }])->parent()->get();
         foreach ($data['categories']as $category) {
-            $count = Service::whereIn('category_id',$data['subs']->pluck('id')->toArray())->count();
-            $category['service_count']=$count;
+            if (!empty($category->subcategories)) {
+                $count = Service::whereIn('category_id',$category->subcategories->pluck('id')->toArray())->count();
+                $category['service_count']=$count;
+            }
+           
         }
         return view('admin.index',compact('data'));
     }
