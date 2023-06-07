@@ -17,8 +17,7 @@ class Introduction extends Model
             $file = $value;
             $extension = $file->getClientOriginalExtension(); // getting image extension
             $filename =time().mt_rand(1000,9999).'.'.$extension;
-            // $file->move(base_path('img/introduction/'), $filename);
-            \Illuminate\Support\Facades\Storage::disk('public')->putFile('img/introduction/', $file);
+            $file->move(base_path('../img/introduction/'), $filename);
             $this->attributes['image'] =  'img/introduction/'.$filename;
         }
     }
