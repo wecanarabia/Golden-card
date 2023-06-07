@@ -20,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        dd(Request::getHost());
+        if(Request::getHost()=="goldencard.com.jo")
+            config('app.asset_alt','main/public');
     }
 }
