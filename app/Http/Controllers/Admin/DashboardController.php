@@ -18,7 +18,7 @@ class DashboardController extends Controller
         $data['user_count'] = User::count();
         $data['offer_count'] = Offer::whereStatus(1)->count();
         $data['voucher_count'] = Voucher::count();
-        $data['categories'] = Category::with('services')->parent()->get();
+        $data['categories'] = Category::with(['services','subcategories'])->parent()->get();
         return view('admin.index',compact('data'));
     }
 }

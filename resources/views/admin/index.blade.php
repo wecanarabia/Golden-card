@@ -119,7 +119,7 @@
                                             @endif
 											{{ $category->name }}
 										</p>
-										<span>{{ $category->services->count() }} Servicecs</span>
+										<span>{{ $category->subcategories->services->count() }} Servicecs</span>
 									</div>
                                     @endforeach
 
