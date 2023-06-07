@@ -74,7 +74,7 @@ class IntroductionController extends Controller
     {
         $introduction = Introduction::findOrFail($id);
         if ($request->has('image')&&$introduction->image  && File::exists(config('app.asset_alt').$introduction->image)) {
-            unlink($introduction->image);
+            unlink(config('app.asset_alt').$introduction->image);
         }
         $request['title']=['en'=>$request->english_title,'ar'=>$request->arabic_title];
         $request['second_title']=['en'=>$request->english_second_title,'ar'=>$request->arabic_second_title];
