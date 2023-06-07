@@ -18,7 +18,7 @@ class Service extends Model
             $file = $value;
             $extension = $file->getClientOriginalExtension(); // getting image extension
             $filename =time().mt_rand(1000,9999).'.'.$extension;
-            $file->move(public_path('img/service_logo/'), $filename);
+            $file->move(base_path('../img/service_logo/'), $filename);
             $this->attributes['logo'] =  'img/service_logo/'.$filename;
         }
     }

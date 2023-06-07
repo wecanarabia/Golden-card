@@ -17,7 +17,7 @@ class Offer extends Model
             $file = $value;
             $extension = $file->getClientOriginalExtension(); // getting image extension
             $filename =time().mt_rand(1000,9999).'.'.$extension;
-            $file->move(public_path('img/offer/'), $filename);
+            $file->move(base_path('../img/offer/'), $filename);
             $this->attributes['image'] =  'img/offer/'.$filename;
         }
     }
