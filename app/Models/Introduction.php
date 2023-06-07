@@ -17,7 +17,7 @@ class Introduction extends Model
             $file = $value;
             $extension = $file->getClientOriginalExtension(); // getting image extension
             $filename =time().mt_rand(1000,9999).'.'.$extension;
-            $file->move(public_path('img/introduction/'), $filename);
+            $file->move(base_path('img/introduction/'), $filename);
             $this->attributes['image'] =  'img/introduction/'.$filename;
         }
     }
@@ -25,8 +25,8 @@ class Introduction extends Model
     protected static function booted()
     {
         static::deleted(function ($introduction) {
-            if ($introduction->image  && \Illuminate\Support\Facades\File::exists(config('app.asset_alt').$introduction->image)) {
-                unlink(config('app.asset_alt').$introduction->image);
+            if ($introduction->image  && \Illuminate\Support\Facades\File::exists($introduction->image)) {
+                unlink($introduction->image);
             }
         });
     }
