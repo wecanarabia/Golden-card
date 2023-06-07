@@ -69,7 +69,7 @@
                                                             <span>{{ $service->status==1?'Active':'InActive' }}</span>
                                                         </td>
                                                         <td>
-                                                            <span>{{ $service->admin->name}}</span>
+                                                            <span>{{ $service?->admin?->name}}</span>
                                                         </td>
 
                                                         <td>

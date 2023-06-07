@@ -36,7 +36,7 @@
                                     <p class="mb-3"><strong>Phone :</strong> {{ $service->phone }}</p>
                                     <p class="mb-3"><strong>Category :</strong> <a href="{{ route('admin.categories.show',$service->subcategory->id) }}">{{ $service->subcategory->name }}</a></p>
                                     <p class="mb-3"><strong>Status :</strong> {{ $service->status==1?'Active':'InActive' }}</p>
-                                    <p class="mb-3"><strong>Admin :</strong> {{ $service->admin->name}}</p>
+                                    <p class="mb-3"><strong>Admin :</strong> {{ $service?->admin?->name}}</p>
                                     <img class="card-img-bottom img-thumbnail mb-3" style="width: 500px" src="{{ asset( $service->logo ) }}" alt="{{ $service->name }}">
 
                         </div>
