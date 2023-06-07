@@ -64,6 +64,11 @@ class Service extends Model
         return $this->hasMany(Offer::class);
     }
 
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
+    }
+
     public function role(): MorphOne
     {
         return $this->morphOne(Role::class, 'roleable');

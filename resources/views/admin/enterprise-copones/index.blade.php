@@ -40,9 +40,10 @@
                                             <thead>
                                                 <tr>
 
-                                                    <th>Subscription</th>
-                                                    <th>User</th>
-                                                    <th>Code</th>
+                                                    <th>Enterprise</th>
+                                                    <th>Number of copones</th>
+                                                    <th>Active copones</th>
+                                                    <th>InActive copones</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -55,17 +56,14 @@
                                                             <span>{{ $copone->end_date }}</span>
                                                         </td> --}}
                                                         <td>
-                                                            <a href="{{ route('admin.enterprises.show', $copone->enterprise->id) }}">
-                                                            <span>{{ $copone->enterprise->enterprise_name }}</span></a>
+                                                            <a href="{{ route('admin.enterprises.show', $copone->id) }}">
+                                                            <span>{{ $copone->enterprise_name }}</span></a>
                                                         </td>
                                                         <td>
-                                                            @if(!empty($copone->user))
-
-
-                                                            <a href="{{ route("admin.users.show", $copone->user->id) }}"><span class="text-secondary">{{ $copone->user->first_name }}</span></a>
-                                                            @endif
+                                                            {{ $copone->copones()->count() }}
                                                         </td>
-                                                        <td>{{ $copone->code}}</td>
+                                                        <td>{{ $copone->copones->whereNotNull('user_id')->count() }}</td>
+                                                        <td>{{ $copone->copones->whereNull('user_id')->count() }}</td>
                                                         <td></td>
                                                     </tr>
 

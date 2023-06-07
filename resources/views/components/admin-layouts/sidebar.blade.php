@@ -5,7 +5,7 @@
         <div class="deznav">
             <div class="deznav-scroll">
 				<ul class="metismenu" id="menu">
-					<li class="menu-title">We can</li>
+					<li class="menu-title">Golden Card</li>
 					<li><a class="has-arrow " href="{{ route('admin.dashboard') }}" aria-expanded="false">
 						<div class="menu-icon">
 							<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,7 +17,7 @@
 						</a>
 
 					</li>
-             
+
                     @can('pages')
                     <li><a href="{{ route('admin.pages.index') }}" class="" aria-expanded="false">
                         <div class="menu-icon">

@@ -18,9 +18,9 @@ class ServiceController extends Controller
     public function index()
     {
         if (Auth::user()->can('all-services')) {
-            $data = Service::latest()->paginate(10);
+            $data = Service::with('admin')->latest()->paginate(10);
         }elseif(Auth::user()->can('services')){
-            $data = Service::where('admin_id',Auth::user()->id)->latest()->paginate(10);
+            $data = Service::with('admin')->where('admin_id',Auth::user()->id)->latest()->paginate(10);
         }
         return view('admin.services.index',compact('data'));
     }
@@ -59,9 +59,9 @@ class ServiceController extends Controller
     public function show(string $id)
     {
         if (Auth::user()->can('all-services')) {
-            $service = Service::with(['branches','images','offers'])->findOrFail($id);
+            $service = Service::with(['branches','images','offers','admin'])->findOrFail($id);
         }elseif(Auth::user()->can('services')){
-            $service = Service::with(['branches','images','offers'])->where('admin_id',Auth::user()->id)->findOrFail($id);;
+            $service = Service::with(['branches','images','offers','admin'])->where('admin_id',Auth::user()->id)->findOrFail($id);;
         }
         return view('admin.services.show',compact('service'));
     }

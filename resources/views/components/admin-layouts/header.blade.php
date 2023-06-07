@@ -32,4 +32,6 @@
 	<!-- Style css -->
     <link href="{{ asset('xhtml/css/style.css') }}" rel="stylesheet">
 
+    <link href="{{ asset('xhtml/css/admin-style.css') }}" rel="stylesheet">
+
 </head>
