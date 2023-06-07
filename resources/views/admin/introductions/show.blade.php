@@ -33,7 +33,7 @@
                                     <p class="mb-3"><strong>Arabic Second Title : </strong> {{ $introduction->getTranslation('second_title', 'ar') }}</p>
                                     <p class="mb-3"><strong>English body : </strong> {{ $introduction->getTranslation('body', 'en') }}</p>
                                     <p class="mb-3"><strong>Arabic body :</strong> {{ $introduction->getTranslation('body', 'ar') }}</p>
-                                    <img class="card-img-bottom img-thumbnail mb-3" style="width: 500px" src="{{ asset( config('app.asset_alt').$introduction->image ) }}" alt="{{ $introduction->title }}">
+                                    <img class="card-img-bottom img-thumbnail mb-3" style="width: 500px" src="{{ asset( $introduction->image ) }}" alt="{{ $introduction->title }}">
 
                                 </div>
 
