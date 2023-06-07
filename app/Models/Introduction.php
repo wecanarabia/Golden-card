@@ -25,7 +25,7 @@ class Introduction extends Model
     protected static function booted()
     {
         static::deleted(function ($introduction) {
-            if ($introduction->image  && \Illuminate\Support\Facades\File::exists($introduction->image)) {
+            if ($introduction->image  && \Illuminate\Support\Facades\File::exists(config('app.asset_alt').$introduction->image)) {
                 unlink($introduction->image);
             }
         });
