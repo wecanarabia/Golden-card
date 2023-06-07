@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 class Admin extends Authenticatable
 {
     use HasFactory;
-    protected $fillable =['name','email','password'];
+    protected $fillable =['name','email','password','role_id'];
     protected $hidden =['password'];
 
     public function role(): MorphOne
