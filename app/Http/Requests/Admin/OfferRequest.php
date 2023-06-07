@@ -29,7 +29,7 @@ class OfferRequest extends FormRequest
             'discount_value'=>"required|numeric|min:0",
             'use_times'=>"required|integer|min:0",
             'discount_text' => 'required|min:4|max:255',
-            'image'=>'required_without:id|mimes:jpg,jpeg,gif,png',
+            'image'=>'required_without:id|mimes:jpg,jpeg,gif,png|max:4000',
             'end_date'=>'required|date',
             'status'=>'required|in:0,1',
             'tags'=>'array|min:1',

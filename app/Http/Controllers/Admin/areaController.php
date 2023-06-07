@@ -37,7 +37,6 @@ class AreaController extends Controller
             'arabic_name',
         ]));
 
-
         return redirect()->route('admin.areas.index')
                         ->with('success','Area has been added successfully');
     }

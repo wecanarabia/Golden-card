@@ -22,7 +22,7 @@ class IntroductionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image'=>'required_without:id|mimes:jpg,jpeg,gif,png',
+            'image'=>'required_without:id|mimes:jpg,jpeg,gif,png|max:4000',
             'english_title' => 'required|min:4|max:255',
             'arabic_title' => 'required|min:4|max:255',
             'english_second_title' => 'required|min:4|max:255',
