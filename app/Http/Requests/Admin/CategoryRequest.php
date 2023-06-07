@@ -31,7 +31,7 @@ class CategoryRequest extends FormRequest
         return [
             'english_name' => 'required|min:4|max:255',
             'arabic_name' => 'required|min:4|max:255',
-            'image'=>'required_without:id|mimes:jpg,jpeg,gif,png|max:4000',
+            'image'=>[Rule::requiredIf($this->parent_id==null),'mimes:jpg,jpeg,gif,png','max:4000'],
             'parent_id'=>[ 'nullable', Rule::in($categories)],
         ];
     }

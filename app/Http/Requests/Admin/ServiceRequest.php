@@ -35,7 +35,7 @@ class ServiceRequest extends FormRequest
             'phone' => 'required|min:9|regex:/^([0-9\s\-\+\(\)]*)$/|unique:services,phone,'.$this->id,
             'code'=>'required|min:4|max:255',
             'category_id'=>[ 'required', Rule::in($categories)],
-            'logo'=>'required_without:id|mimes:jpg,jpeg,gif,png',
+            'logo'=>'required_without:id|mimes:jpg,jpeg,gif,png|max:4000',
             'status'=>'required|in:0,1',
         ];
     }
