@@ -14,10 +14,10 @@
 	<meta property="og:description" content="W3crm:Customer Relationship Management Admin Bootstrap 5 Template">
 	<meta property="og:image" content="https://w3crm.dexignzone.com/xhtml/social-image.png">
 	<meta name="format-detection" content="telephone=no">
-	
+
 	<!-- PAGE TITLE HERE -->
 	<title>Admin Login</title>
-	
+
 	<!-- FAVICONS ICON -->
     <link href="{{ asset('xhtml/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('xhtml/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
@@ -34,8 +34,8 @@
 						<div id="mCSB_1" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" style="max-height: 653px;" tabindex="0">
 							<div id="mCSB_1_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
 								<div class="login-form style-2">
-                             
-									
+
+
 									<div class="card-body">
                                         @if (session()->has('error'))
                                         <div class="alert alert-danger alert-dismissible fade show">
@@ -43,18 +43,18 @@
                                             <strong>Error!</strong> {{ session()->get('error') }}.
                                         </div>
                                         @endif
-                                       
+
 										<div class="logo-header">
 											<a href="index.html" class="logo"><img src="images/logo/logo-full.png" alt="" class="width-230 light-logo"></a>
 											<a href="index.html" class="logo"><img src="images/logo/logofull-white.png" alt="" class="width-230 dark-logo"></a>
 										</div>
-                                 
+
 										<nav>
 											<div class="nav nav-tabs border-bottom-0" id="nav-tab" role="tablist">
-												
+
 										<div class="tab-content w-100" id="nav-tabContent">
 										  <div class="tab-pane fade show active" id="nav-personal" role="tabpanel" aria-labelledby="nav-personal-tab">
-                                     
+
 											<form action="{{ route('admin.login') }}" method="POST" class=" dz-form pb-3">
                                                 @csrf
                                                 <h3 class="form-title m-t0">Admin login</h3>
@@ -82,13 +82,13 @@
 															<label class="form-check-label" for="check1">Remember me</label>
 														</span>
 													</div>
-											
+
 												</form>
-											
+
 										  </div>
-									
+
 										</div>
-										
+
 										</div>
 									</nav>
 									</div>
@@ -96,14 +96,14 @@
 											<div class=" bottom-footer clearfix m-t10 m-b20 row text-center">
 											<div class="col-lg-12 text-center">
 												<span> © Copyright by <span class="heart"></span>
-												<a href="javascript:void(0);">DexignZone </a> All rights reserved.</span> 
+												<a href="javascript:void(0);">We Can </a> All rights reserved.</span>
 											</div>
 										</div>
-									</div>	
-											
+									</div>
+
 								</div>
 							</div>
-						
+
 						</div>
 					</div>
 				</div>

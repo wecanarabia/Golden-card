@@ -8,13 +8,13 @@
 	<meta name="robots" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="W3crm:Customer Relationship Management Admin Bootstrap 5 Template">
-	<meta property="og:title" content="W3crm:Customer Relationship Management Admin Bootstrap 5 Template">
+	<meta property="og:title" content="Golden Card">
 	<meta property="og:description" content="W3crm:Customer Relationship Management Admin Bootstrap 5 Template">
 	<meta property="og:image" content="https://w3crm.dexignzone.com/xhtml/social-image.png">
 	<meta name="format-detection" content="telephone=no">
 
 	<!-- PAGE TITLE HERE -->
-	<title>W3CRM Customer Relationship Management</title>
+	<title>Golden Card</title>
 	<!-- FAVICONS ICON -->
 	<link rel="shortcut icon" type="image/png" href="images/favicon.png">
 	<link href="{{ asset('xhtml/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
