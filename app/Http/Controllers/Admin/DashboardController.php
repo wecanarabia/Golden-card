@@ -25,7 +25,6 @@ class DashboardController extends Controller
             }
            
         }
-        dd($data['categories']);
         return view('admin.index',compact('data'));
     }
 }
