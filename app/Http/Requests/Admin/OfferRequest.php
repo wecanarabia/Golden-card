@@ -31,7 +31,7 @@ class OfferRequest extends FormRequest
             'discount_text' => 'required|min:4|max:255',
             'image'=>'required_without:id|mimes:jpg,jpeg,gif,png|max:4000',
             'end_date'=>'required|date',
-            'status'=>'required|in:0,1',
+            'status'=>'nullable|in:0,1',
             'tags'=>'array|min:1',
             'tags.*'=>'numeric|exists:tags,id',
             'branches'=>'array|min:1',
