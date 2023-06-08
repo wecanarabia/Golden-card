@@ -24,7 +24,6 @@ class ServiceImageController extends Controller
             $data = ImageService::latest()->with('service')->orderBy('service_id')->whereBelongsTo($services)->paginate(10);
 
         }
-        $data = ImageService::latest()->with('service')->orderBy('service_id')->paginate(10);
         return view('admin.service-images.index',compact('data'));
     }
 
