@@ -90,7 +90,7 @@ class ServiceImageController extends Controller
     public function update(ServiceImageRequest $request, string $id)
     {
         $image = ImageService::findOrFail($id);
-        if($request->service_id!==$image->service_id&&ImageService::where('service_id',$request->service_id)->count()<5){
+        if($request->service_id!==$image->service_id&&ImageService::where('service_id',$request->service_id)->count()<=5){
 
         if ($request->has('image')&&$image->image  && File::exists($image->image)) {
             unlink($image->image);
