@@ -36,7 +36,7 @@ class ServiceRequest extends FormRequest
             'code'=>'required|min:4|max:255',
             'category_id'=>[ 'required', Rule::in($categories)],
             'logo'=>'required_without:id|mimes:jpg,jpeg,gif,png|max:4000',
-            'status'=>'required|in:0,1',
+            'status'=>'nullable|in:0,1',
         ];
     }
 }
