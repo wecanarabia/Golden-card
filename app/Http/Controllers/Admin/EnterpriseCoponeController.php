@@ -13,7 +13,6 @@ class EnterpriseCoponeController extends Controller
     public function index()
     {
         $data = EnterpriseSubscription::whereDate('end_date','>=',Carbon::today())->with('copones')->latest()->paginate(10);
-        dd($data);
         return view('admin.enterprise-copones.index',compact('data'));
     }
 }
