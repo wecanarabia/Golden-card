@@ -91,7 +91,7 @@
                                                                     <a class="dropdown-item"
                                                                         href="{{ route('admin.enterprises.show', $subscription->id) }}">Show</a>
                                                                     <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                                    data-id="{{ $subscription->id }}" data-name="{{ $subscription->subscription }}">Delete</button>
+                                                                    data-id="{{ $subscription->id }}" data-name="{{ $subscription->enterprise_name }}">Delete</button>
                                                                 </div>
                                                             </div>
                                                         </td>
