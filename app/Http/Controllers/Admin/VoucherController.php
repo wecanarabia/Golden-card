@@ -17,7 +17,7 @@ class VoucherController extends Controller
             $data = Voucher::with(['user','offer','branch'])->latest()->paginate(10);
         }elseif(Auth::user()->can('services')){
             $services = Service::where('admin_id',Auth::user()->id)->latest()->get();
-            $offers = Offer::latest()->with('service')->paginate(10);
+            $offers = Offer::latest()->with('service')->get();
             $data = Voucher::latest()->orderBy('offer_id')->with(['user','offer','branch'])->whereBelongsTo($offers)->paginate(10);
     }
         return view('admin.vouchers.index',compact('data'));
