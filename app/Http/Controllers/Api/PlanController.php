@@ -23,7 +23,7 @@ class PlanController extends ApiController
     public function plans()
     {
 
-        $plans = Plan::where('id','!=',1)->get();
+        $plans = Plan::where('id','!=',4)->get();
         return $this->returnData('data',  PlanResource::collection( $plans ), __('Get  succesfully'));
 
     }
