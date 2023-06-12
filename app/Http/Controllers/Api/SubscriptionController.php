@@ -148,7 +148,7 @@ class SubscriptionController extends ApiController
         $sub->start_date = $copon->enterprise->start_date;
         $sub->end_date = $copon->enterprise->end_date;
         $sub->user_id = Auth::user()->id;
-        $sub->plan_id = 1 ;
+        $sub->plan_id = 4 ;
         $sub->save();
 
         return $this->returnSuccessMessage('success');
