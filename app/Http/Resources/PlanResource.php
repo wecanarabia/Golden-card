@@ -19,7 +19,7 @@ class PlanResource extends JsonResource
             'id'=>$this->id,
             'name'=>$this->name,
             'price'=>$this->price,
-            'time'=>$this?->time,
+            'period'=>$this?->period,
 
 
         ];
