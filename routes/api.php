@@ -34,6 +34,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//nearbyBranchesIn5 kilometers
+Route::post('nearest-branches', [BranchController::class, 'nearest']);
+
 //Auth
 Route::post('login', [AuthController::class, 'login']);
 
@@ -55,8 +58,7 @@ Route::post('/user-update', [AuthController::class, 'updateProfile']);
 
 
 
-//nearbyBranchesIn5 kilometers
-Route::post('nearest-branches', [BranchController::class, 'nearbyBranchesIn5']);
+
 
 //getBranchesByCatName
 Route::get('branches-by-subcategory/{id}', [BranchController::class, 'getBranchesBySubName']);

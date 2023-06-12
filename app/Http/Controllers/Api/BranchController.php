@@ -75,7 +75,7 @@ class BranchController extends ApiController
 
 
 
-public function nearbyBranchesIn5(Request $request)
+public function nearest(Request $request)
 {
     // $lat_user = Auth::user()->lat;
     // $long_user = Auth::user()->long;
