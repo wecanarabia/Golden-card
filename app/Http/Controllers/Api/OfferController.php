@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Offer;
 use App\Models\Service;
+use App\Models\Branch;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
 use App\Repositories\Repository;
@@ -79,6 +80,16 @@ class OfferController extends ApiController
         $bran = Offer::find($id)->branches;
 
         return $this->returnData('data',  BranchResource::collection( $bran ), __('Get  succesfully'));
+
+    }
+
+
+    public function getOffersByBranch($id)
+    {
+
+        $offers = Branch::find($id)->offers;
+
+        return $this->returnData('data',  OfferResource::collection( $offers ), __('Get  succesfully'));
 
     }
 
