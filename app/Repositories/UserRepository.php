@@ -44,6 +44,7 @@ class UserRepository extends AbstractRepository
             'last_name'=>$data->last_name,
             'email'=>$data->email,
            'phone'=>$data->phone,
+           'code'=>$data->code,
             'password'=>Hash::make($data->password),
         ]);
 

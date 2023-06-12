@@ -264,7 +264,13 @@ class AuthController extends Controller
 
                 $this->userRepositry->edit($request, $user);
 
+                if ($request->password) {
 
+                    $user->update([
+                            'password' => Hash::make($request->password),
+                        ]);
+
+                }
 
                 DB::commit();
 

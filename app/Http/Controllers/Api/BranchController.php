@@ -35,17 +35,17 @@ class BranchController extends ApiController
     }
 
 
-    public function nearbyBranches()
+    public function nearbyBranches(Request $request)
     {
-        $lat_user = Auth::user()->lat;
-        $long_user = Auth::user()->long;
+        // $lat_user = Auth::user()->lat;
+        // $long_user = Auth::user()->long;
 
         $branches = Branch::all();
 
         $resources = [];
 
         foreach ($branches as $branch) {
-            $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+            $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
 
             $resource = new BranchResource($branch, $distance);
 
@@ -68,8 +68,40 @@ class BranchController extends ApiController
         $dist = rad2deg($dist);
         $miles = $dist * 60 * 1.1515;
 
-        return ($miles * 1.609344) * 1000;
+        return $miles * 1.609344;
     }
+
+
+
+
+
+public function nearbyBranchesIn5(Request $request)
+{
+    // $lat_user = Auth::user()->lat;
+    // $long_user = Auth::user()->long;
+
+    $branches = Branch::all();
+
+    $resources = [];
+
+    foreach ($branches as $branch) {
+        $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
+
+        if ($distance <= 5) { // Check if the distance is within 5 kilometers
+            $resource = new BranchResource($branch, $distance);
+
+            $resources[] = $resource;
+        }
+    }
+
+    // Sort the resources by their distance from the user's location
+    usort($resources, function($a, $b) {
+        return $a->distance <=> $b->distance;
+    });
+
+    return $this->returnData('data', $resources, __('Get nearby branches successfully'));
+}
+
 
 
     public function getBranchesBySubName($id)
@@ -223,7 +255,7 @@ class BranchController extends ApiController
                     return $this->returnData('data', array_values($resources), __('Get branches successfully'));
             } else {
                 // If the name doesn't match any subcategory or category, return an error response
-                return $this->returnError(__('Invalid name'));
+                return $this->returnData('data', [], __('No services or subcategories found'));
             }
 
 
@@ -284,7 +316,7 @@ class BranchController extends ApiController
                     return $this->returnData('data', array_values($resources), __('Get branches successfully'));
             } else {
                 // If the name doesn't match any subcategory or category, return an error response
-                return $this->returnError(__('Invalid name'));
+                return $this->returnData('data', [], __('No services or offername found'));
             }
 
 

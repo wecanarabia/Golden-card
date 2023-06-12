@@ -33,7 +33,7 @@ class BranchResource extends JsonResource
             'area_name' => $this->area?->name,
             'service_id' => $this?->service?->id,
             'service_name' => $this?->service?->name,
-
+            'service_logo' => $this?->service?->logo,
 
         ];
       }

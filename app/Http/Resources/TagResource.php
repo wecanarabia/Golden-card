@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SliderResource extends JsonResource
+class TagResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,9 @@ class SliderResource extends JsonResource
     {
         return [
 
-            'id'=>$this->id,
-            'image'=>$this->image,
-            'route'=>$this->route,
+            'id' => $this->id,
+            'name' => $this->name,
+
         ];
     }
 }
