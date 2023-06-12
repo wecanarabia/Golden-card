@@ -7,7 +7,7 @@
         <div class="page-titles">
             <ol class="breadcrumb">
                 <li>
-                    <h5 class="bc-title">{{ __('Enterprise Copones') }}</h5>
+                    <h5 class="bc-title">{{ __('Vouchers') }}</h5>
                 </li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">
                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
@@ -20,7 +20,7 @@
                         </svg>
                         Home </a>
                 </li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Enterprise Copones') }} </a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Vouchers') }} </a></li>
             </ol>
             {{-- <a class="text-primary fs-13" href="{{ route('admin.subscriptions.create') }}">+ Add Subscription</a> --}}
         </div>
@@ -34,37 +34,35 @@
                                     {{-- <x-admin-layouts.alerts /> --}}
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
-                                            <h4 class="heading mb-0"> {{ __('Enterprise Copones') }}</h4>
+                                            <h4 class="heading mb-0"> {{ __('Vouchers') }}</h4>
                                         </div>
                                         <table class="table">
                                             <thead>
                                                 <tr>
 
-                                                    <th>Enterprise</th>
-                                                    <th>Number of copones</th>
-                                                    <th>Active copones</th>
-                                                    <th>InActive copones</th>
+                                                    <th>Code</th>
+                                                    <th>Offer</th>
+                                                    <th>User</th>
+                                                    <th>Branch</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @forelse ($data as $copone)
+                                                @forelse ($data as $code)
                                                     <tr>
-
-                                                        {{-- <td><span>{{ $copone->start_date }}</span></td>
+                                                        <td>{{ $code->code }}</td>
                                                         <td>
-                                                            <span>{{ $copone->end_date }}</span>
-                                                        </td> --}}
-                                                        <td>
-                                                            <a href="{{ route('admin.enterprises.show', $copone->id) }}">
-                                                            <span>{{ $copone->enterprise_name }}</span></a>
+                                                            <a href="{{ route("admin.offers.show", $code->offer->id) }}"><span class="text-secondary">{{ $code->offer->name }}</span></a>
                                                         </td>
                                                         <td>
-                                                            {{ $copone->copones()->count() }}
+                                                            <a href="{{ route('admin.users.show', $code->user->id) }}">
+                                                            <span>{{ $code->user->first_name }}</span></a>
                                                         </td>
-                                                        <td>{{ $copone->copones->whereNotNull('user_id')->count() }}</td>
-                                                        <td>{{ $copone->copones->whereNull('user_id')->count() }}</td>
+                                                        <td>
+                                                            <a href="{{ route("admin.branches.show", $code->branch->id) }}"><span class="text-secondary">{{ $code->branch->name }}</span></a>
+                                                        </td>
                                                         <td></td>
+
                                                     </tr>
 
                                                 @empty

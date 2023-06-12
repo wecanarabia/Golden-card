@@ -23,8 +23,8 @@ class ServiceImageRequest extends FormRequest
     {
         return [
             'images'=>'required_without:id|array|min:1',
-            'images.*'=>'required_without:id|max:4000|mimes:jpg,jpeg,gif,png',
-            'image'=>'required_with:id|max:4000|mimes:jpg,jpeg,gif,png',
+            'images.*'=>'required_without:id|max:4000|mimes:jpg,jpeg,gif,png|max:4000',
+            'image'=>'required_with:id|max:4000|mimes:jpg,jpeg,gif,png|max:4000',
             'service_id'=>'required|exists:services,id',
         ];
     }

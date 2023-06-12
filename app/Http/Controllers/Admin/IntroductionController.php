@@ -73,7 +73,7 @@ class IntroductionController extends Controller
     public function update(IntroductionRequest $request, string $id)
     {
         $introduction = Introduction::findOrFail($id);
-        if ($request->has('image')&&$introduction->image  && File::exists($introduction->image)) {
+        if ($request->has('image')&&$introduction->image  && File::exists(config('app.asset_alt').$introduction->image)) {
             unlink($introduction->image);
         }
         $request['title']=['en'=>$request->english_title,'ar'=>$request->arabic_title];

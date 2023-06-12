@@ -72,18 +72,18 @@
                                          @enderror
                                     </div>
                                     <div class="col-xl-8 mb-3">
-                                         <label for="addnote" class="form-label">Location</label><span class="text-danger">*</span></label>
-                                         <input type="text" id="address-input" name="location" value="{{  old('location') }}" class="form-control map-input">
-                                         <input type="hidden" name="lat" id="address-latitude" value="{{  old('lat') }}" />
-                                         <input type="hidden" name="long" id="address-longitude" value="{{  old('long') }}" />
-                                         <div id="address-map-container" style="width:100%;height:400px; ">
-                                             <div style="width: 100%; height: 100%" id="address-map"></div>
-                                         </div>
-                                         @error('location')
-                                         <div class="text-danger">{{ $message }}</div>
-                                         @enderror
-
+                                        <label for="addnote" class="form-label">Location</label><span class="text-danger">*</span></label>
+                                        <input type="text" id="address-input" name="location" value="{{  old('location') }}" class="form-control map-input">
+                                        <input type="hidden" name="lat" id="address-latitude" value="{{  old('lat',0) }}" />
+                                        <input type="hidden" name="long" id="address-longitude" value="{{  old('long',0) }}" />
+                                        <div id="address-map-container" style="width:100%;height:400px; ">
+                                            <div style="width: 100%; height: 100%" id="address-map"></div>
                                         </div>
+                                        @error('location')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
+                                       </div>
 
 
                                     <div class="col-xl-8 mb-3">

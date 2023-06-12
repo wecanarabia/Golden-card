@@ -41,6 +41,7 @@
                                                 <tr>
                                                     <th>English Title</th>
                                                     <th>Arabic Title</th>
+                                                    <th>Image</th>
 
 
                                                     <th>actions</th>
@@ -55,6 +56,7 @@
                                                             <span>{{ $introduction->getTranslation('title', 'ar')}}</span>
                                                         </td>
 
+                                                        <td><span><img src="{{ asset($introduction->image) }}" width="150" alt=""></span></td>
 
                                                         <td>
                                                             <div class="dropdown">

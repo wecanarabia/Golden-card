@@ -8,10 +8,12 @@ use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\VoucherController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\UserCodeController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -33,6 +35,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
         Route::resource('subscriptions', SubscriptionController::class)->only(['index','show'])->middleware('can:subscriptions');
         Route::resource('user-codes', UserCodeController::class)->only(['index'])->middleware('can:user-codes');
+        Route::resource('vouchers', VoucherController::class)->only(['index'])->middleware('can:services');
         Route::resource('enterprise-copones', EnterpriseCoponeController::class)->only(['index'])->middleware('can:enterprises');
         Route::resource('introductions', IntroductionController::class)->middleware('can:introductions');
         Route::resource('pages', PageController::class)->middleware('can:pages');
@@ -42,6 +45,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         Route::resource('tags', TagController::class)->except(['show'])->middleware('can:tags');
         Route::resource('features', FeatureController::class)->except(['show'])->middleware('can:features');
         Route::resource('notifications', NotificationController::class)->except(['edit','update'])->middleware('can:notifications');
+        Route::resource('offers', OfferController::class)->except(['create','store'])->middleware('can:services');
         Route::resource('categories', CategoryController::class)->middleware('can:categories');
         Route::resource('services', ServiceController::class)->middleware('can:services');
         Route::resource('branches', BranchController::class)->middleware('can:services');

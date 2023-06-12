@@ -75,4 +75,21 @@ class User extends Authenticatable
         return $this->hasOne(EnterpriseCopone::class);
     }
 
+    public function enterprise_copnes()
+    {
+        return $this->hasMany(EnterpriseCopone::class);
+    }
+
+    protected static function booted()
+    {
+        static::deleted(function ($user) {
+            if($user->enterprise_copnes) $user->enterprise_copnes()->delete();
+            if($user->notifications) $user->notifications()->delete();
+            if($user->vouchers) $user->vouchers()->delete();
+            if($user->subscriptions) $user->subscriptions()->delete();
+            if($user->offers()->count()>0) $user->offers()->detach();
+
+        });
+    }
+
 }
