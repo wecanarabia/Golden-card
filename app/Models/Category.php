@@ -17,7 +17,7 @@ class Category extends Model
             $file = $value;
             $extension = $file->getClientOriginalExtension(); // getting image extension
             $filename =time().mt_rand(1000,9999).'.'.$extension;
-            $file->move(public_path('img/cats/'), $filename);
+            $file->move(base_path('../img/cats/'), $filename);
             $this->attributes['image'] =  'img/cats/'.$filename;
         }
     }
@@ -25,6 +25,8 @@ class Category extends Model
     protected static function booted()
     {
         static::deleted(function ($category) {
+            if($category->features) $category->features()->delete();
+            if($category->subcategories) $category->subcategories()->delete();
             if ($category->image  && \Illuminate\Support\Facades\File::exists($category->image)) {
                 unlink($category->image);
             }

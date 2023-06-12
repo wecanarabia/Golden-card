@@ -44,6 +44,7 @@
                                                     <th>Email</th>
                                                     <th>Phone</th>
                                                     <th>Status</th>
+                                                    <th>Admin</th>
 
 
                                                     <th>actions</th>
@@ -67,7 +68,9 @@
                                                         <td>
                                                             <span>{{ $service->status==1?'Active':'InActive' }}</span>
                                                         </td>
-
+                                                        <td>
+                                                            <span>{{$service?->admin?->name}}</span>
+                                                        </td>
 
                                                         <td>
                                                             <div class="dropdown">
@@ -95,7 +98,7 @@
                                                                     <a class="dropdown-item"
                                                                         href="{{ route('admin.services.show', $service->id) }}">Show</a>
                                                                     @can('all-services')
-                                                                        
+
                                                                     <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"
                                                                     data-id="{{ $service->id }}" data-name="{{ $service->name }}">Delete</button>
                                                                     @endcan

@@ -31,7 +31,6 @@
     {{--
 	<script src="./vendor/chart.js/Chart.bundle.min.js') }}"></script>
 	<script src="./vendor/apexchart/apexchart.js"></script> --}}
-    <script src="{{ asset('xhtml/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('xhtml/vendor/global/global.min.js') }}"></script>
 	<!-- Dashboard 1 -->
 	<script src="{{ asset('xhtml/js/dashboard/dashboard-1.js') }}"></script>
@@ -62,6 +61,7 @@
     <script src="{{ asset('xhtml/js/map.js') }}"></script>
 	<script src="{{ asset('xhtml/js/deznav-init.js') }}"></script>
 
+    <script src="{{ asset('xhtml/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
 
 
 

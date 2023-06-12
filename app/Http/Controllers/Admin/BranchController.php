@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Area;
 use App\Models\Branch;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Admin\BranchRequest;
-use App\Models\Area;
 
 class BranchController extends Controller
 {
@@ -16,7 +17,12 @@ class BranchController extends Controller
      */
     public function index()
     {
-        $data = Branch::with('service')->latest()->paginate(10);
+        if (Auth::user()->can('all-services')) {
+            $data = Branch::with('service')->latest()->paginate(10);
+        }elseif(Auth::user()->can('services')){
+            $services = Service::where('admin_id',Auth::user()->id)->latest()->get();
+            $data = Branch::with('service')->whereBelongsTo($services)->latest()->paginate(10);
+        }
         return view('admin.branches.index',compact('data'));
     }
 
@@ -25,7 +31,11 @@ class BranchController extends Controller
      */
     public function create()
     {
-        $services = Service::all();
+        if (Auth::user()->can('all-services')) {
+            $services = Service::all();
+        }elseif(Auth::user()->can('services')){
+            $services = Service::where('admin_id',Auth::user()->id)->latest()->get();
+        }
         $areas = Area::all();
         return view('admin.branches.create',compact('services','areas'));
     }
@@ -50,7 +60,13 @@ class BranchController extends Controller
 
     public function show(string $id)
     {
-        $branch = Branch::with(['service','area'])->findOrFail($id);
+        if (Auth::user()->can('all-services')) {
+            $branch = Branch::with(['service','area'])->findOrFail($id);
+        }elseif(Auth::user()->can('services')){
+            $services = Service::where('admin_id',Auth::user()->id)->latest()->get();
+            $branch = Branch::with(['service','area'])->whereBelongsTo($services)->findOrFail($id);
+
+        }
         return view('admin.branches.show',compact('branch'));
     }
 
@@ -60,7 +76,13 @@ class BranchController extends Controller
     public function edit(string $id)
     {
         $branch = Branch::with(['service','area'])->findOrFail($id);
-        $services = Service::all();
+        if (Auth::user()->can('all-services')) {
+            $branch = Branch::with(['service','area'])->findOrFail($id);
+            $services = Service::all();
+        }elseif(Auth::user()->can('services')){
+            $services = Service::where('admin_id',Auth::user()->id)->latest()->get();
+            $branch = Branch::with(['service','area'])->whereBelongsTo($services)->findOrFail($id);
+        }
         $areas = Area::all();
         return view('admin.branches.edit',compact('branch','services','areas'));
     }
@@ -88,7 +110,9 @@ class BranchController extends Controller
      */
     public function destroy(Request $request)
     {
-        Branch::findOrFail($request->id)->delete();
+        if (Auth::user()->can('all-services')) {
+            Branch::findOrFail($request->id)->delete();
+        }
         return redirect()->route('admin.branches.index')->with('success','Branch has been removed successfully');
     }
 }

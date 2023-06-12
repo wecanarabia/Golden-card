@@ -78,7 +78,7 @@ class EnterpriseSubscriptionController extends Controller
 
     public function show(string $id)
     {
-        $subscription = EnterpriseSubscription::findOrFail($id);
+        $subscription = EnterpriseSubscription::with('copones')->findOrFail($id);
         return view('admin.enterprises.show',compact('subscription'));
     }
 

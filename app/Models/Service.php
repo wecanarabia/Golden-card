@@ -18,7 +18,7 @@ class Service extends Model
             $file = $value;
             $extension = $file->getClientOriginalExtension(); // getting image extension
             $filename =time().mt_rand(1000,9999).'.'.$extension;
-            $file->move(public_path('img/service_logo/'), $filename);
+            $file->move(base_path('../img/service_logo/'), $filename);
             $this->attributes['logo'] =  'img/service_logo/'.$filename;
         }
     }
@@ -26,6 +26,18 @@ class Service extends Model
     protected static function booted()
     {
         static::deleted(function ($service) {
+            if($service->branches) $service->branches()->delete();
+            foreach ($service->images as $image) {
+                if ($image->image  && \Illuminate\Support\Facades\File::exists($image->image)) {
+                    unlink($image->image);
+                }
+            }
+            if($service->images) $service->images()->delete();
+            foreach ($service->offers as $offer) {
+                if($offer->vouchers) $offer->vouchers()->delete();
+            }
+            if($service->offers) $service->offers()->delete();
+
             if ($service->logo  && \Illuminate\Support\Facades\File::exists($service->logo)) {
                 unlink($service->logo);
             }
@@ -52,8 +64,14 @@ class Service extends Model
         return $this->hasMany(Offer::class);
     }
 
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
+    }
+
     public function role(): MorphOne
     {
         return $this->morphOne(Role::class, 'roleable');
     }
+
 }

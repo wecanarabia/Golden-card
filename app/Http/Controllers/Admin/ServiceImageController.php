@@ -6,6 +6,7 @@ use App\Models\Service;
 use App\Models\ImageService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\Admin\ServiceImageRequest;
 
@@ -16,7 +17,13 @@ class ServiceImageController extends Controller
      */
     public function index()
     {
-        $data = ImageService::latest()->with('service')->orderBy('service_id')->paginate(10);
+        if (Auth::user()->can('all-services')) {
+            $data = ImageService::latest()->with('service')->orderBy('service_id')->paginate(10);
+        }elseif(Auth::user()->can('services')){
+            $services = Service::where('admin_id',Auth::user()->id)->latest()->get();
+            $data = ImageService::latest()->with('service')->orderBy('service_id')->whereBelongsTo($services)->paginate(10);
+
+        }
         return view('admin.service-images.index',compact('data'));
     }
 
@@ -25,7 +32,12 @@ class ServiceImageController extends Controller
      */
     public function create()
     {
-        $services = Service::all();
+        if (Auth::user()->can('all-services')) {
+            $services = Service::all();
+        }elseif(Auth::user()->can('services')){
+            $services = Service::where('admin_id',Auth::user()->id)->latest()->get();
+
+        }
         return view('admin.service-images.create',compact('services'));
     }
 
@@ -61,8 +73,14 @@ class ServiceImageController extends Controller
      */
     public function edit(string $id)
     {
-        $image = ImageService::with('service')->findOrFail($id);
-        $services = Service::all();
+        if (Auth::user()->can('all-services')) {
+            $services = Service::all();
+            $image = ImageService::with('service')->findOrFail($id);
+        }elseif(Auth::user()->can('services')){
+            $services = Service::where('admin_id',Auth::user()->id)->latest()->get();
+            $image = ImageService::with('service')->whereBelongsTo($services)->findOrFail($id);
+
+        }
         return view('admin.service-images.edit',compact('image','services'));
     }
 
@@ -72,7 +90,7 @@ class ServiceImageController extends Controller
     public function update(ServiceImageRequest $request, string $id)
     {
         $image = ImageService::findOrFail($id);
-        if($request->service_id!==$image->service_id&&ImageService::where('service_id',$request->service_id)->count()<5){
+        if($request->service_id!==$image->service_id&&ImageService::where('service_id',$request->service_id)->count()<=5){
 
         if ($request->has('image')&&$image->image  && File::exists($image->image)) {
             unlink($image->image);

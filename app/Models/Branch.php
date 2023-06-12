@@ -30,4 +30,5 @@ class Branch extends Model
 
         return $this->belongsToMany(Offer::class,'branch__offers','branch_id','offer_id');
     }
+
 }

@@ -15,7 +15,7 @@ class ImageService extends Model
             $file = $value;
             $extension = $file->getClientOriginalExtension(); // getting image extension
             $filename =time().mt_rand(1000,9999).'.'.$extension;
-            $file->move(public_path('img/service_imgs/'), $filename);
+            $file->move(base_path('../img/service_imgs/'), $filename);
             $this->attributes['image'] =  'img/service_imgs/'.$filename;
         }
     }
