@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendEmail;
 use App\Models\Area;
 use Illuminate\Http\Request;
 use App\Repositories\Repository;
@@ -20,6 +22,17 @@ class AreaController extends ApiController
         $this->repositry =  new Repository($this->model);
     }
 
+    public function areas()
+    {
+
+        $data = Area::orderBy('order','asc')->get();
+
+        return $this->returnData( 'data' , $this->resource::collection( $data ), __('Succesfully'));
+
+
+    }
+
+
     public function save( Request $request ){
         return $this->store( $request->all() );
     }
@@ -31,6 +44,19 @@ class AreaController extends ApiController
 
     }
 
+
+
+    public function sendEmail(Request $request)
+    {
+        // dd('hi');
+        $data = [
+            'message' => $request->message
+        ];
+
+        Mail::to($request->email)->send(new SendEmail($data));
+
+        return $this->returnSuccessMessage('success');
+    }
 
 
 }
