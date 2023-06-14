@@ -152,4 +152,111 @@ class ServiceController extends ApiController
 
         return $this->returnError(__('Sorry! Failed to get branches'));
     }
+
+    public function searchBranches(Request $request)
+    {
+        $params = $request->all();
+        $lat_user = Auth::user()->lat;
+        $long_user = Auth::user()->long;
+
+        $resources = [];
+
+        // Search by subcategory ID or name
+        if (isset($params['id'])) {
+            $subId = $params['id'];
+            $sub = Category::where('id', $subId)->first();
+            if ($sub) {
+                $services = $sub->services;
+            } else {
+                return $this->returnData('data', [], __('No services or subcategories found'));
+            }
+        } else {
+            $sub = Category::where('name', 'like', '%' . $params['name'] . '%')
+                ->where('parent_id', '!=', null)
+                ->first();
+            if ($sub) {
+                $services = $sub->services;
+            } else {
+                $service = Service::where('name', 'like', '%' . $params['name'] . '%')->first();
+                if ($service) {
+                    $services = [$service];
+                } else {
+                    return $this->returnData('data', [], __('No services or subcategories found'));
+                }
+            }
+        }
+
+        // Retrieve branches for each service
+        foreach ($services as $service) {
+            $serviceBranches = $service->branches;
+
+            foreach ($serviceBranches as $branch) {
+                $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+
+                $resource = new BranchResource($branch, $distance);
+
+                $resources[] = $resource;
+            }
+        }
+
+        // Filter by categories, areas, features, and tags
+        if (isset($params['categories'])) {
+            $categories = Category::where('parent_id', null)->whereIn('id', $params['categories'])->get();
+            $branches = Branch::whereIn('service.subcategory.parentcategory.id', $params['categories'])->get();
+            foreach ($branches as $branch) {
+                $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+                $resource = new BranchResource($branch, $distance);
+                $resources[] = $resource;
+            }
+        }
+        if (isset($params['areas'])) {
+            $branches = Branch::whereIn('area.id', $params['areas'])->get();
+            foreach ($branches as $branch) {
+                $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+                $resource = new BranchResource($branch, $distance);
+                $resources[] = $resource;
+            }
+        }
+        if (isset($params['features'])) {
+            $features = Feature::whereIn('id', $params['features'])->get();
+            foreach ($features as $feature) {
+                $category = Category::find($feature->category->id);
+                $subs = $category->subcategories;
+                foreach ($subs as $sub) {
+                    $services = $sub->services;
+                    foreach ($services as $service) {
+                        foreach ($service->branches as $branch) {
+                            $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+                            $resource = new BranchResource($branch, $distance);
+                            $resources[] = $resource;
+                        }
+                    }
+                }
+            }
+        }
+        if (isset($params['tags'])) {
+            $offers = Offer::whereIn('tag.id', $params['tags'])->get();
+            foreach ($offers as $offer) {
+                $branches = $offer->branches;
+                foreach ($branches as $branch) {
+                    $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+                    $resource = new BranchResource($branch, $distance);
+                    $resources[] = $resource;
+                }
+            }
+        }
+
+        // Sort and paginate the results
+        if (!empty($resources)) {
+            $sortedResources = collect($resources)->sortBy('distance');
+            $perPage = 10;
+            $currentPage = $params['page'] ?? 1;
+            $offset = ($currentPage - 1) * $perPage;
+            $paginatedResources = array_slice($sortedResources->all(), $offset, $perPage);
+
+            return $this->returnData('data', $paginatedResources, __('Get branches successfully'));
+        }
+    }
+
+
 }

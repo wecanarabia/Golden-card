@@ -34,6 +34,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+Route::post('send-email', [AreaController::class,'sendEmail']);
+
 //nearbyBranchesIn5 kilometers
 Route::post('nearest-branches', [BranchController::class, 'nearest']);
 
@@ -58,6 +61,10 @@ Route::post('/user-update', [AuthController::class, 'updateProfile']);
 
 
 
+
+//searchBranches
+
+Route::post('filter', [ServiceController::class, 'searchBranches']);
 
 
 //getBranchesByCatName
@@ -137,7 +144,7 @@ Route::post('subcategory/edit/{id}', [SubcategoryController::class, 'edit']);
 
 
 //Area
-Route::get('areas', [AreaController::class, 'list']);
+Route::get('areas', [AreaController::class, 'areas']);
 Route::post('area-create', [AreaController::class, 'save']);
 Route::get('area/{id}', [AreaController::class, 'view']);
 Route::get('area/delete/{id}', [AreaController::class, 'delete']);
