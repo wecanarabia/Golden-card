@@ -14,7 +14,7 @@ class AreaController extends Controller
      */
     public function index()
     {
-        $data = Area::latest()->paginate(10);
+        $data = Area::orderBy('order','asc')->paginate(20);
         return view('admin.areas.index',compact('data'));
     }
 
@@ -32,6 +32,7 @@ class AreaController extends Controller
     public function store(AreaRequest $request)
     {
         $request['name']=['en'=>$request->english_name,'ar'=>$request->arabic_name];
+        $request['order']=Area::max('order') + 1;
         Area::create($request->except([
             'english_name',
             'arabic_name',
@@ -75,6 +76,37 @@ class AreaController extends Controller
     {
         Area::findOrFail($request->id)->delete();
         return redirect()->route('admin.areas.index')->with('success','Area has been removed successfully');
+    }
+
+    public function sortData($id,$direction = 'up'){
+        $model=Area::findOrFail($id);
+        switch ($direction) {
+            case 'up':
+                $this->sortProcess($model,$direction);
+                break;
+            case 'down':
+                $this->sortProcess($model,$direction);
+                break;
+            default:
+                break;
+        }
+        return redirect()->route('admin.areas.index');
+    }
+
+    public function sortProcess($model,$direction)
+    {
+        $page = $model;
+        $id = $model->id;
+        if ($direction == 'up') {
+            $order = $model->where("order", '<', $page->order)->orderBy('order','desc')->first();
+        } else {
+            $order =  $model->where("order", '>', $page->order)->orderBy('order','asc')->first();
+        }
+        if ($order) {
+            $page->where('id',$id)->update(['order'=>$order->order]);
+            $order->where('id',$order->id)->update(['order'=>$page->order]);
+            return TRUE;
+        }
     }
 
 }

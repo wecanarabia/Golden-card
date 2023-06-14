@@ -41,6 +41,7 @@
                                                 <tr>
                                                     <th>English Name</th>
                                                     <th>Arabic Name</th>
+                                                    <th>Sort</th>
 
 
                                                     <th>actions</th>
@@ -54,7 +55,14 @@
                                                         <td>
                                                             <span>{{ $area->getTranslation('name', 'ar')}}</span>
                                                         </td>
-
+                                                        <td class="align-center">
+                                                            <a href="{{route('admin.areas.sort',['id'=>$area->id,'direction'=>'up',])}}" >
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M5 12l7-7 7 7"/></svg>
+                                                            </a>
+                                                            <a href="{{route('admin.areas.sort',['id'=>$area->id,'direction'=>'down',])}}" >
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M5 12l7 7 7-7"/></svg>
+                                                            </a>
+                                                        </td>
 
                                                         <td>
                                                             <div class="dropdown">
@@ -79,7 +87,7 @@
                                                                 <div class="dropdown-menu">
                                                                     <a class="dropdown-item"
                                                                         href="{{ route('admin.areas.edit', $area->id) }}">Edit</a>
-                                                            
+
                                                                     <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"
                                                                     data-id="{{ $area->id }}" data-name="{{ $area->name }}">Delete</button>
                                                                 </div>

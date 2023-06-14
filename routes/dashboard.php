@@ -43,16 +43,30 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         Route::resource('admins', AdminController::class)->except(['show'])->middleware('can:admins');
         Route::resource('slider', SliderController::class)->except(['show'])->middleware('can:slider');
         Route::resource('areas', AreaController::class)->except(['show'])->middleware('can:areas');
+        Route::get('areas/sort/{id}/{direction}',[AreaController::class,'sortData'])->name('areas.sort')->middleware('can:areas');
         Route::resource('tags', TagController::class)->except(['show'])->middleware('can:tags');
         Route::resource('features', FeatureController::class)->except(['show'])->middleware('can:features');
         Route::resource('notifications', NotificationController::class)->except(['edit','update'])->middleware('can:notifications');
         Route::resource('offers', OfferController::class)->except(['create','store'])->middleware('can:services');
         Route::resource('categories', CategoryController::class)->middleware('can:categories');
-        Route::resource('partners', ServiceController::class)->middleware('can:services');
+        Route::resource('partners', ServiceController::class)->names(['index'=>'services.index',
+        'store'=>'services.store',
+        'create'=>'services.create',
+        'edit'=>'services.edit',
+        'update'=>'services.update',
+        'delete'=>'services.delete',
+        'show'=>'services.show',
+        ])->middleware('can:services');
         Route::resource('branches', BranchController::class)->middleware('can:services');
         Route::resource('plans', PlanController::class)->middleware('can:plans');
         Route::resource('promo-codes', PromoCodeController::class)->middleware('can:user-codes');
-        Route::resource('partner-images', ServiceImageController::class)->except(['show'])->middleware('can:services');
+        Route::resource('partner-images', ServiceImageController::class)->names(['index'=>'service-images.index',
+        'store'=>'service-images.store',
+        'create'=>'service-images.create',
+        'edit'=>'service-images.edit',
+        'update'=>'service-images.update',
+        'delete'=>'service-images.delete',
+        ])->except(['show'])->middleware('can:services');
         Route::resource('users', UserController::class)->middleware('can:users');
         Route::resource('roles', RoleController::class)->middleware('can:roles');
         Route::resource('enterprises', EnterpriseSubscriptionController::class)->middleware('can:enterprises');

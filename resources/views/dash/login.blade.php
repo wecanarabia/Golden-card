@@ -16,7 +16,7 @@
 	<meta name="format-detection" content="telephone=no">
 
 	<!-- PAGE TITLE HERE -->
-	<title>Service Login</title>
+	<title>Partner Login</title>
 
 	<!-- FAVICONS ICON -->
     <link href="{{ asset('xhtml/css/style.css') }}" rel="stylesheet">
@@ -57,7 +57,7 @@
 
 											<form action="{{ route('dash.login') }}" method="POST" class=" dz-form pb-3">
                                                 @csrf
-                                                <h3 class="form-title m-t0">Service login</h3>
+                                                <h3 class="form-title m-t0">Partner login</h3>
 													<div class="dz-separator-outer m-b5">
 														<div class="dz-separator bg-primary style-liner"></div>
 													</div>
