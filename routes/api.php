@@ -14,6 +14,8 @@ use App\Http\Controllers\Api\OfferController;
 use App\Http\Controllers\Api\FavoriteController;
 use App\Http\Controllers\Api\FeatureController;
 use App\Http\Controllers\Api\SubscriptionController;
+use App\Http\Controllers\Api\TagController;
+use App\Http\Controllers\Api\PlanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +33,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//nearbyBranchesIn5 kilometers
+Route::post('nearest-branches', [BranchController::class, 'nearest']);
 
 //Auth
 Route::post('login', [AuthController::class, 'login']);
@@ -50,8 +55,9 @@ Route::middleware(['auth:api','changeLang'])->group(function () {
 
 Route::post('/user-update', [AuthController::class, 'updateProfile']);
 
-//nearbyBranches
-Route::get('nearby-branches', [BranchController::class, 'nearbyBranches']);
+
+
+
 
 
 //getBranchesByCatName
@@ -162,6 +168,9 @@ Route::get('branch/delete/{id}', [BranchController::class, 'delete']);
 Route::post('branch/edit/{id}', [BranchController::class, 'edit']);
 
 
+//nearbyBranches
+Route::post('nearby-branches', [BranchController::class, 'nearbyBranches']);
+
 //Offers
 Route::get('offers', [OfferController::class, 'list']);
 Route::post('offer-create', [OfferController::class, 'save']);
@@ -172,6 +181,8 @@ Route::get('offer/delete/{id}', [OfferController::class, 'delete']);
 //branch of offers
 Route::get('branch-of-offers/{id}', [OfferController::class, 'branchesOfOffer']);
 
+//getOffersByBranch
+Route::get('offers-by-branch/{id}', [OfferController::class, 'getOffersByBranch']);
 
 
 //favorite
@@ -186,5 +197,27 @@ Route::get('features', [FeatureController::class, 'list']);
 Route::post('feature-create', [FeatureController::class, 'save']);
 Route::get('feature/{id}', [FeatureController::class, 'view']);
 Route::get('feature/delete/{id}', [FeatureController::class, 'delete']);
+
+//tags
+Route::get('tags', [TagController::class, 'list']);
+Route::post('tag-create', [TagController::class, 'save']);
+Route::get('tag/{id}', [TagController::class, 'view']);
+Route::get('tag/delete/{id}', [TagController::class, 'delete']);
+Route::post('tag/edit/{id}', [TagController::class, 'edit']);
+
+
+  //Plan
+  Route::get('plans', [PlanController::class, 'plans']);
+  Route::post('plan-create', [PlanController::class, 'save']);
+  Route::get('plan/{id}', [PlanController::class, 'view']);
+  Route::get('plan/delete/{id}', [PlanController::class, 'delete']);
+  Route::post('plan/edit/{id}', [PlanController::class, 'edit']);
+
+  //Subscription
+Route::get('subscriptions', [SubscriptionController::class, 'list']);
+Route::post('subscription-create', [SubscriptionController::class, 'save']);
+Route::get('subscription/{id}', [SubscriptionController::class, 'view']);
+Route::get('subscription/delete/{id}', [SubscriptionController::class, 'delete']);
+Route::post('subscription/edit/{id}', [SubscriptionController::class, 'edit']);
 
 });

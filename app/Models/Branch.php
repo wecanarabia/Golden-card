@@ -42,6 +42,7 @@ class Branch extends Model
         return $this->belongsTo(Service::class);
     }
 
+
     public function offers(){
 
         return $this->belongsToMany(Offer::class,'branch__offers','branch_id','offer_id');
