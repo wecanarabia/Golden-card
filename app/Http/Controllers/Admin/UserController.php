@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserRequest;
+use App\Models\Offer;
 
 class UserController extends Controller
 {
@@ -14,7 +15,20 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::latest()->paginate(10);
+        $data = User::with('subscription')->paginate(10);
+
+        foreach ($data as $user) {
+            if (!empty($user->vouchers)) {
+                $total=0;
+                foreach($user->vouchers as $voucher){
+                    $total+=$voucher->offer->discount_value;
+                }
+                $user['saving']=$total;
+            }else{
+                $user['saving']=0;
+            }
+
+        }
         return view('admin.users.index',compact('data'));
     }
 
@@ -44,7 +58,14 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $user = User::with(['subscriptions','enterprise_copnes'])->findOrFail($id);
+        $user = User::with(['subscriptions','subscription','enterprise_copnes'])->findOrFail($id);
+        if (!empty($user->vouchers)) {
+            $total=0;
+            foreach($user->vouchers as $voucher){
+                $total+=$voucher->offer->discount_value;
+            }
+            $user['saving']=$total;
+        }
         return view('admin.users.show',compact('user'));
     }
 

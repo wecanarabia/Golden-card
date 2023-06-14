@@ -47,6 +47,10 @@
                                                     <th>Last Name</th>
                                                     <th>Email</th>
                                                     <th>Phone</th>
+                                                    <th>Join Date</th>
+                                                    <th>Subscreption Expiry date</th>
+                                                    <th>Total Saving</th>
+                                                    <th>Type</th>
 
 
                                                     <th>actions</th>
@@ -65,6 +69,20 @@
                                                             <span>{{ $user->phone }}</span>
                                                         </td>
 
+                                                        <td>
+                                                            <span>{{ \Carbon\Carbon::parse($user->created_at)->format('Y-m-d') }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ $user->subscription->end_date }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ $user['saving'] }}</span>
+                                                        </td>
+                                                        @if ($user->subscription->plan->id==4)
+                                                            <td>Enterprise</td>
+                                                        @else
+                                                            <td>Paid</td>
+                                                        @endif
 
                                                         <td>
                                                             <div class="dropdown">

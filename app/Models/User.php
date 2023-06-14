@@ -51,6 +51,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Subscription::class);
     }
+
+    public function subscription()
+    {
+        return $this->hasOne(Subscription::class)->orderBy('id','desc');
+    }
     public function offers(){
 
         return $this->belongsToMany(Offer::class,'vouchers','user_id','offer_id');
