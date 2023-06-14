@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Slider extends Model
 {
     use HasFactory;
-    protected $fillable=['image'];
+    protected $guarded=[];
 
     public function setImageAttribute($value){
         if ($value){
@@ -26,6 +26,11 @@ class Slider extends Model
                 unlink($slider->image);
             }
         });
+    }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
     }
 
 }

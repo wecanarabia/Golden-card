@@ -40,6 +40,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Image</th>
+                                                    <th>Partner</th>
 
 
                                                     <th>actions</th>
@@ -50,7 +51,12 @@
                                                     <tr>
 
                                                         <td><span><img src="{{ asset($image->image) }}" width="150" alt=""></span></td>
+                                                        @if (!empty($image->service))
 
+                                                        <td><span><a href="{{ route('admin.services.show', $image->service->id) }}">{{ $image->service->name }}</a></span></td>
+                                                        @else
+                                                        <td>No Partner</td>
+                                                        @endif
 
 
                                                         <td>

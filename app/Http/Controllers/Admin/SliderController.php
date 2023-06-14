@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Slider;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
@@ -24,7 +25,8 @@ class SliderController extends Controller
      */
     public function create()
     {
-        return view('admin.slider.create');
+        $services = Service::all();
+        return view('admin.slider.create',compact('services'));
     }
 
     /**
@@ -46,7 +48,8 @@ class SliderController extends Controller
     public function edit(string $id)
     {
         $slider = Slider::findOrFail($id);
-        return view('admin.slider.edit',compact('slider'));
+        $services = Service::all();
+        return view('admin.slider.edit',compact('slider','services'));
     }
 
     /**
