@@ -76,4 +76,5 @@ class AreaController extends Controller
         Area::findOrFail($request->id)->delete();
         return redirect()->route('admin.areas.index')->with('success','Area has been removed successfully');
     }
+
 }
