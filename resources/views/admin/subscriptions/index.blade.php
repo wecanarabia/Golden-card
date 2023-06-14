@@ -43,6 +43,7 @@
                                                     <th>End date</th>
                                                     <th>User</th>
                                                     <th>Plan</th>
+                                                    <th>Value</th>
 
                                                     <th>actions</th>
                                                 </tr>
@@ -62,6 +63,7 @@
                                                         <td>
                                                             <span class="text-secondary"><a href="{{ route("admin.plans.show", $subscription->plan->id) }}">{{ $subscription->plan->name }}</a></span>
                                                         </td>
+                                                        <td><span>{{ $subscription->value }}</span></td>
 
                                                         <td>
                                                             <div class="dropdown">

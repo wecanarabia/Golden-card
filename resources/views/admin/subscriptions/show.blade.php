@@ -31,6 +31,7 @@
                                     <p class="mb-3"><strong>End Date: </strong> {{ $subscription->start_date }}</p>
                                     <p class="mb-3"><strong>User : </strong> <a href="{{ route('admin.users.show', $subscription->user->id) }}"> {{ $subscription->user->first_name }}</a></p>
                                     <p class="mb-3"><strong>Plan :</strong> <a href="{{ route("admin.plans.show", $subscription->plan->id) }}">{{ $subscription->plan->name }}</a></p>
+                                    <p class="mb-3"><strong>Value :</strong>{{ $subscription->value }}</p>
 
                         </div>
                         </div>
