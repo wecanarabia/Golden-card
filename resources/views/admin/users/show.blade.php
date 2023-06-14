@@ -199,6 +199,61 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body p-0">
+                            <div class="offcanvas-body">
+                                <div class="container-fluid">
+                                    {{-- <x-admin-layouts.alerts /> --}}
+                                    <div class="table-responsive active-projects manage-client">
+                                        <div class="tbl-caption">
+                                            <h4 class="heading mb-0"> {{ __('Vouchers') }}</h4>
+                                        </div>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+
+                                                    <th>Code</th>
+                                                    <th>Offer</th>
+                                                    <th>Branch</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse ($user->vouchers as $code)
+                                                    <tr>
+                                                        <td>{{ $code->code }}</td>
+                                                        <td>
+                                                            <a href="{{ route("admin.offers.show", $code->offer->id) }}"><span class="text-secondary">{{ $code->offer->name }}</span></a>
+                                                        </td>
+
+                                                        <td>
+                                                            <a href="{{ route("admin.branches.show", $code->branch->id) }}"><span class="text-secondary">{{ $code->branch->name }}</span></a>
+                                                        </td>
+                                                        <td></td>
+
+                                                    </tr>
+
+                                                @empty
+                                                    <tr>
+                                                        <th colspan="5">
+                                                            <h5 class="text-center">There is No data</h5>
+                                                        </th>
+                                                    </tr>
+                                                @endforelse
+
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
