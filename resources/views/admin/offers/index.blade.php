@@ -40,7 +40,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>English Name</th>
-                                                    <th>Service</th>
+                                                    <th>Partner</th>
                                                     <th>End Data</th>
                                                     <th>Discount Value</th>
                                                     <th>Status</th>

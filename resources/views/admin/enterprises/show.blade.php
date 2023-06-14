@@ -31,6 +31,8 @@
                                     <p class="mb-3"><strong>End Date : </strong> {{ $subscription->end_date }}</p>
                                     <p class="mb-3"><strong>Number Of Users : </strong> {{ $subscription->num_of_users }}</p>
                                     <p class="mb-3"><strong>Enterprise Name : </strong> {{ $subscription->enterprise_name }}</p>
+                                    <p class="mb-3"><strong>Total Active Copones : </strong> {{ $actives->count() }}</p>
+                                    <p class="mb-3"><strong>Total InActive Copones : </strong> {{ $InActives->count() }}</p>
 
                                 </div>
 
@@ -48,30 +50,84 @@
                                     {{-- <x-admin-layouts.alerts /> --}}
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
-                                            <h4 class="heading mb-0"> {{ __('Enterprise Copones') }}</h4>
+                                            <h4 class="heading mb-0"> {{ __('Enterprise InActive Copones') }}</h4>
                                         </div>
                                         <table class="table">
                                             <thead>
                                                 <tr>
 
-                                                    <th>Subscription</th>
                                                     <th>User</th>
                                                     <th>Code</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @forelse ($subscription->copones as $copone)
+                                                @forelse ($actives as $copone)
                                                     <tr>
 
                                                         {{-- <td><span>{{ $copone->start_date }}</span></td>
                                                         <td>
                                                             <span>{{ $copone->end_date }}</span>
                                                         </td> --}}
+
                                                         <td>
-                                                            <a href="{{ route('admin.enterprises.show', $copone->enterprise->id) }}">
-                                                            <span>{{ $copone->enterprise->enterprise_name }}</span></a>
+                                                            @if(!empty($copone->user))
+
+
+                                                            <a href="{{ route("admin.users.show", $copone->user->id) }}"><span class="text-secondary">{{ $copone->user->first_name }}</span></a>
+                                                            @endif
                                                         </td>
+                                                        <td>{{ $copone->code}}</td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                @empty
+                                                    <tr>
+                                                        <th colspan="5">
+                                                            <h5 class="text-center">There is No data</h5>
+                                                        </th>
+                                                    </tr>
+                                                @endforelse
+
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body p-0">
+                            <div class="offcanvas-body">
+                                <div class="container-fluid">
+                                    {{-- <x-admin-layouts.alerts /> --}}
+                                    <div class="table-responsive active-projects manage-client">
+                                        <div class="tbl-caption">
+                                            <h4 class="heading mb-0"> {{ __('Enterprise Active Copones') }}</h4>
+                                        </div>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+
+                                                    <th>User</th>
+                                                    <th>Code</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse ($InActives as $copone)
+                                                    <tr>
+
+                                                        {{-- <td><span>{{ $copone->start_date }}</span></td>
+                                                        <td>
+                                                            <span>{{ $copone->end_date }}</span>
+                                                        </td> --}}
+
                                                         <td>
                                                             @if(!empty($copone->user))
 

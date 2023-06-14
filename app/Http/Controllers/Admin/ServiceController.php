@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\Admin\ServiceRequest;
+use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
@@ -39,9 +40,11 @@ class ServiceController extends Controller
      */
     public function store(ServiceRequest $request)
     {
+        $request['password']=bcrypt($request->password);
         $request['name']=['en'=>$request->english_name,'ar'=>$request->arabic_name];
         $request['description']=['en'=>$request->english_description,'ar'=>$request->arabic_description];
         $request['admin_id'] = Auth::user()->id;
+        $request['role_id']=Role::where('roleable_id',0)->where('roleable_type',get_class(app(Service::class)))->first()->id;
         Service::create($request->except([
             'english_name',
             'arabic_name',
@@ -51,7 +54,7 @@ class ServiceController extends Controller
 
 
         return redirect()->route('admin.services.index')
-                        ->with('success','Service has been added successfully');
+                        ->with('success','Partner has been added successfully');
     }
 
 
@@ -105,7 +108,7 @@ class ServiceController extends Controller
 
 
         return redirect()->route('admin.services.index')
-                        ->with('success','Service has been updated successfully');
+                        ->with('success','Partner has been updated successfully');
     }
 
     /**
@@ -118,6 +121,6 @@ class ServiceController extends Controller
             Service::findOrFail($request->id)->delete();
         }
 
-        return redirect()->route('admin.services.index')->with('success','Service has been removed successfully');
+        return redirect()->route('admin.services.index')->with('success','Partner has been removed successfully');
     }
 }

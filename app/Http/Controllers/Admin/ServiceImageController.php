@@ -60,10 +60,10 @@ class ServiceImageController extends Controller
             }
         }
         return redirect()->route('admin.service-images.index')
-                        ->with('success','Service Images has been added successfully');
+                        ->with('success','Partner Images has been added successfully');
         }else{
             return redirect()->back()
-                        ->with('info','Maximum allowed number of images for service is 5 images');
+                        ->with('info','Maximum allowed number of images for Partner is 5 images');
 
         };
     }
@@ -99,10 +99,10 @@ class ServiceImageController extends Controller
 
 
         return redirect()->route('admin.service-images.index')
-                        ->with('success','Service Image has been updated successfully');
+                        ->with('success','Partner Image has been updated successfully');
         }else{
             return redirect()->back()
-                        ->with('info','Maximum allowed number of images for service is 5 images');
+                        ->with('info','Maximum allowed number of images for Partner is 5 images');
 
         };
     }
@@ -113,6 +113,6 @@ class ServiceImageController extends Controller
     public function destroy(Request $request)
     {
         ImageService::findOrFail($request->id)->delete();
-        return redirect()->route('admin.service-images.index')->with('success','Service Image has been removed successfully');
+        return redirect()->route('admin.service-images.index')->with('success','Partner Image has been removed successfully');
     }
 }

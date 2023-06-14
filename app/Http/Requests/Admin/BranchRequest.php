@@ -34,4 +34,12 @@ class BranchRequest extends FormRequest
             'location'=>'required|min:4|max:255',
         ];
     }
+
+            public function attributes(): array
+        {
+            return [
+                'service_id' => 'Partner',
+                'area_id' => 'Area',
+            ];
+        }
 }

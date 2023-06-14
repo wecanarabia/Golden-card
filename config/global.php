@@ -12,8 +12,8 @@ return[
         'features'=>'Features',
         'notifications'=>'Notifications',
         'categories'=>'Categories',
-        'services'=>'Services',
-        'all-services'=>'All Services',
+        'services'=>'Partners',
+        'all-services'=>'All Partners',
         'plans'=>'Plans',
         'users'=>'Users',
         'enterprises'=>'Enterprises',
@@ -21,13 +21,12 @@ return[
     ],
 
     'service'=>[
-        ''=>'',
-        ''=>'',
-        ''=>'',
-        ''=>'',
-        ''=>'',
-        ''=>'',
-        ''=>'',
-        ''=>'',
+        'profile'=>'Profile',
+        'branches'=>'Branches',
+        'offers'=>'Offers',
+        'images'=>'Images',
+        'vouchers'=>'Vouchers',
+        'service_roles'=>'Roles',
+        'service_admins'=>'Admins',
     ]
 ];

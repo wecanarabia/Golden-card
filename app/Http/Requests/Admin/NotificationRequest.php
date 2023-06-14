@@ -33,4 +33,10 @@ class NotificationRequest extends FormRequest
 
         ];
     }
+    public function attributes(): array
+    {
+        return [
+            'user_id' => 'User',
+        ];
+    }
 }

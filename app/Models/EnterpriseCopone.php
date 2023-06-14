@@ -16,7 +16,7 @@ class EnterpriseCopone extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function enterprise()
+    public function enterpriseSubscription()
     {
         return $this->belongsTo(EnterpriseSubscription::class,'enterprise_subscription_id');
     }

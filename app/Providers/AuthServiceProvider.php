@@ -23,14 +23,21 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->registerPolicies();
-
-
         foreach (config('global.admin') as $ability => $value) {
             Gate::define($ability, function ($auth) use ($ability) {
-                return $auth->hasAbility($ability);//get role in array
+                if (Auth::guard('admin')->check()) {
+                    return $auth->hasAbility($ability);
+                }
             });
         }
-        
+
+        foreach (config('global.service') as $ability => $value) {
+            Gate::define($ability, function ($auth) use ($ability) {
+                if (Auth::guard('service')->check()||Auth::guard('service_admin')->check()) {
+                    return $auth->hasAbility($ability);
+                }
+            });
+        }
+        $this->registerPolicies();
     }
 }

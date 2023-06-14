@@ -49,7 +49,7 @@
                                         </div>
 
                                         <div class="col-xl-8 mb-3">
-                                            <label class="form-label">Service<span class="text-danger">*</span></label>
+                                            <label class="form-label">Partner<span class="text-danger">*</span></label>
                                             <select class="default-select form-control wide mb-3" name="service_id" tabindex="null">
                                                 @foreach ($services as $service)
                                                     <option value="{{ $service->id }}" @selected(old('service_id',$branch->service_id)==$service->id)>{{ $service->name }}</option>

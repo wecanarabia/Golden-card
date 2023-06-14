@@ -29,7 +29,7 @@
 
                                     <p class="mb-3"><strong>English title : </strong> {{ $branch->getTranslation('name', 'en') }}</p>
                                     <p class="mb-3"><strong>Arabic Title : </strong> {{ $branch->getTranslation('name', 'ar') }}</p>
-                                    <p class="mb-3"><strong>Service :</strong> {{ $branch->service->name }}</p>
+                                    <p class="mb-3"><strong>Partner :</strong> {{ $branch->service->name }}</p>
                                     <p class="mb-3"><strong>Area :</strong> {{ $branch->area->name }}</p>
                                     <p class="mb-3"><strong>Location : </strong> {{ $branch->location }}</p>
                                     <p class="mb-3"><strong>Latitude :</strong> {{ $branch->lat }}</p>

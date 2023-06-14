@@ -7,7 +7,7 @@
         <div class="page-titles">
             <ol class="breadcrumb">
                 <li>
-                    <h5 class="bc-title">{{ __('Service Images') }}</h5>
+                    <h5 class="bc-title">{{ __('Partner Images') }}</h5>
                 </li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">
                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
@@ -20,9 +20,9 @@
                         </svg>
                         Home </a>
                 </li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Service Images') }} </a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Partner Images') }} </a></li>
             </ol>
-            <a class="text-primary fs-13" href="{{ route('admin.service-images.create') }}">+ Add Service Image</a>
+            <a class="text-primary fs-13" href="{{ route('admin.service-images.create') }}">+ Add Partner Image</a>
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -34,13 +34,13 @@
                                     <x-admin-layouts.alerts />
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
-                                            <h4 class="heading mb-0"> {{ __('Service Images') }}</h4>
+                                            <h4 class="heading mb-0"> {{ __('Partner Images') }}</h4>
                                         </div>
                                         <table class="table">
                                             <thead>
                                                 <tr>
                                                     <th>Image</th>
-                                                    <th>Service</th>
+                                                    <th>Partner</th>
 
 
                                                     <th>actions</th>
@@ -114,7 +114,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Delete Service Image</h5>
+          <h5 class="modal-title" id="deleteModalLabel">Delete Partner Image</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form action="{{ route('admin.service-images.destroy','test') }}" method="post">

@@ -41,7 +41,7 @@
                                                 <tr>
                                                     <th>English Name</th>
                                                     <th>Arabic Name</th>
-                                                    <th>Service</th>
+                                                    <th>Partner</th>
                                                     <th>Location</th>
 
 

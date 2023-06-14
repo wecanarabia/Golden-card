@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Offer extends Model
 {
@@ -21,6 +22,25 @@ class Offer extends Model
             $this->attributes['image'] =  'img/offer/'.$filename;
         }
     }
+    
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($offer) {
+            $offer->slug = Str::slug($offer->name);
+        });
+
+        static::updating(function ($offer) {
+            $offer->slug = Str::slug($offer->name);
+        });
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     protected static function booted()
     {
         static::deleted(function ($offer) {

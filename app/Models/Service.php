@@ -2,16 +2,19 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-class Service extends Model
+class Service extends Authenticatable
 {
     use HasFactory,HasTranslations;
     protected $guarded = [];
     public $translatable = ['name','description'];
+    protected $hidden =['password'];
 
     public function setLogoAttribute($value){
         if ($value){
@@ -21,6 +24,24 @@ class Service extends Model
             $file->move(base_path('../img/service_logo/'), $filename);
             $this->attributes['logo'] =  'img/service_logo/'.$filename;
         }
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($service) {
+            $service->slug = Str::slug($service->name);
+        });
+
+        static::updating(function ($service) {
+            $service->slug = Str::slug($service->name);
+        });
     }
 
     protected static function booted()
@@ -69,9 +90,32 @@ class Service extends Model
         return $this->belongsTo(Admin::class);
     }
 
-    public function role(): MorphOne
+    public function role(): MorphMany
     {
-        return $this->morphOne(Role::class, 'roleable');
+        return $this->MorphMany(Role::class, 'roleable');
+    }
+
+
+    public function serviceRole()
+    {
+        return $this->belongsTo(Role::class,'role_id');//one to one
+    }
+
+    public function hasAbility($permissions)//get permission from provider & check it
+    {
+        $role=$this->serviceRole;//get & check relation
+        if(!$role){
+            return false;
+        }
+        foreach ($role->permissions as $permission)
+        {
+            if(is_array($permissions) && in_array($permission,$permissions)){
+                return true;
+            }elseif (is_string($permissions) && strcmp($permissions,$permission) == 0){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

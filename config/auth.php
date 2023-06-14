@@ -49,6 +49,16 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+
+        'service' => [
+            'driver' => 'session',
+            'provider' => 'services',
+        ],
+
+        'service_admin' => [
+            'driver' => 'session',
+            'provider' => 'service_admins',
+        ],
     ],
 
     /*
@@ -77,6 +87,16 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
+        ],
+
+        'services' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Service::class,
+        ],
+
+        'service_admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\ServiceAdmin::class,
         ],
 
         // 'users' => [

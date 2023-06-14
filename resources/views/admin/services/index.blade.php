@@ -7,7 +7,7 @@
         <div class="page-titles">
             <ol class="breadcrumb">
                 <li>
-                    <h5 class="bc-title">{{ __('Services') }}</h5>
+                    <h5 class="bc-title">{{ __('Partners') }}</h5>
                 </li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">
                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
@@ -20,9 +20,9 @@
                         </svg>
                         Home </a>
                 </li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Services') }} </a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Partners') }} </a></li>
             </ol>
-            <a class="text-primary fs-13" href="{{ route('admin.services.create') }}">+ Add Service</a>
+            <a class="text-primary fs-13" href="{{ route('admin.services.create') }}">+ Add Partner</a>
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -34,7 +34,7 @@
                                     <x-admin-layouts.alerts />
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
-                                            <h4 class="heading mb-0"> {{ __('Services') }}</h4>
+                                            <h4 class="heading mb-0"> {{ __('Partners') }}</h4>
                                         </div>
                                         <table class="table">
                                             <thead>
@@ -139,7 +139,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Delete Service</h5>
+          <h5 class="modal-title" id="deleteModalLabel">Delete Partner</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form action="{{ route('admin.services.destroy','test') }}" method="post">

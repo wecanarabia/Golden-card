@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\AreaController;
@@ -47,11 +48,11 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         Route::resource('notifications', NotificationController::class)->except(['edit','update'])->middleware('can:notifications');
         Route::resource('offers', OfferController::class)->except(['create','store'])->middleware('can:services');
         Route::resource('categories', CategoryController::class)->middleware('can:categories');
-        Route::resource('services', ServiceController::class)->middleware('can:services');
+        Route::resource('partners', ServiceController::class)->middleware('can:services');
         Route::resource('branches', BranchController::class)->middleware('can:services');
         Route::resource('plans', PlanController::class)->middleware('can:plans');
         Route::resource('promo-codes', PromoCodeController::class)->middleware('can:user-codes');
-        Route::resource('service-images', ServiceImageController::class)->except(['show'])->middleware('can:services');
+        Route::resource('partner-images', ServiceImageController::class)->except(['show'])->middleware('can:services');
         Route::resource('users', UserController::class)->middleware('can:users');
         Route::resource('roles', RoleController::class)->middleware('can:roles');
         Route::resource('enterprises', EnterpriseSubscriptionController::class)->middleware('can:enterprises');

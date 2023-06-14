@@ -31,4 +31,10 @@ class FeatureRequest extends FormRequest
             'category_id'=>['required', Rule::in($categories)],
         ];
     }
+    public function attributes(): array
+    {
+        return [
+            'category_id' => 'Parent Category',
+        ];
+    }
 }

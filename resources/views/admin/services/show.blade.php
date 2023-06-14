@@ -63,7 +63,6 @@
                                                 <tr>
                                                     <th>English Name</th>
                                                     <th>Arabic Name</th>
-                                                    <th>Service</th>
                                                     <th>Location</th>
 
 
@@ -79,9 +78,7 @@
                                                         <td>
                                                             <span>{{ $branch->getTranslation('name', 'ar')}}</span>
                                                         </td>
-                                                        <td>
-                                                            <span>{{ $branch->service->name}}</span>
-                                                        </td>
+
                                                         <td>
                                                             <span>{{ $branch->location}}</span>
                                                         </td>
@@ -151,7 +148,6 @@
                                             <thead>
                                                 <tr>
                                                     <th>English Name</th>
-                                                    <th>Service</th>
                                                     <th>End Data</th>
                                                     <th>Discount Value</th>
                                                     <th>Status</th>
@@ -166,9 +162,7 @@
 
                                                         <td><span>{{ $offer->getTranslation('name', 'en') }}</span></td>
 
-                                                        <td>
-                                                            <span><a href="{{ route('admin.services.show',$offer->service->id) }}"></a>{{ $offer->service->name}}</span>
-                                                        </td>
+
                                                         <td>
                                                             <span>{{ $offer->end_date}}</span>
                                                         </td>
@@ -244,7 +238,6 @@
                                             <thead>
                                                 <tr>
                                                     <th>Image</th>
-                                                    <th>Service</th>
 
 
                                                     <th>actions</th>
@@ -256,7 +249,6 @@
 
                                                         <td><span><img src="{{ asset($image->image) }}" width="150" alt=""></span></td>
 
-                                                        <td><span><a href="{{ route('admin.services.show', $image->service->id) }}">{{ $image->service->name }}</a></span></td>
 
                                                         <td>
                                                             <div class="dropdown">

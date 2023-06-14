@@ -16,7 +16,7 @@ class Admin extends Authenticatable
 
     public function role(): MorphOne
     {
-        return $this->morphOne(Role::class, 'roleable')->where('roleable_id',0);
+        return $this->morphOne(Role::class, 'roleable')->where('roleable_id',0)->where('roleable_type',get_class(app(Admin::class)));
     }
 
     public function adminRole()

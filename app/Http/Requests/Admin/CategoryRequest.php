@@ -35,4 +35,10 @@ class CategoryRequest extends FormRequest
             'parent_id'=>[ 'nullable', Rule::in($categories)],
         ];
     }
+    public function attributes(): array
+    {
+        return [
+            'parent_id' => 'Parent Category',
+        ];
+    }
 }

@@ -23,7 +23,7 @@ class AdminLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email'=>'required',
+            'email'=>'required|email',
             'password'=>['required',Password::min(8)],
         ];
     }

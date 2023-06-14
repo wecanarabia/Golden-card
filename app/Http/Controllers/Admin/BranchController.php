@@ -75,7 +75,6 @@ class BranchController extends Controller
      */
     public function edit(string $id)
     {
-        $branch = Branch::with(['service','area'])->findOrFail($id);
         if (Auth::user()->can('all-services')) {
             $branch = Branch::with(['service','area'])->findOrFail($id);
             $services = Service::all();

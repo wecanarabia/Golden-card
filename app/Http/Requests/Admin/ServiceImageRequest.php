@@ -28,4 +28,11 @@ class ServiceImageRequest extends FormRequest
             'service_id'=>'required|exists:services,id',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'service_id' => 'Partner',
+        ];
+    }
 }

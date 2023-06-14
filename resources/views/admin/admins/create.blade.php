@@ -68,7 +68,7 @@
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                        @endif
+                                    @endif
 
 
                                     <div class="col-xl-8 mb-3">

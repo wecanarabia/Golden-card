@@ -14,7 +14,7 @@ class PlanController extends Controller
      */
     public function index()
     {
-        $data = Plan::latest()->paginate(10);
+        $data = Plan::where('id','<>',4)->latest()->paginate(10);
         return view('admin.plans.index',compact('data'));
     }
 
@@ -59,7 +59,7 @@ class PlanController extends Controller
      */
     public function edit(string $id)
     {
-        $plan = Plan::findOrFail($id);
+        $plan = Plan::where('id','<>',4)->findOrFail($id);
         return view('admin.plans.edit',compact('plan'));
     }
 
@@ -68,7 +68,7 @@ class PlanController extends Controller
      */
     public function update(PlanRequest $request, string $id)
     {
-        $plan = Plan::findOrFail($id);
+        $plan = Plan::where('id','<>',4)->findOrFail($id);
         $request['name']=['en'=>$request->english_name,'ar'=>$request->arabic_name];
         $request['details']=['en'=>$request->english_details,'ar'=>$request->arabic_details];
         $plan->update($request->except([
@@ -88,7 +88,7 @@ class PlanController extends Controller
      */
     public function destroy(Request $request)
     {
-        Plan::findOrFail($request->id)->delete();
+        Plan::where('id','<>',4)->findOrFail($request->id)->delete();
         return redirect()->route('admin.plans.index')->with('success','Plan has been removed successfully');
     }
 }

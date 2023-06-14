@@ -35,7 +35,7 @@
                                     <p class="mb-3"><strong>Discount Text :</strong> {{ $offer->discount_text }}</p>
                                     <p class="mb-3"><strong>End Date :</strong> {{ $offer->end_date }}</p>
                                     <p class="mb-3"><strong>Use Times :</strong> {{ $offer->use_times }}</p>
-                                    <p class="mb-3"><strong>Service :</strong> <a href="{{ route('admin.services.show',$offer->service->id) }}">{{ $offer->service->name }}</a></p>
+                                    <p class="mb-3"><strong>Partner :</strong> <a href="{{ route('admin.services.show',$offer->service->id) }}">{{ $offer->service->name }}</a></p>
                                     <p class="mb-3"><strong>Status :</strong> {{ $offer->status==1?'Active':'InActive' }}</p>
                                     <img class="card-img-bottom img-thumbnail mb-3" style="width: 500px" src="{{ asset( $offer->image ) }}" alt="{{ $offer->name }}">
 
@@ -145,7 +145,7 @@
                                                 <tr>
                                                     <th>English Name</th>
                                                     <th>Arabic Name</th>
-                                                    <th>Service</th>
+                                                    <th>Partner</th>
                                                     <th>Location</th>
 
 

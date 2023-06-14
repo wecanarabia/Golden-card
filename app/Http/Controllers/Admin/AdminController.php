@@ -75,6 +75,6 @@ class AdminController extends Controller
     public function destroy(Request $request)
     {
         Admin::findOrFail($request->id)->delete();
-        return redirect()->route('admin.admins.index')->with('success','admin has been removed successfully');
+        return redirect()->route('admin.admins.index')->with('success','Admin has been removed successfully');
     }
 }

@@ -79,7 +79,9 @@ class EnterpriseSubscriptionController extends Controller
     public function show(string $id)
     {
         $subscription = EnterpriseSubscription::with('copones')->findOrFail($id);
-        return view('admin.enterprises.show',compact('subscription'));
+        $actives = EnterpriseCopone::whereHas('user')->whereBelongsTo($subscription)->get();
+        $InActives = EnterpriseCopone::whereDoesntHave('user')->whereBelongsTo($subscription)->get();
+        return view('admin.enterprises.show',compact('subscription','actives','InActives'));
     }
 
     /**

@@ -28,7 +28,7 @@
 									<div class="card-body depostit-card p-0">
 										<div class="depostit-card-media d-flex justify-content-between pb-0">
 											<div>
-												<h6>Total Services</h6>
+												<h6>Total Partners</h6>
 												<h3>{{ $data['service_count'] }}</h3>
 											</div>
 											<div class="icon-box bg-primary-light">
@@ -119,8 +119,8 @@
                                             @endif
 											{{ $category->name }}
 										</p>
-                                        
-										<span>{{ $category['service_count'] }} Servicecs</span>
+
+										<span>{{ $category['service_count'] }} Partners</span>
 									</div>
                                     @endforeach
 
@@ -129,4 +129,6 @@
 						</div>
 					</div>
 
-</x-admin-layouts.admin-app>
+                </div>
+            </div>
+                </x-admin-layouts.admin-app>

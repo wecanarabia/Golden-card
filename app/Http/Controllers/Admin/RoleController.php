@@ -12,7 +12,7 @@ class RoleController extends Controller
 {
     public function index()
     {
-       $data=Role::where('roleable_id',0)->latest()->paginate(10);
+       $data=Role::where('roleable_id',0)->where('roleable_type',get_class(app(Admin::class)))->latest()->paginate(10);
         return view('admin.roles.index', compact('data'));
     }
 
@@ -31,18 +31,18 @@ class RoleController extends Controller
     }
 
     public function show($id){
-        $role = Role::where('roleable_id',0)->findOrFail($id);
+        $role = Role::where('roleable_id',0)->where('roleable_type',get_class(app(Admin::class)))->findOrFail($id);
         return view('admin.roles.show', compact('role'));
     }
 
     public function edit($id){
-        $role = Role::where('roleable_id',0)->findOrFail($id);
+        $role = Role::where('roleable_id',0)->where('roleable_type',get_class(app(Admin::class)))->findOrFail($id);
         return view('admin.roles.edit', compact('role'));
     }
 
     public function update(RoleRequest $request,$id){
 
-            $role = Role::where('roleable_id',0)->findOrFail($id);
+            $role = Role::where('roleable_id',0)->where('roleable_type',get_class(app(Admin::class)))->findOrFail($id);
 
 
             $role = $this->process($role, $request);

@@ -34,6 +34,7 @@
     <script src="{{ asset('xhtml/vendor/global/global.min.js') }}"></script>
 	<!-- Dashboard 1 -->
 	<script src="{{ asset('xhtml/js/dashboard/dashboard-1.js') }}"></script>
+    <script src="{{ asset('xhtml/vendor/ckeditor/ckeditor.js') }}"></script>
 	{{-- <script src="./vendor/draggable/draggable.js"></script> --}}
     @stack('javasc')
 
@@ -45,7 +46,6 @@
 	<script src="{{ asset('xhtml/vendor/datatables/js/buttons.html5.min.js') }}"></script>
 	<script src="{{ asset('xhtml/vendor/datatables/js/jszip.min.js') }}"></script>
 	<script src="{{ asset('xhtml/js/plugins-init/datatables.init.js') }}"></script>
-
 	<!-- Apex Chart -->
 
 	<script src="{{ asset('xhtml/vendor/bootstrap-datetimepicker/js/moment.js') }}"></script>
