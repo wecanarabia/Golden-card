@@ -42,11 +42,18 @@ class SubscriptionController extends ApiController
                     {
                         if($code->type == "fixed"){
 
+
+                            $plan=Plan::find($request->plan_id);
+                            $price= $plan->price - $code->value;
+
                             $sub=new Subscription();
                             $sub->start_date = $request->start_date;
                             $sub->end_date = $request->end_date;
                             $sub->user_id = $request->user_id;
                             $sub->plan_id = $request->plan_id;
+                            $sub->value = $price ;
+                            $sub->subable_type =get_class(app(PromoCode::class));
+                            $sub->subable_id= $code->id;
                             $sub->save();
 
                             $us_code=new UserCode();
@@ -54,8 +61,7 @@ class SubscriptionController extends ApiController
                             $us_code->subscription_id = $sub->id;
                             $us_code->save();
 
-                            $plan=Plan::find($request->plan_id);
-                            $price= $plan->price - $code->value;
+
 
 
                             return $this->returnSuccessMessage($price);
@@ -65,11 +71,22 @@ class SubscriptionController extends ApiController
 
                         if($code->type == "percentage"){
 
+
+
+                            $plan=Plan::find($request->plan_id);
+                            $price= $plan->price - $code->value;
+
+                            $discount = $plan->price * ($code->value / 100);
+                            $price = $plan->price - $discount;
+
                             $sub=new Subscription();
                             $sub->start_date = $request->start_date;
                             $sub->end_date = $request->end_date;
                             $sub->user_id = $request->user_id;
                             $sub->plan_id = $request->plan_id;
+                            $sub->value = $price ;
+                            $sub->subable_type =get_class(app(PromoCode::class));
+                            $sub->subable_id= $code->id;
                             $sub->save();
 
                             $us_code=new UserCode();
@@ -77,11 +94,6 @@ class SubscriptionController extends ApiController
                             $us_code->subscription_id = $sub->id;
                             $us_code->save();
 
-                            $plan=Plan::find($request->plan_id);
-                            $price= $plan->price - $code->value;
-
-                            $discount = $plan->price * ($code->value / 100);
-                            $price = $plan->price - $discount;
 
                             return $this->returnSuccessMessage($price);
 
@@ -106,7 +118,22 @@ class SubscriptionController extends ApiController
 
          //بدون كوبون
         if ($request->copon == 0){
-        return $this->store( $request->except('copon') );
+
+
+            $plan=Plan::find($request->plan_id);
+
+
+                           $sub=new Subscription();
+                            $sub->start_date = $request->start_date;
+                            $sub->end_date = $request->end_date;
+                            $sub->user_id = $request->user_id;
+                            $sub->plan_id = $request->plan_id;
+                            $sub->value = $plan->price ;
+                            $sub->subable_type =get_class(app(PromoCode::class));
+                            $sub->subable_id= 0;
+                            $sub->save();
+
+                            return $this->returnSuccessMessage('success');
         }
     }
 
@@ -138,17 +165,21 @@ class SubscriptionController extends ApiController
     if($copon->user_id == null)
     {
 
-        if($today <= $copon->enterprise?->end_date && $today >= $copon->enterprise?->start_date)
+        if($today <= $copon->enterpriseSubscription?->end_date && $today >= $copon->enterpriseSubscription?->start_date)
         {
+
         $copon->update([
             'user_id' => Auth::user()->id,
         ]);
 
         $sub=new Subscription();
-        $sub->start_date = $copon->enterprise->start_date;
-        $sub->end_date = $copon->enterprise->end_date;
+        $sub->start_date = $copon->enterpriseSubscription->start_date;
+        $sub->end_date = $copon->enterpriseSubscription->end_date;
         $sub->user_id = Auth::user()->id;
         $sub->plan_id = 4 ;
+        $sub->value = 0 ;
+        $sub->subable_type =get_class(app(EnterpriseCopone::class));
+        $sub->subable_id= $copon->id;
         $sub->save();
 
         return $this->returnSuccessMessage('success');
