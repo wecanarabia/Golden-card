@@ -21,10 +21,36 @@
 			</div>
 			<div class="container-fluid">
 				<div class="row">
+                    <div class="col-xl-9 wid-100">
+						<div class="row">
+                    <div class="card-header border-0 pb-0 flex-wrap mb-2">
+                        <h4 class="heading mb-0">Hi {{ auth()->user()->name }}</h4>
+                        <ul class="nav nav-pills mix-chart-tab" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a href="{{ route('admin.dashboard') }}" @class(["nav-link",
+                                "active"=>\Illuminate\Support\Facades\Request::is("admin/dashboard")])>Today</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a href="{{ route('admin.dashboard','week') }}" @class(["nav-link",
+                                "active"=>\Illuminate\Support\Facades\Request::is("admin/dashboard/week")])>Week</a>
+                          </li>
+                          <li class="nav-item" role="presentation">
+                            <a href="{{ route('admin.dashboard','month') }}" @class(["nav-link",
+                            "active"=>\Illuminate\Support\Facades\Request::is("admin/dashboard/month")])>Month</a>
+                          </li>
+                          <li class="nav-item" role="presentation">
+                            <a href="{{ route('admin.dashboard','year') }}" @class(["nav-link",
+                            "active"=>\Illuminate\Support\Facades\Request::is("admin/dashboard/year")])>Year</a>
+                          </li>
+
+                        </ul>
+                    </div>
+                        </div>
+                    </div>
 					<div class="col-xl-9 wid-100">
 						<div class="row">
-						
-                            <div class="col-xl-3 col-sm-6 same-card">
+
+                            <div class="col-xl-4 col-sm-6 same-card">
 								<div class="card">
 									<div class="card-body depostit-card">
 										<div class="depostit-card-media d-flex justify-content-between style-1">
@@ -47,10 +73,10 @@
 									</div>
 								</div>
 							</div>
-                            <div class="col-xl-3 col-sm-6">
-								<div class="card chart-grd same-card">
-									<div class="card-body depostit-card p-0">
-										<div class="depostit-card-media d-flex justify-content-between pb-0">
+                            <div class="col-xl-4 col-sm-6 same-card">
+								<div class="card">
+									<div class="card-body depostit-card">
+										<div class="depostit-card-media d-flex justify-content-between style-1">
 											<div>
 												<h6>Total Earning</h6>
 												<h3>{{ $data['sub_period_earn'] }}</h3>
@@ -64,10 +90,10 @@
 									</div>
 								</div>
 							</div>
-                            <div class="col-xl-3 col-sm-6">
-								<div class="card chart-grd same-card">
-									<div class="card-body depostit-card p-0">
-										<div class="depostit-card-media d-flex justify-content-between pb-0">
+                            <div class="col-xl-4 col-sm-6 same-card">
+								<div class="card">
+									<div class="card-body depostit-card">
+										<div class="depostit-card-media d-flex justify-content-between style-1">
 											<div>
 												<h6>New Customers</h6>
 												<h3>{{ $data['new_customer_period_count'] }}</h3>
@@ -81,20 +107,81 @@
 									</div>
 								</div>
 							</div>
-					
-							
+
+
 
 
 						</div>
 					</div>
 
+                    <div class="col-xl-9 wid-100">
+						<div class="row">
+                            @foreach ($data['categories'] as $category)
+
+                            <div class="col-xl-{{ 12/count($data['categories'] )}} col-sm-6 same-card">
+								<div class="card">
+									<div class="card-body depostit-card">
+										<div class="depostit-card-media d-flex justify-content-between style-1">
+											<div>
+												<h6>{{ $category->name }}</h6>
+												<h3>{{ $category['services_period_count'] }}</h3>
+												<b>{{ $category['services_count'] }} Total</b>
+											</div>
+											<div class="icon-box bg-primary-light">
+                                                <img class="img-thumbnail img-circle mx-1" style="width: 40px" src="{{ asset( $category->image ) }}" alt="{{ $category->title }}">
+											</div>
+										</div>
+										<div id="NewCustomers"></div>
+									</div>
+								</div>
+							</div>
+
+                            @endforeach
 
 
-					<div class="col-xl-12 col-md-12">
+
+
+						</div>
+					</div>
+
+                    <div class="col-xl-6 col-md-12">
+						<div class="card">
+							<div class="card-header pb-0 border-0">
+								<h4 class="heading mb-0">Total Active Customers</h4>
+                                <b class="fs-6">{{ $data['user_subs']->count() }}</b>
+							</div>
+                            <div class="card-header pb-0 border-0">
+								<h5 class="heading mb-0">Paid</h5>
+                                <b class="fs-6">{{ count($data['promo_code_sub']) }}</b>
+							</div>
+                            <div class="card-header pb-0 border-0">
+								<h5 class="heading mb-0">Enterprise</h5>
+                                <b class="fs-6">{{count( $data['enterprise_code_sub']) }}</b>
+							</div>
+							<div class="card-body">
+								<div id="projectChart" class="project-chart"></div>
+
+                                <div class="project-date">
+                                    @foreach ($data['enterprise'] as $enterprise)
+
+									<div class="project-media">
+										<p class="mb-0 mx-3">
+											-{{ $enterprise->enterprise_name }}
+										</p>
+
+										<b class="fs-6 mx-3">{{ $enterprise['copone_count'] }}</b>
+									</div>
+                                    @endforeach
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-6 col-md-12">
 						<div class="card">
 							<div class="card-header pb-0 border-0">
 								<h4 class="heading mb-0">Used Vouchers</h4>
-                                <span>{{ $data['voucher_count'] }}</span>
+                                <b class="fs-6">{{ $data['voucher_count'] }}</b>
 							</div>
 							<div class="card-body">
 								<div id="projectChart" class="project-chart"></div>
@@ -117,34 +204,8 @@
 							</div>
 						</div>
 					</div>
-                    
-                    <div class="col-xl-12 col-md-12">
-						<div class="card">
-							<div class="card-header pb-0 border-0">
-								<h4 class="heading mb-0">Used Vouchers</h4>
 
-							</div>
-							<div class="card-body">
-								<div id="projectChart" class="project-chart"></div>
-								<div class="project-date">
-                                    @foreach ($data['categories'] as $category)
 
-									<div class="project-media">
-										<p class="mb-0">
-											@if(!empty($category->image))
-                                            <img class="img-thumbnail img-circle mx-1" style="width: 40px" src="{{ asset( $category->image ) }}" alt="{{ $category->title }}">
-                                            @endif
-											{{ $category->name }}
-										</p>
-
-										<span>{{ $category['vouchers'] }} Vouchers</span>
-									</div>
-                                    @endforeach
-
-								</div>
-							</div>
-						</div>
-					</div>
 
                 </div>
             </div>
