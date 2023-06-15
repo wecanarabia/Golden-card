@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Subscription extends Model
 {
@@ -18,5 +19,10 @@ class Subscription extends Model
     public function plan()
     {
         return $this->belongsTo(Plan::class);
+    }
+
+    public function subable(): MorphTo
+    {
+        return $this->morphTo();
     }
 }
