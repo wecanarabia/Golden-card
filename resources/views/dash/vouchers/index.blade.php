@@ -24,6 +24,7 @@
             </ol>
             {{-- <a class="text-primary fs-13" href="{{ route('admin.subscriptions.create') }}">+ Add Subscription</a> --}}
         </div>
+
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-12">
@@ -75,7 +76,11 @@
                                             </tbody>
 
                                         </table>
+                                        @if (!empty($date))
+
                                         {{$data->links()}}
+                                        @endif
+
                                     </div>
                                 </div>
                             </div>
@@ -84,6 +89,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
     <!--**********************************
