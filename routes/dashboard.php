@@ -54,8 +54,8 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         'create'=>'services.create',
         'edit'=>'services.edit',
         'update'=>'services.update',
-        'delete'=>'services.delete',
         'show'=>'services.show',
+        'destroy'=>'services.destroy',
         ])->middleware('can:services');
         Route::resource('branches', BranchController::class)->middleware('can:services');
         Route::resource('plans', PlanController::class)->middleware('can:plans');
@@ -65,7 +65,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         'create'=>'service-images.create',
         'edit'=>'service-images.edit',
         'update'=>'service-images.update',
-        'delete'=>'service-images.delete',
+        'destroy'=>'service-images.destroy',
         ])->except(['show'])->middleware('can:services');
         Route::resource('users', UserController::class)->middleware('can:users');
         Route::resource('roles', RoleController::class)->middleware('can:roles');

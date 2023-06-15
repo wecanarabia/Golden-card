@@ -9,7 +9,10 @@ use App\Models\Voucher;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\EnterpriseCopone;
+use App\Models\PromoCode;
 use App\Models\Subscription;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -41,7 +44,13 @@ class DashboardController extends Controller
 
         }
 
-        
+        $data['subs'] = User::whereHas('subscription',function($q){
+            $q->whereDate('end_date','>=',Carbon::now());
+        })->get();
+
+
+
+        dd($data['subs']);
         return view('admin.index',compact('data'));
     }
 }
