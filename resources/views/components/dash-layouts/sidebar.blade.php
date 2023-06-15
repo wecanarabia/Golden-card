@@ -20,7 +20,7 @@
                     @can('profile')
 					<li><a href="{{ route('dash.services.show',['service' => $service->slug]) }}" class="" aria-expanded="false">
 						<div class="menu-icon">
-                            <img class="img-thumbnail" style="width:22px" src="{{ $service->logo }}">
+                            <img class="img-thumbnail" style="width:22px" src="{{ asset($service->logo) }}">
 						</div>
 							<span class="nav-text">{{ $service->name }}</span>
 						</a>
