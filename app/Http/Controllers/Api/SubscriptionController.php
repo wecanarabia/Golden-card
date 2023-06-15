@@ -34,7 +34,7 @@ class SubscriptionController extends ApiController
             $today = today()->format('Y-m-d');
             $code=PromoCode::where('code',$request->code)->first();
             if($code){
-                if($today <= $code->end_date && $today >= $code->start_date )
+                if($today <= $code->end_date && $today >= $code->start_date && $code->status == 1)
                 {
 
                     $user_code=UserCode::where('promo_code_id',$code->id)->count();
