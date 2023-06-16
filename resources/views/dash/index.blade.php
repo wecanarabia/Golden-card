@@ -95,7 +95,7 @@
                                     @foreach ($data['images'] as $key => $image)
 
                                     <div @class(["carousel-item",'active'=>$key==0])>
-                                        <img class="d-block w-100" src="{{ asset($image->images) }}" alt="{{ $image->service->name }}">
+                                        <img class="d-block w-100" src="{{ asset($image->image) }}" alt="{{ $image->service->name }}">
                                     </div>
                                     @endforeach
                                 </div>
