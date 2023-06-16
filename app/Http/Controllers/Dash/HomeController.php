@@ -22,7 +22,7 @@ class HomeController extends Controller
     {
         $service = Service::findOrFail($this->auth->service());
         $data['branches']=Branch::withCount('offers')->whereBelongsTo($service)->get();
-        $data['images']=ImageService::where('service_id',$this->auth->service())->latest()->get();
+        $data['images']=ImageService::with('service')->where('service_id',$this->auth->service())->latest()->get();
         $data['offers']=Offer::whereBelongsTo($service)->latest()->get();
         $data['vouchers']=Voucher::whereIn('offer_id',$data['offers']->pluck('id'))->get();
         return view('dash.index',compact('data'));
