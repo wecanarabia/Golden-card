@@ -86,6 +86,8 @@
                                                             @else
                                                                 <td>Paid</td>
                                                             @endif
+                                                        @else
+                                                            <td>No subscription</td>
                                                         @endif
 
                                                         <td>
