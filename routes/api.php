@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\FeatureController;
 use App\Http\Controllers\Api\SubscriptionController;
 use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\PlanController;
+use App\Http\Controllers\Api\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -59,6 +60,8 @@ Route::middleware(['auth:api','changeLang'])->group(function () {
 Route::post('/user-update', [AuthController::class, 'updateProfile']);
 
 
+//my notifications
+Route::get('my-notifications', [NotificationController::class, 'myNotifications']);
 
 
 
