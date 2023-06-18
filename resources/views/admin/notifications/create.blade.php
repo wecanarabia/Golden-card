@@ -31,49 +31,30 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-xl-8 mb-3">
-                                        <label for="exampleFormControlInputfirst" class="form-label">English Title<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="exampleFormControlInputfirst" name="english_title" placeholder="English Title" value="{{ old('english_title') }}">
-                                        @error('english_title')
+                                        <label for="exampleFormControlInputfirst" class="form-label">Title<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="exampleFormControlInputfirst" name="title" placeholder="Title" value="{{ old('title') }}">
+                                        @error('title')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
 
                                     <div class="col-xl-8 mb-3">
-                                        <label for="exampleFormControlInputsecond" class="form-label">Arabic Title<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="exampleFormControlInputsecond" name="arabic_title" placeholder="Arabic Title" value="{{ old('arabic_title') }}">
-                                        @error('arabic_title')
+                                        <label for="exampleFormControlInputsecond" class="form-label">Sending Time<span class="text-danger">*</span></label>
+                                        <input type="datetime-local" class="form-control" id="exampleFormControlInputsecond" name="date_time" value="{{ old('date_time') }}">
+                                        @error('date_time')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
 
                                     <div class="col-xl-8 mb-3">
-                                        <label for="exampleFormControlInputThird" class="form-label">English Body<span class="text-danger">*</span></label>
-                                        <textarea id="exampleFormControlInputThird" class="form-txtarea form-control" rows="8" name="english_body">{{ old('english_body') }}</textarea>
-                                        @error('english_body')
+                                        <label for="exampleFormControlInputThird" class="form-label">Body<span class="text-danger">*</span></label>
+                                        <textarea id="exampleFormControlInputThird" class="form-txtarea form-control" rows="8" name="body">{{ old('body') }}</textarea>
+                                        @error('body')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
 
-                                    <div class="col-xl-8 mb-3">
-                                        <label for="exampleFormControlInputFourth" class="form-label">Arabic Body<span class="text-danger">*</span></label>
-                                        <textarea id="exampleFormControlInputFourth" class="form-txtarea form-control" rows="8" name="arabic_body">{{ old('arabic_body') }}</textarea>
-                                        @error('arabic_body')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
 
-                                    <div class="col-xl-8 mb-3">
-                                        <label class="form-label">User<span class="text-danger">*</span></label>
-                                        <select class="default-select form-control wide mb-3" name="user_id" tabindex="null">
-											<option selected disabled>Select User</option>
-                                            @foreach ($users as $user)
-                                                <option value="{{ $user->id }}" @selected(old('user_id')==$user->id)>{{ $user->first_name." ". $user->lasst_name}}</option>
-                                            @endforeach
-										</select>
-                                        @error('user_id')
-                                            <div class="text-danger">{{ $message }}</div>
-                                         @enderror
-                                    </div>
 
 
                                     <div class="col-xl-8 mb-3">

@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\NotificationRequest;
 use App\Models\User;
+use App\Traits\NotificationTrait;
 
 class NotificationController extends Controller
 {
+    use NotificationTrait;
     /**
      * Display a listing of the resource.
      */
@@ -33,14 +35,10 @@ class NotificationController extends Controller
      */
     public function store(NotificationRequest $request)
     {
-        $request['title']=['en'=>$request->english_title,'ar'=>$request->arabic_title];
-        $request['body']=['en'=>$request->english_body,'ar'=>$request->arabic_body];
-        Notification::create($request->except([
-            'english_title',
-            'arabic_title',
-            'english_body',
-            'arabic_body',
-        ]));
+        $notification=Notification::create($request->all());
+        $FcmToken = User::whereNotNull('device_token')->pluck('device_token')->all();
+
+        $this->send($notification->body, $notification->title, $FcmToken,$notification->date_time, $many = true);
 
 
         return redirect()->route('admin.notifications.index')
