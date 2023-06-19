@@ -72,7 +72,7 @@ class User extends Authenticatable
     }
 
     public function favorites(){
-        return $this->belongsToMany(Offer::class,'favorites','user_id','offer_id');
+        return $this->belongsToMany(Offer::class,'favorites','user_id','offer_id')->paginate(10);
     }
 
     public function enterprise_copne()

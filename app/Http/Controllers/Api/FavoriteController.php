@@ -32,6 +32,24 @@ class FavoriteController extends ApiController
         return $this->store( $request->all() );
     }
 
+    public function deletebyID( $offer_id, $user_id ){
+
+
+        $model = Favorite::where('offer_id',$offer_id)->where('user_id',$user_id)->first();
+
+        if (!$model) {
+            return $this->returnError(__('Sorry! Failed to get !'));
+        }
+
+        $model->delete();
+
+
+
+        return $this->returnSuccessMessage(__('Delete succesfully!'));
+
+
+    }
+
     public function myFavorites()
     {
 

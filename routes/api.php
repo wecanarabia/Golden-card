@@ -85,6 +85,8 @@ Route::post('offer/get-coupon/{id}', [OfferController::class, 'edit']);
 //my offers
 Route::get('my-offers', [OfferController::class, 'myOffers']);
 
+Route::get('offers', [OfferController::class, 'list']);
+
 //myVouchers
 Route::get('my-vouchers', [OfferController::class, 'myVouchers']);
 
@@ -182,7 +184,7 @@ Route::post('branch/edit/{id}', [BranchController::class, 'edit']);
 Route::post('nearby-branches', [BranchController::class, 'nearbyBranches']);
 
 //Offers
-Route::get('offers', [OfferController::class, 'list']);
+
 Route::post('offer-create', [OfferController::class, 'save']);
 Route::get('offer/{id}', [OfferController::class, 'view']);
 Route::get('offer/delete/{id}', [OfferController::class, 'delete']);
@@ -198,7 +200,7 @@ Route::get('offers-by-branch/{id}', [OfferController::class, 'getOffersByBranch'
 //favorite
 
 Route::post('favorite-create', [FavoriteController::class, 'save']);
-Route::get('favorite/delete/{id}', [FavoriteController::class, 'delete']);
+Route::get('favorite/delete/{offer_id}/{user_id}', [FavoriteController::class, 'deletebyID']);
 
 
 
