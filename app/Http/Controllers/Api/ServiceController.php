@@ -50,7 +50,7 @@ class ServiceController extends ApiController
         $dist = rad2deg($dist);
         $miles = $dist * 60 * 1.1515;
 
-        return ($miles * 1.609344) * 1000;
+        return $miles * 1.609344;
     }
 
 
@@ -68,6 +68,20 @@ class ServiceController extends ApiController
             foreach ($request->categories as $category) {
                 foreach (Branch::all() as $branch) {
                     if ($branch->service?->subcategory?->parentcategory?->id == $category) {
+                        $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+                        $resource = new BranchResource($branch, $distance);
+                        $resources[$branch->id] = $resource;
+                    }
+                }
+            }
+        }
+
+        if(isset($request->subs)){
+
+            $subs = Category::where('parent_id','!=' ,null)->get();
+            foreach ($request->subs as $sub) {
+                foreach (Branch::all() as $branch) {
+                    if ($branch->service?->subcategory?->id == $sub) {
                         $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
                         $resource = new BranchResource($branch, $distance);
                         $resources[$branch->id] = $resource;

@@ -192,6 +192,12 @@ class AuthController extends Controller
     }
 
 
+    public function userProfile($id)
+    {
+        return $this->returnData('user', UserResource::make(User::find($id)), 'successful');
+    }
+
+
     public function changePassword(Request $request)
     {
         $user = User::find($request->id);
@@ -238,25 +244,25 @@ class AuthController extends Controller
             $user = Auth::user();
             if ($user) {
                 // check unique email except this user
-                if (isset($request->email)) {
-                    $check = User::where('email', $request->email)
-                        ->first();
+                // if (isset($request->email)) {
+                //     $check = User::where('email', $request->email)
+                //         ->first();
 
-                    if ($check) {
+                //     if ($check) {
 
-                        return $this->returnError('The email address is already used!');
-                    }
-                }
+                //         return $this->returnError('The email address is already used!');
+                //     }
+                // }
 
-                if (isset($request->phone)) {
-                    $check = User::where('phone', $request->phone)
-                        ->first();
+                // if (isset($request->phone)) {
+                //     $check = User::where('phone', $request->phone)
+                //         ->first();
 
-                    if ($check) {
+                //     if ($check) {
 
-                        return $this->returnError('The phone number is already used!');
-                    }
-                }
+                //         return $this->returnError('The phone number is already used!');
+                //     }
+                // }
 
 
 
