@@ -47,6 +47,9 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('user-reg', [AuthController::class, 'store']);
 
 
+Route::get('user/{id}', [AuthController::class, 'userProfile']);
+
+
 //forget pw step 1
 Route::post('check-user', [AuthController::class, 'checkUser']);
 
@@ -224,6 +227,11 @@ Route::post('tag/edit/{id}', [TagController::class, 'edit']);
   Route::get('plan/{id}', [PlanController::class, 'view']);
   Route::get('plan/delete/{id}', [PlanController::class, 'delete']);
   Route::post('plan/edit/{id}', [PlanController::class, 'edit']);
+
+
+  //get date and time from the server
+  Route::get('get-date', [PlanController::class, 'getCurrentDateTime']);
+
 
   //Subscription
 Route::get('subscriptions', [SubscriptionController::class, 'list']);

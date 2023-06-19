@@ -61,9 +61,20 @@ class User extends Authenticatable
         return $this->belongsToMany(Offer::class,'vouchers','user_id','offer_id');
     }
 
+
+    public function paginationoffers(){
+
+        return $this->belongsToMany(Offer::class,'vouchers','user_id','offer_id')->paginate(10);
+    }
+
     public function vouchers(){
 
         return $this->hasMany(Voucher::class);
+    }
+
+    public function paginationvouchers(){
+
+        return $this->hasMany(Voucher::class)->paginate(10);
     }
 
     public function notifications(){

@@ -9,6 +9,7 @@ use App\Http\Requests\PlanRequest;
 use App\Http\Resources\PlanResource;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ApiController;
+use Carbon\Carbon;
 
 class PlanController extends ApiController
 {
@@ -39,4 +40,17 @@ class PlanController extends ApiController
         return $this->update($id,$request->all());
 
     }
+
+
+
+    public function getCurrentDateTime()
+{
+    $date = date('Y-m-d');
+    $time = date('H:i:s');
+    $data = [
+        'date' => $date,
+        'time' => $time
+    ];
+    return $this->returnSuccessMessage($data);
+}
 }

@@ -96,7 +96,7 @@ class OfferController extends ApiController
     public function myOffers()
     {
 
-        $offers = Auth::user()->offers;
+        $offers = Auth::user()->paginationoffers();
         return $this->returnData('data',  OfferResource::collection( $offers ), __('Get  succesfully'));
 
     }
@@ -104,7 +104,7 @@ class OfferController extends ApiController
     public function myVouchers()
     {
 
-        $vouchers = Auth::user()->vouchers;
+        $vouchers = Auth::user()->paginationvouchers();
         return $this->returnData('data',  VoucherResource::collection( $vouchers ), __('Get  succesfully'));
 
     }
