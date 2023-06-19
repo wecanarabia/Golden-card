@@ -47,7 +47,7 @@
                                     </div>
 
                                     <div class="col-xl-8 mb-3">
-                                        <label for="exampleFormControlInputThird" class="form-label">English Body<span class="text-danger">*</span></label>
+                                        <label for="ckeditor" class="form-label">English Body<span class="text-danger">*</span></label>
                                         <div class="card-body custom-ekeditor">
                                             <textarea id="ckeditor" class="form-txtarea form-control" rows="8" name="english_body">{{ old('english_body') }}</textarea>
                                         </div>
@@ -57,7 +57,7 @@
                                     </div>
 
                                     <div class="col-xl-8 mb-3">
-                                        <label for="exampleFormControlInputFourth" class="form-label">Arabic Body<span class="text-danger">*</span></label>
+                                        <label for="ckeditor1" class="form-label">Arabic Body<span class="text-danger">*</span></label>
                                         <div class="card-body custom-ekeditor">
 
                                         <textarea id="ckeditor1" class="form-txtarea form-control" rows="8" name="arabic_body">{{ old('arabic_body') }}</textarea>
