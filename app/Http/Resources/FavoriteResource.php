@@ -18,6 +18,7 @@ class FavoriteResource extends JsonResource
 
             'id' => $this->id,
             'branch_id' => $this->branch_id,
+            'branch_name' => $this->branch?->name,
             'offer'=>new OfferResource($this?->offer),
             'user'=>new UserResource($this?->user),
 
