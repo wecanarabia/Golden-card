@@ -117,7 +117,7 @@ class SubscriptionController extends ApiController
         }
 
          //بدون كوبون
-        if ($request->copon == 0){
+        if ($request->copon == 0 && $request->code == 0){
 
 
             $plan=Plan::find($request->plan_id);
