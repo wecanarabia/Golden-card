@@ -6,6 +6,7 @@ use App\Models\Offer;
 use App\Models\Service;
 use App\Models\Branch;
 use App\Models\Voucher;
+use App\Models\Favorite;
 use Illuminate\Http\Request;
 use App\Repositories\Repository;
 use App\Http\Resources\OfferResource;
@@ -36,7 +37,11 @@ class OfferController extends ApiController
         $offer = $this->repositry->getByID($id);
 
         if ($offer) {
-          $code=Service::where('code',$request->code)->first();
+
+          $branch=Branch::find($request->branch_id)->service?->id;
+          $code=Service::where('id',$branch)->where('code',$request->code)->first();
+
+            // $code=Service::where('code',$request->code)->first();
 
           if($code){
 
@@ -60,9 +65,13 @@ class OfferController extends ApiController
             }
 
 
+            if($today > $offer->end_date)
+            {
             $offer->update([
                 'status' => 0 ,
             ]);
+
+        }
 
             return $this->returnError(__('Sorry! The offer time has expired or you have used up the allowed times !'));
           }
@@ -116,6 +125,25 @@ class OfferController extends ApiController
 
         return $this->returnData('data',  VoucherResource::collection( $vouchers ), __('Get  succesfully'));
 
+    }
+
+    public function isFav(Request $request){
+
+
+        $favorite = Favorite::where('user_id',$request->user_id)->where('offer_id',$request->offer_id)->first();
+            if($favorite){
+                return $this->returnSuccessMessage('true');
+            }
+            return $this->returnError('false');
+    }
+
+
+
+    public function countUsesOfUser(Request $request){
+
+
+         $count=Voucher::where('user_id',$request->user_id)->where('offer_id',$request->offer_id)->count();
+         return $this->returnSuccessMessage($count);
     }
 
 }

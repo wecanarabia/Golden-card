@@ -57,8 +57,8 @@ class ServiceController extends ApiController
 
     public function searchS(Request $request)
     {
-        $lat_user = Auth::user()->lat;
-        $long_user = Auth::user()->long;
+        // $lat_user = Auth::user()->lat;
+        // $long_user = Auth::user()->long;
 
         $resources = [];
 
@@ -68,7 +68,7 @@ class ServiceController extends ApiController
             foreach ($request->categories as $category) {
                 foreach (Branch::all() as $branch) {
                     if ($branch->service?->subcategory?->parentcategory?->id == $category) {
-                        $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+                        $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
                         $resource = new BranchResource($branch, $distance);
                         $resources[$branch->id] = $resource;
                     }
@@ -82,7 +82,7 @@ class ServiceController extends ApiController
             foreach ($request->subs as $sub) {
                 foreach (Branch::all() as $branch) {
                     if ($branch->service?->subcategory?->id == $sub) {
-                        $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+                        $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
                         $resource = new BranchResource($branch, $distance);
                         $resources[$branch->id] = $resource;
                     }
@@ -95,7 +95,7 @@ class ServiceController extends ApiController
             foreach ($request->areas as $area) {
                 foreach (Branch::all() as $branch) {
                     if ($branch?->area?->id == $area) {
-                        $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+                        $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
                         $resource = new BranchResource($branch, $distance);
                         $resources[$branch->id] = $resource;
                     }
@@ -114,7 +114,7 @@ class ServiceController extends ApiController
                             $services = $sub->services;
                             foreach ($services as $service) {
                                 foreach ($service->branches as $branch) {
-                                    $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+                                    $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
                                     $resource = new BranchResource($branch, $distance);
                                     $resources[$branch->id] = $resource;
                                 }
@@ -134,7 +134,7 @@ class ServiceController extends ApiController
                         foreach ($offers as $off) {
                             $branches = $off->branches;
                             foreach ($branches as $branch) {
-                                    $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+                                    $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
                                     $resource = new BranchResource($branch, $distance);
                                     $resources[$branch->id] = $resource;
                                 }
