@@ -17,19 +17,19 @@ class OfferResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $fav = false;
-        if(Auth::user()){
-        $favorite = Favorite::where('user_id',Auth::user()->id)->where('offer_id',$this->id)->first();
-            if($favorite){
-                $fav = true ;
-            }
-        }
+        // $fav = false;
+        // if(Auth::user()){
+        // $favorite = Favorite::where('user_id',Auth::user()->id)->where('offer_id',$this->id)->first();
+        //     if($favorite){
+        //         $fav = true ;
+        //     }
+        // }
 
 
         return [
 
             'id' => $this->id,
-            'is_favorite'=>$fav,
+            // 'is_favorite'=>$fav,
             'name' => $this->name,
             'description' => $this->description,
             'discount_value'=> $this->discount_value,
@@ -38,7 +38,7 @@ class OfferResource extends JsonResource
             'status' => $this->status,
             'end_date' => $this->end_date,
             'use_times' => $this->use_times,
-            'sum_uses'=> Voucher::where('offer_id', $this->id)->count(),
+            // 'sum_uses'=> Voucher::where('offer_id', $this->id)->count(),
             'service_id' => $this->service?->id,
             'service_name' => $this->service?->name,
             'branches' => BranchResource::collection($this?->branches),

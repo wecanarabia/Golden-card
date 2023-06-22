@@ -104,10 +104,10 @@ public function nearest(Request $request)
 
 
 
-    public function getBranchesBySubName($id)
+    public function getBranchesBySubName(Request $request,$id)
     {
-        $lat_user = Auth::user()->lat;
-        $long_user = Auth::user()->long;
+        // $lat_user = Auth::user()->lat;
+        // $long_user = Auth::user()->long;
 
         $sub = Category::where('id', $id)->first();
 
@@ -120,7 +120,7 @@ public function nearest(Request $request)
                 $serviceBranches = $service->branches;
 
                 foreach ($serviceBranches as $branch) {
-                    $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+                    $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
 
                     $resource = new BranchResource($branch, $distance);
 
@@ -268,8 +268,8 @@ public function nearest(Request $request)
 
     public function getBranchesBySubNameOrServiceName($name, Request $request)
     {
-        $lat_user = Auth::user()->lat;
-        $long_user = Auth::user()->long;
+        // $lat_user = Auth::user()->lat;
+        // $long_user = Auth::user()->long;
 
         $sub = Category::where('name', 'like', '%' . $name . '%')->where('parent_id', '!=', null)->first();
 
@@ -281,7 +281,7 @@ public function nearest(Request $request)
             foreach ($services as $service) {
                 $serviceBranches = $service->branches;
                 foreach ($serviceBranches as $branch) {
-                    $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+                    $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
                     $resource = new BranchResource($branch, $distance);
 
                     $resources[] = $resource;
@@ -308,7 +308,7 @@ public function nearest(Request $request)
             $resources = [];
 
             foreach ($branches as $branch) {
-                $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+                $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
                 $resource = new BranchResource($branch, $distance);
 
                 $resources[] = $resource;
@@ -397,8 +397,8 @@ public function nearest(Request $request)
 
     public function getBranchesByOffereNameOrServiceName($name, Request $request)
 {
-    $lat_user = Auth::user()->lat;
-    $long_user = Auth::user()->long;
+    // $lat_user = Auth::user()->lat;
+    // $long_user = Auth::user()->long;
 
     $offer = Offer::where('name', 'like', '%' . $name . '%')->first();
 
@@ -409,7 +409,7 @@ public function nearest(Request $request)
         $branches = collect();
         $serviceBranches = $service->branches;
         foreach ($serviceBranches as $branch) {
-            $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+            $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
             $resource = new BranchResource($branch, $distance);
 
             $resources[] = $resource;
@@ -435,7 +435,7 @@ public function nearest(Request $request)
         $resources = [];
 
         foreach ($branches as $branch) {
-            $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+            $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
             $resource = new BranchResource($branch, $distance);
 
             $resources[] = $resource;
