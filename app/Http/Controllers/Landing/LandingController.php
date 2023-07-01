@@ -57,7 +57,7 @@ class LandingController extends Controller
     }
 
     public function termsConditions() {
-        $conditions = Page::where('title->en','Terms Of Use')->first()->body;
+        $conditions = Page::where('title->en','Terms of Use')->first()->body;
         return view('landing.terms-conditions',compact('conditions'));
     }
 }
