@@ -175,7 +175,7 @@
               <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
                 aria-controls="v-pills-messages" aria-selected="false"><i class="fas fa-bell"></i>@lang('landing.SAVINGCAL')</a>
               <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
-                aria-controls="v-pills-settings" aria-selected="false"><i class="fas fa-lock"></i>@lang('landing.FAVOURITES')</a>
+                aria-controls="v-pills-settings" aria-selected="false"><i class="fas fa-lock"></i>@lang('landing.FAVORITES')</a>
             </div>
           </div>
         </div>
