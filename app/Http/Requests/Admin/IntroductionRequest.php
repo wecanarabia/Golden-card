@@ -31,4 +31,16 @@ class IntroductionRequest extends FormRequest
             'arabic_body' => 'required|min:4|max:10000',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'english_title' => 'English Title',
+            'arabic_title' => 'Arabic Title',
+            'english_second_title' => 'English Second Title',
+            'arabic_second_title' => 'Arabic Second Title',
+            'english_body' => 'English Body',
+            'arabic_body' => 'Arabic Body',
+        ];
+    }
 }

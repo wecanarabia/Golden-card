@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\PageController;
@@ -69,6 +70,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         ])->except(['show'])->middleware('can:services');
         Route::resource('users', UserController::class)->middleware('can:users');
         Route::resource('roles', RoleController::class)->middleware('can:roles');
+        Route::resource('faqs', FaqController::class)->middleware('can:faqs');
         Route::resource('enterprises', EnterpriseSubscriptionController::class)->middleware('can:enterprises');
         Route::get('/{any}', function($any){
             return abort('405');

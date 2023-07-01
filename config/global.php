@@ -5,6 +5,7 @@ return[
         'user-codes'=>'User Codes',
         'introductions'=>'Introductions',
         'pages'=>'Pages',
+        'faqs'=>'Faqs',
         'admins'=>'Admins',
         'slider'=>'Slider',
         'areas'=>'Areas',

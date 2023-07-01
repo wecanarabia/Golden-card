@@ -30,4 +30,12 @@ class UserRequest extends FormRequest
             'phone' => 'required|min:9|regex:/^([0-9\s\-\+\(\)]*)$/|unique:users,phone,'.$this->id,
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+        ];
+    }
 }

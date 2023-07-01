@@ -47,11 +47,25 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('user-reg', [AuthController::class, 'store']);
 
 
+Route::get('user/{id}', [AuthController::class, 'userProfile']);
+
+
 //forget pw step 1
 Route::post('check-user', [AuthController::class, 'checkUser']);
 
 
 Route::post('update-password', [AuthController::class, 'changePassword']);
+
+Route::get('delete-user/{id}', [AuthController::class, 'delete']);
+
+
+//is offer fav
+Route::post('offer-fav', [OfferController::class, 'isFav']);
+
+
+
+//count voacher of user
+Route::post('count-uses', [OfferController::class, 'countUsesOfUser']);
 
 
 Route::middleware(['auth:api','changeLang'])->group(function () {
@@ -65,19 +79,7 @@ Route::get('my-notifications', [NotificationController::class, 'myNotifications'
 
 
 
-//searchBranches
 
-Route::post('filter', [ServiceController::class, 'searchBranches']);
-
-
-//getBranchesByCatName
-Route::get('branches-by-subcategory/{id}', [BranchController::class, 'getBranchesBySubName']);
-
-//getBranchesBySubNameOrservicename
-Route::get('branches-by-sub-or-service/{name}', [BranchController::class, 'getBranchesBySubNameOrServiceName']);
-
-//getBranchesByOffereNameOrServiceName
-Route::get('branches-by-offer-or-service/{name}', [BranchController::class, 'getBranchesByOffereNameOrServiceName']);
 
 //get copon
 Route::post('offer/get-coupon/{id}', [OfferController::class, 'edit']);
@@ -97,8 +99,7 @@ Route::get('voucher-by-offer/{id}', [OfferController::class, 'getVoucherOfUserBy
 //myFavorites
 Route::get('my-favorites', [FavoriteController::class, 'myFavorites']);
 
-//search
-Route::post('services-search', [ServiceController::class, 'searchS']);
+
 
 //getFreeSub
 Route::post('free-subscription', [SubscriptionController::class, 'getFreeSub']);
@@ -108,6 +109,22 @@ Route::post('free-subscription', [SubscriptionController::class, 'getFreeSub']);
 
 
 Route::middleware('changeLang')->group(function () {
+
+
+//search
+Route::post('services-search', [ServiceController::class, 'searchS']);
+
+
+
+//getBranchesByCatName
+Route::post('branches-by-subcategory/{id}', [BranchController::class, 'getBranchesBySubName']);
+
+//getBranchesBySubNameOrservicename
+Route::post('branches-by-sub-or-service/{name}', [BranchController::class, 'getBranchesBySubNameOrServiceName']);
+
+//getBranchesByOffereNameOrServiceName
+Route::post('branches-by-offer-or-service/{name}', [BranchController::class, 'getBranchesByOffereNameOrServiceName']);
+
 
 //Introduction
 Route::get('introductions', [IntroductionController::class, 'list']);
@@ -224,6 +241,11 @@ Route::post('tag/edit/{id}', [TagController::class, 'edit']);
   Route::get('plan/{id}', [PlanController::class, 'view']);
   Route::get('plan/delete/{id}', [PlanController::class, 'delete']);
   Route::post('plan/edit/{id}', [PlanController::class, 'edit']);
+
+
+  //get date and time from the server
+  Route::get('get-date', [PlanController::class, 'getCurrentDateTime']);
+
 
   //Subscription
 Route::get('subscriptions', [SubscriptionController::class, 'list']);

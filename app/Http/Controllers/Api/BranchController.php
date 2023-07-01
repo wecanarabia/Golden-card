@@ -104,10 +104,10 @@ public function nearest(Request $request)
 
 
 
-    public function getBranchesBySubName($id)
+    public function getBranchesBySubName(Request $request,$id)
     {
-        $lat_user = Auth::user()->lat;
-        $long_user = Auth::user()->long;
+        // $lat_user = Auth::user()->lat;
+        // $long_user = Auth::user()->long;
 
         $sub = Category::where('id', $id)->first();
 
@@ -120,7 +120,7 @@ public function nearest(Request $request)
                 $serviceBranches = $service->branches;
 
                 foreach ($serviceBranches as $branch) {
-                    $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+                    $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
 
                     $resource = new BranchResource($branch, $distance);
 
@@ -200,12 +200,78 @@ public function nearest(Request $request)
     // }
 
 
-    public function getBranchesBySubNameOrServiceName($name)
-    {
-        $lat_user = Auth::user()->lat;
-        $long_user = Auth::user()->long;
 
-        $sub = Category::where( 'name', 'like', '%' . $name . '%' )->where('parent_id', '!=', null)->first();
+
+    //without pagination
+    // public function getBranchesBySubNameOrServiceName($name)
+    // {
+    //     $lat_user = Auth::user()->lat;
+    //     $long_user = Auth::user()->long;
+
+    //     $sub = Category::where( 'name', 'like', '%' . $name . '%' )->where('parent_id', '!=', null)->first();
+
+    //     if ($sub) {
+    //         $services = $sub->services;
+    //         $resources = [];
+
+    //         $branches = collect();
+    //         foreach ($services as $service) {
+    //             $serviceBranches = $service->branches;
+    //             foreach ($serviceBranches as $branch) {
+    //                 $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+    //                 $resource = new BranchResource($branch, $distance);
+
+    //                 $resources[] = $resource;
+    //             }
+    //         }
+
+    //         // Remove duplicate branches and sort them by distance
+    //         usort($resources, function($a, $b) {
+    //             return $a->distance <=> $b->distance;
+    //         });
+
+    //         return $this->returnData('data', array_values($resources), __('Get branches successfully'));
+    //     }
+    //         $service = Service::where( 'name', 'like', '%' . $name . '%' )->first();
+
+
+
+    //         if ($service) {
+
+    //             $branches = $service->branches;
+    //             $resources = [];
+
+
+    //             foreach ($branches as $branch) {
+    //                 $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+    //                 $resource = new BranchResource($branch, $distance);
+
+    //                 $resources[] = $resource;
+    //             }
+
+
+
+    //                 usort($resources, function($a, $b) {
+    //                     return $a->distance <=> $b->distance;
+    //                 });
+
+    //                 return $this->returnData('data', array_values($resources), __('Get branches successfully'));
+    //         } else {
+    //             // If the name doesn't match any subcategory or category, return an error response
+    //             return $this->returnData('data', [], __('No services or subcategories found'));
+    //         }
+
+
+    // }
+
+
+
+    public function getBranchesBySubNameOrServiceName($name, Request $request)
+    {
+        // $lat_user = Auth::user()->lat;
+        // $long_user = Auth::user()->long;
+
+        $sub = Category::where('name', 'like', '%' . $name . '%')->where('parent_id', '!=', null)->first();
 
         if ($sub) {
             $services = $sub->services;
@@ -215,111 +281,181 @@ public function nearest(Request $request)
             foreach ($services as $service) {
                 $serviceBranches = $service->branches;
                 foreach ($serviceBranches as $branch) {
-                    $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+                    $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
                     $resource = new BranchResource($branch, $distance);
 
                     $resources[] = $resource;
                 }
             }
 
-            // Remove duplicate branches and sort them by distance
-            usort($resources, function($a, $b) {
-                return $a->distance <=> $b->distance;
-            });
+            if (!empty($resources)) {
+                $resources = collect($resources)->sortBy('distance');
+                $perPage = 10;
+                $currentPage = $request->has('page') ? (int) $request->page : 1;
+                $offset = ($currentPage - 1) * $perPage;
+                $paginatedResources = array_slice($resources->all(), $offset, $perPage);
 
-            return $this->returnData('data', array_values($resources), __('Get branches successfully'));
-        }
-            $service = Service::where( 'name', 'like', '%' . $name . '%' )->first();
-
-
-
-            if ($service) {
-
-                $branches = $service->branches;
-                $resources = [];
-
-
-                foreach ($branches as $branch) {
-                    $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
-                    $resource = new BranchResource($branch, $distance);
-
-                    $resources[] = $resource;
-                }
-
-
-
-                    usort($resources, function($a, $b) {
-                        return $a->distance <=> $b->distance;
-                    });
-
-                    return $this->returnData('data', array_values($resources), __('Get branches successfully'));
+                return $this->returnData('data', $paginatedResources, __('Get branches successfully'));
             } else {
-                // If the name doesn't match any subcategory or category, return an error response
                 return $this->returnData('data', [], __('No services or subcategories found'));
             }
+        }
 
+        $service = Service::where('name', 'like', '%' . $name . '%')->first();
 
-    }
-
-    public function getBranchesByOffereNameOrServiceName($name)
-    {
-        $lat_user = Auth::user()->lat;
-        $long_user = Auth::user()->long;
-
-        $offer = Offer::where( 'name', 'like', '%' . $name . '%' )->first();
-
-        if ($offer) {
-            $service = $offer->service;
+        if ($service) {
+            $branches = $service->branches;
             $resources = [];
 
-            $branches = collect();
+            foreach ($branches as $branch) {
+                $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
+                $resource = new BranchResource($branch, $distance);
 
-                $serviceBranches = $service->branches;
-                foreach ($serviceBranches as $branch) {
-                    $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
-                    $resource = new BranchResource($branch, $distance);
-
-                    $resources[] = $resource;
-                }
-
-
-            // Remove duplicate branches and sort them by distance
-            usort($resources, function($a, $b) {
-                return $a->distance <=> $b->distance;
-            });
-
-            return $this->returnData('data', array_values($resources), __('Get branches successfully'));
-        }
-            $service = Service::where( 'name', 'like', '%' . $name . '%' )->first();
-
-
-
-            if ($service) {
-
-                $branches = $service->branches;
-                $resources = [];
-
-
-                foreach ($branches as $branch) {
-                    $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
-                    $resource = new BranchResource($branch, $distance);
-
-                    $resources[] = $resource;
-                }
-
-
-
-                    usort($resources, function($a, $b) {
-                        return $a->distance <=> $b->distance;
-                    });
-
-                    return $this->returnData('data', array_values($resources), __('Get branches successfully'));
-            } else {
-                // If the name doesn't match any subcategory or category, return an error response
-                return $this->returnData('data', [], __('No services or offername found'));
+                $resources[] = $resource;
             }
 
+            if (!empty($resources)) {
+                $resources = collect($resources)->sortBy('distance');
+                $perPage = 10;
+                $currentPage = $request->has('page') ? (int) $request->page : 1;
+                $offset = ($currentPage - 1) * $perPage;
+                $paginatedResources = array_slice($resources->all(), $offset, $perPage);
 
+                return $this->returnData('data', $paginatedResources, __('Get branches successfully'));
+            } else {
+                return $this->returnData('data', [], __('No services or subcategories found'));
+            }
+        }
+
+        // If the name doesn't match any subcategory or category, return an error response
+        return $this->returnData('data', [], __('No services or subcategories found'));
     }
+
+
+
+    //without pagination
+    // public function getBranchesByOffereNameOrServiceName($name)
+    // {
+    //     $lat_user = Auth::user()->lat;
+    //     $long_user = Auth::user()->long;
+
+    //     $offer = Offer::where( 'name', 'like', '%' . $name . '%' )->first();
+
+    //     if ($offer) {
+    //         $service = $offer->service;
+    //         $resources = [];
+
+    //         $branches = collect();
+
+    //             $serviceBranches = $service->branches;
+    //             foreach ($serviceBranches as $branch) {
+    //                 $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+    //                 $resource = new BranchResource($branch, $distance);
+
+    //                 $resources[] = $resource;
+    //             }
+
+
+    //         // Remove duplicate branches and sort them by distance
+    //         usort($resources, function($a, $b) {
+    //             return $a->distance <=> $b->distance;
+    //         });
+
+    //         return $this->returnData('data', array_values($resources), __('Get branches successfully'));
+    //     }
+    //         $service = Service::where( 'name', 'like', '%' . $name . '%' )->first();
+
+
+
+    //         if ($service) {
+
+    //             $branches = $service->branches;
+    //             $resources = [];
+
+
+    //             foreach ($branches as $branch) {
+    //                 $distance = $this->distance($lat_user, $long_user, $branch->lat, $branch->long);
+    //                 $resource = new BranchResource($branch, $distance);
+
+    //                 $resources[] = $resource;
+    //             }
+
+
+
+    //                 usort($resources, function($a, $b) {
+    //                     return $a->distance <=> $b->distance;
+    //                 });
+
+    //                 return $this->returnData('data', array_values($resources), __('Get branches successfully'));
+    //         } else {
+    //             // If the name doesn't match any subcategory or category, return an error response
+    //             return $this->returnData('data', [], __('No services or offername found'));
+    //         }
+
+
+    // }
+
+    public function getBranchesByOffereNameOrServiceName($name, Request $request)
+{
+    // $lat_user = Auth::user()->lat;
+    // $long_user = Auth::user()->long;
+
+    $offer = Offer::where('name', 'like', '%' . $name . '%')->first();
+
+    if ($offer) {
+        $service = $offer->service;
+        $resources = [];
+
+        $branches = collect();
+        $serviceBranches = $service->branches;
+        foreach ($serviceBranches as $branch) {
+            $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
+            $resource = new BranchResource($branch, $distance);
+
+            $resources[] = $resource;
+        }
+
+        if (!empty($resources)) {
+            $resources = collect($resources)->sortBy('distance');
+            $perPage = 10;
+            $currentPage = $request->has('page') ? (int) $request->page : 1;
+            $offset = ($currentPage - 1) * $perPage;
+            $paginatedResources = array_slice($resources->all(), $offset, $perPage);
+
+            return $this->returnData('data', $paginatedResources, __('Get branches successfully'));
+        } else {
+            return $this->returnData('data', [], __('No services or offername found'));
+        }
+    }
+
+    $service = Service::where('name', 'like', '%' . $name . '%')->first();
+
+    if ($service) {
+        $branches = $service->branches;
+        $resources = [];
+
+        foreach ($branches as $branch) {
+            $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
+            $resource = new BranchResource($branch, $distance);
+
+            $resources[] = $resource;
+        }
+
+        if (!empty($resources)) {
+            $resources = collect($resources)->sortBy('distance');
+            $perPage = 10;
+            $currentPage = $request->has('page') ? (int) $request->page : 1;
+            $offset = ($currentPage - 1) * $perPage;
+            $paginatedResources = array_slice($resources->all(), $offset, $perPage);
+
+            return $this->returnData('data', $paginatedResources, __('Get branches successfully'));
+        } else {
+            return $this->returnData('data', [], __('No services or offername found'));
+        }
+    }
+
+    // If the name doesn't match any service or offer, return an error response
+    return $this->returnData('data', [], __('No services or offername found'));
+}
 
 }

@@ -29,5 +29,11 @@ class NotificationRequest extends FormRequest
 
         ];
     }
+    public function attributes(): array
+    {
+        return [
+            'date_time' => 'Sending Date',
 
+        ];
+    }
 }

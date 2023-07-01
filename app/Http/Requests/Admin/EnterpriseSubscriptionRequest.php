@@ -29,4 +29,14 @@ class EnterpriseSubscriptionRequest extends FormRequest
             'enterprise_name'=>'required_without:id|min:4|max:255',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'start_date' => 'Start Date',
+            'end_date' => 'End Date',
+            'num_of_users' => 'Number Of Users',
+            'enterprise_name' => 'Enterprise Name',
+        ];
+    }
 }

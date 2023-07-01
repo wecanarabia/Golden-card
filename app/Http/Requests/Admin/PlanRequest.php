@@ -30,4 +30,14 @@ class PlanRequest extends FormRequest
             'price'=>'required|numeric|min:0',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'english_name' => 'English Name',
+            'arabic_name' => 'Arabic Name',
+            'english_details' => 'English Details',
+            'arabic_details' => 'Arabic Details',
+        ];
+    }
 }

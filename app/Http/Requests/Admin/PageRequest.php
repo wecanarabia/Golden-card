@@ -28,4 +28,14 @@ class PageRequest extends FormRequest
             'arabic_body' => 'required|min:4|max:10000',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'english_title' => 'English Title',
+            'arabic_title' => 'Arabic Title',
+            'english_body' => 'English Body',
+            'arabic_body' => 'Arabic Body',
+        ];
+    }
 }

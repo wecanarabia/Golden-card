@@ -26,7 +26,7 @@
         ***********************************-->
         <div class="nav-header">
             <a href="{{ route('admin.dashboard') }}" class="brand-logo">
-                LOGO
+                <img src="{{ asset('assets/images/logo.png')}}" alt="" width="150">
             </a>
             <div class="nav-control">
                 <div class="hamburger">

@@ -39,6 +39,9 @@ class CategoryRequest extends FormRequest
     {
         return [
             'parent_id' => 'Parent Category',
+            'english_name' => 'English Name',
+            'arabic_name' => 'Arabic Name',
         ];
     }
+
 }
