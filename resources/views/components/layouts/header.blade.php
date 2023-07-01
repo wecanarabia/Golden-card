@@ -43,7 +43,7 @@
     @if (app()->getLocale() == 'en')
         <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
     @endif
-    <style id='quomodo-woocommerce-style-inline-css' type='text/css'>
+    {{-- <style id='quomodo-woocommerce-style-inline-css' type='text/css'>
         @font-face {
             font-family: "star";
             src: url("https://quomodosoft.com/wp-content/plugins/woocommerce/assets/fonts/star.eot");
@@ -1027,9 +1027,7 @@
     <link rel='stylesheet' id='font-awesome-5-css'
         href='https://quomodosoft.com/wp-content/themes/quomodo/assets/css/font-awesome.css?ver=3.0.0' type='text/css'
         media='all' />
-    <link rel='stylesheet' id='bootstrap-css'
-        href='https://quomodosoft.com/wp-content/themes/quomodo/assets/css/bootstrap-min.css?ver=3.3.7' type='text/css'
-        media='all' />
+  
     <link rel='stylesheet' id='slicknav-css'
         href='https://quomodosoft.com/wp-content/themes/quomodo/assets/css/slicknav.css?ver=1.0.10' type='text/css'
         media='all' />

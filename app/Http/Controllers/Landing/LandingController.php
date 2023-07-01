@@ -47,17 +47,17 @@ class LandingController extends Controller
     }
 
     public function aboutUs() {
-        $about = Page::where('title->en','About us')->first()->body;
+        $about = Page::where('title->en','About us')->first()->body??null;
         return view('landing.about',compact('about'));
     }
 
     public function privacyPolicy() {
-        $privacy = Page::where('title->en','About us')->first()->body;
+        $privacy = Page::where('title->en','About us')->first()->body??null;
         return view('landing.privacy-policy',compact('privacy'));
     }
 
     public function termsConditions() {
-        $conditions = Page::where('title->en','Terms of Use')->first()->body;
+        $conditions = Page::where('title->en','Terms of Use')->first()->body??null;
         return view('landing.terms-conditions',compact('conditions'));
     }
 }
