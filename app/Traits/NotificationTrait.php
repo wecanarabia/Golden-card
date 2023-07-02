@@ -23,19 +23,13 @@ trait NotificationTrait
         //     'isScheduled' => 'true',
         //     'scheduledTime' =>  Carbon::parse($datetime)
         // ];
-        $notificationDatetime = new DateTime(Carbon::parse($datetime));
-
-        // Get the current datetime in the desired timezone
-        $currentDatetime = new DateTime('now');
-
-        // Calculate the difference in seconds between the current datetime and the notification datetime
-        $notificationDelay = $notificationDatetime->getTimestamp() - $currentDatetime->getTimestamp();        if ($many) {
+               if ($many) {
             $fields = array
                 (
                 // 'registration_ids' => $token,
                 'to'=>'/topics/all',
                 'notification' => $msg,
-                // 'time'=> Carbon::parse($datetime),
+                'time_to_live '=> Carbon::parse($datetime),
                 // 'data' => $data,
 
             );
@@ -61,7 +55,7 @@ trait NotificationTrait
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-        curl_setopt($ch, CURLOPT_TIMEOUT, $notificationDelay);
+        // curl_setopt($ch, CURLOPT_TIMEOUT, $notificationDelay);
         $result = curl_exec($ch);
         //dd($result);
         curl_close($ch);
