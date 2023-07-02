@@ -27,7 +27,7 @@ trait NotificationTrait
             'sound' => 'mySound', /*Default sound*/
             // 'time_to_live'=>$notificationDelay
         );
-        $scheduledTime=time() + $notificationDelay;
+        $scheduledTime = time() + $notificationDelay;
         if ($many) {
             $fields = [
                 // 'registration_ids' => $token,
@@ -35,7 +35,7 @@ trait NotificationTrait
                 'notification' => $msg,
                 // 'time'=> Carbon::parse($datetime),
                 // 'data' => $data,
-                'time_to_live'=>$notificationDelay-time(),
+                'time_to_live' => $scheduledTime - time(),
                 'content_available' => true,
             ];
         } else {
