@@ -26,7 +26,7 @@ trait NotificationTrait
             'sound' => 'mySound', /*Default sound*/
             // 'time_to_live'=>$notificationDelay
         );
-        $scheduledTime=time() + $notificationDelay;
+        // $scheduledTime=time() + $notificationDelay;
         if ($many) {
             $fields = [
                 // 'registration_ids' => $token,
@@ -34,7 +34,7 @@ trait NotificationTrait
                 'notification' => $msg,
                 // 'time'=> Carbon::parse($datetime),
                 // 'data' => $data,
-                // 'time_to_live'=>$scheduledTime,
+                'time_to_live'=>$notificationDelay,
             ];
         } else {
             $fields = array
@@ -57,7 +57,6 @@ trait NotificationTrait
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-        curl_setopt($ch, CURLOPT_TIMEOUT_MS, $notificationDelay*1000);
         $result = curl_exec($ch);
         //dd($result);
         curl_close($ch);
