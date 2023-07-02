@@ -11,6 +11,8 @@ use App\Http\Requests\AreaRequest;
 use App\Http\Resources\AreaResource;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ApiController;
+use GuzzleHttp\Client;
+
 
 class AreaController extends ApiController
 {
@@ -46,16 +48,42 @@ class AreaController extends ApiController
 
 
 
-    public function sendEmail(Request $request)
+    // public function sendEmail(Request $request)
+    // {
+    //     // dd('hi');
+    //     $data = [
+    //         'message' => $request->message
+    //     ];
+
+    //     Mail::to($request->email)->send(new SendEmail($data));
+
+    //     return $this->returnSuccessMessage('success');
+    // }
+
+      public function sendEmail(Request $request)
     {
         // dd('hi');
-        $data = [
-            'message' => $request->message
-        ];
+        try{
+        $client = new Client();
+        $response = $client->request('POST', 'https://api.mailbaby.net/mail/send', [
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'X-API-KEY' => 'MzyHBztKvrilFFmuPISEzstsllmphd79adpSI37J5hRWR2c9gEHA5yWsAlNAuvu8r1h3YWEvsbHe32xGxj5PJnW1wXH7cjTvZOf9BiBmTSpjLWFzhMgZWqFMuJPHeiri',
+            ],
+            'json' => [
+                'to' => $request->to,
+                'from' => "wecan@gmail.com",
+                'subject' => "test",
+                'body' => "welcome",
+            ],
+        ]);
+        return $response->getBody();
+    }
+    catch (\Exception $e) {
+        dd("hi");
 
-        Mail::to($request->email)->send(new SendEmail($data));
 
-        return $this->returnSuccessMessage('success');
+    }
     }
 
 
