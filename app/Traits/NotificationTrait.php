@@ -23,7 +23,7 @@ trait NotificationTrait
                 (
                 'registration_ids' => $token,
                 'notification' => $msg,
-                'time'=> Carbon::parse($datetime),
+                // 'time'=> Carbon::parse($datetime),
 
             );
         } else {
