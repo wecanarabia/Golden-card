@@ -24,13 +24,12 @@ trait NotificationTrait
             // 'type'=>$type,
             'receiver' => 'Aya',
             'sound' => 'mySound', /*Default sound*/
-            'time_to_live'=> $notificationDelay,
+            // 'time_to_live'=> $notificationDelay,
         );
         // $data = [
         //     'isScheduled' => 'true',
         //     'scheduledTime' =>  Carbon::parse($datetime)
         // ];
-
         // dd($notificationDelay);
         if ($many) {
             $fields = array
@@ -40,7 +39,11 @@ trait NotificationTrait
                 'notification' => $msg,
                 // 'time'=> Carbon::parse($datetime),
                 // 'data' => $data,
-
+                'webpush' => [
+                    'headers' => [
+                        'TTL' => (string) strtotime(Carbon::parse($datetime)),
+                    ],
+                ],
             );
         } else {
             $fields = array
