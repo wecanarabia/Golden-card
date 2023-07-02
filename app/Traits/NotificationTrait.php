@@ -24,6 +24,7 @@ trait NotificationTrait
             // 'type'=>$type,
             'receiver' => 'Aya',
             'sound' => 'mySound', /*Default sound*/
+            'time_to_live'=>$notificationDelay
         );
         $scheduledTime=time() + $notificationDelay;
         if ($many) {
