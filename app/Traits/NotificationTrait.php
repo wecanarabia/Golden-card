@@ -25,17 +25,14 @@ trait NotificationTrait
             // 'type'=>$type,
             'receiver' => 'Aya',
             'sound' => 'mySound', /*Default sound*/
-            // 'time_to_live'=>$notificationDelay
         );
-        $scheduledTime = time() + $notificationDelay;
+        // $scheduledTime = time() + $notificationDelay;
         if ($many) {
             $fields = [
                 // 'registration_ids' => $token,
                 'to'=>'/topics/all',
                 'notification' => $msg,
-                // 'time'=> Carbon::parse($datetime),
-                // 'data' => $data,
-                'time_to_live' => $scheduledTime - time(),
+                'time_to_live' => $notificationDelay,
                 'content_available' => true,
             ];
         } else {
