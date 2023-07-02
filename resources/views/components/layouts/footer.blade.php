@@ -32,7 +32,7 @@
                 <div @class(["footer-navigation","text-right"=>app()->getLocale()==='ar'])>
                     <h4 class="title">@lang('landing.LINKS')</h4>
                     <ul>
-                        <li><a href="#">@lang('landing.JOINPARTNERS')</a></li>
+                        <li><a href="{{ route('dash.login-page') }}">@lang('landing.JOINPARTNERS')</a></li>
                         <li><a href="{{ route('conditions') }}">@lang('landing.CONDITIONS')</a></li>
                     </ul>
                 </div>
@@ -54,7 +54,7 @@
                     <div class="apps-download-btn">
                     <ul>
                         <li><a href="#"><i class="fab fa-apple"></i>@lang('landing.IOSDOWNLOAD')</a></li>
-                        <li><a class="item-2" href="#"><i class="fab fa-google-play"></i>@lang('landing.ANDROIDDOWNLOAD')</a></li>
+                        <li><a class="item-2" href="https://play.google.com/store/apps/details?id=com.goldencard.wecan"><i class="fab fa-google-play"></i>@lang('landing.ANDROIDDOWNLOAD')</a></li>
                     </ul>
                     <div class="copyright-text">
                         <p>@lang('landing.RIGHTS')<a href="https://wecan.jo">@lang('landing.WECAN')</a></p>

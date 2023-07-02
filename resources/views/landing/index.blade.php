@@ -41,8 +41,7 @@
           </div>
           <div class="col-lg-4  col-md-7 col-sm-6 col-6 order-2 order-sm-3">
             <div class="appie-btn-box text-left">
-              <a class="login-btn" href="#"><i class="fal fa-user"></i>@lang('landing.LOGIN')</a>
-              <a class="main-btn mr-30" href="#">@lang('landing.JOINPARTNERS')</a>
+              <a class="main-btn mr-30" style="background-color: #0D99FF" href="{{ route('dash.login-page') }}">@lang('landing.JOINPARTNERS')</a>
               <div class="toggle-btn ml-30 canvas_open d-lg-none d-block">
                 <i class="fa fa-bars"></i>
               </div>
@@ -67,7 +66,7 @@
             <p>@lang('landing.AWESOMEDISCOUNTS')</p>
             <ul>
               <li><a href="#"><i class="fab fa-apple"></i>@lang('landing.IOSDOWNLOAD')</a></li>
-              <li><a class="item-2" href="#"><i class="fab fa-google-play"></i>@lang('landing.ANDROIDDOWNLOAD')</a></li>
+              <li><a class="item-2" href="https://play.google.com/store/apps/details?id=com.goldencard.wecan"><i class="fab fa-google-play"></i>@lang('landing.ANDROIDDOWNLOAD')</a></li>
             </ul>
           </div>
         </div>
