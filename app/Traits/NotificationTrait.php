@@ -25,7 +25,7 @@ trait NotificationTrait
             'receiver' => 'Aya',
             'sound' => 'mySound', /*Default sound*/
         );
-
+        $scheduledTime=time() + $notificationDelay;
         if ($many) {
             $fields = array
                 (
@@ -34,7 +34,7 @@ trait NotificationTrait
                 'notification' => $msg,
                 // 'time'=> Carbon::parse($datetime),
                 // 'data' => $data,
-                "time_to_live"=>time() + $notificationDelay,
+                'time_to_live'=>$scheduledTime,
             );
         } else {
             $fields = array
