@@ -27,15 +27,14 @@ trait NotificationTrait
         );
         $scheduledTime=time() + $notificationDelay;
         if ($many) {
-            $fields = array
-                (
+            $fields = [
                 // 'registration_ids' => $token,
                 'to'=>'/topics/all',
                 'notification' => $msg,
                 // 'time'=> Carbon::parse($datetime),
                 // 'data' => $data,
                 'time_to_live'=>$scheduledTime,
-            );
+            ];
         } else {
             $fields = array
                 (
@@ -53,7 +52,6 @@ trait NotificationTrait
         //#Send Reponse To FireBase Server
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-        curl_setopt($ch, CURLOPT_TIMEOUT, $notificationDelay);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
