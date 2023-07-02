@@ -10,7 +10,7 @@ trait NotificationTrait
 
     public function send($content, $title,$datetime, $many = false)
     {
-        $notificationDatetime = new DateTime(Carbon::parse($datetime));
+        $notificationDatetime = new DateTime($datetime);
 
         // Get the current datetime in the desired timezone
         $currentDatetime = new DateTime('now', new DateTimeZone("Asia/Amman"));
