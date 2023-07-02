@@ -37,9 +37,9 @@ class SendEmail extends Mailable
         // $name = $this->viewData['name'];
         $payload = [
             'to' => $this->data['to'],
-            // 'name' => $name,
-            'subject' => $this->subject,
-            'message' => $this->view,
+            'name' => 'rererer',
+            'subject' => 'dfdfd',
+            'message' => 'dfdfd',
 
         ];
 
@@ -59,7 +59,7 @@ class SendEmail extends Mailable
         $response = curl_exec($ch);
         curl_close($ch);
 
-        return $this->from('info@wecan.jo')->view('emails.send_email')
+        return $this->from('info@wecan.work')->view('emails.send_email')
         ->with('data', $this->data);
     }
 }

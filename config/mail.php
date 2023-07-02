@@ -37,8 +37,8 @@ return [
             'mailbaby' => [
                 'transport' => 'smtp',
                 'host' => 'relay.mailbaby.net',
-                'port' => 587,
-                'encryption' => 'ssl',
+                'port' => 2525,
+                'encryption' => 'tls',
                 'username' => 'mb42038',
                 'password' => 'nDuvN9WChTvbUaBSEXyC',
             ],
