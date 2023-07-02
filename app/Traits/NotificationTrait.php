@@ -1,6 +1,7 @@
 <?php
 namespace App\Traits;
 
+use DateTime;
 use Carbon\Carbon;
 
 trait NotificationTrait
@@ -18,18 +19,24 @@ trait NotificationTrait
             'receiver' => 'Aya',
             'sound' => 'mySound', /*Default sound*/
         );
-        $data = [
-            'isScheduled' => 'true',
-            'scheduledTime' =>  Carbon::parse($datetime)
-        ];
-        if ($many) {
+        // $data = [
+        //     'isScheduled' => 'true',
+        //     'scheduledTime' =>  Carbon::parse($datetime)
+        // ];
+        $notificationDatetime = new DateTime(Carbon::parse($datetime));
+
+        // Get the current datetime in the desired timezone
+        $currentDatetime = new DateTime('now');
+
+        // Calculate the difference in seconds between the current datetime and the notification datetime
+        $notificationDelay = $notificationDatetime->getTimestamp() - $currentDatetime->getTimestamp();        if ($many) {
             $fields = array
                 (
                 // 'registration_ids' => $token,
                 'to'=>'/topics/all',
                 'notification' => $msg,
                 // 'time'=> Carbon::parse($datetime),
-                'data' => $data,
+                // 'data' => $data,
 
             );
         } else {
@@ -54,6 +61,7 @@ trait NotificationTrait
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+        curl_setopt($ch, CURLOPT_TIMEOUT, $notificationDelay);
         $result = curl_exec($ch);
         //dd($result);
         curl_close($ch);
