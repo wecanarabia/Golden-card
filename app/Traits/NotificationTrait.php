@@ -39,11 +39,7 @@ trait NotificationTrait
                 'notification' => $msg,
                 // 'time'=> Carbon::parse($datetime),
                 // 'data' => $data,
-                'webpush' => [
-                    'headers' => [
-                        'TTL' => (string) strtotime(Carbon::parse($datetime)),
-                    ],
-                ],
+                'time_to_live'=> $notificationDelay,
             );
         } else {
             $fields = array
