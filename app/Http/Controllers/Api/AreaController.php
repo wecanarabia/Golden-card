@@ -12,6 +12,9 @@ use App\Http\Resources\AreaResource;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ApiController;
 use GuzzleHttp\Client;
+use \Swift_Mailer;
+use \Swift_Message;
+use \Swift_SmtpTransport;
 
 
 class AreaController extends ApiController
@@ -86,5 +89,40 @@ class AreaController extends ApiController
     }
     }
 
+
+    // public function sendEmail(Request $request)
+    // {
+    //     try {
+
+    //         $api_key = $request->header('MzyHBztKvrilFFmuPISEzstsllmphd79adpSI37J5hRWR2c9gEHA5yWsAlNAuvu8r1h3YWEvsbHe32xGxj5PJnW1wXH7cjTvZOf9BiBmTSpjLWFzhMgZWqFMuJPHeiri');
+
+    //         // Create the transport
+    //         $transport = new Swift_SmtpTransport('relay.mailbaby.net', 587, 'tls');
+    //         $transport->setUsername('mb42038');
+    //         $transport->setPassword('nDuvN9WChTvbUaBSEXyC');
+
+    //         // Create the mailer using the transport
+    //         $mailer = new Swift_Mailer($transport);
+
+    //         // Create the message
+    //         $message = new Swift_Message();
+    //         $message->setSubject('Test Email');
+    //         $message->setFrom(['wecan@gmail.com' => $request->from_name]);
+    //         $message->setTo([$request->to => $request->to_name]);
+    //         $message->setBody('welcome');
+
+    //         // Send the message
+    //         $result = $mailer->send($message);
+
+    //         // Check if the message was sent successfully
+    //         if ($result) {
+    //             return response()->json(['status' => 'success', 'message' => 'Email sent successfully.']);
+    //         } else {
+    //             return response()->json(['status' => 'error', 'message' => 'Error sending email.']);
+    //         }
+    //     } catch (\Exception $e) {
+    //         return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+    //     }
+    // }
 
 }
