@@ -23,13 +23,21 @@ trait NotificationTrait
         //     'isScheduled' => 'true',
         //     'scheduledTime' =>  Carbon::parse($datetime)
         // ];
-               if ($many) {
+        $notificationDatetime = new DateTime(Carbon::parse($datetime));
+
+        // Get the current datetime in the desired timezone
+        $currentDatetime = new DateTime('now');
+
+        // Calculate the difference in seconds between the current datetime and the notification datetime
+        $notificationDelay = $notificationDatetime->getTimestamp() - $currentDatetime->getTimestamp();
+        if ($many) {
             $fields = array
                 (
                 // 'registration_ids' => $token,
                 'to'=>'/topics/all',
                 'notification' => $msg,
-                'time_to_live '=> Carbon::parse($datetime),
+                // 'time'=> Carbon::parse($datetime),
+                'time_to_live'=> $notificationDelay,
                 // 'data' => $data,
 
             );
