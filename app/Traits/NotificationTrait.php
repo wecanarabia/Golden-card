@@ -6,7 +6,7 @@ use Carbon\Carbon;
 trait NotificationTrait
 {
 
-    public function send($content, $title, $token,$datetime, $many = false)
+    public function send($content, $title,$datetime, $many = false)
     {
 
         $msg = array
@@ -21,7 +21,8 @@ trait NotificationTrait
         if ($many) {
             $fields = array
                 (
-                'registration_ids' => $token,
+                // 'registration_ids' => $token,
+                'to'=>'/topics/all',
                 'notification' => $msg,
                 // 'time'=> Carbon::parse($datetime),
 

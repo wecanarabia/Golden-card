@@ -36,9 +36,9 @@ class NotificationController extends Controller
     public function store(NotificationRequest $request)
     {
         $notification=Notification::create($request->all());
-        $FcmToken = User::whereNotNull('device_token')->pluck('device_token')->all();
+        // $FcmToken = User::pluck('device_token')->all();
 
-        $this->send($notification->body, $notification->title, $FcmToken,$notification->date_time, $many = true);
+        $this->send($notification->body, $notification->title,$notification->date_time, $many = true);
 
 
         return redirect()->route('admin.notifications.index')
