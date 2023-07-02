@@ -18,19 +18,24 @@ trait NotificationTrait
             'receiver' => 'Aya',
             'sound' => 'mySound', /*Default sound*/
         );
+        $data = [
+            'isScheduled' => 'true',
+            'scheduledTime' =>  Carbon::parse($datetime)
+        ];
         if ($many) {
             $fields = array
                 (
                 // 'registration_ids' => $token,
                 'to'=>'/topics/all',
                 'notification' => $msg,
-                'time'=> Carbon::parse($datetime),
+                // 'time'=> Carbon::parse($datetime),
+                'data' => $data,
 
             );
         } else {
             $fields = array
                 (
-                'to' => $token,
+                // 'to' => $token,
                 'notification' => $msg,
 
             );
