@@ -48,6 +48,10 @@ class ServiceRequest extends FormRequest
     {
         return [
             'category_id' => 'Parent Category',
+            'english_name' => 'English Name',
+            'arabic_name' => 'Arabic Name',
+            'english_description' => 'English Description',
+            'arabic_description' => 'Arabic Description',
         ];
     }
 }

@@ -35,6 +35,8 @@ class FeatureRequest extends FormRequest
     {
         return [
             'category_id' => 'Parent Category',
+            'english_name' => 'English Name',
+            'arabic_name' => 'Arabic Name',
         ];
     }
 }

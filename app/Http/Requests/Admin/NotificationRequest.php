@@ -21,22 +21,19 @@ class NotificationRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$this->has('user_id')) {
-            $this['user_id'] = null;
-        };
+
         return [
-            'english_title' => 'required|min:4|max:255',
-            'arabic_title' => 'required|min:4|max:255',
-            'english_body' => 'required|min:4|max:10000',
-            'arabic_body' => 'required|min:4|max:10000',
-            'user_id' => 'nullable|exists:users,id',
+            'title' => 'required|min:4|max:255',
+            'body' => 'required|min:4|max:10000',
+            'date_time' => 'required|after:now',
 
         ];
     }
     public function attributes(): array
     {
         return [
-            'user_id' => 'User',
+            'date_time' => 'Sending Date',
+
         ];
     }
 }

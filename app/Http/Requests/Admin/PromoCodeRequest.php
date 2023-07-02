@@ -32,4 +32,13 @@ class PromoCodeRequest extends FormRequest
             'value'=>'required|numeric|min:0',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'start_date' => 'Start Date',
+            'end_date' => 'End Date',
+            'num_of_users' => 'Number Of Users',
+        ];
+    }
 }

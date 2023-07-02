@@ -27,18 +27,9 @@
                                 <div class="container-fluid">
                                 <h4 class="heading mb-5"> {{ $notification->title }}</h4>
 
-                                    <p class="mb-3"><strong>English Title : </strong> {{ $notification->getTranslation('title', 'en') }}</p>
-                                    <p class="mb-3"><strong>Arabic Title : </strong> {{ $notification->getTranslation('title', 'ar') }}</p>
-                                    <p class="mb-3"><strong>English body : </strong> {{ $notification->getTranslation('body', 'en') }}</p>
-                                    <p class="mb-3"><strong>Arabic body :</strong> {{ $notification->getTranslation('body', 'ar') }}</p>
-                                    <p class="mb-3"><strong>User :</strong>
-                                        @if (!empty($notification->user))
-
-                                         <a href="{{ route('admin.users.show',$notification->user->id) }}">{{ $notification->user->first_name}}</a>
-                                         @else
-                                         <span>For All User</span>
-                                         @endif
-                                        </p>
+                                    <p class="mb-3"><strong>Title : </strong> {{ $notification->title }}</p>
+                                    <p class="mb-3"><strong>body : </strong> {{ $notification->body }}</p>
+                                    <p class="mb-3"><strong>Sending time : </strong> {{ $notification->date_time }}</p>
 
                         </div>
                         </div>

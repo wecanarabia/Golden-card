@@ -39,9 +39,8 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>English Title</th>
-                                                    <th>Arabic Title</th>
-                                                    <th>User</th>
+                                                    <th>Title</th>
+                                                    <th>Sending time</th>
 
 
                                                     <th>actions</th>
@@ -51,19 +50,10 @@
                                                 @forelse ($data as $notification)
                                                     <tr>
 
-                                                        <td><span>{{ $notification->getTranslation('title', 'en') }}</span></td>
-                                                        <td>
-                                                            <span>{{ $notification->getTranslation('title', 'ar')}}</span>
-                                                        </td>
-                                                        <td>
-                                                            @if (!empty($notification->user))
+                                                        <td><span>{{ $notification->title }}</span></td>
 
-                                                            <span><a href="{{ route('admin.users.show',$notification->user->id) }}">{{ $notification->user->first_name}}</a></span>
+                                                        <td><span>{{ $notification->date_time }}</span></td>
 
-                                                            @else
-                                                            <span>For All User</span>
-                                                            @endif
-                                                        </td>
 
 
                                                         <td>

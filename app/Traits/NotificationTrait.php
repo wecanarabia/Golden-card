@@ -1,10 +1,12 @@
 <?php
 namespace App\Traits;
 
+use Carbon\Carbon;
+
 trait NotificationTrait
 {
 
-    public function send($content, $title, $token, $many = false)
+    public function send($content, $title, $token,$datetime, $many = false)
     {
 
         $msg = array
@@ -21,6 +23,7 @@ trait NotificationTrait
                 (
                 'registration_ids' => $token,
                 'notification' => $msg,
+                'time'=> Carbon::parse($datetime),
 
             );
         } else {

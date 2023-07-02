@@ -38,4 +38,14 @@ class ServiceRequest extends FormRequest
             'ipan' => 'required|min:4|max:255',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'english_name' => 'English Name',
+            'arabic_name' => 'Arabic Name',
+            'english_description' => 'English Description',
+            'arabic_description' => 'Arabic Description',
+        ];
+    }
 }

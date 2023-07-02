@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "goldencardwecan",
+  "private_key_id": "31da49b369734ca290781883518c3d61e75fcd9e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQD1QS45acr7gTBm\nWq7dZLEHu59VgMuSumEu4JUEdaVAO1KmUQJN6NV1UsE4vXIfg+S7zHhNHVkO/953\n4Ui6ghnLVJ4qPAj59C50vB4TMv8+eVjRD4bT692DiYq5UqmqaxUjQc1sDslc0WL4\nV+xRCEYpEBIhTY3/wSiNfkdIFCUzu/H3G3p5Gj2/VN+EW81381mzS+NuPFGjSSJ9\nhLYx3Ueci3AFpOFsUky+7kccFM/Q0lOHEKldOJbyFavaETXI+GI6uKddIBAsENcD\nfCluSOP5nPTtlnIRvK5/stf5suvByjp/C5siWQJW4wFwjrgB5rMY9ndvQdVecuHY\n/dd9FQW3AgMBAAECggEAAIedXAtzb9OwpVpCLeBw+26LzYz7TIYUW2zHzkTwg5mt\n7Ht3bghtESPagM+MMrPOJhcjbvOIUCMW2DTwrqwkvvdx8OpLwmpZA2muTYtJWV4W\nsBPn8LrZEsRkRTo5bY76bdF45sIaUbGXYvt4OwP2+WPSdeo0+qDr2PipzUsXSakb\noAWeIS6ZrhZAeOKstN/vPBFzpuWgQqcgzbpxMxHWIKeRg8pAWZ6bxPGeisZgJL+z\nptnzp6/U1eHBVLGhykoMJcurSN1hfWag62l0cwYwitJUBTpNcitA/SDagDSnFLKk\n4BrElLbHaLo4bkmA+1UsvHXgp+yXIYVP8pvsR7wLuQKBgQD9Q6aHPEhsRxPIEmzP\nQs12lx/SutHz/67QNlJ+tlxn9OoJ9FeVvFu48bQhsteE/75FXkcmOTmefgbjmhv5\n1LVd1toX/jLuzL6nqMuGbagj/8ulmwEYC4nUU3chOlm23X9Jis/xZPh7JOHRK11U\n71hayZZP92yYKhJ6i7FqYFbDuwKBgQD352GMiPgcLm1OxQTk/M6O9K03BmDDF3R2\nsLM4Dj9yHSiYUPimACWow8qs92ySu9oxp1RA6hwZ9rZatArPO1heQ9gs0Jl2uyyf\nPcMWCgN3dIEcpGOlxxZyUbKFA6Udh77I/NQoMTMUCdR5NIOI9EuVyehTdQ7IBn6P\nfY/dUTOANQKBgGZC0JS+VIfT0zrvpZuyX3/I2YKfCHM7A/zyUjDztTAMhgtq64p8\nOZTdk1wf+EGtechMnvHiHU/PlzyDV1Ry/KBdRkZ1z174sOrFjxhCYqfWewXtJm3t\nCsP+x5VVGDBsEx9Au2G+4U3nwH5SwiavVb+isdysDN8L7dYpXYOUTrRNAoGBAJrC\nfrpuE338Wc7P3hNZ41WJV80/FQ8VyGYEP43iDyedHmegPOncs6XcvN0oBUbBMSDI\nVifEPtDSnNqZBRqD8NHARucLPpLJnLy4oN5UV/+t4qBP28l1NQUfDXROZzi9MpRk\nicmhlUKQNG2KJAdOgxU6m+fl7tlefIn1l+dRNvZ1AoGAS4vwdfWNiWfCmg1M9iWj\nX4QkjhmH+nKPt59Tj8s7h1lVfi5cUmPQQ5ityTocUslTj+vuYIBW10F78dm3hHc0\nvgZEWe07ylxJx75edP6Q0xCY16AGWBwHXTdJfZ/AtJmCvSIiZjNlupZonnWC9YFm\nsIIzg7QUMDqZ7jBY6Nn3JNU=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-eh7hn@goldencardwecan.iam.gserviceaccount.com",
+  "client_id": "113645541578593522611",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-eh7hn%40goldencardwecan.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

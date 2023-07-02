@@ -29,8 +29,8 @@
 
                                     <p class="mb-3"><strong>English title : </strong> {{ $plan->getTranslation('name', 'en') }}</p>
                                     <p class="mb-3"><strong>Arabic Title : </strong> {{ $plan->getTranslation('name', 'ar') }}</p>
-                                    <p class="mb-3"><strong>English Details : </strong> {{ $plan->getTranslation('details', 'en') }}</p>
-                                    <p class="mb-3"><strong>Arabic Details : </strong> {{ $plan->getTranslation('details', 'ar') }}</p>
+                                    <p class="mb-3"><strong>English Details : </strong> {!! $plan->getTranslation('details', 'en') !!}</p>
+                                    <p class="mb-3"><strong>Arabic Details : </strong> {!! $plan->getTranslation('details', 'ar')!!}</p>
                                     <p class="mb-3"><strong>Price :</strong> {{ $plan->price }}</p>
                                     <p class="mb-3"><strong>Period In Days :</strong> {{ $plan->period }}</p>
                                 </div>

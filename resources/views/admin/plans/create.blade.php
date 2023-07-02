@@ -47,16 +47,20 @@
                                     </div>
 
                                     <div class="col-xl-8 mb-3">
-                                        <label for="exampleFormControlInputThird" class="form-label">Englis Details<span class="text-danger">*</span></label>
-                                        <textarea id="exampleFormControlInputThird" class="form-txtarea form-control" rows="8" name="english_details">{{ old('english_details') }}</textarea>
+                                        <label for="ckeditor" class="form-label">English Details<span class="text-danger">*</span></label>
+                                        <div class="card-body custom-ekeditor">
+                                            <textarea id="ckeditor" class="form-txtarea form-control" rows="8" name="english_details">{{ old('english_details') }}</textarea>
+                                        </div>
                                         @error('english_details')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
 
                                     <div class="col-xl-8 mb-3">
-                                        <label for="exampleFormControlInputFourth" class="form-label">Arabic Details<span class="text-danger">*</span></label>
-                                        <textarea id="exampleFormControlInputFourth" class="form-txtarea form-control" rows="8" name="arabic_details">{{ old('arabic_details') }}</textarea>
+                                        <label for="ckeditor1" class="form-label">Arabic Details<span class="text-danger">*</span></label>
+                                        <div class="card-body custom-ekeditor">
+                                            <textarea id="ckeditor1" class="form-txtarea form-control" rows="8" name="arabic_details">{{ old('arabic_details') }}</textarea>
+                                        </div>
                                         @error('arabic_details')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -102,5 +106,13 @@
     <!--**********************************
         Content body end
     ***********************************-->
-
+    @push('javasc')
+    <script>
+    ClassicEditor
+    .create( document.querySelector( '#ckeditor1' ),{language: 'en'} )
+        .catch( error => {
+            console.error( error );
+        } );
+    </script>
+    @endpush
 </x-admin-layouts.admin-app>

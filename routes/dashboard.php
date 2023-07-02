@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\PageController;
@@ -33,7 +34,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
 
     Route::group(['middleware'=>'auth:admin'],function () {
         Route::get('/logout',[AdminLoginController::class, 'logout'])->name('logout');
-        Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard/{period?}',[DashboardController::class, 'index'])->name('dashboard');
         Route::resource('subscriptions', SubscriptionController::class)->only(['index','show'])->middleware('can:subscriptions');
         Route::resource('user-codes', UserCodeController::class)->only(['index'])->middleware('can:user-codes');
         Route::resource('vouchers', VoucherController::class)->only(['index'])->middleware('can:services');
@@ -54,8 +55,8 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         'create'=>'services.create',
         'edit'=>'services.edit',
         'update'=>'services.update',
-        'delete'=>'services.delete',
         'show'=>'services.show',
+        'destroy'=>'services.destroy',
         ])->middleware('can:services');
         Route::resource('branches', BranchController::class)->middleware('can:services');
         Route::resource('plans', PlanController::class)->middleware('can:plans');
@@ -65,10 +66,11 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         'create'=>'service-images.create',
         'edit'=>'service-images.edit',
         'update'=>'service-images.update',
-        'delete'=>'service-images.delete',
+        'destroy'=>'service-images.destroy',
         ])->except(['show'])->middleware('can:services');
         Route::resource('users', UserController::class)->middleware('can:users');
         Route::resource('roles', RoleController::class)->middleware('can:roles');
+        Route::resource('faqs', FaqController::class)->middleware('can:faqs');
         Route::resource('enterprises', EnterpriseSubscriptionController::class)->middleware('can:enterprises');
         Route::get('/{any}', function($any){
             return abort('405');
