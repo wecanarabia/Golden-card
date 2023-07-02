@@ -24,7 +24,7 @@ trait NotificationTrait
             // 'type'=>$type,
             'receiver' => 'Aya',
             'sound' => 'mySound', /*Default sound*/
-            'time_to_live'=>$notificationDelay
+            // 'time_to_live'=>$notificationDelay
         );
         $scheduledTime=time() + $notificationDelay;
         if ($many) {
@@ -55,8 +55,8 @@ trait NotificationTrait
         curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
         $result = curl_exec($ch);
         //dd($result);
