@@ -9,7 +9,13 @@ trait NotificationTrait
 
     public function send($content, $title,$datetime, $many = false)
     {
+        $notificationDatetime = new DateTime(Carbon::parse($datetime));
 
+        // Get the current datetime in the desired timezone
+        $currentDatetime = new DateTime('now');
+
+        // Calculate the difference in seconds between the current datetime and the notification datetime
+        $notificationDelay = $notificationDatetime->getTimestamp() - $currentDatetime->getTimestamp();
         $msg = array
             (
             'body' => $content,
@@ -18,18 +24,13 @@ trait NotificationTrait
             // 'type'=>$type,
             'receiver' => 'Aya',
             'sound' => 'mySound', /*Default sound*/
+            'time_to_live'=> $notificationDelay,
         );
         // $data = [
         //     'isScheduled' => 'true',
         //     'scheduledTime' =>  Carbon::parse($datetime)
         // ];
-        $notificationDatetime = new DateTime(Carbon::parse($datetime));
 
-        // Get the current datetime in the desired timezone
-        $currentDatetime = new DateTime('now');
-
-        // Calculate the difference in seconds between the current datetime and the notification datetime
-        $notificationDelay = $notificationDatetime->getTimestamp() - $currentDatetime->getTimestamp();
         // dd($notificationDelay);
         if ($many) {
             $fields = array
@@ -38,7 +39,6 @@ trait NotificationTrait
                 'to'=>'/topics/all',
                 'notification' => $msg,
                 // 'time'=> Carbon::parse($datetime),
-                'time_to_live'=> $notificationDelay,
                 // 'data' => $data,
 
             );
