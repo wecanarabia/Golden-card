@@ -30,7 +30,7 @@ trait NotificationTrait
 
         // Calculate the difference in seconds between the current datetime and the notification datetime
         $notificationDelay = $notificationDatetime->getTimestamp() - $currentDatetime->getTimestamp();
-        dd($notificationDelay);
+        // dd($notificationDelay);
         if ($many) {
             $fields = array
                 (
@@ -59,12 +59,12 @@ trait NotificationTrait
         //#Send Reponse To FireBase Server
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_TIMEOUT, $notificationDelay);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-        // curl_setopt($ch, CURLOPT_TIMEOUT, $notificationDelay);
         $result = curl_exec($ch);
         //dd($result);
         curl_close($ch);
