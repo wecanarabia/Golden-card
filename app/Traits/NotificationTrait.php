@@ -26,7 +26,6 @@ trait NotificationTrait
             'sound' => 'mySound', /*Default sound*/
         );
         $scheduledTime=time() + $notificationDelay;
-        dd($scheduledTime-time());
         if ($many) {
             $fields = array
                 (
