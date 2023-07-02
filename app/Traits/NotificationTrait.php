@@ -25,7 +25,7 @@ trait NotificationTrait
             // 'type'=>$type,
             'receiver' => 'Aya',
             'sound' => 'mySound', /*Default sound*/
-            'send_time'=>Carbon::parse($datetime)->format('c'),
+            // 'send_time'=>Carbon::parse($datetime)->format('c'),
         );
         // $scheduledTime = time() + $notificationDelay;
         // if ($many) {
@@ -34,7 +34,8 @@ trait NotificationTrait
                 'to'=>'/topics/all',
                 'notification' => $msg,
                 // 'time_to_live' => $notificationDelay,
-                'content_available' => true,
+                'send_time'=>Carbon::parse($datetime)->format('c'),
+                // 'content_available' => true,
             ];
         // } else {
         //     $fields = array
