@@ -25,24 +25,25 @@ trait NotificationTrait
             // 'type'=>$type,
             'receiver' => 'Aya',
             'sound' => 'mySound', /*Default sound*/
+            'send_time'=>Carbon::parse($datetime)->format('c'),
         );
         // $scheduledTime = time() + $notificationDelay;
-        if ($many) {
+        // if ($many) {
             $fields = [
                 // 'registration_ids' => $token,
                 'to'=>'/topics/all',
                 'notification' => $msg,
-                'time_to_live' => $notificationDelay,
+                // 'time_to_live' => $notificationDelay,
                 'content_available' => true,
             ];
-        } else {
-            $fields = array
-                (
-                // 'to' => $token,
-                'notification' => $msg,
+        // } else {
+        //     $fields = array
+        //         (
+        //         // 'to' => $token,
+        //         'notification' => $msg,
 
-            );
-        }
+        //     );
+        // }
 
         $headers = array
             (
