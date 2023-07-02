@@ -34,7 +34,7 @@ trait NotificationTrait
                 'notification' => $msg,
                 // 'time'=> Carbon::parse($datetime),
                 // 'data' => $data,
-                'time_to_live'=>$scheduledTime,
+                // 'time_to_live'=>$scheduledTime,
             ];
         } else {
             $fields = array
