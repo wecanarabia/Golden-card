@@ -2,6 +2,7 @@
 namespace App\Traits;
 
 use DateTime;
+use DateTimeZone;
 use Carbon\Carbon;
 
 trait NotificationTrait
@@ -12,7 +13,7 @@ trait NotificationTrait
         $notificationDatetime = new DateTime(Carbon::parse($datetime));
 
         // Get the current datetime in the desired timezone
-        $currentDatetime = new DateTime('now');
+        $currentDatetime = new DateTime('now', new DateTimeZone("Asia/Amman"));
 
         // Calculate the difference in seconds between the current datetime and the notification datetime
         $notificationDelay = $notificationDatetime->getTimestamp() - $currentDatetime->getTimestamp();
@@ -35,6 +36,7 @@ trait NotificationTrait
                 // 'time'=> Carbon::parse($datetime),
                 // 'data' => $data,
                 'time_to_live'=>$notificationDelay,
+                'content_available' => true,
             ];
         } else {
             $fields = array
