@@ -41,7 +41,7 @@
           </div>
           <div class="col-lg-4  col-md-7 col-sm-6 col-6 order-2 order-sm-3">
             <div class="appie-btn-box text-left">
-              <a class="main-btn mr-30" style="background-color: #0D99FF" href="{{ route('dash.login-page') }}">@lang('landing.JOINPARTNERS')</a>
+              <a class="main-btn mr-30" style="background-color: #D5A559" href="{{ route('dash.login-page') }}">@lang('landing.JOINPARTNERS')</a>
               <div class="toggle-btn ml-30 canvas_open d-lg-none d-block">
                 <i class="fa fa-bars"></i>
               </div>
