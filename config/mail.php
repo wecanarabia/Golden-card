@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'smtp'),
+    'default' => env('MAIL_MAILER', 'mailbaby'),
 
     /*
     |--------------------------------------------------------------------------
@@ -34,6 +34,14 @@ return [
     */
 
     'mailers' => [
+            'mailbaby' => [
+                'transport' => 'smtp',
+                'host' => 'relay.mailbaby.net',
+                'port' => 587,
+                'encryption' => 'ssl',
+                'username' => 'mb42038',
+                'password' => 'nDuvN9WChTvbUaBSEXyC',
+            ],
         'smtp' => [
             'transport' => 'smtp',
             'url' => env('MAIL_URL'),
