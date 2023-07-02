@@ -86,7 +86,7 @@ class AreaController extends ApiController
                 'port' => 25,
                 'transport' => 'smtp',
                 'host' => 'relay.mailbaby.net',
-                'encryption' => 'ssl',
+                'encryption' => 'tls',
             ],
         ]);
         return $response->getBody();
