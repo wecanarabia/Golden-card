@@ -16,6 +16,7 @@ trait NotificationTrait
 
         // Calculate the difference in seconds between the current datetime and the notification datetime
         $notificationDelay = $notificationDatetime->getTimestamp() - $currentDatetime->getTimestamp();
+        dd($notificationDelay);
         $msg = array
             (
             'body' => $content,
