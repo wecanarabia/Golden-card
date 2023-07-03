@@ -74,6 +74,8 @@ Route::middleware(['auth:api','changeLang'])->group(function () {
 Route::post('/user-update', [AuthController::class, 'updateProfile']);
 
 
+Route::post('user/token', [AuthController::class, 'updateDeviceToken']);
+
 //my notifications
 Route::get('my-notifications', [NotificationController::class, 'myNotifications']);
 
