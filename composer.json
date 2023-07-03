@@ -11,8 +11,13 @@
         "laravel/passport": "^11.8",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
+<<<<<<< HEAD
         "spatie/laravel-translatable": "^6.5",
         "swiftmailer/swiftmailer": "^6.3"
+=======
+        "mcamara/laravel-localization": "^1.8",
+        "spatie/laravel-translatable": "^6.5"
+>>>>>>> 91c9336c553ab69f7b33959ae231ff438cab75ea
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

@@ -34,6 +34,8 @@ class BranchRequest extends FormRequest
     public function attributes(): array
     {
         return [
+            'english_name' => 'English Name',
+            'arabic_name' => 'Arabic Name',
             'area_id' => 'Area',
         ];
     }

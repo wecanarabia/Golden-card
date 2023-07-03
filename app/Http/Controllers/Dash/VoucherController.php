@@ -19,11 +19,15 @@ class VoucherController extends Controller
 
     public function index()
     {
- 
+
             $service = Service::findOrFail($this->auth->service());
             $offers = Offer::latest()->whereBelongsTo($service)->get();
-            $data = Voucher::latest()->orderBy('offer_id')->with(['user','offer','branch'])->whereBelongsTo($offers)->paginate(10);
-    
+            if ($offers->count()>0) {
+                $data = Voucher::latest()->orderBy('offer_id')->with(['user','offer','branch'])->whereBelongsTo($offers)->paginate(10);
+            }else{
+                $data=([]);
+            }
+
         return view('dash.vouchers.index',compact('data'));
     }
 }

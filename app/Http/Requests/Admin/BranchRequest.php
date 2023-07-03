@@ -40,6 +40,9 @@ class BranchRequest extends FormRequest
             return [
                 'service_id' => 'Partner',
                 'area_id' => 'Area',
+                'english_name' => 'English Name',
+                'arabic_name' => 'Arabic Name',
             ];
         }
+
 }

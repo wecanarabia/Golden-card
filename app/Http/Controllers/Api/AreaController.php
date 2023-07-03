@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Support\Facades\Mail;
-use App\Mail\SendEmail;
 use App\Models\Area;
+use GuzzleHttp\Client;
+use App\Mail\SendEmail;
 use Illuminate\Http\Request;
 use App\Repositories\Repository;
 use App\Http\Requests\AreaRequest;
-use App\Http\Resources\AreaResource;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AreaResource;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\ApiController;
-use GuzzleHttp\Client;
-use \Swift_Mailer;
-use \Swift_Message;
-use \Swift_SmtpTransport;
+// use GuzzleHttp\Client;
 
 
 class AreaController extends ApiController
@@ -67,6 +65,11 @@ class AreaController extends ApiController
     {
         // dd('hi');
         try{
+            // $to = $request->input('to');
+            // $data['message']='fdfdf';
+            // $data['to']=$to;
+            // Mail::to($to)->send(new SendEmail($data));
+            // return 'Email sent successfully!';
         $client = new Client();
         $response = $client->request('POST', 'https://api.mailbaby.net/mail/send', [
             'headers' => [
@@ -75,17 +78,25 @@ class AreaController extends ApiController
             ],
             'json' => [
                 'to' => $request->to,
-                'from' => "wecan@gmail.com",
+                'from' => "info@wecan.work",
+                'username' => "mb42038",
+                'password' => "nDuvN9WChTvbUaBSEXyC",
                 'subject' => "test",
                 'body' => "welcome",
+                'port' => 25,
+                'transport' => 'smtp',
+                'host' => 'relay.mailbaby.net',
+                'encryption' => 'tls',
             ],
         ]);
         return $response->getBody();
-    }
-    catch (\Exception $e) {
-        dd("hi");
-
-
+    } catch (RequestException $e) {
+        // Handle errors
+        $response = $e->getResponse();
+        $statusCode = $response->getStatusCode();
+        $reasonPhrase = $response->getReasonPhrase();
+        // Log or return the error message
+        return "Error: $statusCode - $reasonPhrase";
     }
     }
 

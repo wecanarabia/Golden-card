@@ -39,5 +39,19 @@ class OfferRequest extends FormRequest
 
         ];
     }
-    
+
+    public function attributes(): array
+    {
+        return [
+            'discount_text' => 'Discount Text',
+            'discount_value' => 'Discount Value',
+            'end_date' => 'End Date',
+            'use_times' => 'Use Times',
+            'english_name' => 'English Name',
+            'arabic_name' => 'Arabic Name',
+            'english_description' => 'English Description',
+            'arabic_description' => 'Arabic Description',
+        ];
+    }
+
 }

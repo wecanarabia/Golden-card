@@ -49,20 +49,26 @@
                                         </div>
 
                                         <div class="col-xl-8 mb-3">
-                                            <label for="exampleFormControlInputThird" class="form-label">English Body<span class="text-danger">*</span></label>
-                                            <textarea id="exampleFormControlInputThird" class="form-txtarea form-control" rows="8" name="english_body">{{ $page->getTranslation('body', 'en')??old('english_body') }}</textarea>
+                                        <label for="ckeditor" class="form-label">English Body<span class="text-danger">*</span></label>
+                                        <div class="card-body custom-ekeditor">
+                                            <textarea id="ckeditor" class="form-txtarea form-control" rows="8" name="english_body">{{ old('english_body',$page->getTranslation('body', 'en')) }}</textarea>
+                                        </div>
                                             @error('english_body')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
 
                                         <div class="col-xl-8 mb-3">
-                                            <label for="exampleFormControlInputFourth" class="form-label">Arabic Body<span class="text-danger">*</span></label>
-                                            <textarea id="exampleFormControlInputFourth" class="form-txtarea form-control" rows="8" name="arabic_body">{{ $page->getTranslation('body', 'ar')??old('arabic_body') }}</textarea>
-                                            @error('arabic_body')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
+                                        <label for="ckeditor1" class="form-label">Arabic Body<span class="text-danger">*</span></label>
+                                        <div class="card-body custom-ekeditor">
+
+                                        <textarea id="ckeditor1" class="form-txtarea form-control" rows="8" name="arabic_body">{{ old('arabic_body',$page->getTranslation('body', 'ar')) }}</textarea>
                                         </div>
+                                        @error('arabic_body')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                     
 
                                     <div class="col-xl-8 mb-3">
                                         <input type="submit" class="btn btn-primary me-1" value='Update '>
@@ -85,5 +91,13 @@
     <!--**********************************
         Content body end
     ***********************************-->
-
+    @push('javasc')
+    <script>
+    ClassicEditor
+    .create( document.querySelector( '#ckeditor1' ),{language: 'en'} )
+        .catch( error => {
+            console.error( error );
+        } );
+    </script>
+    @endpush
 </x-admin-layouts.admin-app>
