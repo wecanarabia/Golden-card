@@ -76,8 +76,7 @@ Route::post('/user-update', [AuthController::class, 'updateProfile']);
 
 Route::post('user/token', [AuthController::class, 'updateDeviceToken']);
 
-//my notifications
-Route::get('my-notifications', [NotificationController::class, 'myNotifications']);
+
 
 
 
@@ -112,6 +111,9 @@ Route::post('free-subscription', [SubscriptionController::class, 'getFreeSub']);
 
 Route::middleware('changeLang')->group(function () {
 
+
+    //my notifications
+Route::get('my-notifications', [NotificationController::class, 'myNotifications']);
 
 //search
 Route::post('services-search', [ServiceController::class, 'searchS']);
