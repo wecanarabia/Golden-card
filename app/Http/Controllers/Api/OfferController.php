@@ -53,7 +53,7 @@ class OfferController extends ApiController
            if($today <= $offer->end_date && $user_uses < $offer->use_times &&  $offer->status == 1)
             {
 
-             $randomCode = Str::random(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+                $randomCode = strtoupper(substr(str_shuffle(str_repeat('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)), 0, 6));
               $voucher=new Voucher();
               $voucher->code = $randomCode;
               $voucher->offer_id = $offer->id;
