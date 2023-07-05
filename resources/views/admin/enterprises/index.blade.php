@@ -51,6 +51,7 @@
                                                                     <th>End Date</th>
                                                                     <th>Enterprise name</th>
                                                                     <th>Number Of Users</th>
+                                                                    <th>Status</th>
 
 
                                                                     <th>actions</th>
@@ -73,6 +74,7 @@
                                                                             <span>{{ $subscription->num_of_users }}</span>
                                                                         </td>
 
+                                                                        <td><span>{{ $subscription->status == 1 ? 'Active' : 'InActive' }}</span>
 
                                                                         <td>
                                                                             <div class="dropdown">

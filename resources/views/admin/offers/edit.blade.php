@@ -110,6 +110,18 @@
                                                     Active
                                                 </label>
                                             </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="active" name="status" value="2" @checked(old('status',$offer->status)==2)>
+                                                <label class="form-check-label" for="pending">
+                                                    Pending
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="active" name="status" value="3" @checked(old('status',$offer->status)==3)>
+                                                <label class="form-check-label" for="rejected">
+                                                    Rejected
+                                                </label>
+                                            </div>
                                             @error('status')
                                             <div class="text-danger">{{ $message }}</div>
                                              @enderror

@@ -32,7 +32,7 @@ class OfferRequest extends FormRequest
             'image'=>'required_without:id|mimes:jpg,jpeg,gif,png|max:4000',
             'start_date'=>'required|date',
             'end_date'=>'required|date',
-            'status'=>'nullable|in:0,1',
+            'status'=>'nullable|in:0,1,2,3',
             'tags'=>'array|min:1',
             'tags.*'=>'numeric|exists:tags,id',
             'branches'=>'array|min:1',

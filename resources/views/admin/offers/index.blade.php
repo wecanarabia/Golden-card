@@ -73,7 +73,7 @@
                                                                             <span>{{ $offer->discount_value }}</span>
                                                                         </td>
                                                                         <td>
-                                                                            <span>{{ $offer->status == 1 ? 'Active' : 'InActive' }}</span>
+                                                                            <span>{{ $offer->status == 0 ? 'InActive':($offer->status == 1 ?'Active':($offer->status == 2?'Pending':'Rejected'))  }}</span>
                                                                         </td>
 
 

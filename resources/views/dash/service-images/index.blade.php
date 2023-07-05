@@ -55,12 +55,14 @@
                                                         <td><span><img src="{{ asset($image->image) }}" width="150" alt=""></span></td>
 
                                                         <td class="align-center">
+                                                            @if ($data->count()>1)
                                                             <a href="{{route('dash.images.sort',['id'=>$image->id,'direction'=>'up',])}}" >
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M5 12l7-7 7 7"/></svg>
                                                             </a>
                                                             <a href="{{route('dash.images.sort',['id'=>$image->id,'direction'=>'down',])}}" >
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M5 12l7 7 7-7"/></svg>
                                                             </a>
+                                                            @endif
                                                         </td>
                                                         <td>
                                                             <div class="dropdown">

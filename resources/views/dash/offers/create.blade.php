@@ -78,13 +78,7 @@
                                             <div class="text-danger">{{ $message }}</div>
                                              @enderror
                                         </div>
-                                        <div class="col-xl-8 mb-3">
-                                            <label class="form-label">Discount Text<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="discount_text" value="{{ old('discount_text') }}">
-                                            @error('discount_text')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
+                                    
 
                                         <div class="col-xl-8 mb-3">
                                             <label class="form-label">Use Times<span class="text-danger">*</span></label>

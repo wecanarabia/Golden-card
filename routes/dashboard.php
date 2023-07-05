@@ -43,6 +43,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         Route::resource('pages', PageController::class)->middleware('can:pages');
         Route::resource('admins', AdminController::class)->except(['show'])->middleware('can:admins');
         Route::resource('slider', SliderController::class)->except(['show'])->middleware('can:slider');
+        Route::get('slider/sort/{id}/{direction}',[SliderController::class,'sortData'])->name('slider.sort')->middleware('can:slider');
         Route::resource('areas', AreaController::class)->except(['show'])->middleware('can:areas');
         Route::get('areas/sort/{id}/{direction}',[AreaController::class,'sortData'])->name('areas.sort')->middleware('can:areas');
         Route::resource('tags', TagController::class)->except(['show'])->middleware('can:tags');

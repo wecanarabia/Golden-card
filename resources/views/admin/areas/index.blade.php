@@ -63,6 +63,7 @@
                                                                             <span>{{ $area->getTranslation('name', 'ar') }}</span>
                                                                         </td>
                                                                         <td class="align-center">
+                                                                            @if ($data->count()>1)
                                                                             <a
                                                                                 href="{{ route('admin.areas.sort', ['id' => $area->id, 'direction' => 'up']) }}">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -85,6 +86,7 @@
                                                                                     <path d="M12 5v13M5 12l7 7 7-7" />
                                                                                 </svg>
                                                                             </a>
+                                                                            @endif
                                                                         </td>
 
                                                                         <td>

@@ -47,7 +47,24 @@
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
-
+                                            <div class="col-xl-8 mb-3">
+                                                <label class="form-label">Status<span class="text-danger">*</span></label>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" id="inactive" type="radio" name="status" value="0" @checked(old('status',$subscription->status)==0)>
+                                                    <label class="form-check-label" for="inactive">
+                                                        InActive
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" id="active" name="status" value="1" @checked(old('status',$subscription->status)==1)>
+                                                    <label class="form-check-label" for="active">
+                                                        Active
+                                                    </label>
+                                                </div>
+                                                @error('status')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                 @enderror
+                                            </div>
 
 
 
