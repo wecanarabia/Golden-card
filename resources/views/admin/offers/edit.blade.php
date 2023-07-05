@@ -115,7 +115,13 @@
                                              @enderror
                                         </div>
                                         @endcan
-
+                                        <div class="col-xl-8 mb-3">
+                                            <label for="exampleFormControlInputfirst" class="form-label">Start Date<span class="text-danger">*</span></label>
+                                            <input type="date" class="form-control" id="exampleFormControlInputfirst" name="start_date" value="{{ old('start_date',$offer->start_date) }}">
+                                            @error('start_date')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                         <div class="col-xl-8 mb-3">
                                             <label for="exampleFormControlInputfirst" class="form-label">End Date<span class="text-danger">*</span></label>
                                             <input type="date" class="form-control" id="exampleFormControlInputfirst" name="end_date" value="{{ old('end_date',$offer->end_date) }}">

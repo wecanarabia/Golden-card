@@ -23,10 +23,9 @@
 	<link href="{{ asset('xhtml/vendor/jvmap/jquery-jvectormap.css') }}" rel="stylesheet">
 	<link href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css" rel="stylesheet">
 	<link href="{{ asset('xhtml/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
-
 	<!-- tagify-css -->
 	<link href="{{ asset('xhtml/vendor/tagify/dist/tagify.css') }}" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 	<!-- Style css -->
     <link href="{{ asset('xhtml/css/style.css') }}" rel="stylesheet">
 

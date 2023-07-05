@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Role;
+use App\Models\Offer;
 use App\Models\Service;
+use App\Models\Voucher;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\Admin\ServiceRequest;
-use App\Models\Role;
-use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
@@ -19,9 +21,9 @@ class ServiceController extends Controller
     public function index()
     {
         if (Auth::user()->can('all-services')) {
-            $data = Service::with('admin')->latest()->paginate(10);
+            $data = Service::with('admin')->latest()->get();
         }elseif(Auth::user()->can('services')){
-            $data = Service::with('admin')->where('admin_id',Auth::user()->id)->latest()->paginate(10);
+            $data = Service::with('admin')->where('admin_id',Auth::user()->id)->latest()->get();
         }
         return view('admin.services.index',compact('data'));
     }
@@ -66,7 +68,18 @@ class ServiceController extends Controller
         }elseif(Auth::user()->can('services')){
             $service = Service::with(['branches','images','offers','admin'])->where('admin_id',Auth::user()->id)->findOrFail($id);;
         }
-        return view('admin.services.show',compact('service'));
+        // Get the latest offers for a given service and load their vouchers
+        $offers = Offer::latest()->whereBelongsTo($service)->get()->load('vouchers');
+        // Get the total discount value of all vouchers for those offers
+        $vouchers = Voucher::with('offer')
+            ->whereIn('offer_id', $offers->pluck('id')) // Filter by offer ids
+            ->get();
+            $total = 0;
+        foreach ($vouchers as $voucher) {
+            $total+=$voucher->offer->discount_value;
+        }
+        $profits = $total * ($service->profit_margin/100);
+        return view('admin.services.show',compact('service','profits'));
     }
 
     /**

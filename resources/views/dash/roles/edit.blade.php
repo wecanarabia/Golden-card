@@ -16,7 +16,9 @@
                 </li>
                 <li class="breadcrumb-item active"><a href="javascript:void(0)">{{  __('Edit Role') }} </a></li>
             </ol>
+            @can('view')
             <a class="text-primary fs-13" href="{{ route('dash.roles.index') }}" >{{  __('Roles') }}</a>
+            @endcan
         </div>
         <div class="container-fluid">
             <div class="row">

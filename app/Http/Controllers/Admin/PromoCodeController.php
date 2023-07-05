@@ -14,7 +14,7 @@ class PromoCodeController extends Controller
      */
     public function index()
     {
-        $data = PromoCode::latest()->paginate(10);
+        $data = PromoCode::latest()->get();
         return view('admin.promo-codes.index',compact('data'));
     }
 

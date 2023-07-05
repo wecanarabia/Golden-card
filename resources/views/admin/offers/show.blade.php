@@ -33,6 +33,7 @@
                                     <p class="mb-3"><strong>Arabic Description : </strong> {{ $offer->getTranslation('description', 'ar') }}</p>
                                     <p class="mb-3"><strong>Discount Value :</strong> {{ $offer->discount_value }}</p>
                                     <p class="mb-3"><strong>Discount Text :</strong> {{ $offer->discount_text }}</p>
+                                    <p class="mb-3"><strong>Start Date :</strong> {{ $offer->start_date }}</p>
                                     <p class="mb-3"><strong>End Date :</strong> {{ $offer->end_date }}</p>
                                     <p class="mb-3"><strong>Use Times :</strong> {{ $offer->use_times }}</p>
                                     <p class="mb-3"><strong>Partner :</strong> <a href="{{ route('admin.services.show',$offer->service->id) }}">{{ $offer->service->name }}</a></p>

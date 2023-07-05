@@ -18,10 +18,10 @@ class BranchController extends Controller
     public function index()
     {
         if (Auth::user()->can('all-services')) {
-            $data = Branch::with('service')->latest()->paginate(10);
+            $data = Branch::with('service')->latest()->get();
         }elseif(Auth::user()->can('services')){
             $services = Service::where('admin_id',Auth::user()->id)->latest()->get();
-            $data = Branch::with('service')->whereBelongsTo($services)->latest()->paginate(10);
+            $data = Branch::with('service')->whereBelongsTo($services)->latest()->get();
         }
         return view('admin.branches.index',compact('data'));
     }

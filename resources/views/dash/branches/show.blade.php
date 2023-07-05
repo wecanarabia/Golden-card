@@ -16,7 +16,9 @@
                 </li>
                 <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $branch->name }} </a></li>
             </ol>
+            @can('view')
             <a class="text-primary fs-13" href="{{ route('dash.branches.index') }}" >{{  __('Branches') }}</a>
+            @endcan
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -27,8 +29,8 @@
                                 <div class="container-fluid">
                                 <h4 class="heading mb-5"> {{ $branch->name }}</h4>
 
-                                    <p class="mb-3"><strong>English title : </strong> {{ $branch->getTranslation('name', 'en') }}</p>
-                                    <p class="mb-3"><strong>Arabic Title : </strong> {{ $branch->getTranslation('name', 'ar') }}</p>
+                                    <p class="mb-3"><strong>Location-En : </strong> {{ $branch->getTranslation('name', 'en') }}</p>
+                                    <p class="mb-3"><strong>Location-Ar : </strong> {{ $branch->getTranslation('name', 'ar') }}</p>
                                     <p class="mb-3"><strong>Area :</strong> {{ $branch->area->name }}</p>
                                     <p class="mb-3"><strong>Location : </strong> {{ $branch->location }}</p>
                                     <p class="mb-3"><strong>Latitude :</strong> {{ $branch->lat }}</p>

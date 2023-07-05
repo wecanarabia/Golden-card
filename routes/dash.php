@@ -18,18 +18,17 @@ Route::group(['prefix'=>'dash','as'=>'dash.'],function (){
 
     Route::group(['middleware'=>'auth:service,service_admin'],function () {
         Route::get('/logout',[LoginController::class, 'logout'])->name('logout');
-        Route::get('/',[HomeController::class, 'index'])->name('home');
-        Route::resource('admins', ServiceAdminController::class)->except(['show'])->middleware('can:service_admins');
-        Route::resource('branches', BranchController::class)->parameters(['branches' => 'branch'])->middleware('can:branches');
-        Route::resource('images', ServiceImageController::class)->except(['show','edit','update'])->middleware('can:images');
-        Route::resource('offers', OfferController::class)->except(['delete'])->parameters(['offers' => 'offer'])->middleware('can:offers');
-        Route::get('vouchers', [VoucherController::class,'index'])->name('vouchers.index')->middleware('can:vouchers');
-        Route::resource('roles', RoleController::class)->middleware('can:service_roles');
-        Route::group(['middleware'=>'can:profile'],function () {
-            Route::get('/{service:slug}',[ServiceController::class, 'show'])->name('services.show');
-            Route::get('/{service:slug}/edit',[ServiceController::class, 'edit'])->name('services.edit');
-            Route::put('/{service:slug}',[ServiceController::class, 'update'])->name('services.update');
-        });
+        Route::resource('admins', ServiceAdminController::class)->except(['show']);
+        Route::resource('branches', BranchController::class)->parameters(['branches' => 'branch']);
+        Route::resource('images', ServiceImageController::class)->except(['show','edit','update']);
+        Route::get('images/sort/{id}/{direction}',[ServiceImageController::class,'sortData'])->name('images.sort');
+        Route::resource('offers', OfferController::class)->except(['delete'])->parameters(['offers' => 'offer']);
+        Route::get('vouchers', [VoucherController::class,'index'])->name('vouchers.index');
+        Route::resource('roles', RoleController::class);
+        Route::get('/{service:slug}',[ServiceController::class, 'show'])->name('services.show');
+        Route::get('/{service:slug}/edit',[ServiceController::class, 'edit'])->name('services.edit');
+        Route::put('/{service:slug}',[ServiceController::class, 'update'])->name('services.update');
+        Route::get('/{period?}',[HomeController::class, 'index'])->name('home');
         Route::get('/{any}', function($any){
             return abort('404');
         })->where('any', '.*');

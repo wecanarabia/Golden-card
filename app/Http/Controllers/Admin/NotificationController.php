@@ -17,7 +17,7 @@ class NotificationController extends Controller
      */
     public function index()
     {
-        $data = Notification::with('user')->latest()->paginate(10);
+        $data = Notification::with('user')->latest()->get();
         return view('admin.notifications.index',compact('data'));
     }
 

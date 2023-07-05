@@ -14,7 +14,7 @@ class SubscriptionController extends Controller
      */
     public function index()
     {
-        $data = Subscription::with(['user','plan'])->latest()->paginate(10);
+        $data = Subscription::with(['user','plan'])->latest()->get();
         return view('admin.subscriptions.index',compact('data'));
     }
 

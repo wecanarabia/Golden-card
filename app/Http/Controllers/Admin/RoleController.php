@@ -12,7 +12,7 @@ class RoleController extends Controller
 {
     public function index()
     {
-       $data=Role::where('roleable_id',0)->where('roleable_type',get_class(app(Admin::class)))->latest()->paginate(10);
+       $data=Role::where('roleable_id',0)->where('roleable_type',get_class(app(Admin::class)))->latest()->get();
         return view('admin.roles.index', compact('data'));
     }
 

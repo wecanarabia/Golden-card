@@ -15,6 +15,7 @@ class VoucherController extends Controller
     public function __construct(AuthService $auth)
     {
         $this->auth=$auth;
+        $this->middleware('can:view')->only(["index"]);
     }
 
     public function index()
@@ -23,11 +24,10 @@ class VoucherController extends Controller
             $service = Service::findOrFail($this->auth->service());
             $offers = Offer::latest()->whereBelongsTo($service)->get();
             if ($offers->count()>0) {
-                $data = Voucher::latest()->orderBy('offer_id')->with(['user','offer','branch'])->whereBelongsTo($offers)->paginate(10);
+                $data = Voucher::latest()->orderBy('offer_id')->with(['user','offer','branch'])->whereBelongsTo($offers)->get();
             }else{
                 $data=([]);
             }
-
         return view('dash.vouchers.index',compact('data'));
     }
 }

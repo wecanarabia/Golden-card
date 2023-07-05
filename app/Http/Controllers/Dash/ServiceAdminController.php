@@ -15,6 +15,8 @@ class ServiceAdminController extends Controller
     public function __construct(AuthService $auth)
     {
         $this->auth=$auth;
+        $this->middleware('can:view')->only(["index"]);
+        $this->middleware('can:control')->only(["create","store","edit","update","destroy"]);
     }
 
     /**
@@ -22,7 +24,7 @@ class ServiceAdminController extends Controller
      */
     public function index()
     {
-        $data = ServiceAdmin::latest()->where('service_id',$this->auth->service())->paginate(10);
+        $data = ServiceAdmin::latest()->where('service_id',$this->auth->service())->get();
         return view('dash.admins.index',compact('data'));
     }
 

@@ -4,7 +4,8 @@ namespace App\Http\Requests\Dash;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
-
+use Illuminate\Validation\Rule;
+use App\Models\Category;
 class ServiceRequest extends FormRequest
 {
     /**
@@ -22,6 +23,7 @@ class ServiceRequest extends FormRequest
      */
     public function rules(): array
     {
+        $categories = Category::sub()->pluck('id')->toArray();
         return [
             'english_name' => 'required|min:4|max:255',
             'arabic_name' => 'required|min:4|max:255',
@@ -32,10 +34,10 @@ class ServiceRequest extends FormRequest
             'phone' => 'required|min:9|regex:/^([0-9\s\-\+\(\)]*)$/|unique:services,phone,'.$this->id,
             'code'=>'required|min:4|max:255|unique:services,code,'.$this->id,
             'logo'=>'required_without:id|mimes:jpg,jpeg,gif,png|max:4000',
-            'lat'=>'nullable|numeric',
-            'long'=>'nullable|numeric',
-            'location'=>'nullable|min:0|max:255',
             'ipan' => 'required|min:4|max:255',
+            'first_contact' => 'nullable|min:4|max:255',
+            'second_contact' => 'nullable|min:4|max:255',
+            'category_id'=>[ 'required', Rule::in($categories)],
         ];
     }
 
@@ -46,6 +48,9 @@ class ServiceRequest extends FormRequest
             'arabic_name' => 'Arabic Name',
             'english_description' => 'English Description',
             'arabic_description' => 'Arabic Description',
+            'category_id' => 'Merchant type',
+            'first_contact'=>'First Contact',
+            'second_contact'=>'Second Contact',
         ];
     }
 }

@@ -36,82 +36,105 @@
                                         <div class="tbl-caption">
                                             <h4 class="heading mb-0"> {{ __('Offers') }}</h4>
                                         </div>
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>English Name</th>
-                                                    <th>Partner</th>
-                                                    <th>End Data</th>
-                                                    <th>Discount Value</th>
-                                                    <th>Status</th>
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="Preview" role="tabpanel"
+                                                aria-labelledby="home-tab">
+                                                <div class="card-body pt-0">
+                                                    <div class="table-responsive">
+                                                        <table id="example" class="display table"
+                                                            style="min-width: 845px">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>English Name</th>
+                                                                    <th>Partner</th>
+                                                                    <th>End Data</th>
+                                                                    <th>Discount Value</th>
+                                                                    <th>Status</th>
 
 
-                                                    <th>actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @forelse ($data as $offer)
-                                                    <tr>
+                                                                    <th>actions</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @forelse ($data as $offer)
+                                                                    <tr>
 
-                                                        <td><span>{{ $offer->getTranslation('name', 'en') }}</span></td>
+                                                                        <td><span>{{ $offer->getTranslation('name', 'en') }}</span>
+                                                                        </td>
 
-                                                        <td>
-                                                            <span><a href="{{ route('admin.services.show',$offer->service->id) }}"></a>{{ $offer->service->name}}</span>
-                                                        </td>
-                                                        <td>
-                                                            <span>{{ $offer->end_date}}</span>
-                                                        </td>
-                                                        <td>
-                                                            <span>{{ $offer->discount_value}}</span>
-                                                        </td>
-                                                        <td>
-                                                            <span>{{ $offer->status==1?'Active':'InActive' }}</span>
-                                                        </td>
+                                                                        <td>
+                                                                            <span><a
+                                                                                    href="{{ route('admin.services.show', $offer->service->id) }}"></a>{{ $offer->service->name }}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span>{{ $offer->end_date }}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span>{{ $offer->discount_value }}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span>{{ $offer->status == 1 ? 'Active' : 'InActive' }}</span>
+                                                                        </td>
 
 
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <button type="button"
-                                                                    class="btn btn-success light sharp"
-                                                                    data-bs-toggle="dropdown">
-                                                                    <svg width="20px" height="20px"
-                                                                        viewBox="0 0 24 24" version="1.1">
-                                                                        <g stroke="none" stroke-width="1"
-                                                                            fill="none" fill-rule="evenodd">
-                                                                            <rect x="0" y="0"
-                                                                                width="24" height="24" />
-                                                                            <circle fill="#000000" cx="5"
-                                                                                cy="12" r="2" />
-                                                                            <circle fill="#000000" cx="12"
-                                                                                cy="12" r="2" />
-                                                                            <circle fill="#000000" cx="19"
-                                                                                cy="12" r="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                                </button>
-                                                                <div class="dropdown-menu">
-                                                                    <a class="dropdown-item"
-                                                                        href="{{ route('admin.offers.edit', $offer->id) }}">Edit</a>
-                                                                    <a class="dropdown-item"
-                                                                        href="{{ route('admin.offers.show', $offer->id) }}">Show</a>
+                                                                        <td>
+                                                                            <div class="dropdown">
+                                                                                <button type="button"
+                                                                                    class="btn btn-success light sharp"
+                                                                                    data-bs-toggle="dropdown">
+                                                                                    <svg width="20px" height="20px"
+                                                                                        viewBox="0 0 24 24"
+                                                                                        version="1.1">
+                                                                                        <g stroke="none"
+                                                                                            stroke-width="1"
+                                                                                            fill="none"
+                                                                                            fill-rule="evenodd">
+                                                                                            <rect x="0"
+                                                                                                y="0"
+                                                                                                width="24"
+                                                                                                height="24" />
+                                                                                            <circle fill="#000000"
+                                                                                                cx="5"
+                                                                                                cy="12"
+                                                                                                r="2" />
+                                                                                            <circle fill="#000000"
+                                                                                                cx="12"
+                                                                                                cy="12"
+                                                                                                r="2" />
+                                                                                            <circle fill="#000000"
+                                                                                                cx="19"
+                                                                                                cy="12"
+                                                                                                r="2" />
+                                                                                        </g>
+                                                                                    </svg>
+                                                                                </button>
+                                                                                <div class="dropdown-menu">
+                                                                                    <a class="dropdown-item"
+                                                                                        href="{{ route('admin.offers.edit', $offer->id) }}">Edit</a>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="{{ route('admin.offers.show', $offer->id) }}">Show</a>
 
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
 
-                                                @empty
-                                                    <tr>
-                                                        <th colspan="5">
-                                                            <h5 class="text-center">There is No data</h5>
-                                                        </th>
-                                                    </tr>
-                                                @endforelse
+                                                                @empty
+                                                                    <tr>
+                                                                        <th colspan="5">
+                                                                            <h5 class="text-center">There is No data
+                                                                            </h5>
+                                                                        </th>
+                                                                    </tr>
+                                                                @endforelse
 
-                                            </tbody>
+                                                            </tbody>
 
-                                        </table>
-                                        {{$data->links()}}
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

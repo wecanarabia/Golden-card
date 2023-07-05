@@ -14,7 +14,7 @@ class AreaController extends Controller
      */
     public function index()
     {
-        $data = Area::orderBy('order','asc')->paginate(20);
+        $data = Area::orderBy('order','asc')->get();
         return view('admin.areas.index',compact('data'));
     }
 

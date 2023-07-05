@@ -16,7 +16,9 @@
                 </li>
                 <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $offer->name }} </a></li>
             </ol>
+            @can('view')
             <a class="text-primary fs-13" href="{{ route('dash.offers.index') }}" >{{  __('Offers') }}</a>
+            @endcan
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -27,12 +29,12 @@
                                 <div class="container-fluid">
                                 <h4 class="heading mb-5"> {{ $offer->name }}</h4>
 
-                                    <p class="mb-3"><strong>English title : </strong> {{ $offer->getTranslation('name', 'en') }}</p>
-                                    <p class="mb-3"><strong>Arabic Title : </strong> {{ $offer->getTranslation('name', 'ar') }}</p>
+                                    <p class="mb-3"><strong>Title-En : </strong> {{ $offer->getTranslation('name', 'en') }}</p>
+                                    <p class="mb-3"><strong>Title-Ar : </strong> {{ $offer->getTranslation('name', 'ar') }}</p>
                                     <p class="mb-3"><strong>English Description : </strong> {{ $offer->getTranslation('description', 'en') }}</p>
                                     <p class="mb-3"><strong>Arabic Description : </strong> {{ $offer->getTranslation('description', 'ar') }}</p>
-                                    <p class="mb-3"><strong>Discount Value :</strong> {{ $offer->discount_value }}</p>
-                                    <p class="mb-3"><strong>Discount Text :</strong> {{ $offer->discount_text }}</p>
+                                    <p class="mb-3"><strong>Estimated Saving Value (JD) :</strong> {{ $offer->discount_value }}</p>
+                                    <p class="mb-3"><strong>Start Date :</strong> {{ $offer->start_date }}</p>
                                     <p class="mb-3"><strong>End Date :</strong> {{ $offer->end_date }}</p>
                                     <p class="mb-3"><strong>Use Times :</strong> {{ $offer->use_times }}</p>
                                     <img class="card-img-bottom img-thumbnail mb-3" style="width: 500px" src="{{ asset( $offer->image ) }}" alt="{{ $offer->name }}">
@@ -53,7 +55,7 @@
                                 <div class="container-fluid">
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
-                                            <h4 class="heading mb-0"> {{ __('Tags') }}</h4>
+                                            <h4 class="heading mb-0"> {{ __('Tags this offer') }}</h4>
                                         </div>
                                         <table class="table">
                                             <thead>
@@ -77,7 +79,7 @@
 
 
 
-                                                    
+
                                                     </tr>
 
                                                 @empty
@@ -129,7 +131,7 @@
                                                         <td>
                                                             <span>{{ $branch->getTranslation('name', 'ar')}}</span>
                                                         </td>
-                                                 
+
                                                         <td>
                                                             <span>{{ $branch->area->name}}</span>
                                                         </td>

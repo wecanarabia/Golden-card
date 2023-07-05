@@ -70,25 +70,17 @@ class AreaController extends ApiController
             // $data['to']=$to;
             // Mail::to($to)->send(new SendEmail($data));
             // return 'Email sent successfully!';
-        $client = new Client();
-        $response = $client->request('POST', 'https://api.mailbaby.net/mail/send', [
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'X-API-KEY' => 'MzyHBztKvrilFFmuPISEzstsllmphd79adpSI37J5hRWR2c9gEHA5yWsAlNAuvu8r1h3YWEvsbHe32xGxj5PJnW1wXH7cjTvZOf9BiBmTSpjLWFzhMgZWqFMuJPHeiri',
-            ],
-            'json' => [
-                'to' => $request->to,
-                'from' => "info@wecan.work",
-                'username' => "mb42038",
-                'password' => "nDuvN9WChTvbUaBSEXyC",
-                'subject' => "test",
-                'body' => "welcome",
-                'port' => 25,
-                'transport' => 'smtp',
-                'host' => 'relay.mailbaby.net',
-                'encryption' => 'tls',
-            ],
-        ]);
+            $client = new \GuzzleHttp\Client();
+            $response = $client->request('POST', 'https://api.mailgun.net/v3/sandboxe385e0cd2633454e8de66f2503ad5e69.mailgun.org/messages', [
+                'auth' => ['api', '1188e4d3a111aa956bbfe4ab7cf8eb48-6d8d428c-7aff7521'],
+                'form_params' => [
+                    'from' => 'Golden Card <info@wecan.work>',
+                    'to' => $request->to,
+                    'subject' => 'test',
+                    'text' => 'welcome',
+                ],
+            ]);
+
         return $response->getBody();
     } catch (RequestException $e) {
         // Handle errors

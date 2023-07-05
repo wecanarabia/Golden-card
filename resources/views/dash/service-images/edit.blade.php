@@ -16,7 +16,9 @@
                 </li>
                 <li class="breadcrumb-item active"><a href="javascript:void(0)">{{  __('Edit Service Image') }} </a></li>
             </ol>
+            @can('view')
             <a class="text-primary fs-13" href="{{ route('admin.service-images.index') }}" >{{  __('Service Image') }}</a>
+            @endcan
         </div>
         <div class="container-fluid">
             <div class="row">

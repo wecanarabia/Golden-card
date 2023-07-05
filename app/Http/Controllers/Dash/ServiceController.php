@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Dash;
 
 use App\Models\Service;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Services\AuthService;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use App\Http\Requests\Dash\ServiceRequest;
 
 class ServiceController extends Controller
@@ -14,54 +16,51 @@ class ServiceController extends Controller
     public function __construct(AuthService $auth)
     {
         $this->auth=$auth;
+        $this->middleware('can:view')->only(["show"]);
+        $this->middleware('can:control')->only(["edit","update"]);
+
     }
 
-    public function show(Service $service)
+    public function show($service)
     {
-        if ($service->id != $this->auth->service()) {
-            return abort('404');
-        }else{
-            return view('dash.services.show',compact('service'));
-        }
+        $service = Service::whereSlug($service)->firstOrFail();
+        return view('dash.services.show',compact('service'));
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Service $service)
+    public function edit($service)
     {
-        if ($service->id != $this->auth->service()) {
-            return abort('404');
-        }else{
-            return view('dash.services.edit',compact('service'));
-        }
+        $service = Service::whereSlug($service)->firstOrFail();
+        $categories = Category::sub()->get();
+        return view('dash.services.edit',compact('service','categories'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(ServiceRequest $request,Service $service)
+    public function update(ServiceRequest $request,$service)
     {
-        if ($service->id != $this->auth->service()) {
-            return abort('404');
+        $service = Service::whereSlug($service)->firstOrFail();
+        if ($request->password != null) {
+            $request['password']=bcrypt($request->password);
         }else{
-            if ($request->password != null) {
-                $request['password']=bcrypt($request->password);
-            } else {
-                unset($request['password']);
-            }
-            if ($request->has('logo')&&$service->logo  && File::exists($service->logo)) {
-                unlink($service->logo);
-            }
-            $request['name']=['en'=>$request->english_name,'ar'=>$request->arabic_name];
-            $request['description']=['en'=>$request->english_description,'ar'=>$request->arabic_description];
-            $service->update($request->except([
-                'english_name',
-                'arabic_name',
-                'english_description',
-                'arabic_description',
-            ]));
-            return redirect()->route('dash.services.show', $service->slug);
-        }  
+            unset($request['password']);
+        }
+        if ($request->has('logo')&&$service->logo  && File::exists($service->logo)) {
+            unlink($service->logo);
+        }
+        $request['name']=['en'=>$request->english_name,'ar'=>$request->arabic_name];
+        $request['description']=['en'=>$request->english_description,'ar'=>$request->arabic_description];
+        $service->update($request->except([
+            'english_name',
+            'arabic_name',
+            'english_description',
+            'arabic_description',
+        ]));
+        return redirect()->route('dash.services.show', $service->slug);
     }
 }

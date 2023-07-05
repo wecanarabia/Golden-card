@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Dash;
 
+use Carbon\Carbon;
 use App\Models\Offer;
 use App\Models\Branch;
 use App\Models\Service;
+use App\Models\Voucher;
+use App\Models\ImageService;
 use Illuminate\Http\Request;
 use App\Services\AuthService;
 use App\Http\Controllers\Controller;
-use App\Models\ImageService;
-use App\Models\Voucher;
 
 class HomeController extends Controller
 {
@@ -18,13 +19,28 @@ class HomeController extends Controller
     {
         $this->auth=$auth;
     }
-    public function index()
+    public function index($period=null)
     {
+        if ($period==null) {
+            $date = Carbon::now();
+        }elseif ($period == 'week') {
+            $date = Carbon::now()->subWeek();
+        }elseif ($period == 'month') {
+            $date = Carbon::now()->subMonth();
+        }elseif ($period == 'year') {
+            $date = Carbon::now()->subYear();
+        }
         $service = Service::findOrFail($this->auth->service());
-        $data['branches']=Branch::withCount('offers')->whereBelongsTo($service)->get();
-        $data['images']=ImageService::with('service')->where('service_id',$this->auth->service())->latest()->get();
-        $data['offers']=Offer::whereBelongsTo($service)->latest()->get();
-        $data['vouchers']=Voucher::whereIn('offer_id',$data['offers']->pluck('id'))->get();
-        return view('dash.index',compact('data'));
+        $data['branches']=Branch::whereBelongsTo($service);
+        $data['offers']=Offer::whereBelongsTo($service)->get();
+        $data['active_offers']=Offer::whereStatus(1)->whereBelongsTo($service)->get();
+        $data['popular_offers']=Offer::withCount('vouchers')->whereBelongsTo($service)->orderBy('vouchers_count')->limit(10)->get();
+        $data['vouchers_count']=Voucher::whereDate('created_at','>=',$date)->whereIn('offer_id',$data['offers']->pluck('id'))->get();
+        $data['vouchers']=Voucher::whereIn('offer_id',$data['offers']->pluck('id'))->latest()->limit(5)->get();
+        $data['saving_value'] = 0;
+        foreach ($data['vouchers_count'] as $voucher) {
+            $data['saving_value']+=$voucher->offer->discount_value;
+        }
+        return view('dash.index',compact('data','service'));
     }
 }

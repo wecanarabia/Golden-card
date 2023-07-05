@@ -14,7 +14,7 @@ class PlanController extends Controller
      */
     public function index()
     {
-        $data = Plan::where('id','<>',4)->latest()->paginate(10);
+        $data = Plan::where('id','<>',4)->latest()->get();
         return view('admin.plans.index',compact('data'));
     }
 

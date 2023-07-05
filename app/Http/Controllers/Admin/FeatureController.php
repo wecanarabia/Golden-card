@@ -15,7 +15,7 @@ class FeatureController extends Controller
      */
     public function index()
     {
-        $data = Feature::with('category')->latest()->paginate(10);
+        $data = Feature::with('category')->latest()->get();
         return view('admin.features.index',compact('data'));
     }
 

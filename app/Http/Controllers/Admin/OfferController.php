@@ -20,10 +20,10 @@ class OfferController extends Controller
     public function index()
     {
         if (Auth::user()->can('all-services')) {
-            $data = Offer::with('service')->latest()->paginate(10);
+            $data = Offer::with('service')->latest()->get();
         }elseif(Auth::user()->can('services')){
             $services = Service::where('admin_id',Auth::user()->id)->latest()->get();
-            $data = Offer::latest()->with('service')->orderBy('service_id')->whereBelongsTo($services)->paginate(10);
+            $data = Offer::latest()->with('service')->orderBy('service_id')->whereBelongsTo($services)->get();
         }
         return view('admin.offers.index',compact('data'));
     }

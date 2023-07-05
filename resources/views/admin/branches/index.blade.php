@@ -36,81 +36,106 @@
                                         <div class="tbl-caption">
                                             <h4 class="heading mb-0"> {{ __('Branches') }}</h4>
                                         </div>
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>English Name</th>
-                                                    <th>Arabic Name</th>
-                                                    <th>Partner</th>
-                                                    <th>Location</th>
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="Preview" role="tabpanel"
+                                                aria-labelledby="home-tab">
+                                                <div class="card-body pt-0">
+                                                    <div class="table-responsive">
+                                                        <table id="example" class="display table"
+                                                            style="min-width: 845px">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>English Name</th>
+                                                                    <th>Arabic Name</th>
+                                                                    <th>Partner</th>
+                                                                    <th>Location</th>
 
 
-                                                    <th>actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @forelse ($data as $branch)
-                                                    <tr>
+                                                                    <th>actions</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @forelse ($data as $branch)
+                                                                    <tr>
 
-                                                        <td><span>{{ $branch->getTranslation('name', 'en') }}</span></td>
+                                                                        <td><span>{{ $branch->getTranslation('name', 'en') }}</span>
+                                                                        </td>
 
-                                                        <td>
-                                                            <span>{{ $branch->getTranslation('name', 'ar')}}</span>
-                                                        </td>
-                                                        <td>
-                                                            <span>{{ $branch->service->name}}</span>
-                                                        </td>
-                                                        <td>
-                                                            <span>{{ $branch->location}}</span>
-                                                        </td>
+                                                                        <td>
+                                                                            <span>{{ $branch->getTranslation('name', 'ar') }}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span>{{ $branch->service->name }}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span>{{ $branch->location }}</span>
+                                                                        </td>
 
 
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <button type="button"
-                                                                    class="btn btn-success light sharp"
-                                                                    data-bs-toggle="dropdown">
-                                                                    <svg width="20px" height="20px"
-                                                                        viewBox="0 0 24 24" version="1.1">
-                                                                        <g stroke="none" stroke-width="1"
-                                                                            fill="none" fill-rule="evenodd">
-                                                                            <rect x="0" y="0"
-                                                                                width="24" height="24" />
-                                                                            <circle fill="#000000" cx="5"
-                                                                                cy="12" r="2" />
-                                                                            <circle fill="#000000" cx="12"
-                                                                                cy="12" r="2" />
-                                                                            <circle fill="#000000" cx="19"
-                                                                                cy="12" r="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                                </button>
-                                                                <div class="dropdown-menu">
-                                                                    <a class="dropdown-item"
-                                                                        href="{{ route('admin.branches.edit', $branch->id) }}">Edit</a>
-                                                                    <a class="dropdown-item"
-                                                                        href="{{ route('admin.branches.show', $branch->id) }}">Show</a>
-                                                                    @if (Auth::user()->can('all-services'))
-                                                                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                                    data-id="{{ $branch->id }}" data-name="{{ $branch->name }}">Delete</button>
-                                                                    @endif
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                                        <td>
+                                                                            <div class="dropdown">
+                                                                                <button type="button"
+                                                                                    class="btn btn-success light sharp"
+                                                                                    data-bs-toggle="dropdown">
+                                                                                    <svg width="20px" height="20px"
+                                                                                        viewBox="0 0 24 24"
+                                                                                        version="1.1">
+                                                                                        <g stroke="none"
+                                                                                            stroke-width="1"
+                                                                                            fill="none"
+                                                                                            fill-rule="evenodd">
+                                                                                            <rect x="0"
+                                                                                                y="0"
+                                                                                                width="24"
+                                                                                                height="24" />
+                                                                                            <circle fill="#000000"
+                                                                                                cx="5"
+                                                                                                cy="12"
+                                                                                                r="2" />
+                                                                                            <circle fill="#000000"
+                                                                                                cx="12"
+                                                                                                cy="12"
+                                                                                                r="2" />
+                                                                                            <circle fill="#000000"
+                                                                                                cx="19"
+                                                                                                cy="12"
+                                                                                                r="2" />
+                                                                                        </g>
+                                                                                    </svg>
+                                                                                </button>
+                                                                                <div class="dropdown-menu">
+                                                                                    <a class="dropdown-item"
+                                                                                        href="{{ route('admin.branches.edit', $branch->id) }}">Edit</a>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="{{ route('admin.branches.show', $branch->id) }}">Show</a>
+                                                                                    @if (Auth::user()->can('all-services'))
+                                                                                        <button class="dropdown-item"
+                                                                                            data-bs-toggle="modal"
+                                                                                            data-bs-target="#deleteModal"
+                                                                                            data-id="{{ $branch->id }}"
+                                                                                            data-name="{{ $branch->name }}">Delete</button>
+                                                                                    @endif
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
 
-                                                @empty
-                                                    <tr>
-                                                        <th colspan="5">
-                                                            <h5 class="text-center">There is No data</h5>
-                                                        </th>
-                                                    </tr>
-                                                @endforelse
+                                                                @empty
+                                                                    <tr>
+                                                                        <th colspan="5">
+                                                                            <h5 class="text-center">There is No data
+                                                                            </h5>
+                                                                        </th>
+                                                                    </tr>
+                                                                @endforelse
 
-                                            </tbody>
+                                                            </tbody>
 
-                                        </table>
-                                        {{$data->links()}}
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -124,47 +149,47 @@
     <!--**********************************
             Content body end
         ***********************************-->
-@if (Auth::user()->can('all-services'))
-
-<!-- Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Delete Branch</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    @if (Auth::user()->can('all-services'))
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Delete Branch</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{ route('admin.branches.destroy', 'test') }}" method="post">
+                        {{ method_field('delete') }}
+                        @csrf
+                        <div class="modal-body">
+                            <p>Are you sure to delete?</p><br>
+                            <input type="hidden" name="id" id="id" value="">
+                            <input class="form-control" name="name" id="name" type="text" readonly>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                aria-label="Close">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Confirm</button>
+                        </div>
+                </div>
+                </form>
+            </div>
         </div>
-        <form action="{{ route('admin.branches.destroy','test') }}" method="post">
-            {{ method_field('delete') }}
-            @csrf
-            <div class="modal-body">
-                <p>Are you sure to delete?</p><br>
-                <input type="hidden" name="id" id="id" value="">
-                <input class="form-control" name="name" id="name" type="text" readonly>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                <button type="submit" class="btn btn-danger">Confirm</button>
-            </div>
-    </div>
-    </form>
-      </div>
-    </div>
-  </div>
+        </div>
 
 
 
-  @push('javasc')
-<script>
-    $('#deleteModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget)
-        var id = button.data('id')
-        var name = button.data('name')
-        var modal = $(this)
-        modal.find('.modal-body #id').val(id);
-        modal.find('.modal-body #name').val(name);
-    })
-</script>
-@endpush
-@endif
+        @push('javasc')
+            <script>
+                $('#deleteModal').on('show.bs.modal', function(event) {
+                    var button = $(event.relatedTarget)
+                    var id = button.data('id')
+                    var name = button.data('name')
+                    var modal = $(this)
+                    modal.find('.modal-body #id').val(id);
+                    modal.find('.modal-body #name').val(name);
+                })
+            </script>
+        @endpush
+    @endif
 </x-admin-layouts.admin-app>

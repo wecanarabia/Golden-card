@@ -30,6 +30,7 @@ class OfferRequest extends FormRequest
             'use_times'=>"required|integer|min:0",
             'discount_text' => 'required|min:4|max:255',
             'image'=>'required_without:id|mimes:jpg,jpeg,gif,png|max:4000',
+            'start_date'=>'required|date',
             'end_date'=>'required|date',
             'status'=>'nullable|in:0,1',
             'tags'=>'array|min:1',
@@ -45,6 +46,7 @@ class OfferRequest extends FormRequest
         return [
             'discount_text' => 'Discount Text',
             'discount_value' => 'Discount Value',
+            'start_date' => 'Start Date',
             'end_date' => 'End Date',
             'use_times' => 'Use Times',
             'english_name' => 'English Name',
