@@ -65,23 +65,23 @@ class AreaController extends ApiController
     {
         // dd('hi');
         try {
-            $to = $request->input('to');
-            $data['message']='fdfdf';
-            $data['to']=$to;
-            Mail::to($to)->send(new SendEmail($data));
-            return 'Email sent successfully!';
+            // $to = $request->input('to');
+            // $data['message']='fdfdf';
+            // $data['to']=$to;
+            // Mail::to($to)->send(new SendEmail($data));
+            // return 'Email sent successfully!';
 
-            // $client = new \GuzzleHttp\Client();
-            // $response = $client->request('POST', 'https://api.mailgun.net/v3/sandbox64807dc398b24206867ea8466ba1b306.mailgun.org/messages', [
-            //     'auth' => ['api', 'a4a396479f3550d51a7f1537e006fdd3-6d8d428c-e428748f'],
-            //     'form_params' => [
-            //         'from' => 'Golden Card <info@wecan.work>',
-            //         'to' => $request->to,
-            //         'subject' => 'test',
-            //         'text' => 'welcome',
-            //     ],
-            // ]);
-            // return $response->getBody();
+            $client = new \GuzzleHttp\Client();
+            $response = $client->request('POST', 'https://api.mailgun.net/v3/goldencard.com.jo/messages', [
+                'auth' => ['api', 'a4a396479f3550d51a7f1537e006fdd3-6d8d428c-e428748f'],
+                'form_params' => [
+                    'from' => 'Golden Card <goldencardjo@goldencard.com.jo>',
+                    'to' => $request->to,
+                    'subject' => 'test',
+                    'text' => 'welcome',
+                ],
+            ]);
+            return $response->getBody();
         } catch (RequestException $e) {
             // Handle errors
             $response = $e->getResponse();
