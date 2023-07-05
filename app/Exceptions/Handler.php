@@ -49,7 +49,7 @@ class Handler extends ExceptionHandler
                 return abort('404');
             }else if (!Request::is('dash/*')){
                 return abort('405');
-            }else{
+            }else if (!Request::is('/*')){
                 return abort('406');
             }
         }
