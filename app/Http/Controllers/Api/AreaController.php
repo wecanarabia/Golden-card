@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AreaResource;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\ApiController;
+use GuzzleHttp\Exception\RequestException;
 // use GuzzleHttp\Client;
 
 
