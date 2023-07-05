@@ -3,16 +3,15 @@
 namespace App\Exceptions;
 
 use Throwable;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
 use Psy\Exception\FatalErrorException;
 use Illuminate\Support\Facades\Request;
 use Symfony\Component\ErrorHandler\Error\FatalError;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -37,48 +36,24 @@ class Handler extends ExceptionHandler
         });
     }
 
-    // public function render($request, Throwable $exception)
-    // {
-    //     if ($this->isHttpException($exception)) {
-    //         if ($exception->getStatusCode() == 404 ) {
-    //             view()->share('is405Page', true);
-    //             return response()->view('errors.404', [], 404);
-    //         }
-    //     }
-    //     if ($exception instanceof ModelNotFoundException || $exception instanceof MethodNotAllowedHttpException) {
-    //         if (!Request::is('admin/*')){
-    //             return abort('404');
-    //         }else if (!Request::is('dash/*')){
-    //             return abort('405');
-    //         }else{
-    //             return abort('406');
-    //         }
-    //     }
-
-    //     return parent::render($request, $exception);
-    // }
     public function render($request, Throwable $exception)
-{
-    if ($this->isHttpException($exception)) {
-        if ($exception->getStatusCode() == 404) {
-            $message = "The requested resource could not be found.";
-        } else {
-            $message = $exception->getMessage();
+    {
+        if ($this->isHttpException($exception)) {
+            if ($exception->getStatusCode() == 404 ) {
+                view()->share('is405Page', true);
+                return response()->view('errors.404', [], 404);
+            }
         }
-        view()->share('is405Page', true);
-        return response()->view('errors.404', [
-            'message' => $message,
-        ], 404);
+        if ($exception instanceof ModelNotFoundException || $exception instanceof MethodNotAllowedHttpException) {
+            if (!Request::is('admin/*')){
+                return abort('404');
+            }else if (!Request::is('dash/*')){
+                return abort('405');
+            }else{
+                return abort('406');
+            }
+        }
+
+        return parent::render($request, $exception);
     }
-
-    if ($exception instanceof ModelNotFoundException || $exception instanceof MethodNotAllowedHttpException) {
-        $message = $exception->getMessage();
-
-        return abort($exception->getStatusCode(), $message);
-    }
-
-    Log::error($exception);
-
-    return parent::render($request, $exception);
-}
 }
