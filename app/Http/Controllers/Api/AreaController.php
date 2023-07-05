@@ -29,23 +29,22 @@ class AreaController extends ApiController
     public function areas()
     {
 
-        $data = Area::orderBy('order','asc')->get();
+        $data = Area::orderBy('order', 'asc')->get();
 
-        return $this->returnData( 'data' , $this->resource::collection( $data ), __('Succesfully'));
-
-
+        return $this->returnData('data', $this->resource::collection($data), __('Succesfully'));
     }
 
 
-    public function save( Request $request ){
-        return $this->store( $request->all() );
+    public function save(Request $request)
+    {
+        return $this->store($request->all());
     }
 
-    public function edit($id,Request $request){
+    public function edit($id, Request $request)
+    {
 
 
-        return $this->update($id,$request->all());
-
+        return $this->update($id, $request->all());
     }
 
 
@@ -62,35 +61,35 @@ class AreaController extends ApiController
     //     return $this->returnSuccessMessage('success');
     // }
 
-      public function sendEmail(Request $request)
+    public function sendEmail(Request $request)
     {
         // dd('hi');
-        try{
-            // $to = $request->input('to');
-            // $data['message']='fdfdf';
-            // $data['to']=$to;
-            // Mail::to($to)->send(new SendEmail($data));
-            // return 'Email sent successfully!';
-            $client = new \GuzzleHttp\Client();
-            $response = $client->request('POST', 'https://api.mailgun.net/v3/sandboxe385e0cd2633454e8de66f2503ad5e69.mailgun.org/messages', [
-                'auth' => ['api', '1188e4d3a111aa956bbfe4ab7cf8eb48-6d8d428c-7aff7521'],
-                'form_params' => [
-                    'from' => 'Golden Card <info@wecan.work>',
-                    'to' => $request->to,
-                    'subject' => 'test',
-                    'text' => 'welcome',
-                ],
-            ]);
+        try {
+            $to = $request->input('to');
+            $data['message']='fdfdf';
+            $data['to']=$to;
+            Mail::to($to)->send(new SendEmail($data));
+            return 'Email sent successfully!';
 
-        return $response->getBody();
-    } catch (RequestException $e) {
-        // Handle errors
-        $response = $e->getResponse();
-        $statusCode = $response->getStatusCode();
-        $reasonPhrase = $response->getReasonPhrase();
-        // Log or return the error message
-        return "Error: $statusCode - $reasonPhrase";
-    }
+            // $client = new \GuzzleHttp\Client();
+            // $response = $client->request('POST', 'https://api.mailgun.net/v3/sandbox64807dc398b24206867ea8466ba1b306.mailgun.org/messages', [
+            //     'auth' => ['api', 'a4a396479f3550d51a7f1537e006fdd3-6d8d428c-e428748f'],
+            //     'form_params' => [
+            //         'from' => 'Golden Card <info@wecan.work>',
+            //         'to' => $request->to,
+            //         'subject' => 'test',
+            //         'text' => 'welcome',
+            //     ],
+            // ]);
+            // return $response->getBody();
+        } catch (RequestException $e) {
+            // Handle errors
+            $response = $e->getResponse();
+            $statusCode = $response->getStatusCode();
+            $reasonPhrase = $response->getReasonPhrase();
+            // Log or return the error message
+            return "Error: $statusCode - $reasonPhrase";
+        }
     }
 
 
