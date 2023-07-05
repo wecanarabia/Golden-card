@@ -34,6 +34,7 @@
                                     <p class="mb-3"><strong>English Description : </strong> {{ $offer->getTranslation('description', 'en') }}</p>
                                     <p class="mb-3"><strong>Arabic Description : </strong> {{ $offer->getTranslation('description', 'ar') }}</p>
                                     <p class="mb-3"><strong>Estimated Saving Value (JD) :</strong> {{ $offer->discount_value }}</p>
+                                    <p class="mb-3"><strong>Discount Text :</strong> {{ $offer->discount_text }}</p>
                                     <p class="mb-3"><strong>Start Date :</strong> {{ $offer->start_date }}</p>
                                     <p class="mb-3"><strong>End Date :</strong> {{ $offer->end_date }}</p>
                                     <p class="mb-3"><strong>Use Times :</strong> {{ $offer->use_times }}</p>

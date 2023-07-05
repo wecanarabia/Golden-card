@@ -41,9 +41,8 @@ class Handler extends ExceptionHandler
         if ($this->isHttpException($exception)) {
             if ($exception->getStatusCode() == 404 ) {
                 view()->share('is405Page', true);
-                return response()->view('errors.404', [], 404);
+                return response()->view('errors.' . '404', [], 404);
             }
-
         }
         if ($exception instanceof ModelNotFoundException || $exception instanceof MethodNotAllowedHttpException) {
             if (!Request::is('admin/*')){
