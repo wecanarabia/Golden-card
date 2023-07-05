@@ -20,7 +20,7 @@ class NotificationResource extends JsonResource
             'title'=>$this->title,
             'body'=>$this->body,
             'created_at'=>$this->created_at,
-            'user'=> new UserResource($this?->user),
+            // 'user'=> new UserResource($this?->user),
         ];
     }
 }

@@ -74,8 +74,9 @@ Route::middleware(['auth:api','changeLang'])->group(function () {
 Route::post('/user-update', [AuthController::class, 'updateProfile']);
 
 
-//my notifications
-Route::get('my-notifications', [NotificationController::class, 'myNotifications']);
+Route::post('user/token', [AuthController::class, 'updateDeviceToken']);
+
+
 
 
 
@@ -110,6 +111,9 @@ Route::post('free-subscription', [SubscriptionController::class, 'getFreeSub']);
 
 Route::middleware('changeLang')->group(function () {
 
+
+    //my notifications
+Route::get('my-notifications', [NotificationController::class, 'myNotifications']);
 
 //search
 Route::post('services-search', [ServiceController::class, 'searchS']);

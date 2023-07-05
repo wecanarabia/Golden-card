@@ -64,7 +64,8 @@ class SubscriptionController extends ApiController
 
 
 
-                            return $this->returnSuccessMessage($price);
+                            // return $this->returnSuccessMessage($price);
+                            return $this->returnData( 'data' , new $this->resource( $sub ), __('Succesfully'));
 
 
                         }
@@ -95,7 +96,8 @@ class SubscriptionController extends ApiController
                             $us_code->save();
 
 
-                            return $this->returnSuccessMessage($price);
+                            // return $this->returnSuccessMessage($price);
+                            return $this->returnData( 'data' , new $this->resource( $sub ), __('Succesfully'));
 
                         }
 
@@ -133,7 +135,8 @@ class SubscriptionController extends ApiController
                             $sub->subable_id= 0;
                             $sub->save();
 
-                            return $this->returnSuccessMessage('success');
+                            // return $this->returnSuccessMessage('success');
+                            return $this->returnData( 'data' , new $this->resource( $sub ), __('Succesfully'));
         }
     }
 
@@ -182,7 +185,8 @@ class SubscriptionController extends ApiController
         $sub->subable_id= $copon->id;
         $sub->save();
 
-        return $this->returnSuccessMessage('success');
+        // return $this->returnSuccessMessage('success');
+        return $this->returnData( 'data' , new $this->resource( $sub ), __('Succesfully'));
     }
     return $this->returnError('Soory ! Coupon date has expired!');
 
