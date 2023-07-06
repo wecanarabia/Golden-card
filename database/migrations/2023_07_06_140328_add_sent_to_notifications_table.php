@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('offers', function (Blueprint $table) {
-            $table->string('slug')->nullable()->after('name');
+        Schema::table('notifications', function (Blueprint $table) {
+            $table->boolean('sent')->default(0);
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('offers', function (Blueprint $table) {
-            $table->dropColumn('slug');
+        Schema::table('notifications', function (Blueprint $table) {
+            $table->dropColumn('sent');
         });
     }
 };

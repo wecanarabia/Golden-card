@@ -103,6 +103,13 @@
                                             @enderror
                                         </div>
                                         <div class="col-xl-8 mb-3">
+                                            <label class="form-label">Cassification<span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" name="cassification" value="{{ old('cassification',$service->cassification) }}">
+                                            @error('cassification')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="col-xl-8 mb-3">
                                             <label for="exampleFormControlInputthird" class="form-label">Ipan<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="exampleFormControlInputthird" name="ipan" value="{{ old('ipan',$service->ipan) }}">
                                             @error('ipan')

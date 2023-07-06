@@ -51,6 +51,8 @@
                                                                     <th>Phone</th>
                                                                     <th>Status</th>
                                                                     <th>Admin</th>
+                                                                    <th>Cassification</th>
+                                                                    <th>Created At</th>
 
 
                                                                     <th>actions</th>
@@ -77,6 +79,13 @@
                                                                         </td>
                                                                         <td>
                                                                             <span>{{ $service?->admin?->name }}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span>{{ $service->created_at }}</span>
+                                                                        </td>
+                                                                        
+                                                                        <td>
+                                                                            <span>{{ $service->cassification }}</span>
                                                                         </td>
 
                                                                         <td>

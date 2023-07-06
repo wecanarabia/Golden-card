@@ -30,6 +30,7 @@
                                     <p class="mb-3"><strong>Title : </strong> {{ $notification->title }}</p>
                                     <p class="mb-3"><strong>body : </strong> {{ $notification->body }}</p>
                                     <p class="mb-3"><strong>Sending time : </strong> {{ $notification->date_time }}</p>
+                                    <p class="mb-3"><strong>Status : </strong> {{ $notification->sent==1?'sent':'pending' }}</p>
 
                         </div>
                         </div>
