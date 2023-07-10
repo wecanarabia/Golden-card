@@ -37,6 +37,5 @@ class SendNotification extends Command
                 $this->send($notification->body, $notification->title,$notification->date_time, $many = true);
             }
         }
-
     }
 }

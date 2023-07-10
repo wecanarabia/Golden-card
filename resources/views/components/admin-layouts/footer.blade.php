@@ -28,13 +28,19 @@
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-    {{--
-	<script src="./vendor/chart.js/Chart.bundle.min.js') }}"></script>
-	<script src="./vendor/apexchart/apexchart.js"></script> --}}
+    
+
     <script src="{{ asset('xhtml/vendor/global/global.min.js') }}"></script>
+    <script src="{{ asset('xhtml/vendor/chart.js/Chart.bundle.min.js') }}"></script>
+    <script src="{{ asset('xhtml/js/plugins-init/chartjs-init.js') }}"></script>
+    <script src="{{ asset('xhtml/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+	<script src="{{ asset('xhtml/vendor/apexchart/apexchart.js') }}"></script>
 	<!-- Dashboard 1 -->
 	<script src="{{ asset('xhtml/js/dashboard/dashboard-1.js') }}"></script>
     <script src="{{ asset('xhtml/vendor/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('xhtml/js/custom.js') }}"></script>
+    <script src="{{ asset('xhtml/js/map.js') }}"></script>
+	<script src="{{ asset('xhtml/js/deznav-init.js') }}"></script>
 	{{-- <script src="./vendor/draggable/draggable.js"></script> --}}
     @stack('javasc')
 
@@ -57,11 +63,8 @@
     <script src="{{ asset('xhtml/vendor/jqvmap/js/jquery.vmap.min.js') }}"></script>
     <script src="{{ asset('xhtml/vendor/jqvmap/js/jquery.vmap.world.js') }}"></script>
     <script src="{{ asset('xhtml/vendor/jqvmap/js/jquery.vmap.usa.js') }}"></script>
-    <script src="{{ asset('xhtml/js/custom.js') }}"></script>
-    <script src="{{ asset('xhtml/js/map.js') }}"></script>
-	<script src="{{ asset('xhtml/js/deznav-init.js') }}"></script>
+ 
 
-    <script src="{{ asset('xhtml/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
 
 
 

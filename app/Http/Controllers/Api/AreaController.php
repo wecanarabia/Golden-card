@@ -75,12 +75,13 @@ class AreaController extends ApiController
             $response = $client->request('POST', 'https://api.mailgun.net/v3/goldencard.com.jo/messages', [
                 'auth' => ['api', 'a4a396479f3550d51a7f1537e006fdd3-6d8d428c-e428748f'],
                 'form_params' => [
-                    'from' => 'Golden Card <postmaster@goldencard.com.jo>',
+                    'from' => 'Golden Card <goldencard@gmail.com>',
                     'to' => $request->to,
                     'subject' => 'test',
                     'text' => 'welcome',
                 ],
             ]);
+
             return $response->getBody();
         } catch (RequestException $e) {
             // Handle errors
