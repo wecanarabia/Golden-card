@@ -75,7 +75,7 @@ class AreaController extends ApiController
             $response = $client->request('POST', 'https://api.mailgun.net/v3/goldencard.com.jo/messages', [
                 'auth' => ['api', 'a4a396479f3550d51a7f1537e006fdd3-6d8d428c-e428748f'],
                 'form_params' => [
-                    'from' => 'Golden Card <goldencard@gmail.com>',
+                    'from' => 'Golden Card <goldencard@goldencard.com.jo>',
                     'to' => $request->to,
                     'subject' => 'test',
                     'text' => 'welcome',
@@ -83,13 +83,9 @@ class AreaController extends ApiController
             ]);
 
             return $response->getBody();
-        } catch (RequestException $e) {
-            // Handle errors
-            $response = $e->getResponse();
-            $statusCode = $response->getStatusCode();
-            $reasonPhrase = $response->getReasonPhrase();
-            // Log or return the error message
-            return "Error: $statusCode - $reasonPhrase";
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            // handle the exception here
+            return $e->getMessage();
         }
     }
 
