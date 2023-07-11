@@ -70,10 +70,9 @@ class AreaController extends ApiController
             // $data['to']=$to;
             // Mail::to($to)->send(new SendEmail($data));
             // return 'Email sent successfully!';
-
             $client = new \GuzzleHttp\Client();
             $response = $client->request('POST', 'https://api.eu.mailgun.net/v3/goldencard.com.jo/messages', [
-                'auth' => ['api', '9ebdc3ec7bdd5e574c6257b80e4b11b8-262b213e-57ddc12e'],
+            'auth' => ['api', 'key-725040a68f82c5d4c76319addc197e35'],
                 'form_params' => [
                     'from' => 'Golden Card <goldencard@goldencard.com.jo>',
                     'to' => $request->to,

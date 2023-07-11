@@ -3,7 +3,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-               <p>Copyright © Developed by <a href="https://dexignzone.com/" target="_blank">We Can</a> 2023</p>
+               <p>Copyright © Developed by <a href="https://wecan.jo" target="_blank">We Can</a> 2023</p>
             </div>
         </div>
         <!--**********************************
@@ -28,7 +28,7 @@
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-    
+
 
     <script src="{{ asset('xhtml/vendor/global/global.min.js') }}"></script>
     <script src="{{ asset('xhtml/vendor/chart.js/Chart.bundle.min.js') }}"></script>
@@ -63,7 +63,7 @@
     <script src="{{ asset('xhtml/vendor/jqvmap/js/jquery.vmap.min.js') }}"></script>
     <script src="{{ asset('xhtml/vendor/jqvmap/js/jquery.vmap.world.js') }}"></script>
     <script src="{{ asset('xhtml/vendor/jqvmap/js/jquery.vmap.usa.js') }}"></script>
- 
+
 
 
 

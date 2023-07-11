@@ -3,7 +3,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-               <p>Copyright © Developed by <a href="https://dexignzone.com/" target="_blank">We Can</a> 2023</p>
+               <p>Copyright © Developed by <a href="https://wecan.jo" target="_blank">We Can</a> 2023</p>
             </div>
         </div>
         <!--**********************************
