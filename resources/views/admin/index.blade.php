@@ -23,8 +23,7 @@
                 </li>
                 <li class="breadcrumb-item active"><a href="javascript:void(0)">Dashboard</a></li>
             </ol>
-            <a class="text-primary fs-13" data-bs-toggle="offcanvas" href="#offcanvasExample1" role="button"
-                aria-controls="offcanvasExample1">+ Add Task</a>
+
         </div>
         <div class="container-fluid">
             <div class="row">

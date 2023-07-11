@@ -17,7 +17,6 @@
 					</li>
 					<li class="breadcrumb-item active"><a href="javascript:void(0)">Dashboard</a></li>
 				</ol>
-				<a class="text-primary fs-13" data-bs-toggle="offcanvas" href="#offcanvasExample1" role="button" aria-controls="offcanvasExample1">+ Add Task</a>
 			</div>
 			<div class="container-fluid">
 				<div class="row">
@@ -145,18 +144,18 @@
                                                             <th>Start Data</th>
                                                             <th>End Data</th>
                                                             <th>Estimated Saving Value (JD)</th>
-        
-        
+
+
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         @forelse ($data['popular_offers'] as $offer)
                                                             <tr>
-        
+
                                                                 <td><span>{{ $offer->getTranslation('name', 'en') }}</span></td>
                                                                 <td><span>{{ $offer->getTranslation('name', 'ar') }}</span></td>
-        
-        
+
+
                                                                 <td>
                                                                     <span>{{ $offer->start_date}}</span>
                                                                 </td>
@@ -166,12 +165,12 @@
                                                                 <td>
                                                                     <span>{{ $offer->discount_value}}</span>
                                                                 </td>
-        
-        
-        
-                                                               
+
+
+
+
                                                             </tr>
-        
+
                                                         @empty
                                                             <tr>
                                                                 <th colspan="5">
@@ -179,9 +178,9 @@
                                                                 </th>
                                                             </tr>
                                                         @endforelse
-        
+
                                                     </tbody>
-        
+
                                                 </table>
                                             </div>
                                         </div>
@@ -202,12 +201,12 @@
                                                 <div class="tbl-caption">
                                                     <h4 class="heading mb-0"> {{ __('Vouchers') }}</h4>
                                                 </div>
-                                               
+
                                                 <table class="table">
 
                                                                     <thead>
                                                                         <tr>
-        
+
                                                                             <th>Code</th>
                                                                             <th>Offer</th>
                                                                             <th>User</th>
@@ -237,9 +236,9 @@
                                                                                 <td>{{ $code->offer->discount_value }}</td>
                                                                                 <td>{{ $code->created_at }}</td>
                                                                                 <td></td>
-        
+
                                                                             </tr>
-        
+
                                                                         @empty
                                                                             <tr>
                                                                                 <th colspan="5">
@@ -248,11 +247,11 @@
                                                                                 </th>
                                                                             </tr>
                                                                         @endforelse
-        
+
                                                                     </tbody>
-        
+
                                                                 </table>
-                                                           
+
                                             </div>
                                         </div>
                                     </div>
