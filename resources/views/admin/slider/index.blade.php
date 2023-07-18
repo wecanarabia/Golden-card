@@ -45,9 +45,11 @@
                                                             style="min-width: 845px">
                                                             <thead>
                                                                 <tr>
+                                                                    <th>Order</th>
+
                                                                     <th>Image</th>
                                                                     <th>Partner</th>
-                                                                    <th>Order</th>
+                                                                    <th>Sort</th>
 
 
                                                                     <th>actions</th>
@@ -56,7 +58,7 @@
                                                             <tbody>
                                                                 @forelse ($data as $image)
                                                                     <tr>
-
+                                                                        <td><span>{{ $image->order }}</span></td>
                                                                         <td><span><img src="{{ asset($image->image) }}"
                                                                                     width="150"
                                                                                     alt=""></span></td>

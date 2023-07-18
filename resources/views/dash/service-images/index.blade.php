@@ -41,6 +41,7 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
+                                                    <th>Order</th>
                                                     <th>Image</th>
 
                                                     <th>Sort</th>
@@ -51,7 +52,7 @@
                                             <tbody>
                                                 @forelse ($data as $image)
                                                     <tr>
-
+                                                        <td><span>{{ $image->order }}</span></td>
                                                         <td><span><img src="{{ asset($image->image) }}" width="150" alt=""></span></td>
 
                                                         <td class="align-center">

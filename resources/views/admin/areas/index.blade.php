@@ -45,6 +45,7 @@
                                                             style="min-width: 845px">
                                                             <thead>
                                                                 <tr>
+                                                                    <th>Order</th>
                                                                     <th>English Name</th>
                                                                     <th>Arabic Name</th>
                                                                     <th>Sort</th>
@@ -57,6 +58,8 @@
                                                                 @forelse ($data as $area)
                                                                     <tr>
 
+                                                                        <td><span>{{ $area->order }}</span>
+                                                                        </td>
                                                                         <td><span>{{ $area->getTranslation('name', 'en') }}</span>
                                                                         </td>
                                                                         <td>
