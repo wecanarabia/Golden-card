@@ -64,7 +64,7 @@
     <script src="{{ asset('xhtml/vendor/jqvmap/js/jquery.vmap.usa.js') }}"></script>
     <script src="{{ asset('xhtml/vendor/chart.js/Chart.bundle.min.js') }}"></script>
     <script src="{{ asset('xhtml/js/plugins-init/chartjs-init.js') }}"></script>
-
+    
 
 
 

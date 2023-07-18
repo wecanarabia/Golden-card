@@ -188,7 +188,7 @@
                 <div class="col-xl-9 wid-100">
                     <div class="row">
 
-                        <div class="col-xl-12 col-sm-6 same-card">
+                        <div class="col-xl-12 col-sm-12 same-card">
                             <div class="card">
                                 <div class="card-body depostit-card">
                                     <div class="depostit-card-media d-flex justify-content-between style-1">
@@ -246,10 +246,10 @@
 
                 <div class="col-xl-9 wid-100">
                     <div class="row">
-                        <div class="col-lg-6 col-sm-6">
+                        <div class="col-lg-6 col-sm-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Bar Chart</h4>
+                                    <h4 class="card-title">Earnings</h4>
                                 </div>
                                 <div style="width:75%;">
                                     {!! $data['chart']->render() !!}
