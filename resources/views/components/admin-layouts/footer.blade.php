@@ -42,8 +42,7 @@
 	<script src="{{ asset('xhtml/js/deznav-init.js') }}"></script>
 	{{-- <script src="./vendor/draggable/draggable.js"></script> --}}
     @stack('javasc')
-    <script src="{{ asset('xhtml/vendor/chart.js/Chart.bundle.min.js') }}"></script>
-    <script src="{{ asset('xhtml/js/plugins-init/chartjs-init.js') }}"></script>
+
 	<!-- tagify -->
 	<script src="{{ asset('xhtml/vendor/tagify/dist/tagify.js') }}"></script>
 
@@ -63,6 +62,9 @@
     <script src="{{ asset('xhtml/vendor/jqvmap/js/jquery.vmap.min.js') }}"></script>
     <script src="{{ asset('xhtml/vendor/jqvmap/js/jquery.vmap.world.js') }}"></script>
     <script src="{{ asset('xhtml/vendor/jqvmap/js/jquery.vmap.usa.js') }}"></script>
+    <script src="{{ asset('xhtml/vendor/chart.js/Chart.bundle.min.js') }}"></script>
+    <script src="{{ asset('xhtml/js/plugins-init/chartjs-init.js') }}"></script>
+
 
 
 
