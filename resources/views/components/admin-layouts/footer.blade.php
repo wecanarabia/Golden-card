@@ -34,9 +34,9 @@
     <script src="{{ asset('xhtml/vendor/chart.js/Chart.bundle.min.js') }}"></script>
     <script src="{{ asset('xhtml/js/plugins-init/chartjs-init.js') }}"></script>
     <script src="{{ asset('xhtml/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
-	<script src="{{ asset('xhtml/vendor/apexchart/apexchart.js') }}"></script>
+	{{-- <script src="{{ asset('xhtml/vendor/apexchart/apexchart.js') }}"></script> --}}
 	<!-- Dashboard 1 -->
-	<script src="{{ asset('xhtml/js/dashboard/dashboard-1.js') }}"></script>
+	{{-- <script src="{{ asset('xhtml/js/dashboard/dashboard-1.js') }}"></script> --}}
     <script src="{{ asset('xhtml/vendor/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('xhtml/js/custom.js') }}"></script>
     <script src="{{ asset('xhtml/js/map.js') }}"></script>
