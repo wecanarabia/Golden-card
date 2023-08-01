@@ -16,7 +16,9 @@
                 </li>
                 <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $role->name }} </a></li>
             </ol>
+            @can('view')
             <a class="text-primary fs-13" href="{{ route('dash.roles.index') }}" >{{  __('Roles') }}</a>
+            @endcan
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -30,7 +32,7 @@
                                     <p class="mb-3"><strong>Role : </strong> {{ $role->name }}</p>
                                     <p class="mb-3"><strong>Permissions : </strong>
                                         @foreach ($role->permissions as $k => $name )
-                                                                         
+
                                         <span class="text-muted d-block">- {{config('global.service')[$name]}}</span>
                                         @endforeach
                                     </p>

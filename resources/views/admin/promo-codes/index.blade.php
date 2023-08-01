@@ -36,8 +36,13 @@
                                         <div class="tbl-caption">
                                             <h4 class="heading mb-0"> {{ __('Promo Codes') }}</h4>
                                         </div>
-                                        <table class="table">
-                                            <thead>
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="Preview" role="tabpanel"
+                                                aria-labelledby="home-tab">
+                                                <div class="card-body pt-0">
+                                                    <div class="table-responsive">
+                                                        <table id="example" class="display table"
+                                                            style="min-width: 845px">                                            <thead>
                                                 <tr>
                                                     <th>Code</th>
                                                     <th>Start Date</th>
@@ -110,7 +115,10 @@
                                             </tbody>
 
                                         </table>
-                                        {{$data->links()}}
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>

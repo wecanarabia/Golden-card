@@ -37,10 +37,14 @@
                                     <p class="mb-3"><strong>Category :</strong> <a href="{{ route('admin.categories.show',$service->subcategory->id) }}">{{ $service->subcategory->name }}</a></p>
                                     <p class="mb-3"><strong>Status :</strong> {{ $service->status==1?'Active':'InActive' }}</p>
                                     <p class="mb-3"><strong>Admin :</strong> {{ $service?->admin?->name}}</p>
+                                    <p class="mb-3"><strong>Profit margin : </strong> {{ $service->profit_margin }}%</p>
+                                    <p class="mb-3"><strong>Profits : </strong> {{ $profits }}</p>
                                     <p class="mb-3"><strong>Ipan : </strong> {{ $service->ipan }}</p>
                                     <p class="mb-3"><strong>Location : </strong> {{ $service->location }}</p>
                                     <p class="mb-3"><strong>Latitude :</strong> {{ $service->lat }}</p>
                                     <p class="mb-3"><strong>Longitude :</strong> {{ $service->long }}</p>
+                                    <p class="mb-3"><strong>Cassification :</strong> {{ $service->cassification }}</p>
+                                    <p class="mb-3"><strong>Created At :</strong> {{ $service?->created_at }}</p>
 
                                     <img class="card-img-bottom img-thumbnail mb-3" style="width: 500px" src="{{ asset( $service->logo ) }}" alt="{{ $service->name }}">
 

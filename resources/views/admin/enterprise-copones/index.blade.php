@@ -36,49 +36,62 @@
                                         <div class="tbl-caption">
                                             <h4 class="heading mb-0"> {{ __('Enterprise Copones') }}</h4>
                                         </div>
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="Preview" role="tabpanel"
+                                                aria-labelledby="home-tab">
+                                                <div class="card-body pt-0">
+                                                    <div class="table-responsive">
+                                                        <table id="example" class="display table"
+                                                            style="min-width: 845px">
+                                                            <thead>
+                                                                <tr>
 
-                                                    <th>Enterprise</th>
-                                                    <th>Number of copones</th>
-                                                    <th>Active copones</th>
-                                                    <th>InActive copones</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @forelse ($data as $copone)
-                                                    <tr>
+                                                                    <th>Enterprise</th>
+                                                                    <th>Number of copones</th>
+                                                                    <th>Active copones</th>
+                                                                    <th>InActive copones</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @forelse ($data as $copone)
+                                                                    <tr>
 
-                                                        {{-- <td><span>{{ $copone->start_date }}</span></td>
+                                                                        {{-- <td><span>{{ $copone->start_date }}</span></td>
                                                         <td>
                                                             <span>{{ $copone->end_date }}</span>
                                                         </td> --}}
-                                                        <td>
-                                                            <a href="{{ route('admin.enterprises.show', $copone->id) }}">
-                                                            <span>{{ $copone->enterprise_name }}</span></a>
-                                                        </td>
-                                                        <td>
-                                                            {{ $copone->copones()->count() }}
-                                                        </td>
-                                                        <td>{{ $copone->copones->whereNotNull('user_id')->count() }}</td>
-                                                        <td>{{ $copone->copones->whereNull('user_id')->count() }}</td>
-                                                        <td></td>
-                                                    </tr>
+                                                                        <td>
+                                                                            <a
+                                                                                href="{{ route('admin.enterprises.show', $copone->id) }}">
+                                                                                <span>{{ $copone->enterprise_name }}</span></a>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{ $copone->copones()->count() }}
+                                                                        </td>
+                                                                        <td>{{ $copone->copones->whereNotNull('user_id')->count() }}
+                                                                        </td>
+                                                                        <td>{{ $copone->copones->whereNull('user_id')->count() }}
+                                                                        </td>
+                                                                        <td></td>
+                                                                    </tr>
 
-                                                @empty
-                                                    <tr>
-                                                        <th colspan="5">
-                                                            <h5 class="text-center">There is No data</h5>
-                                                        </th>
-                                                    </tr>
-                                                @endforelse
+                                                                @empty
+                                                                    <tr>
+                                                                        <th colspan="5">
+                                                                            <h5 class="text-center">There is No data
+                                                                            </h5>
+                                                                        </th>
+                                                                    </tr>
+                                                                @endforelse
 
-                                            </tbody>
+                                                            </tbody>
 
-                                        </table>
-                                        {{$data->links()}}
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

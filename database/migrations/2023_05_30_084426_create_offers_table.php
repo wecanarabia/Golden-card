@@ -18,7 +18,7 @@ return new class extends Migration
             $table->double('discount_value');
             $table->string('discount_text');
             $table->string('image');
-            $table->boolean('status')->default(0);
+            $table->tinyInteger('status')->default(2);
             $table->date('end_date');
             $table->integer('use_times');
             $table->integer('service_id');

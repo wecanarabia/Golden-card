@@ -2,9 +2,9 @@
 
 namespace App\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
-
-class DeterminEndDate implements Rule
+use Illuminate\Contracts\Validation\ValidationRule;
+use Closure;
+class DeterminEndDate implements ValidationRule
 {
     /**
      * Create a new rule instance.
@@ -25,22 +25,10 @@ class DeterminEndDate implements Rule
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $value)
+    public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if($value != null && $value <= $this->start_date){
-            return false;
-        }else{
-            return true;
+        if ($value != null && $value <= $this->start_date) {
+            $fail('The :attribute must be after start date value.');
         }
-    }
-
-    /**
-     * Get the validation error message.
-     *
-     * @return string
-     */
-    public function message()
-    {
-        return __('End date value must be after start date value');
     }
 }

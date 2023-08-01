@@ -26,10 +26,11 @@ class OfferRequest extends FormRequest
             'arabic_name' => 'required|min:4|max:255',
             'english_description' => 'required|min:4|max:10000',
             'arabic_description' => 'required|min:4|max:10000',
-            'discount_value'=>"required|numeric|min:0",
-            'use_times'=>"required|integer|min:0",
+            'discount_value'=>"required_without:id|numeric|min:0",
+            'use_times'=>"required_without:id|integer|min:0",
             'discount_text' => 'required|min:4|max:255',
             'image'=>'required_without:id|mimes:jpg,jpeg,gif,png|max:4000',
+            'start_date'=>'required|date',
             'end_date'=>'required|date',
             'tags'=>'array|min:1',
             'tags.*'=>'numeric|exists:tags,id',
@@ -42,7 +43,8 @@ class OfferRequest extends FormRequest
     {
         return [
             'discount_text' => 'Discount Text',
-            'discount_value' => 'Discount Value',
+            'discount_value' => 'Estimated Saving Value',
+            'start_date' => 'Start Date',
             'end_date' => 'End Date',
             'use_times' => 'Use Times',
             'english_name' => 'English Name',

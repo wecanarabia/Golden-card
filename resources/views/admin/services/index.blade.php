@@ -36,89 +36,122 @@
                                         <div class="tbl-caption">
                                             <h4 class="heading mb-0"> {{ __('Partners') }}</h4>
                                         </div>
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>English Name</th>
-                                                    <th>Arabic Name</th>
-                                                    <th>Email</th>
-                                                    <th>Phone</th>
-                                                    <th>Status</th>
-                                                    <th>Admin</th>
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="Preview" role="tabpanel"
+                                                aria-labelledby="home-tab">
+                                                <div class="card-body pt-0">
+                                                    <div class="table-responsive">
+                                                        <table id="example" class="display table"
+                                                            style="min-width: 845px">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>English Name</th>
+                                                                    <th>Arabic Name</th>
+                                                                    <th>Email</th>
+                                                                    <th>Phone</th>
+                                                                    <th>Status</th>
+                                                                    <th>Admin</th>
+                                                                    <th>Cassification</th>
+                                                                    <th>Created At</th>
 
 
-                                                    <th>actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @forelse ($data as $service)
-                                                    <tr>
+                                                                    <th>actions</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @forelse ($data as $service)
+                                                                    <tr>
 
-                                                        <td><span>{{ $service->getTranslation('name', 'en') }}</span></td>
+                                                                        <td><span>{{ $service->getTranslation('name', 'en') }}</span>
+                                                                        </td>
 
-                                                        <td>
-                                                            <span>{{ $service->getTranslation('name', 'ar')}}</span>
-                                                        </td>
-                                                        <td>
-                                                            <span>{{ $service->email}}</span>
-                                                        </td>
-                                                        <td>
-                                                            <span>{{ $service->phone}}</span>
-                                                        </td>
-                                                        <td>
-                                                            <span>{{ $service->status==1?'Active':'InActive' }}</span>
-                                                        </td>
-                                                        <td>
-                                                            <span>{{$service?->admin?->name}}</span>
-                                                        </td>
+                                                                        <td>
+                                                                            <span>{{ $service->getTranslation('name', 'ar') }}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span>{{ $service->email }}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span>{{ $service->phone }}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span>{{ $service->status == 1 ? 'Active' : 'InActive' }}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span>{{ $service?->admin?->name }}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span>{{ $service->created_at }}</span>
+                                                                        </td>
+                                                                        
+                                                                        <td>
+                                                                            <span>{{ $service->cassification }}</span>
+                                                                        </td>
 
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <button type="button"
-                                                                    class="btn btn-success light sharp"
-                                                                    data-bs-toggle="dropdown">
-                                                                    <svg width="20px" height="20px"
-                                                                        viewBox="0 0 24 24" version="1.1">
-                                                                        <g stroke="none" stroke-width="1"
-                                                                            fill="none" fill-rule="evenodd">
-                                                                            <rect x="0" y="0"
-                                                                                width="24" height="24" />
-                                                                            <circle fill="#000000" cx="5"
-                                                                                cy="12" r="2" />
-                                                                            <circle fill="#000000" cx="12"
-                                                                                cy="12" r="2" />
-                                                                            <circle fill="#000000" cx="19"
-                                                                                cy="12" r="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                                </button>
-                                                                <div class="dropdown-menu">
-                                                                    <a class="dropdown-item"
-                                                                        href="{{ route('admin.services.edit', $service->id) }}">Edit</a>
-                                                                    <a class="dropdown-item"
-                                                                        href="{{ route('admin.services.show', $service->id) }}">Show</a>
-                                                                    @can('all-services')
+                                                                        <td>
+                                                                            <div class="dropdown">
+                                                                                <button type="button"
+                                                                                    class="btn btn-success light sharp"
+                                                                                    data-bs-toggle="dropdown">
+                                                                                    <svg width="20px" height="20px"
+                                                                                        viewBox="0 0 24 24"
+                                                                                        version="1.1">
+                                                                                        <g stroke="none"
+                                                                                            stroke-width="1"
+                                                                                            fill="none"
+                                                                                            fill-rule="evenodd">
+                                                                                            <rect x="0"
+                                                                                                y="0"
+                                                                                                width="24"
+                                                                                                height="24" />
+                                                                                            <circle fill="#000000"
+                                                                                                cx="5"
+                                                                                                cy="12"
+                                                                                                r="2" />
+                                                                                            <circle fill="#000000"
+                                                                                                cx="12"
+                                                                                                cy="12"
+                                                                                                r="2" />
+                                                                                            <circle fill="#000000"
+                                                                                                cx="19"
+                                                                                                cy="12"
+                                                                                                r="2" />
+                                                                                        </g>
+                                                                                    </svg>
+                                                                                </button>
+                                                                                <div class="dropdown-menu">
+                                                                                    <a class="dropdown-item"
+                                                                                        href="{{ route('admin.services.edit', $service->id) }}">Edit</a>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="{{ route('admin.services.show', $service->id) }}">Show</a>
+                                                                                    @can('all-services')
+                                                                                        <button class="dropdown-item"
+                                                                                            data-bs-toggle="modal"
+                                                                                            data-bs-target="#deleteModal"
+                                                                                            data-id="{{ $service->id }}"
+                                                                                            data-name="{{ $service->name }}">Delete</button>
+                                                                                    @endcan
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
 
-                                                                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                                    data-id="{{ $service->id }}" data-name="{{ $service->name }}">Delete</button>
-                                                                    @endcan
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                                @empty
+                                                                    <tr>
+                                                                        <th colspan="5">
+                                                                            <h5 class="text-center">There is No data
+                                                                            </h5>
+                                                                        </th>
+                                                                    </tr>
+                                                                @endforelse
 
-                                                @empty
-                                                    <tr>
-                                                        <th colspan="5">
-                                                            <h5 class="text-center">There is No data</h5>
-                                                        </th>
-                                                    </tr>
-                                                @endforelse
+                                                            </tbody>
 
-                                            </tbody>
-
-                                        </table>
-                                        {{$data->links()}}
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -132,47 +165,47 @@
     <!--**********************************
             Content body end
         ***********************************-->
-        @can('all-services')
-
+    @can('all-services')
         <!-- Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Delete Partner</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Delete Partner</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{ route('admin.services.destroy', 'test') }}" method="post">
+                        {{ method_field('delete') }}
+                        @csrf
+                        <div class="modal-body">
+                            <p>Are you sure to delete?</p><br>
+                            <input type="hidden" name="id" id="id" value="">
+                            <input class="form-control" name="name" id="name" type="text" readonly>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                aria-label="Close">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Confirm</button>
+                        </div>
+                </div>
+                </form>
+            </div>
         </div>
-        <form action="{{ route('admin.services.destroy','test') }}" method="post">
-            {{ method_field('delete') }}
-            @csrf
-            <div class="modal-body">
-                <p>Are you sure to delete?</p><br>
-                <input type="hidden" name="id" id="id" value="">
-                <input class="form-control" name="name" id="name" type="text" readonly>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                <button type="submit" class="btn btn-danger">Confirm</button>
-            </div>
-    </div>
-    </form>
-      </div>
-    </div>
-  </div>
+        </div>
 
 
 
-  @push('javasc')
-<script>
-    $('#deleteModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget)
-        var id = button.data('id')
-        var name = button.data('name')
-        var modal = $(this)
-        modal.find('.modal-body #id').val(id);
-        modal.find('.modal-body #name').val(name);
-    })
-</script>
-@endpush
-@endcan
+        @push('javasc')
+            <script>
+                $('#deleteModal').on('show.bs.modal', function(event) {
+                    var button = $(event.relatedTarget)
+                    var id = button.data('id')
+                    var name = button.data('name')
+                    var modal = $(this)
+                    modal.find('.modal-body #id').val(id);
+                    modal.find('.modal-body #name').val(name);
+                })
+            </script>
+        @endpush
+    @endcan
 </x-admin-layouts.admin-app>

@@ -41,6 +41,8 @@ class ServiceRequest extends FormRequest
             'long'=>'nullable|numeric',
             'location'=>'nullable|min:0|max:255',
             'ipan' => 'required|min:4|max:255',
+            'profit_margin' => 'required|numeric',
+            'cassification' => 'required|integer',
         ];
     }
 
@@ -50,6 +52,7 @@ class ServiceRequest extends FormRequest
             'category_id' => 'Parent Category',
             'english_name' => 'English Name',
             'arabic_name' => 'Arabic Name',
+            'profit_margin' => 'Profit Margin',
             'english_description' => 'English Description',
             'arabic_description' => 'Arabic Description',
         ];

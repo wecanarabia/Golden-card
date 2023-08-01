@@ -16,7 +16,9 @@
                 </li>
                 <li class="breadcrumb-item active"><a href="javascript:void(0)">{{  __('Create Offer') }} </a></li>
             </ol>
+            @can('view')
             <a class="text-primary fs-13" href="{{ route('dash.offers.index') }}" >{{  __('Offers') }}</a>
+            @endcan
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -31,7 +33,7 @@
                                 @csrf
                                 <div class="row">
                                         <div class="col-xl-8 mb-3">
-                                            <label for="exampleFormControlInputfirst" class="form-label">English Name<span class="text-danger">*</span></label>
+                                            <label for="exampleFormControlInputfirst" class="form-label">Title-En<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="exampleFormControlInputfirst" name="english_name" placeholder="English Name" value="{{ old('english_name') }}">
                                             @error('english_name')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -39,7 +41,7 @@
                                         </div>
 
                                         <div class="col-xl-8 mb-3">
-                                            <label for="exampleFormControlInputsecond" class="form-label">Arabic Name<span class="text-danger">*</span></label>
+                                            <label for="exampleFormControlInputsecond" class="form-label">Title-Ar<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="exampleFormControlInputsecond" name="arabic_name" placeholder="Arabic Name" value="{{ old('arabic_name') }}">
                                             @error('arabic_name')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -63,20 +65,20 @@
                                         </div>
 
                                         <div class="col-xl-8 mb-3">
-                                            <label class="form-label">Discount Value<span class="text-danger">*</span></label>
+                                            <label class="form-label">Estimated Saving Value (JD)<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" name="discount_value" value="{{ old('discount_value') }}">
                                             @error('discount_value')
                                             <div class="text-danger">{{ $message }}</div>
                                              @enderror
                                         </div>
-
                                         <div class="col-xl-8 mb-3">
                                             <label class="form-label">Discount Text<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" name="discount_text" value="{{ old('discount_text') }}">
                                             @error('discount_text')
                                             <div class="text-danger">{{ $message }}</div>
-                                            @enderror
+                                             @enderror
                                         </div>
+                                    
 
                                         <div class="col-xl-8 mb-3">
                                             <label class="form-label">Use Times<span class="text-danger">*</span></label>
@@ -93,7 +95,15 @@
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                    
+
+
+                                        <div class="col-xl-8 mb-3">
+                                            <label for="exampleFormControlInputfirst" class="form-label">Start Date<span class="text-danger">*</span></label>
+                                            <input type="date" class="form-control" id="exampleFormControlInputfirst" name="start_date" value="{{ old('start_date') }}">
+                                            @error('start_date')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
                                         <div class="col-xl-8 mb-3">
                                             <label for="exampleFormControlInputfirst" class="form-label">End Date<span class="text-danger">*</span></label>
@@ -103,7 +113,7 @@
                                             @enderror
                                         </div>
                                         <div id="cats-list" class="col-xl-8 mb-3">
-                                            <label class="form-label">Tags<span class="text-danger">*</span></label>
+                                            <label class="form-label">Tags this offer<span class="text-danger">*</span></label>
                                         <div class="dropdown bootstrap-select show-tick default-select form-control wide">
                                             <select name="tags[]" multiple="" class="default-select form-control wide" tabindex="null">
                                                 @foreach ($tags as $tag)

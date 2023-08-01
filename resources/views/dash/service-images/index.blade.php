@@ -22,7 +22,9 @@
                 </li>
                 <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Images') }} </a></li>
             </ol>
+            @can('control')
             <a class="text-primary fs-13" href="{{ route('dash.images.create') }}">+ Add Images</a>
+            @endcan
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -39,8 +41,10 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
+                                                    <th>Order</th>
                                                     <th>Image</th>
 
+                                                    <th>Sort</th>
 
                                                     <th>actions</th>
                                                 </tr>
@@ -48,10 +52,19 @@
                                             <tbody>
                                                 @forelse ($data as $image)
                                                     <tr>
-
+                                                        <td><span>{{ $image->order }}</span></td>
                                                         <td><span><img src="{{ asset($image->image) }}" width="150" alt=""></span></td>
 
-
+                                                        <td class="align-center">
+                                                            @if ($data->count()>1)
+                                                            <a href="{{route('dash.images.sort',['id'=>$image->id,'direction'=>'up',])}}" >
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M5 12l7-7 7 7"/></svg>
+                                                            </a>
+                                                            <a href="{{route('dash.images.sort',['id'=>$image->id,'direction'=>'down',])}}" >
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M5 12l7 7 7-7"/></svg>
+                                                            </a>
+                                                            @endif
+                                                        </td>
                                                         <td>
                                                             <div class="dropdown">
                                                                 <button type="button"
@@ -73,9 +86,10 @@
                                                                     </svg>
                                                                 </button>
                                                                 <div class="dropdown-menu">
-      
+                                                                    @can('control')
                                                                     <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"
                                                                     data-id="{{ $image->id }}" data-name="{{ asset($image->image) }}">Delete</button>
+                                                                    @endcan
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -107,6 +121,7 @@
             Content body end
         ***********************************-->
 <!-- Modal -->
+@can('control')
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -146,4 +161,5 @@
     })
 </script>
 @endpush
+@endcan
 </x-dash-layouts.dash-app>

@@ -36,76 +36,101 @@
                                         <div class="tbl-caption">
                                             <h4 class="heading mb-0"> {{ __('Subscriptions') }}</h4>
                                         </div>
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Start date</th>
-                                                    <th>End date</th>
-                                                    <th>User</th>
-                                                    <th>Plan</th>
-                                                    <th>Value</th>
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="Preview" role="tabpanel"
+                                                aria-labelledby="home-tab">
+                                                <div class="card-body pt-0">
+                                                    <div class="table-responsive">
+                                                        <table id="example" class="display table"
+                                                            style="min-width: 845px">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Start date</th>
+                                                                    <th>End date</th>
+                                                                    <th>User</th>
+                                                                    <th>Plan</th>
+                                                                    <th>Value</th>
 
-                                                    <th>actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @forelse ($data as $subscription)
-                                                    <tr>
+                                                                    <th>actions</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @forelse ($data as $subscription)
+                                                                    <tr>
 
-                                                        <td><span>{{ $subscription->start_date }}</span></td>
-                                                        <td>
-                                                            <span>{{ $subscription->end_date }}</span>
-                                                        </td>
-                                                        <td>
-                                                            <a href="{{ route('admin.users.show', $subscription->user->id) }}">
-                                                            <span>{{ $subscription->user->first_name }}</span></a>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-secondary"><a href="{{ route("admin.plans.show", $subscription->plan->id) }}">{{ $subscription->plan->name }}</a></span>
-                                                        </td>
-                                                        <td><span>{{ $subscription->value }}</span></td>
+                                                                        <td><span>{{ $subscription->start_date }}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span>{{ $subscription->end_date }}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <a
+                                                                                href="{{ route('admin.users.show', $subscription->user->id) }}">
+                                                                                <span>{{ $subscription->user->first_name }}</span></a>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span class="text-secondary"><a
+                                                                                    href="{{ route('admin.plans.show', $subscription->plan->id) }}">{{ $subscription->plan->name }}</a></span>
+                                                                        </td>
+                                                                        <td><span>{{ $subscription->value }}</span>
+                                                                        </td>
 
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <button type="button"
-                                                                    class="btn btn-success light sharp"
-                                                                    data-bs-toggle="dropdown">
-                                                                    <svg width="20px" height="20px"
-                                                                        viewBox="0 0 24 24" version="1.1">
-                                                                        <g stroke="none" stroke-width="1"
-                                                                            fill="none" fill-rule="evenodd">
-                                                                            <rect x="0" y="0"
-                                                                                width="24" height="24" />
-                                                                            <circle fill="#000000" cx="5"
-                                                                                cy="12" r="2" />
-                                                                            <circle fill="#000000" cx="12"
-                                                                                cy="12" r="2" />
-                                                                            <circle fill="#000000" cx="19"
-                                                                                cy="12" r="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                                </button>
-                                                                <div class="dropdown-menu">
-                                                                    <a class="dropdown-item"
-                                                                        href="{{ route('admin.subscriptions.show', $subscription->id) }}">Show</a>
+                                                                        <td>
+                                                                            <div class="dropdown">
+                                                                                <button type="button"
+                                                                                    class="btn btn-success light sharp"
+                                                                                    data-bs-toggle="dropdown">
+                                                                                    <svg width="20px" height="20px"
+                                                                                        viewBox="0 0 24 24"
+                                                                                        version="1.1">
+                                                                                        <g stroke="none"
+                                                                                            stroke-width="1"
+                                                                                            fill="none"
+                                                                                            fill-rule="evenodd">
+                                                                                            <rect x="0"
+                                                                                                y="0"
+                                                                                                width="24"
+                                                                                                height="24" />
+                                                                                            <circle fill="#000000"
+                                                                                                cx="5"
+                                                                                                cy="12"
+                                                                                                r="2" />
+                                                                                            <circle fill="#000000"
+                                                                                                cx="12"
+                                                                                                cy="12"
+                                                                                                r="2" />
+                                                                                            <circle fill="#000000"
+                                                                                                cx="19"
+                                                                                                cy="12"
+                                                                                                r="2" />
+                                                                                        </g>
+                                                                                    </svg>
+                                                                                </button>
+                                                                                <div class="dropdown-menu">
+                                                                                    <a class="dropdown-item"
+                                                                                        href="{{ route('admin.subscriptions.show', $subscription->id) }}">Show</a>
 
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
 
-                                                @empty
-                                                    <tr>
-                                                        <th colspan="5">
-                                                            <h5 class="text-center">There is No data</h5>
-                                                        </th>
-                                                    </tr>
-                                                @endforelse
+                                                                @empty
+                                                                    <tr>
+                                                                        <th colspan="5">
+                                                                            <h5 class="text-center">There is No data
+                                                                            </h5>
+                                                                        </th>
+                                                                    </tr>
+                                                                @endforelse
 
-                                            </tbody>
+                                                            </tbody>
 
-                                        </table>
-                                        {{$data->links()}}
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

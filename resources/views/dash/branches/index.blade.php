@@ -22,7 +22,9 @@
                 </li>
                 <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ __('Branches') }} </a></li>
             </ol>
-            <a class="text-primary fs-13" href="{{ route('dash.branches.create') }}">+ Add Branch</a>
+            @can('control')
+                <a class="text-primary fs-13" href="{{ route('dash.branches.create') }}">+ Add Branch</a>
+            @endcan
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -36,77 +38,111 @@
                                         <div class="tbl-caption">
                                             <h4 class="heading mb-0"> {{ __('Branches') }}</h4>
                                         </div>
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>English Name</th>
-                                                    <th>Arabic Name</th>
-                                                    <th>Area</th>
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="Preview" role="tabpanel"
+                                                aria-labelledby="home-tab">
+                                                <div class="card-body pt-0">
+                                                    <div class="table-responsive">
+                                                        <table id="example" class="display table"
+                                                            style="min-width: 845px">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Location-En</th>
+                                                                    <th>Location-Ar</th>
+                                                                    <th>Area</th>
 
 
-                                                    <th>actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @forelse ($data as $branch)
-                                                    <tr>
+                                                                    <th>actions</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @php
+                                                                    $i = 0;
+                                                                @endphp
+                                                                @forelse ($data as $branch)
+                                                                    <tr>
+                                                                        <td><span>{{ ++$i }}</span></td>
+                                                                        <td><span>{{ $branch->getTranslation('name', 'en') }}</span>
+                                                                        </td>
 
-                                                        <td><span>{{ $branch->getTranslation('name', 'en') }}</span></td>
+                                                                        <td>
+                                                                            <span>{{ $branch->getTranslation('name', 'ar') }}</span>
+                                                                        </td>
 
-                                                        <td>
-                                                            <span>{{ $branch->getTranslation('name', 'ar')}}</span>
-                                                        </td>
-                                                    
-                                                        <td>
-                                                            <span>{{ $branch->area->name}}</span>
-                                                        </td>
-                                                        
-                                                     
+                                                                        <td>
+                                                                            <span>{{ $branch->area->name }}</span>
+                                                                        </td>
 
 
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <button type="button"
-                                                                    class="btn btn-success light sharp"
-                                                                    data-bs-toggle="dropdown">
-                                                                    <svg width="20px" height="20px"
-                                                                        viewBox="0 0 24 24" version="1.1">
-                                                                        <g stroke="none" stroke-width="1"
-                                                                            fill="none" fill-rule="evenodd">
-                                                                            <rect x="0" y="0"
-                                                                                width="24" height="24" />
-                                                                            <circle fill="#000000" cx="5"
-                                                                                cy="12" r="2" />
-                                                                            <circle fill="#000000" cx="12"
-                                                                                cy="12" r="2" />
-                                                                            <circle fill="#000000" cx="19"
-                                                                                cy="12" r="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                                </button>
-                                                                <div class="dropdown-menu">
-                                                                    <a class="dropdown-item"
-                                                                        href="{{ route('dash.branches.edit', $branch->slug) }}">Edit</a>
-                                                                    <a class="dropdown-item"
-                                                                        href="{{ route('dash.branches.show', $branch->slug) }}">Show</a>
-                                                                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                                    data-id="{{ $branch->id }}" data-name="{{ $branch->name }}">Delete</button>                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
 
-                                                @empty
-                                                    <tr>
-                                                        <th colspan="5">
-                                                            <h5 class="text-center">There is No data</h5>
-                                                        </th>
-                                                    </tr>
-                                                @endforelse
 
-                                            </tbody>
+                                                                        <td>
+                                                                            <div class="dropdown">
+                                                                                <button type="button"
+                                                                                    class="btn btn-success light sharp"
+                                                                                    data-bs-toggle="dropdown">
+                                                                                    <svg width="20px" height="20px"
+                                                                                        viewBox="0 0 24 24"
+                                                                                        version="1.1">
+                                                                                        <g stroke="none"
+                                                                                            stroke-width="1"
+                                                                                            fill="none"
+                                                                                            fill-rule="evenodd">
+                                                                                            <rect x="0"
+                                                                                                y="0"
+                                                                                                width="24"
+                                                                                                height="24" />
+                                                                                            <circle fill="#000000"
+                                                                                                cx="5"
+                                                                                                cy="12"
+                                                                                                r="2" />
+                                                                                            <circle fill="#000000"
+                                                                                                cx="12"
+                                                                                                cy="12"
+                                                                                                r="2" />
+                                                                                            <circle fill="#000000"
+                                                                                                cx="19"
+                                                                                                cy="12"
+                                                                                                r="2" />
+                                                                                        </g>
+                                                                                    </svg>
+                                                                                </button>
+                                                                                <div class="dropdown-menu">
+                                                                                    @can('view')
+                                                                                        <a class="dropdown-item"
+                                                                                            href="{{ route('dash.branches.show', $branch->slug) }}">Show</a>
+                                                                                    @endcan
+                                                                                    @can('control')
+                                                                                        <a class="dropdown-item"
+                                                                                            href="{{ route('dash.branches.edit', $branch->slug) }}">Edit</a>
+                                                                                        <button class="dropdown-item"
+                                                                                            data-bs-toggle="modal"
+                                                                                            data-bs-target="#deleteModal"
+                                                                                            data-id="{{ $branch->id }}"
+                                                                                            data-name="{{ $branch->name }}">Delete</button>
+                                                                                    </div>
+                                                                                @endcan
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
 
-                                        </table>
-                                        {{$data->links()}}
+                                                                @empty
+                                                                    <tr>
+                                                                        <th colspan="5">
+                                                                            <h5 class="text-center">There is No data
+                                                                            </h5>
+                                                                        </th>
+                                                                    </tr>
+                                                                @endforelse
+
+                                                            </tbody>
+
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -120,45 +156,47 @@
     <!--**********************************
             Content body end
         ***********************************-->
-
-<!-- Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Delete Branch</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    @can('control')
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Delete Branch</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{ route('dash.branches.destroy', 'test') }}" method="post">
+                        {{ method_field('delete') }}
+                        @csrf
+                        <div class="modal-body">
+                            <p>Are you sure to delete?</p><br>
+                            <input type="hidden" name="id" id="id" value="">
+                            <input class="form-control" name="name" id="name" type="text" readonly>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                aria-label="Close">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Confirm</button>
+                        </div>
+                </div>
+                </form>
+            </div>
         </div>
-        <form action="{{ route('dash.branches.destroy','test') }}" method="post">
-            {{ method_field('delete') }}
-            @csrf
-            <div class="modal-body">
-                <p>Are you sure to delete?</p><br>
-                <input type="hidden" name="id" id="id" value="">
-                <input class="form-control" name="name" id="name" type="text" readonly>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                <button type="submit" class="btn btn-danger">Confirm</button>
-            </div>
-    </div>
-    </form>
-      </div>
-    </div>
-  </div>
+        </div>
 
 
 
-  @push('javasc')
-<script>
-    $('#deleteModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget)
-        var id = button.data('id')
-        var name = button.data('name')
-        var modal = $(this)
-        modal.find('.modal-body #id').val(id);
-        modal.find('.modal-body #name').val(name);
-    })
-</script>
-@endpush
-p</x-dash-layouts.dash-app>
+        @push('javasc')
+            <script>
+                $('#deleteModal').on('show.bs.modal', function(event) {
+                    var button = $(event.relatedTarget)
+                    var id = button.data('id')
+                    var name = button.data('name')
+                    var modal = $(this)
+                    modal.find('.modal-body #id').val(id);
+                    modal.find('.modal-body #name').val(name);
+                })
+            </script>
+        @endpush
+    @endcan
+</x-dash-layouts.dash-app>

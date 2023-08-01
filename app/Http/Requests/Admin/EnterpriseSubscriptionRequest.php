@@ -27,6 +27,7 @@ class EnterpriseSubscriptionRequest extends FormRequest
             'end_date'=>['required','date',new DeterminEndDate($this->start_date)],
             'num_of_users'=>'required_without:id|numeric|min:0',
             'enterprise_name'=>'required_without:id|min:4|max:255',
+            'status'=>'nullable|in:0,1',
         ];
     }
 

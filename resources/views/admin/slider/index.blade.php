@@ -36,71 +36,126 @@
                                         <div class="tbl-caption">
                                             <h4 class="heading mb-0"> {{ __('Slider Images') }}</h4>
                                         </div>
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Image</th>
-                                                    <th>Partner</th>
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="Preview" role="tabpanel"
+                                                aria-labelledby="home-tab">
+                                                <div class="card-body pt-0">
+                                                    <div class="table-responsive">
+                                                        <table id="example" class="display table"
+                                                            style="min-width: 845px">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Order</th>
+
+                                                                    <th>Image</th>
+                                                                    <th>Partner</th>
+                                                                    <th>Sort</th>
 
 
-                                                    <th>actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @forelse ($data as $image)
-                                                    <tr>
+                                                                    <th>actions</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @forelse ($data as $image)
+                                                                    <tr>
+                                                                        <td><span>{{ $image->order }}</span></td>
+                                                                        <td><span><img src="{{ asset($image->image) }}"
+                                                                                    width="150"
+                                                                                    alt=""></span></td>
+                                                                        @if (!empty($image->service))
+                                                                            <td><span><a
+                                                                                        href="{{ route('admin.services.show', $image->service->id) }}">{{ $image->service->name }}</a></span>
+                                                                            </td>
+                                                                        @else
+                                                                            <td>No Partner</td>
+                                                                        @endif
+                                                                        <td class="align-center">
+                                                                            @if ($data->count()>1)
 
-                                                        <td><span><img src="{{ asset($image->image) }}" width="150" alt=""></span></td>
-                                                        @if (!empty($image->service))
+                                                                            <a
+                                                                                href="{{ route('admin.slider.sort', ['id' => $image->id, 'direction' => 'up']) }}">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                    width="22" height="22"
+                                                                                    viewBox="0 0 24 24" fill="none"
+                                                                                    stroke="#000" stroke-width="1"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round">
+                                                                                    <path d="M12 19V6M5 12l7-7 7 7" />
+                                                                                </svg>
+                                                                            </a>
+                                                                            <a
+                                                                                href="{{ route('admin.slider.sort', ['id' => $image->id, 'direction' => 'down']) }}">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                    width="22" height="22"
+                                                                                    viewBox="0 0 24 24" fill="none"
+                                                                                    stroke="#000" stroke-width="1"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round">
+                                                                                    <path d="M12 5v13M5 12l7 7 7-7" />
+                                                                                </svg>
+                                                                            </a>
+                                                                            @endif
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="dropdown">
+                                                                                <button type="button"
+                                                                                    class="btn btn-success light sharp"
+                                                                                    data-bs-toggle="dropdown">
+                                                                                    <svg width="20px" height="20px"
+                                                                                        viewBox="0 0 24 24"
+                                                                                        version="1.1">
+                                                                                        <g stroke="none"
+                                                                                            stroke-width="1"
+                                                                                            fill="none"
+                                                                                            fill-rule="evenodd">
+                                                                                            <rect x="0"
+                                                                                                y="0"
+                                                                                                width="24"
+                                                                                                height="24" />
+                                                                                            <circle fill="#000000"
+                                                                                                cx="5"
+                                                                                                cy="12"
+                                                                                                r="2" />
+                                                                                            <circle fill="#000000"
+                                                                                                cx="12"
+                                                                                                cy="12"
+                                                                                                r="2" />
+                                                                                            <circle fill="#000000"
+                                                                                                cx="19"
+                                                                                                cy="12"
+                                                                                                r="2" />
+                                                                                        </g>
+                                                                                    </svg>
+                                                                                </button>
+                                                                                <div class="dropdown-menu">
+                                                                                    <a class="dropdown-item"
+                                                                                        href="{{ route('admin.slider.edit', $image->id) }}">Edit</a>
+                                                                                    <button class="dropdown-item"
+                                                                                        data-bs-toggle="modal"
+                                                                                        data-bs-target="#deleteModal"
+                                                                                        data-id="{{ $image->id }}"
+                                                                                        data-name="{{ asset($image->image) }}">Delete</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
 
-                                                        <td><span><a href="{{ route('admin.services.show', $image->service->id) }}">{{ $image->service->name }}</a></span></td>
-                                                        @else
-                                                        <td>No Partner</td>
-                                                        @endif
+                                                                @empty
+                                                                    <tr>
+                                                                        <th colspan="5">
+                                                                            <h5 class="text-center">There is No data
+                                                                            </h5>
+                                                                        </th>
+                                                                    </tr>
+                                                                @endforelse
 
+                                                            </tbody>
 
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <button type="button"
-                                                                    class="btn btn-success light sharp"
-                                                                    data-bs-toggle="dropdown">
-                                                                    <svg width="20px" height="20px"
-                                                                        viewBox="0 0 24 24" version="1.1">
-                                                                        <g stroke="none" stroke-width="1"
-                                                                            fill="none" fill-rule="evenodd">
-                                                                            <rect x="0" y="0"
-                                                                                width="24" height="24" />
-                                                                            <circle fill="#000000" cx="5"
-                                                                                cy="12" r="2" />
-                                                                            <circle fill="#000000" cx="12"
-                                                                                cy="12" r="2" />
-                                                                            <circle fill="#000000" cx="19"
-                                                                                cy="12" r="2" />
-                                                                        </g>
-                                                                    </svg>
-                                                                </button>
-                                                                <div class="dropdown-menu">
-                                                                    <a class="dropdown-item"
-                                                                        href="{{ route('admin.slider.edit', $image->id) }}">Edit</a>
-                                                                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                                    data-id="{{ $image->id }}" data-name="{{ asset($image->image) }}">Delete</button>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-
-                                                @empty
-                                                    <tr>
-                                                        <th colspan="5">
-                                                            <h5 class="text-center">There is No data</h5>
-                                                        </th>
-                                                    </tr>
-                                                @endforelse
-
-                                            </tbody>
-
-                                        </table>
-                                        {{$data->links()}}
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -114,44 +169,45 @@
     <!--**********************************
             Content body end
         ***********************************-->
-<!-- Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Delete Slider Image</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete Slider Image</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('admin.slider.destroy', 'test') }}" method="post">
+                    {{ method_field('delete') }}
+                    @csrf
+                    <div class="modal-body">
+                        <p>Are you sure to delete?</p><br>
+                        <input type="hidden" name="id" id="id" value="">
+                        <img class="img-thumbnail" width="200px" name="name" id="name">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            aria-label="Close">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Confirm</button>
+                    </div>
+            </div>
+            </form>
         </div>
-        <form action="{{ route('admin.slider.destroy','test') }}" method="post">
-            {{ method_field('delete') }}
-            @csrf
-            <div class="modal-body">
-                <p>Are you sure to delete?</p><br>
-                <input type="hidden" name="id" id="id" value="">
-                <img class="img-thumbnail" width="200px" name="name" id="name">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                <button type="submit" class="btn btn-danger">Confirm</button>
-            </div>
     </div>
-    </form>
-      </div>
     </div>
-  </div>
 
 
 
-  @push('javasc')
-<script>
-    $('#deleteModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget)
-        var id = button.data('id')
-        var name = button.data('name')
-        var modal = $(this)
-        modal.find('.modal-body #id').val(id);
-        modal.find('.modal-body #name').attr('src',name);
-    })
-</script>
-@endpush
+    @push('javasc')
+        <script>
+            $('#deleteModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget)
+                var id = button.data('id')
+                var name = button.data('name')
+                var modal = $(this)
+                modal.find('.modal-body #id').val(id);
+                modal.find('.modal-body #name').attr('src', name);
+            })
+        </script>
+    @endpush
 </x-admin-layouts.admin-app>

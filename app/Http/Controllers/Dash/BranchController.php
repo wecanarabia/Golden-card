@@ -16,12 +16,14 @@ class BranchController extends Controller
     public function __construct(AuthService $auth)
     {
         $this->auth=$auth;
+        $this->middleware('can:view')->only(["index","show"]);
+        $this->middleware('can:control')->only(["create","store","edit","update","destroy"]);
     }
 
     public function index()
     {
         $service = Service::findOrFail($this->auth->service());
-        $data = Branch::whereBelongsTo($service)->latest()->paginate(10);
+        $data = Branch::whereBelongsTo($service)->latest()->get();
         return view('dash.branches.index',compact('data'));
     }
 
@@ -52,48 +54,40 @@ class BranchController extends Controller
 
 
 
-    public function show(Branch $branch)
+    public function show($branch)
     {
-        if ($branch->service_id != $this->auth->service()) {
-            return abort('404');
-        }else{
-            $branch->load('area');
-            return view('dash.branches.show',compact('branch'));
-        }
+        $branch = Branch::with('area')->whereSlug($branch)->whereServiceId($this->auth->service())->firstOrFail();
+        return view('dash.branches.show',compact('branch'));
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Branch $branch)
+    public function edit($branch)
     {
-        if ($branch->service_id != $this->auth->service()) {
-            return abort('404');
-        }else{
-    $branch->load('area');
-    $areas = Area::all();
-    return view('dash.branches.edit', compact('branch', 'areas'));
-}
+        $branch = Branch::with('area')->whereSlug($branch)->whereServiceId($this->auth->service())->firstOrFail();
+        $areas = Area::all();
+        return view('dash.branches.edit', compact('branch', 'areas'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(BranchRequest $request, Branch $branch)
+    public function update(BranchRequest $request, $branch)
     {
-        if ($branch->service_id != $this->auth->service()) {
-            return abort('404');
-        }else{
-            $request['name']=['en'=>$request->english_name,'ar'=>$request->arabic_name];
-            $branch->update($request->except([
-                'english_name',
-                'arabic_name',
-            ]));
+        $branch = Branch::whereSlug($branch)->whereServiceId($this->auth->service())->firstOrFail();
+
+        $request['name']=['en'=>$request->english_name,'ar'=>$request->arabic_name];
+        $branch->update($request->except([
+            'english_name',
+            'arabic_name',
+        ]));
 
 
-            return redirect()->route('dash.branches.index')
-                            ->with('success','Branch has been updated successfully');
-        }
+        return redirect()->route('dash.branches.index')
+                        ->with('success','Branch has been updated successfully');
+
     }
 
     /**

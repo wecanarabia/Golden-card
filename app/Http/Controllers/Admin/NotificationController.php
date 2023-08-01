@@ -17,7 +17,7 @@ class NotificationController extends Controller
      */
     public function index()
     {
-        $data = Notification::with('user')->latest()->paginate(10);
+        $data = Notification::with('user')->latest()->get();
         return view('admin.notifications.index',compact('data'));
     }
 
@@ -38,7 +38,6 @@ class NotificationController extends Controller
         $notification=Notification::create($request->all());
         // $FcmToken = User::pluck('device_token')->all();
 
-        $this->send($notification->body, $notification->title,$notification->date_time, $many = true);
 
 
         return redirect()->route('admin.notifications.index')

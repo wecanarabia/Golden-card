@@ -16,7 +16,7 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $data = Slider::latest()->paginate(10);
+        $data = Slider::latest()->get();
         return view('admin.slider.index',compact('data'));
     }
 
@@ -34,7 +34,7 @@ class SliderController extends Controller
      */
     public function store(SliderRequest $request)
     {
-
+        $request['order']=Slider::max('order') + 1;
         Slider::create($request->all());
 
 
@@ -76,5 +76,40 @@ class SliderController extends Controller
     {
         Slider::findOrFail($request->id)->delete();
         return redirect()->route('admin.slider.index')->with('success','Slider has been removed successfully');
+    }
+
+    public function sortData($id,$direction = 'up'){
+        $model=Slider::findOrFail($id);
+        switch ($direction) {
+            case 'up':
+                $this->sortProcess($model,$direction);
+                break;
+            case 'down':
+                $this->sortProcess($model,$direction);
+                break;
+            default:
+                break;
+        }
+        return redirect()->route('admin.slider.index');
+    }
+
+    public function sortProcess($model,$direction)
+    {
+        $page = $model;
+        $id = $model->id;
+        if ($direction == 'up') {
+            $order = $model->when($page->order, function ($query, $pageOrder) {
+                return $query->where("order", '<', $pageOrder);
+            })->orderBy('order','desc')->firstOrFail();
+        } else {
+            $order = $model->when($page->order, function ($query, $pageOrder) {
+                return $query->where("order", '>', $pageOrder);
+            })->orderBy('order','asc')->firstOrFail();
+        }
+        if ($order) {
+            $page->where('id',$id)->update(['order'=>$order->order]);
+            $order->where('id',$order->id)->update(['order'=>$page->order]);
+            return TRUE;
+        }
     }
 }

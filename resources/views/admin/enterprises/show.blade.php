@@ -33,6 +33,7 @@
                                     <p class="mb-3"><strong>Enterprise Name : </strong> {{ $subscription->enterprise_name }}</p>
                                     <p class="mb-3"><strong>Total Active Copones : </strong> {{ $actives->count() }}</p>
                                     <p class="mb-3"><strong>Total InActive Copones : </strong> {{ $InActives->count() }}</p>
+                                    <p class="mb-3"><strong>Status :</strong> {{ $subscription->status==1?'Active':'InActive' }}</p>
 
                                 </div>
 

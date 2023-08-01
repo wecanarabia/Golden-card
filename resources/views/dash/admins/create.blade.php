@@ -16,7 +16,9 @@
                 </li>
                 <li class="breadcrumb-item active"><a href="javascript:void(0)">{{  __('Add Admin') }} </a></li>
             </ol>
+            @can('view')
             <a class="text-primary fs-13" href="{{ route('dash.admins.index') }}" >{{  __('Admins') }}</a>
+            @endcan
         </div>
         <div class="container-fluid">
             <div class="row">

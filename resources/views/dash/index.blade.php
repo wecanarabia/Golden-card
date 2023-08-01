@@ -17,13 +17,38 @@
 					</li>
 					<li class="breadcrumb-item active"><a href="javascript:void(0)">Dashboard</a></li>
 				</ol>
-				<a class="text-primary fs-13" data-bs-toggle="offcanvas" href="#offcanvasExample1" role="button" aria-controls="offcanvasExample1">+ Add Task</a>
 			</div>
 			<div class="container-fluid">
 				<div class="row">
+                    <div class="col-xl-9 wid-100">
+						<div class="row">
+                    <div class="card-header border-0 pb-0 flex-wrap mb-2">
+                        <h4 class="heading mb-0">Hi {{ auth()->user()->name }}</h4>
+                        <ul class="nav nav-pills mix-chart-tab" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a href="{{ route('dash.home') }}" @class(["nav-link",
+                                "active"=>\Illuminate\Support\Facades\Request::is("dash/")])>Today</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a href="{{ route('dash.home','week') }}" @class(["nav-link",
+                                "active"=>\Illuminate\Support\Facades\Request::is("dash/week")])>Week</a>
+                          </li>
+                          <li class="nav-item" role="presentation">
+                            <a href="{{ route('dash.home','month') }}" @class(["nav-link",
+                            "active"=>\Illuminate\Support\Facades\Request::is("dash/month")])>Month</a>
+                          </li>
+                          <li class="nav-item" role="presentation">
+                            <a href="{{ route('dash.home','year') }}" @class(["nav-link",
+                            "active"=>\Illuminate\Support\Facades\Request::is("dash/year")])>Year</a>
+                          </li>
+
+                        </ul>
+                    </div>
+                        </div>
+                    </div>
 					<div class="col-xl-9 wid-100">
 						<div class="row">
-							<div class="col-xl-4 col-sm-6">
+							<div class="col-xl-3 col-sm-6">
 								<div class="card chart-grd same-card">
 									<div class="card-body depostit-card p-0">
 										<div class="depostit-card-media d-flex justify-content-between pb-0">
@@ -40,13 +65,14 @@
 								</div>
 							</div>
 
-							<div class="col-xl-4 col-sm-6">
+							<div class="col-xl-3 col-sm-6">
 								<div class="card chart-grd same-card">
 									<div class="card-body depostit-card p-0">
 										<div class="depostit-card-media d-flex justify-content-between pb-0">
 											<div>
 												<h6>Total Offers</h6>
 												<h3>{{ $data['offers']->count() }}</h3>
+                                                <p>Active offers {{ $data['active_offers']->count() }}</p>
 											</div>
 											<div class="icon-box bg-danger-light">
 												<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888888" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V6l-3-4H6zM3.8 6h16.4M16 10a4 4 0 1 1-8 0"/></svg>
@@ -56,13 +82,14 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-xl-4 col-sm-6 same-card">
+							<div class="col-xl-3 col-sm-6 same-card">
 								<div class="card">
 									<div class="card-body depostit-card">
 										<div class="depostit-card-media d-flex justify-content-between style-1">
 											<div>
 												<h6>Total Vouchers</h6>
-												<h3>{{ $data['vouchers']->count() }}</h3>
+												<h3>{{ $data['vouchers_count']->count() }}</h3>
+                                                <p>Saving value {{ $data['saving_value'] }} JD</p>
 											</div>
 											<div class="icon-box bg-primary-light">
 												<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -79,64 +106,159 @@
 									</div>
 								</div>
 							</div>
-
+                            <div class="col-xl-3 col-sm-6">
+								<div class="card chart-grd same-card">
+									<div class="card-body depostit-card p-0">
+										<div class="depostit-card-media d-flex justify-content-between pb-0">
+											<div>
+												<h6>Pin code</h6>
+												<h3>{{ $service->code }}</h3>
+											</div>
+											<div class="icon-box bg-primary-light">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line></svg>											</div>
+										</div>
+										<div id="NewCustomers"></div>
+									</div>
+								</div>
+							</div>
 
 						</div>
 					</div>
 
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body p-0">
+                                    <div class="offcanvas-body">
+                                        <div class="container-fluid">
+                                            <x-admin-layouts.alerts />
+                                            <div class="table-responsive active-projects manage-client">
+                                                <div class="tbl-caption">
+                                                    <h4 class="heading mb-0"> {{ __('Popular Offers') }}</h4>
+                                                </div>
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Title-En</th>
+                                                            <th>Title-Ar</th>
+                                                            <th>Start Data</th>
+                                                            <th>End Data</th>
+                                                            <th>Estimated Saving Value (JD)</th>
 
-                    @if (!empty($data['images']))
 
-					<div class="col-xl-12 col-md-12">
-						<div class="card">
-                            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @forelse ($data['popular_offers'] as $offer)
+                                                            <tr>
 
-                                <div class="carousel-inner">
-                                    @foreach ($data['images'] as $key => $image)
+                                                                <td><span>{{ $offer->getTranslation('name', 'en') }}</span></td>
+                                                                <td><span>{{ $offer->getTranslation('name', 'ar') }}</span></td>
 
-                                    <div @class(["carousel-item",'active'=>$key==0])>
-                                        <img class="d-block w-100" src="{{ asset($image->image) }}" alt="{{ $image->service->name }}">
+
+                                                                <td>
+                                                                    <span>{{ $offer->start_date}}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span>{{ $offer->end_date}}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span>{{ $offer->discount_value}}</span>
+                                                                </td>
+
+
+
+
+                                                            </tr>
+
+                                                        @empty
+                                                            <tr>
+                                                                <th colspan="5">
+                                                                    <h5 class="text-center">There is No data</h5>
+                                                                </th>
+                                                            </tr>
+                                                        @endforelse
+
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
-                                    @endforeach
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
                             </div>
                         </div>
                     </div>
-                    @endif
 
-                    <div class="col-xl-12 col-md-12">
-						<div class="card">
-							<div class="card-header pb-0 border-0">
-								<h4 class="heading mb-0">Branches</h4>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body p-0">
+                                    <div class="offcanvas-body">
+                                        <div class="container-fluid">
+                                            {{-- <x-admin-layouts.alerts /> --}}
+                                            <div class="table-responsive active-projects manage-client">
+                                                <div class="tbl-caption">
+                                                    <h4 class="heading mb-0"> {{ __('Vouchers') }}</h4>
+                                                </div>
 
-							</div>
-							<div class="card-body">
-								<div id="projectChart" class="project-chart"></div>
-								<div class="project-date">
-                                    @foreach ($data['branches'] as $branch)
+                                                <table class="table">
 
-									<div class="project-media">
-										<p class="mb-0">
+                                                                    <thead>
+                                                                        <tr>
 
-											{{ $branch->name }}
-										</p>
+                                                                            <th>Code</th>
+                                                                            <th>Offer</th>
+                                                                            <th>User</th>
+                                                                            <th>Branch</th>
+                                                                            <th>Saving Value</th>
+                                                                            <th>Date/Time</th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @forelse ($data['vouchers'] as $code)
+                                                                            <tr>
+                                                                                <td>{{ $code->code }}</td>
+                                                                                <td>
+                                                                                    <a
+                                                                                        href="{{ route('dash.offers.show', $code->offer->slug) }}"><span
+                                                                                            class="text-secondary">{{ $code->offer->name }}</span></a>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <span>{{ $code->user->first_name }}</span>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <a
+                                                                                        href="{{ route('dash.branches.show', $code->branch->slug) }}"><span
+                                                                                            class="text-secondary">{{ $code->branch->name }}</span></a>
+                                                                                </td>
+                                                                                <td>{{ $code->offer->discount_value }}</td>
+                                                                                <td>{{ $code->created_at }}</td>
+                                                                                <td></td>
 
-										<span>{{ $branch->offers_count }} Offers</span>
-									</div>
-                                    @endforeach
+                                                                            </tr>
 
-								</div>
-							</div>
-						</div>
-					</div>
+                                                                        @empty
+                                                                            <tr>
+                                                                                <th colspan="5">
+                                                                                    <h5 class="text-center">There is No data
+                                                                                    </h5>
+                                                                                </th>
+                                                                            </tr>
+                                                                        @endforelse
+
+                                                                    </tbody>
+
+                                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

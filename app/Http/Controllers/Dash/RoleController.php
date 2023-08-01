@@ -15,13 +15,15 @@ class RoleController extends Controller
     public function __construct(AuthService $auth)
     {
         $this->auth=$auth;
+        $this->middleware('can:view')->only(["index","show"]);
+        $this->middleware('can:control')->only(["create","store","edit","update","destroy"]);
     }
     public function index()
     {
         $service = Service::findOrFail($this->auth->service());
         $data=Role::whereHasMorph('roleable',[Service::class],function ($query) {
             $query->where('id', $this->auth->service());
-        })->latest()->paginate(10);
+        })->latest()->get();
         return view('dash.roles.index', compact('data'));
     }
 

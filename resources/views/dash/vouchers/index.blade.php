@@ -37,50 +37,64 @@
                                         <div class="tbl-caption">
                                             <h4 class="heading mb-0"> {{ __('Vouchers') }}</h4>
                                         </div>
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="Preview" role="tabpanel"
+                                                aria-labelledby="home-tab">
+                                                <div class="card-body pt-0">
+                                                    <div class="table-responsive">
+                                                        <table id="example" class="display table"
+                                                            style="min-width: 845px">
+                                                            <thead>
+                                                                <tr>
 
-                                                    <th>Code</th>
-                                                    <th>Offer</th>
-                                                    <th>User</th>
-                                                    <th>Branch</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @forelse ($data as $code)
-                                                    <tr>
-                                                        <td>{{ $code->code }}</td>
-                                                        <td>
-                                                            <a href="{{ route("dash.offers.show", $code->offer->slug) }}"><span class="text-secondary">{{ $code->offer->name }}</span></a>
-                                                        </td>
-                                                        <td>
-                                                            <span>{{ $code->user->first_name }}</span>
-                                                        </td>
-                                                        <td>
-                                                            <a href="{{ route("dash.branches.show", $code->branch->slug) }}"><span class="text-secondary">{{ $code->branch->name }}</span></a>
-                                                        </td>
-                                                        <td></td>
+                                                                    <th>Code</th>
+                                                                    <th>Offer</th>
+                                                                    <th>User</th>
+                                                                    <th>Branch</th>
+                                                                    <th>Saving Value</th>
+                                                                    <th>Date/Time</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @forelse ($data as $code)
+                                                                    <tr>
+                                                                        <td>{{ $code->code }}</td>
+                                                                        <td>
+                                                                            <a
+                                                                                href="{{ route('dash.offers.show', $code->offer->slug) }}"><span
+                                                                                    class="text-secondary">{{ $code->offer->name }}</span></a>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span>{{ $code->user->first_name }}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <a
+                                                                                href="{{ route('dash.branches.show', $code->branch->slug) }}"><span
+                                                                                    class="text-secondary">{{ $code->branch->name }}</span></a>
+                                                                        </td>
+                                                                        <td>{{ $code->offer->discount_value }}</td>
+                                                                        <td>{{ $code->created_at }}</td>
+                                                                        <td></td>
 
-                                                    </tr>
+                                                                    </tr>
 
-                                                @empty
-                                                    <tr>
-                                                        <th colspan="5">
-                                                            <h5 class="text-center">There is No data</h5>
-                                                        </th>
-                                                    </tr>
-                                                @endforelse
+                                                                @empty
+                                                                    <tr>
+                                                                        <th colspan="5">
+                                                                            <h5 class="text-center">There is No data
+                                                                            </h5>
+                                                                        </th>
+                                                                    </tr>
+                                                                @endforelse
 
-                                            </tbody>
+                                                            </tbody>
 
-                                        </table>
-                                        @if (!empty($date))
-
-                                        {{$data->links()}}
-                                        @endif
-
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

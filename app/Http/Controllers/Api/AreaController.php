@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AreaResource;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\ApiController;
+use GuzzleHttp\Exception\RequestException;
 // use GuzzleHttp\Client;
 
 
@@ -28,23 +29,22 @@ class AreaController extends ApiController
     public function areas()
     {
 
-        $data = Area::orderBy('order','asc')->get();
+        $data = Area::orderBy('order', 'asc')->get();
 
-        return $this->returnData( 'data' , $this->resource::collection( $data ), __('Succesfully'));
-
-
+        return $this->returnData('data', $this->resource::collection($data), __('Succesfully'));
     }
 
 
-    public function save( Request $request ){
-        return $this->store( $request->all() );
+    public function save(Request $request)
+    {
+        return $this->store($request->all());
     }
 
-    public function edit($id,Request $request){
+    public function edit($id, Request $request)
+    {
 
 
-        return $this->update($id,$request->all());
-
+        return $this->update($id, $request->all());
     }
 
 
@@ -62,36 +62,35 @@ class AreaController extends ApiController
     // }
 
 
-
-
     public function sendEmail(Request $request)
     {
         // dd('hi');
-        try{
+        try {
             // $to = $request->input('to');
             // $data['message']='fdfdf';
             // $data['to']=$to;
             // Mail::to($to)->send(new SendEmail($data));
             // return 'Email sent successfully!';
             $client = new \GuzzleHttp\Client();
-            $response = $client->request('POST', 'https://api.mailgun.net/v3/sandboxe385e0cd2633454e8de66f2503ad5e69.mailgun.org/messages', [
-                'auth' => ['api', '1188e4d3a111aa956bbfe4ab7cf8eb48-6d8d428c-7aff7521'],
+
+            $response = $client->request('POST', 'https://api.eu.mailgun.net/v3/goldencard.com.jo/messages', [
+            'auth' => ['api', 'key-725040a68f82c5d4c76319addc197e35'],
                 'form_params' => [
-                    'from' => 'Golden Card <info@wecan.work>',
+                    'from' => 'Golden Card <goldencard@goldencard.com.jo>',
+
                     'to' => $request->to,
                     'subject' => 'test',
                     'text' => 'welcome',
                 ],
             ]);
-        return $response->getBody();
-    } catch (RequestException $e) {
-        // Handle errors
-        $response = $e->getResponse();
-        $statusCode = $response->getStatusCode();
-        $reasonPhrase = $response->getReasonPhrase();
-        // Log or return the error message
-        return "Error: $statusCode - $reasonPhrase";
-    }
+
+
+            return $response->getBody();
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            // handle the exception here
+            return $e->getMessage();
+        }
+
     }
 
 //     public function sendEmail(Request $request)

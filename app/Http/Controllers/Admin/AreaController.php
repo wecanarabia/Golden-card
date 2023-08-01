@@ -14,7 +14,7 @@ class AreaController extends Controller
      */
     public function index()
     {
-        $data = Area::orderBy('order','asc')->paginate(20);
+        $data = Area::orderBy('order','asc')->get();
         return view('admin.areas.index',compact('data'));
     }
 
@@ -98,9 +98,13 @@ class AreaController extends Controller
         $page = $model;
         $id = $model->id;
         if ($direction == 'up') {
-            $order = $model->where("order", '<', $page->order)->orderBy('order','desc')->first();
+            $order = $model->when($page->order, function ($query, $pageOrder) {
+                return $query->where("order", '<', $pageOrder);
+            })->orderBy('order','desc')->firstOrFail();
         } else {
-            $order =  $model->where("order", '>', $page->order)->orderBy('order','asc')->first();
+            $order = $model->when($page->order, function ($query, $pageOrder) {
+                return $query->where("order", '>', $pageOrder);
+            })->orderBy('order','asc')->firstOrFail();
         }
         if ($order) {
             $page->where('id',$id)->update(['order'=>$order->order]);

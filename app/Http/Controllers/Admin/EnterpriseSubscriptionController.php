@@ -17,7 +17,7 @@ class EnterpriseSubscriptionController extends Controller
      */
     public function index()
     {
-        $data = EnterpriseSubscription::latest()->paginate(10);
+        $data = EnterpriseSubscription::latest()->get();
         return view('admin.enterprises.index',compact('data'));
     }
 

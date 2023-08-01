@@ -22,12 +22,7 @@ return[
     ],
 
     'service'=>[
-        'profile'=>'Profile',
-        'branches'=>'Branches',
-        'offers'=>'Offers',
-        'images'=>'Images',
-        'vouchers'=>'Vouchers',
-        'service_roles'=>'Roles',
-        'service_admins'=>'Admins',
+        'control'=>'Full Control',
+        'view'=>'View Only',
     ]
 ];

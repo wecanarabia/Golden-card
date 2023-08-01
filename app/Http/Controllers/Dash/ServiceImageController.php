@@ -11,11 +11,13 @@ use App\Http\Requests\Dash\ServiceImageRequest;
 
 class ServiceImageController extends Controller
 {
-    
+
     protected $auth;
     public function __construct(AuthService $auth)
     {
         $this->auth=$auth;
+        $this->middleware('can:view')->only(["index","show"]);
+        $this->middleware('can:control')->only(["create","store","sort","destroy"]);
     }
 
          /**
@@ -47,8 +49,14 @@ class ServiceImageController extends Controller
 
         foreach($request->images as $image) {
             if(ImageService::where('service_id',$request->service_id)->count()<5){
+                if (ImageService::where('service_id',$request->service_id)->count()==0) {
+                    $order = 1;
+                }else{
+                    $order = ImageService::where('service_id',$request->service_id)->max('order')+1;
+                }
                 ImageService::create([
                     'image'=>$image,
+                    'order'=>$order,
                     'service_id'=>$request->service_id,
                 ]);
             }elseif(ImageService::where('service_id',$request->service_id)->count()==5){
@@ -107,4 +115,40 @@ class ServiceImageController extends Controller
         ImageService::where('service_id',$this->auth->service())->findOrFail($request->id)->delete();
         return redirect()->route('dash.images.index')->with('success','Service Image has been removed successfully');
     }
+
+    public function sortData($id,$direction = 'up'){
+        $model=ImageService::whereServiceId($this->auth->service())->findOrFail($id);
+        switch ($direction) {
+            case 'up':
+                $this->sortProcess($model,$direction);
+                break;
+            case 'down':
+                $this->sortProcess($model,$direction);
+                break;
+            default:
+                break;
+        }
+        return redirect()->route('dash.images.index');
+    }
+
+    public function sortProcess($model,$direction)
+    {
+        $page = $model;
+        $id = $model->id;
+        if ($direction == 'up') {
+            $order = $model->when($page->order, function ($query, $pageOrder) {
+                return $query->where("order", '<', $pageOrder);
+            })->orderBy('order','desc')->firstOrFail();
+        } else {
+            $order = $model->when($page->order, function ($query, $pageOrder) {
+                return $query->where("order", '>', $pageOrder);
+            })->orderBy('order','asc')->firstOrFail();
+        }
+        if ($order) {
+            $page->where('id',$id)->update(['order'=>$order->order]);
+            $order->where('id',$order->id)->update(['order'=>$page->order]);
+            return TRUE;
+        }
+    }
+
 }
