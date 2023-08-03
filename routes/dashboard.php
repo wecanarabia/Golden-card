@@ -32,7 +32,6 @@ use App\Http\Controllers\Admin\SubCategoryController;
 Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
     Route::get('/login',[AdminLoginController::class, 'getLogin'])->name('login-page');
     Route::post('/send-login',[AdminLoginController::class, 'postLogin'])->name('login');
-
     Route::group(['middleware'=>'auth:admin'],function () {
         Route::get('/logout',[AdminLoginController::class, 'logout'])->name('logout');
         Route::get('/dashboard/{period?}',[DashboardController::class, 'index'])->name('dashboard');

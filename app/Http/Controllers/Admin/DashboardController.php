@@ -36,7 +36,7 @@ class DashboardController extends Controller
         $data['new_customer_period_count'] = User::whereDate('created_at', '>=', $date)->count();
         $data['voucher_count'] = Voucher::count();
         $data['voucher_period_count'] = Voucher::whereDate('created_at', '>=', $date)->count();
-        $data['categories'] = Category::with(['subcategories'])->parent()->get();
+        $data['categories'] = Category::with(['subcategories'])->get();
         //used vouchers
         $data['total_category_profits'] = 0;
         foreach ($data['categories'] as $category) {

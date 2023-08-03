@@ -25,6 +25,6 @@ class Subcategory extends Model
 
     public function partners()
     {
-        return $this->belongsToMany(Service::class,'service_subcategory','subcategory_id','service_id');
+        return $this->belongsToMany(Service::class,'service_subcategories','subcategory_id','service_id');
     }
 }
