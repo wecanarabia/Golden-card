@@ -271,7 +271,7 @@ public function nearest(Request $request)
         // $lat_user = Auth::user()->lat;
         // $long_user = Auth::user()->long;
 
-        $sub = Category::where('name', 'like', '%' . $name . '%')->where('parent_id', '!=', null)->first();
+        $sub = Category::where("name->".$request->header('X-localization'), 'like', '%' . $name . '%')->where('parent_id', '!=', null)->first();
 
         if ($sub) {
             $services = $sub->services;
@@ -301,7 +301,7 @@ public function nearest(Request $request)
             }
         }
 
-        $service = Service::where('name', 'like', '%' . $name . '%')->first();
+        $service = Service::where("name->".$request->header('X-localization'), 'like', '%' . $name . '%')->first();
 
         if ($service) {
             $branches = $service->branches;
@@ -400,7 +400,7 @@ public function nearest(Request $request)
     // $lat_user = Auth::user()->lat;
     // $long_user = Auth::user()->long;
 
-    $offer = Offer::where('name', 'like', '%' . $name . '%')->first();
+    $offer = Offer::where("name->".$request->header('X-localization'), 'like', '%' . $name . '%')->first();
 
     if ($offer) {
         $service = $offer->service;
@@ -428,7 +428,7 @@ public function nearest(Request $request)
         }
     }
 
-    $service = Service::where('name', 'like', '%' . $name . '%')->first();
+    $service = Service::where("name->".$request->header('X-localization'), 'like', '%' . $name . '%')->first();
 
     if ($service) {
         $branches = $service->branches;
