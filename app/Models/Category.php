@@ -35,18 +35,13 @@ class Category extends Model
 
     public function subcategories()
     {
-        return $this->hasMany(Category::class, 'parent_id');
+        return $this->hasMany(Subcategory::class);
     }
 
-    public function parentcategory()
-    {
-        return $this->belongsTo(Category::class, 'parent_id');
-    }
-
-    public function services()
-    {
-        return $this->hasMany(Service::class);
-    }
+    // public function services()
+    // {
+    //     return $this->hasMany(Service::class);
+    // }
 
     public function features()
     {

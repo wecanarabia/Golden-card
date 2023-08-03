@@ -48,6 +48,7 @@ class Service extends Authenticatable
     {
         static::deleted(function ($service) {
             if($service->branches) $service->branches()->delete();
+            if ($service->subcategories()->count()>0)$service->subcategories()->detach();
             foreach ($service->images as $image) {
                 if ($image->image  && \Illuminate\Support\Facades\File::exists($image->image)) {
                     unlink($image->image);
@@ -65,9 +66,9 @@ class Service extends Authenticatable
         });
     }
 
-    public function subcategory()
-    {
-        return $this->belongsTo(Category::class,'category_id','id');
+    public function subcategories(){
+
+        return $this->belongsToMany(Subcategory::class,'service_subcategory','service_id','subcategory_id');
     }
 
     public function branches()
