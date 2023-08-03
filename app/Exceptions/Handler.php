@@ -45,11 +45,11 @@ class Handler extends ExceptionHandler
             }
         }
         if ($exception instanceof ModelNotFoundException || $exception instanceof MethodNotAllowedHttpException) {
-            if (!Request::is('admin/*')){
+            if (Request::is('admin/*')){
                 return abort('404');
-            }else if (!Request::is('dash/*')){
+            }else if (Request::is('dash/*')){
                 return abort('405');
-            }else if (!Request::is('/*')){
+            }else if (Request::is('/*')){
                 return abort('406');
             }
         }

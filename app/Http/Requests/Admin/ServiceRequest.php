@@ -34,8 +34,8 @@ class ServiceRequest extends FormRequest
             'password' => ['required_without:id', 'nullable',Password::min(8)],
             'phone' => 'required|min:9|regex:/^([0-9\s\-\+\(\)]*)$/|unique:services,phone,'.$this->id,
             'code'=>'required|min:4|max:255|unique:services,code,'.$this->id,
-            'category_id'=>[ 'required', Rule::in($categories)],
-            'logo'=>'required_without:id|mimes:jpg,jpeg,gif,png|max:4000',
+            'subcategories'=>'array|min:1',
+            'subcategories.*'=>'required|exists:subcategories,id',            'logo'=>'required_without:id|mimes:jpg,jpeg,gif,png|max:4000',
             'status'=>'nullable|in:0,1',
             'lat'=>'nullable|numeric',
             'long'=>'nullable|numeric',
@@ -49,7 +49,6 @@ class ServiceRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'category_id' => 'Parent Category',
             'english_name' => 'English Name',
             'arabic_name' => 'Arabic Name',
             'profit_margin' => 'Profit Margin',

@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\Admin\ServiceRequest;
+use App\Models\Subcategory;
 
 class ServiceController extends Controller
 {
@@ -33,8 +34,8 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $categories = Category::sub()->get();
-        return view('admin.services.create',compact('categories'));
+        $subcategories = Subcategory::get();
+        return view('admin.services.create',compact('subcategories'));
     }
 
     /**
@@ -54,6 +55,7 @@ class ServiceController extends Controller
             'arabic_description',
         ]));
 
+        $service->subcategories()->attach($request->subcategories);
 
         return redirect()->route('admin.services.index')
                         ->with('success','Partner has been added successfully');
@@ -92,8 +94,8 @@ class ServiceController extends Controller
         }elseif(Auth::user()->can('services')){
             $service = Service::where('admin_id',Auth::user()->id)->findOrFail($id);;
         }
-        $categories = Category::sub()->get();
-        return view('admin.services.edit',compact('service','categories'));
+        $subcategories = Subcategory::get();
+        return view('admin.services.edit',compact('service','subcategories'));
     }
 
     /**
@@ -119,6 +121,7 @@ class ServiceController extends Controller
             'arabic_description',
         ]));
 
+        $service->subcategories()->sync($request->subcategories);
 
         return redirect()->route('admin.services.index')
                         ->with('success','Partner has been updated successfully');

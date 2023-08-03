@@ -24,8 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::parent()->get();
-        return view('admin.categories.create',compact('categories'));
+        return view('admin.categories.create');
     }
 
     /**
@@ -48,7 +47,7 @@ class CategoryController extends Controller
 
     public function show(string $id)
     {
-        $category = Category::with(['parentcategory','features'])->findOrFail($id);
+        $category = Category::with(['features'])->findOrFail($id);
         return view('admin.categories.show',compact('category'));
     }
 
@@ -57,8 +56,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        $category = Category::with('parentcategory')->findOrFail($id);
-        $categories = Category::parent()->get();
+        $category = Category::findOrFail($id);
+        $categories = Category::get();
         return view('admin.categories.edit',compact('category','categories'));
     }
 

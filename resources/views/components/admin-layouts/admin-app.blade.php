@@ -28,7 +28,7 @@
             <a href="{{ route('admin.dashboard') }}" class="brand-logo">
                 <img src="{{ asset('assets/images/logo.png')}}" alt="" width="150">
             </a>
-         
+
         </div>
         <!--**********************************
             Nav header end

@@ -23,7 +23,6 @@ class ServiceRequest extends FormRequest
      */
     public function rules(): array
     {
-        $categories = Category::sub()->pluck('id')->toArray();
         return [
             'english_name' => 'required|min:4|max:255',
             'arabic_name' => 'required|min:4|max:255',
@@ -37,7 +36,8 @@ class ServiceRequest extends FormRequest
             'ipan' => 'required|min:4|max:255',
             'first_contact' => 'nullable|min:4|max:255',
             'second_contact' => 'nullable|min:4|max:255',
-            'category_id'=>[ 'required', Rule::in($categories)],
+            'subcategories'=>'array|min:1',
+            'subcategories.*'=>'required|exists:subcategories,id',
         ];
     }
 
@@ -48,7 +48,6 @@ class ServiceRequest extends FormRequest
             'arabic_name' => 'Arabic Name',
             'english_description' => 'English Description',
             'arabic_description' => 'Arabic Description',
-            'category_id' => 'Merchant type',
             'first_contact'=>'First Contact',
             'second_contact'=>'Second Contact',
         ];

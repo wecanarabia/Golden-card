@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dash;
 
 use App\Models\Service;
 use App\Models\Category;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use App\Services\AuthService;
 use App\Http\Controllers\Controller;
@@ -23,7 +24,7 @@ class ServiceController extends Controller
 
     public function show($service)
     {
-        $service = Service::whereSlug($service)->firstOrFail();
+        $service = Service::with('subcategories')->whereSlug($service)->firstOrFail();
         return view('dash.services.show',compact('service'));
 
     }
@@ -34,8 +35,8 @@ class ServiceController extends Controller
     public function edit($service)
     {
         $service = Service::whereSlug($service)->firstOrFail();
-        $categories = Category::sub()->get();
-        return view('dash.services.edit',compact('service','categories'));
+        $subcategories = Subcategory::get();
+        return view('dash.services.edit',compact('service','subcategories'));
 
     }
 
@@ -61,6 +62,8 @@ class ServiceController extends Controller
             'english_description',
             'arabic_description',
         ]));
+        $service->subcategories()->sync($request->subcategories);
+
         return redirect()->route('dash.services.show', $service->slug);
     }
 }

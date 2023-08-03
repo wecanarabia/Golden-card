@@ -47,12 +47,7 @@ class Category extends Model
     {
         return $this->hasMany(Feature::class);
     }
-    public function scopeParent($query){
-        return $query->whereNull('parent_id');
-    }
-    public function scopeSub($query){
-        return $query->whereNotNull('parent_id');
-    }
+
 
 
 

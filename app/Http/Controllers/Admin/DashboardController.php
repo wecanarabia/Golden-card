@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Models\EnterpriseCopone;
 use App\Models\EnterpriseSubscription;
 use App\Models\PromoCode;
+use App\Models\Subcategory;
 use App\Models\Subscription;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -40,9 +41,16 @@ class DashboardController extends Controller
         $data['total_category_profits'] = 0;
         foreach ($data['categories'] as $category) {
             if (!empty($category->subcategories)) {
-                $services = Service::whereStatus(1)->whereIn('category_id', $category->subcategories->pluck('id')->toArray())->get();
-                $category['services_count'] = Service::whereStatus(1)->whereIn('category_id', $category->subcategories->pluck('id')->toArray())->count();
-                $category['services_period_count'] = Service::whereDate('created_at', '>=', $date)->whereStatus(1)->whereIn('category_id', $category->subcategories->pluck('id')->toArray())->count();
+                $subcategories = Subcategory::where('category_id',$category->id)->pluck('id')->toArray();
+                $services = Service::whereStatus(1)->whereHas(['subcategories'=> function($q)use($subcategories){
+                    $q->whereIn('category_id',$subcategories);
+                }])->get();
+                $category['services_count'] = Service::whereStatus(1)->whereHas(['subcategories'=> function($q)use($subcategories){
+                    $q->whereIn('category_id',$subcategories);
+                }])->count();
+                $category['services_period_count'] = Service::whereDate('created_at', '>=', $date)->whereStatus(1)->whereHas(['subcategories'=> function($q)use($subcategories){
+                    $q->whereIn('category_id',$subcategories);
+                }])->count();
                 if ($services->count() > 0) {
                     $category['profits'] = 0;
                     //get profits

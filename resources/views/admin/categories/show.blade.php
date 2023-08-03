@@ -29,9 +29,6 @@
 
                                     <p class="mb-3"><strong>English Name : </strong> {{ $category->getTranslation('name', 'en') }}</p>
                                     <p class="mb-3"><strong>Arabic Name : </strong> {{ $category->getTranslation('name', 'ar') }}</p>
-                                    @if (!empty($category->parentcategory))
-                                    <p class="mb-3"><strong>Parent Category : </strong> {{ $category->parentcategory->name }}</p>
-                                    @endif
                                     @if(!empty($category->image))
                                     <img class="card-img-bottom img-thumbnail mb-3" style="width: 500px" src="{{ asset( $category->image ) }}" alt="{{ $category->title }}">
                                     @endif

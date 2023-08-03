@@ -101,7 +101,7 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    
+
                                     <div class="col-xl-8 mb-3">
                                         <label class="form-label">Cassification<span class="text-danger">*</span></label>
                                         <input type="number" class="form-control" name="cassification" value="{{ old('cassification') }}">
@@ -118,17 +118,22 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-xl-8 mb-3">
-                                        <label class="form-label">Category<span class="text-danger">*</span></label>
-                                        <select class="default-select form-control wide mb-3" name="category_id" tabindex="null">
-											<option selected disabled>Select Category</option>
-                                            @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}" @selected(old('category_id')==$category->id)>{{ $category->name }}</option>
-                                            @endforeach
-										</select>
-                                        @error('category_id')
-                                            <div class="text-danger">{{ $message }}</div>
-                                         @enderror
+                                    <div id="cats-list" class="col-xl-8 mb-3">
+                                        <label class="form-label">Subcategories<span class="text-danger">*</span></label>
+                                    <div class="dropdown bootstrap-select show-tick default-select form-control wide">
+                                        <select name="subcategories[]" multiple="" class="default-select form-control wide" tabindex="null">
+                                            @if (count($subcategories)>0)
+                                                @foreach ($subcategories as $subcategory)
+                                                    <option value="{{ $subcategory->id }}" @selected(in_array($subcategory->id,old('subcategories',[])))>{{ $subcategory->name }}</option>
+                                                @endforeach
+                                            @else
+                                                <option selected>Add Subcategories It's required</option>
+                                            @endif
+                                        </select>
+                                    </div>
+                                    @error('subcategories')
+                                    <div class="text-danger">{{ $message }}</div>
+                                     @enderror
                                     </div>
                                     <div class="col-xl-8 mb-3">
                                         <label for="image" class="form-label">Logo<span class="text-danger">*</span></label>

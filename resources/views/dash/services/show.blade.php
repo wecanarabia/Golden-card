@@ -70,7 +70,6 @@
                                                     <p class="mb-3"><strong>Arabic Description : </strong>
                                                         {{ $service->getTranslation('description', 'ar') }}</p>
                                                     <p class="mb-3"><strong>Code :</strong> {{ $service->code }}</p>
-                                                    <p class="mb-3"><strong>Type :</strong> {{ $service->category->name }}</p>
                                                     <img class="card-img-bottom img-thumbnail mb-3" style="width: 500px"
                                                         src="{{ asset($service->logo) }}"
                                                         alt="{{ $service->name }}">
@@ -339,6 +338,71 @@
                                             </tbody>
 
                                         </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body p-0">
+                            <div class="offcanvas-body">
+                                <div class="container-fluid">
+                                    <x-admin-layouts.alerts />
+                                    <div class="table-responsive active-projects manage-client">
+                                        <div class="tbl-caption">
+                                            <h4 class="heading mb-0"> {{ __('partner Categories') }}</h4>
+                                        </div>
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="Preview" role="tabpanel"
+                                                aria-labelledby="home-tab">
+                                                <div class="card-body pt-0">
+                                                    <div class="table-responsive">
+                                                        <table id="example" class="display table"
+                                                            style="min-width: 845px">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Name-En</th>
+                                                                    <th>Name-Ar</th>
+
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @forelse ($service->subcategories as $subcategory)
+                                                                    <tr>
+
+                                                                        <td><span>{{ $subcategory->getTranslation('name', 'en') }}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span>{{ $subcategory->getTranslation('name', 'ar') }}</span>
+                                                                        </td>
+
+
+
+
+                                                                    </tr>
+
+                                                                @empty
+                                                                    <tr>
+                                                                        <th colspan="5">
+                                                                            <h5 class="text-center">There is No data
+                                                                            </h5>
+                                                                        </th>
+                                                                    </tr>
+                                                                @endforelse
+
+                                                            </tbody>
+
+                                                        </table>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
