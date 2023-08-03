@@ -24,7 +24,6 @@ class ServiceRequest extends FormRequest
      */
     public function rules(): array
     {
-        $categories = Category::sub()->pluck('id')->toArray();
         return [
             'english_name' => 'required|min:4|max:255',
             'arabic_name' => 'required|min:4|max:255',
@@ -42,7 +41,7 @@ class ServiceRequest extends FormRequest
             'location'=>'nullable|min:0|max:255',
             'ipan' => 'required|min:4|max:255',
             'profit_margin' => 'required|numeric',
-            'cassification' => 'required|integer',
+            'classification' => 'required|integer',
         ];
     }
 

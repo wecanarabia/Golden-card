@@ -51,7 +51,7 @@
                                                                     <th>Phone</th>
                                                                     <th>Status</th>
                                                                     <th>Admin</th>
-                                                                    <th>Cassification</th>
+                                                                    <th>Classification</th>
                                                                     <th>Created At</th>
 
 
@@ -81,12 +81,13 @@
                                                                             <span>{{ $service?->admin?->name }}</span>
                                                                         </td>
                                                                         <td>
+                                                                            <span>{{ $service->classification }}</span>
+                                                                        </td>
+                                                                        <td>
                                                                             <span>{{ $service->created_at }}</span>
                                                                         </td>
-                                                                        
-                                                                        <td>
-                                                                            <span>{{ $service->cassification }}</span>
-                                                                        </td>
+
+
 
                                                                         <td>
                                                                             <div class="dropdown">

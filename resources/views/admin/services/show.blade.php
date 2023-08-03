@@ -42,7 +42,7 @@
                                     <p class="mb-3"><strong>Location : </strong> {{ $service->location }}</p>
                                     <p class="mb-3"><strong>Latitude :</strong> {{ $service->lat }}</p>
                                     <p class="mb-3"><strong>Longitude :</strong> {{ $service->long }}</p>
-                                    <p class="mb-3"><strong>Cassification :</strong> {{ $service->cassification }}</p>
+                                    <p class="mb-3"><strong>Classification :</strong> {{ $service->classification }}</p>
                                     <p class="mb-3"><strong>Created At :</strong> {{ $service?->created_at }}</p>
 
                                     <img class="card-img-bottom img-thumbnail mb-3" style="width: 500px" src="{{ asset( $service->logo ) }}" alt="{{ $service->name }}">

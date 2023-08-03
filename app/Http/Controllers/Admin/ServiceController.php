@@ -48,11 +48,12 @@ class ServiceController extends Controller
         $request['description']=['en'=>$request->english_description,'ar'=>$request->arabic_description];
         $request['admin_id'] = Auth::user()->id;
         $request['role_id']=Role::where('roleable_id',0)->where('roleable_type',get_class(app(Service::class)))->first()->id;
-        Service::create($request->except([
+        $service = Service::create($request->except([
             'english_name',
             'arabic_name',
             'english_description',
             'arabic_description',
+            'subcategories',
         ]));
 
         $service->subcategories()->attach($request->subcategories);
@@ -119,6 +120,7 @@ class ServiceController extends Controller
             'arabic_name',
             'english_description',
             'arabic_description',
+            'subcategories',
         ]));
 
         $service->subcategories()->sync($request->subcategories);

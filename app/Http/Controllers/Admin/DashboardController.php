@@ -42,15 +42,16 @@ class DashboardController extends Controller
         foreach ($data['categories'] as $category) {
             if (!empty($category->subcategories)) {
                 $subcategories = Subcategory::where('category_id',$category->id)->pluck('id')->toArray();
-                $services = Service::whereStatus(1)->whereHas(['subcategories'=> function($q)use($subcategories){
-                    $q->whereIn('category_id',$subcategories);
-                }])->get();
-                $category['services_count'] = Service::whereStatus(1)->whereHas(['subcategories'=> function($q)use($subcategories){
-                    $q->whereIn('category_id',$subcategories);
-                }])->count();
-                $category['services_period_count'] = Service::whereDate('created_at', '>=', $date)->whereStatus(1)->whereHas(['subcategories'=> function($q)use($subcategories){
-                    $q->whereIn('category_id',$subcategories);
-                }])->count();
+                $services = Service::whereStatus(1)->whereHas('subcategories', function($q)use($category){
+                    $q->where('category_id',$category->id);
+                })->get();
+
+                $category['services_count'] = Service::whereStatus(1)->whereHas('subcategories', function($q)use($category){
+                    $q->where('category_id',$category->id);
+                })->count();
+                $category['services_period_count'] = Service::whereDate('created_at', '>=', $date)->whereStatus(1)->whereHas('subcategories', function($q)use($category){
+                    $q->where('category_id',$category->id);
+                })->count();
                 if ($services->count() > 0) {
                     $category['profits'] = 0;
                     //get profits

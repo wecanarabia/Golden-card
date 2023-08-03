@@ -138,7 +138,7 @@
                                                             <div class="dropdown bootstrap-select show-tick default-select form-control wide">
                                                                 <select name="subcategories[]" multiple="" class="default-select form-control wide" tabindex="null">
                                                                         @foreach ($subcategories as $subcategory)
-                                                                            <option value="{{ $subcategory->id }}" @selected(in_array($subcategory->id,old('subcategories',$partner?->subcategories?->pluck('id')->toArray())))>{{ $subcategory->name }}</option>
+                                                                            <option value="{{ $subcategory->id }}" @selected(in_array($subcategory->id,old('subcategories',$service?->subcategories?->pluck('id')->toArray())))>{{ $subcategory->name }}</option>
                                                                         @endforeach
 
                                                                 </select>

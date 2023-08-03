@@ -47,7 +47,7 @@ class CategoryController extends Controller
 
     public function show(string $id)
     {
-        $category = Category::with(['features'])->findOrFail($id);
+        $category = Category::with(['features','subcategories'])->findOrFail($id);
         return view('admin.categories.show',compact('category'));
     }
 

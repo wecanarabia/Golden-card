@@ -61,6 +61,7 @@ class ServiceController extends Controller
             'arabic_name',
             'english_description',
             'arabic_description',
+            'subcategories',
         ]));
         $service->subcategories()->sync($request->subcategories);
 

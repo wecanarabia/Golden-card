@@ -103,9 +103,9 @@
                                     </div>
 
                                     <div class="col-xl-8 mb-3">
-                                        <label class="form-label">Cassification<span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control" name="cassification" value="{{ old('cassification') }}">
-                                        @error('cassification')
+                                        <label class="form-label">Classification<span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control" name="classification" value="{{ old('classification') }}">
+                                        @error('classification')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>

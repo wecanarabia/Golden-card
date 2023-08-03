@@ -103,9 +103,9 @@
                                             @enderror
                                         </div>
                                         <div class="col-xl-8 mb-3">
-                                            <label class="form-label">Cassification<span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" name="cassification" value="{{ old('cassification',$service->cassification) }}">
-                                            @error('cassification')
+                                            <label class="form-label">Classification<span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" name="classification" value="{{ old('classification',$service->classification) }}">
+                                            @error('classification')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -122,13 +122,10 @@
                                             <label class="form-label">Subcategories</label>
                                         <div class="dropdown bootstrap-select show-tick default-select form-control wide">
                                             <select name="subcategories[]" multiple="" class="default-select form-control wide" tabindex="null">
-                                                @if (count($subcategories)>0)
                                                     @foreach ($subcategories as $subcategory)
-                                                        <option value="{{ $subcategory->id }}" @selected(in_array($subcategory->id,old('subcategories',$partner?->subcategories?->pluck('id')->toArray())))>{{ $subcategory->name }}</option>
+                                                        <option value="{{ $subcategory->id }}" @selected(in_array($subcategory->id,old('subcategories',$service?->subcategories?->pluck('id')->toArray())))>{{ $subcategory->name }}</option>
                                                     @endforeach
-                                                @else
-                                                    <option selected>Add Subcategories It's required</option>
-                                                @endif
+
                                             </select>
                                         </div>
 
