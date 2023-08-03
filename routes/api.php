@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\SubscriptionController;
 use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\PlanController;
 use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\ServiceSubcategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -167,6 +168,13 @@ Route::get('subcategory/{id}', [SubcategoryController::class, 'view']);
 Route::get('subcategory/delete/{id}', [SubcategoryController::class, 'delete']);
 Route::post('subcategory/edit/{id}', [SubcategoryController::class, 'edit']);
 
+
+
+//servicesubcategory
+
+Route::post('servicesub-create', [ServiceSubcategoryController::class, 'save']);
+
+Route::get('servicesub/delete/{id}', [ServiceSubcategoryController::class, 'delete']);
 
 
 //Area

@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('services', function (Blueprint $table) {
-            $table->boolean('status')->default(0);
-            $table->string('logo')->nullable()->after('status');
+        Schema::table('subcategories', function (Blueprint $table) {
+            $table->string('name')->nullable()->after('id');
         });
     }
 
@@ -22,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('services', function (Blueprint $table) {
-            $table->dropColumn('status');
-            $table->dropColumn('logo');
+        Schema::table('subcategories', function (Blueprint $table) {
+            Schema::dropIfExists('name');
         });
     }
 };
