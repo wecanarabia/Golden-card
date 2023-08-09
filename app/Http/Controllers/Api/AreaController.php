@@ -77,7 +77,6 @@ class AreaController extends ApiController
             'auth' => ['api', env('MAILGUN_SECRET')],
                 'form_params' => [
                     'from' => 'Golden Card <goldencard@goldencard.com.jo>',
-
                     'to' => $request->to,
                     'subject' => 'test',
                     'text' => 'welcome',

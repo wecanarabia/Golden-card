@@ -19,6 +19,7 @@ return[
         'users'=>'Users',
         'enterprises'=>'Enterprises',
         'roles'=>'Roles',
+        'transactions'=>'Transactions',
     ],
 
     'service'=>[

@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\EnterpriseCoponeController;
 use App\Http\Controllers\Admin\EnterpriseSubscriptionController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\TransactionController;
 
 Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
     Route::get('/login',[AdminLoginController::class, 'getLogin'])->name('login-page');
@@ -52,6 +53,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         Route::resource('offers', OfferController::class)->except(['create','store'])->middleware('can:services');
         Route::resource('categories', CategoryController::class)->middleware('can:categories');
         Route::resource('subcategories', SubCategoryController::class)->middleware('can:categories');
+        Route::resource('transactions', TransactionController::class)->only(['index','show','destroy'])->middleware('can:transactions');
         Route::resource('partners', ServiceController::class)->names(['index'=>'services.index',
         'store'=>'services.store',
         'create'=>'services.create',
