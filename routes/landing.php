@@ -11,7 +11,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
         Route::get('/terms-conditions',[LandingController::class, 'terms'])->name('conditions');
         Route::get('/about',[LandingController::class, 'about'])->name('about');
 
-        Route::get('/{any}', function($any){
-            return abort('406');
-        })->where('any', '.*');
+        // Route::get('/{any}', function($any){
+        //     return abort('406');
+        // })->where('any', '.*');
 });
