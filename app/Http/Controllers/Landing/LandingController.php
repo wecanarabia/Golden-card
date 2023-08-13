@@ -33,7 +33,7 @@ class LandingController extends Controller
         $data['restaurant_count'] = $this->servicesCount('Restaurants');
         $data['salon_count'] = $this->servicesCount('Salons');
         $data['hotel_count'] = $this->servicesCount('Hotels');
-        $data['shop_count'] = $this->servicesCount('Shop');
+        $data['shop_count'] = $this->servicesCount('Shops');
         return view('landing.index',compact('data'));
     }
 
