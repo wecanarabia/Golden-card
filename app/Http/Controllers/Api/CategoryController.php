@@ -22,13 +22,7 @@ class CategoryController extends ApiController
     }
 
 
-    public function categories(){
 
-
-        $sub = Category::where('parent_id',null)->get();
-
-        return $this->returnData('data', $this->resource::collection($sub), __('Get  succesfully'));
-    }
 
     public function save( Request $request ){
         return $this->store( $request->all() );

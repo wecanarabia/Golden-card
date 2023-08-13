@@ -119,10 +119,15 @@ Route::get('my-notifications', [NotificationController::class, 'myNotifications'
 //search
 Route::post('services-search', [ServiceController::class, 'searchS']);
 
+//searchInCatOrSub
+Route::post('services-filter', [ServiceController::class, 'searchInCatOrSub']);
 
 
-//getBranchesByCatName
+//getBranchesBySubtid
 Route::post('branches-by-subcategory/{id}', [BranchController::class, 'getBranchesBySubName']);
+
+//getBranchesByCategory
+Route::post('branches-by-category', [BranchController::class, 'getBranchesByCategory']);
 
 //getBranchesBySubNameOrservicename
 Route::post('branches-by-sub-or-service/{name}', [BranchController::class, 'getBranchesBySubNameOrServiceName']);
@@ -154,7 +159,7 @@ Route::get('slider/delete/{id}', [SliderController::class, 'delete']);
 Route::post('slider/edit/{id}', [SliderController::class, 'edit']);
 
 //Category
-Route::get('categories', [CategoryController::class, 'categories']);
+Route::get('categories', [CategoryController::class, 'list']);
 Route::post('category-create', [CategoryController::class, 'save']);
 Route::get('category/{id}', [CategoryController::class, 'view']);
 Route::get('category/delete/{id}', [CategoryController::class, 'delete']);
@@ -162,7 +167,7 @@ Route::post('category/edit/{id}', [CategoryController::class, 'edit']);
 
 
 //Subcategory
-Route::get('subcategories', [SubcategoryController::class, 'subcategories']);
+Route::get('subcategories', [SubcategoryController::class, 'list']);
 Route::post('subcategory-create', [SubcategoryController::class, 'save']);
 Route::get('subcategory/{id}', [SubcategoryController::class, 'view']);
 Route::get('subcategory/delete/{id}', [SubcategoryController::class, 'delete']);
@@ -192,10 +197,10 @@ Route::get('service/delete/{id}', [ServiceController::class, 'delete']);
 Route::post('service/edit/{id}', [ServiceController::class, 'edit']);
 
 //get services by subcategory name
-Route::get('services-by-subcategory/{name}', [CategoryController::class, 'getServicesBySubName']);
+// Route::get('services-by-subcategory/{name}', [CategoryController::class, 'getServicesBySubName']);
 
 //get services by subcategory name or category name
-Route::get('services-by-subcategory-or-category/{name}', [CategoryController::class, 'getServicesBySubNameOrCatName']);
+// Route::get('services-by-subcategory-or-category/{name}', [CategoryController::class, 'getServicesBySubNameOrCatName']);
 
 
 
