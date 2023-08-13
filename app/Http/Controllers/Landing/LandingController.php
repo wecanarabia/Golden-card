@@ -40,8 +40,11 @@ class LandingController extends Controller
     public function servicesCount($name)  {
         $category = Category::where('name->en',$name)->first()->id??null;
         if ($category) {
-            $subCategories = Subcategory::where('category_id',$category->id)->pluck('id')->toArray();
-            return Service::whereStatus(1)->whereIn('category_id',$subCategories)->count();
+            // $subCategories = Subcategory::where('category_id',$category->id)->pluck('id')->toArray();
+            return Service::whereStatus(1)->whereHas('subcategories', function($q)use($category){
+                $q->where('category_id',$category->id);
+            })->count();
+            // return Service::whereStatus(1)->whereIn('category_id',$subCategories)->count();
         }else{
             return 0;
         }
