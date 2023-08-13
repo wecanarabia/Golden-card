@@ -76,8 +76,8 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         Route::resource('roles', RoleController::class)->middleware('can:roles');
         Route::resource('faqs', FaqController::class)->middleware('can:faqs');
         Route::resource('enterprises', EnterpriseSubscriptionController::class)->middleware('can:enterprises');
-        // Route::get('/{any}', function($any){
-        //     return abort('405');
-        // })->where('any', '.*');
+        Route::get('/{any}', function($any){
+            return abort('405');
+        })->where('any', '.*');
     });
 });
