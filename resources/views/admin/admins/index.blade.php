@@ -63,7 +63,7 @@
                                                                         </td>
 
                                                                         <td>
-                                                                            <span>{{ $admin->adminRole->name }}</span>
+                                                                            <span>{{ $admin?->adminRole?->name }}</span>
                                                                         </td>
 
 

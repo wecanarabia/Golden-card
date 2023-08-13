@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Landing;
 
 use App\Models\Faq;
+use App\Models\Page;
 use App\Models\Plan;
 use App\Models\Service;
 use App\Models\Category;
+use App\Models\Subcategory;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Page;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class LandingController extends Controller
@@ -39,7 +40,7 @@ class LandingController extends Controller
     public function servicesCount($name)  {
         $category = Category::where('name->en',$name)->first()->id??null;
         if ($category) {
-            $subCategories = Category::where('parent_id',$category)->pluck('id')->toArray();
+            $subCategories = Subcategory::where('category_id',$category->id)->pluck('id')->toArray();
             return Service::whereStatus(1)->whereIn('category_id',$subCategories)->count();
         }else{
             return 0;
