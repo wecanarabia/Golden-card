@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Branch;
 use App\Models\Offer;
 use App\Models\Category;
+use App\Models\Subcategory;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Repositories\Repository;
@@ -109,10 +110,10 @@ public function nearest(Request $request)
         // $lat_user = Auth::user()->lat;
         // $long_user = Auth::user()->long;
 
-        $sub = Category::where('id', $id)->first();
+        $sub = Subcategory::where('id', $id)->first();
 
         if ($sub) {
-            $services = $sub->services;
+            $services = $sub->partners;
 
             $resources = [];
 
@@ -271,10 +272,10 @@ public function nearest(Request $request)
         // $lat_user = Auth::user()->lat;
         // $long_user = Auth::user()->long;
 
-        $sub = Category::where("name->".$request->header('X-localization'), 'like', '%' . $name . '%')->where('parent_id', '!=', null)->first();
+        $sub = Subcategory::where("name->".$request->header('X-localization'), 'like', '%' . $name . '%')->first();
 
         if ($sub) {
-            $services = $sub->services;
+            $services = $sub->partners;
             $resources = [];
 
             $branches = collect();
@@ -456,6 +457,35 @@ public function nearest(Request $request)
 
     // If the name doesn't match any service or offer, return an error response
     return $this->returnData('data', [], __('No services or offername found'));
+}
+
+public function getBranchesByCategory(Request $request)
+{
+    $resources = [];
+
+    $category = Category::with('subcategories.partners.branches')->find($request->category_id);
+
+    if($category)
+    {
+    foreach ($category->subcategories as $subcategory) {
+        foreach ($subcategory->partners as $partner) {
+            foreach ($partner->branches as $branch) {
+                $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
+                $resource = new BranchResource($branch, $distance);
+                $resources[$branch->id] = $resource;
+            }
+        }
+    }
+
+    usort($resources, function($a, $b) {
+        return $a->distance <=> $b->distance;
+    });
+
+    return $this->returnData('data', array_values($resources), __('Get branches successfully'));
+}
+else {
+    return $this->returnData('data', [], __('No data found'));
+}
 }
 
 }
