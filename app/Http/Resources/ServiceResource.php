@@ -23,8 +23,8 @@ class ServiceResource extends JsonResource
             'phone' => $this->phone,
             'code' => $this->code,
             'images' => ImageServiceResource::collection($this->images),
-            'subcategory_id' => $this->subcategory?->id,
-            'subcategory_name' => $this->subcategory?->name,
+            // 'subcategory_id' => $this->subcategory?->id,
+            // 'subcategory_name' => $this->subcategory?->name,
             'branches' => BranchResource::collection($this->branches),
             'offers' => OfferResource::collection($this->offers),
 
