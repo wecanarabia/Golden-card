@@ -68,7 +68,7 @@ class Service extends Authenticatable
 
     public function subcategories(){
 
-        return $this->belongsToMany(Subcategory::class,'service_subcategory','service_id','subcategory_id');
+        return $this->belongsToMany(Subcategory::class,'service_subcategories','service_id','subcategory_id');
     }
 
     public function branches()

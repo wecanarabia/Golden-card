@@ -15,4 +15,16 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/dashboard.php';
 require __DIR__ . '/dash.php';
-require __DIR__ . '/landing.php';
+// require __DIR__ . '/landing.php';
+Route::get('/landing', function () {
+    return view('landing');
+})->name('landing');
+Route::get('/about', function () {
+    return view('landing');
+})->name('about');
+Route::get('/privacy', function () {
+    return view('landing');
+})->name('privacy');
+Route::get('/conditions', function () {
+    return view('landing');
+})->name('conditions');
