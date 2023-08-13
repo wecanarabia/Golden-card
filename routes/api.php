@@ -159,7 +159,7 @@ Route::get('slider/delete/{id}', [SliderController::class, 'delete']);
 Route::post('slider/edit/{id}', [SliderController::class, 'edit']);
 
 //Category
-Route::get('categories', [CategoryController::class, 'categories']);
+Route::get('categories', [CategoryController::class, 'list']);
 Route::post('category-create', [CategoryController::class, 'save']);
 Route::get('category/{id}', [CategoryController::class, 'view']);
 Route::get('category/delete/{id}', [CategoryController::class, 'delete']);
@@ -167,7 +167,7 @@ Route::post('category/edit/{id}', [CategoryController::class, 'edit']);
 
 
 //Subcategory
-Route::get('subcategories', [SubcategoryController::class, 'subcategories']);
+Route::get('subcategories', [SubcategoryController::class, 'list']);
 Route::post('subcategory-create', [SubcategoryController::class, 'save']);
 Route::get('subcategory/{id}', [SubcategoryController::class, 'view']);
 Route::get('subcategory/delete/{id}', [SubcategoryController::class, 'delete']);
