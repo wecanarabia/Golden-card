@@ -88,7 +88,7 @@ public function nearest(Request $request)
     foreach ($branches as $branch) {
         $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
 
-        if ($distance <= 5) { // Check if the distance is within 5 kilometers
+        if ($distance <= 20) { // Check if the distance is within 5 kilometers
             $resource = new BranchResource($branch, $distance);
 
             $resources[] = $resource;
