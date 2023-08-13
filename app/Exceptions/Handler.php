@@ -38,21 +38,21 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
-        if ($this->isHttpException($exception)) {
-            if ($exception->getStatusCode() == 404 ) {
-                view()->share('is405Page', true);
-                return response()->view('errors.'.'406', [], 404);
-            }
-        }
-        if ($exception instanceof ModelNotFoundException || $exception instanceof MethodNotAllowedHttpException) {
-            if (Request::is('admin/*')){
-                return abort('404');
-            }else if (Request::is('dash/*')){
-                return abort('405');
-            }else if (Request::is('/*')){
-                return abort('406');
-            }
-        }
+        // if ($this->isHttpException($exception)) {
+        //     if ($exception->getStatusCode() == 404 ) {
+        //         view()->share('is405Page', true);
+        //         return response()->view('errors.'.'406', [], 404);
+        //     }
+        // }
+        // if ($exception instanceof ModelNotFoundException || $exception instanceof MethodNotAllowedHttpException) {
+        //     if (Request::is('admin/*')){
+        //         return abort('404');
+        //     }else if (Request::is('dash/*')){
+        //         return abort('405');
+        //     }else if (Request::is('/*')){
+        //         return abort('406');
+        //     }
+        // }
 
         return parent::render($request, $exception);
     }
