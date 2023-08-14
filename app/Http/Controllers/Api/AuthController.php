@@ -95,10 +95,14 @@ class AuthController extends Controller
             // Mail::to($to)->send(new SendEmail($data));
             // return 'Email sent successfully!';
             $client = new \GuzzleHttp\Client();
+            $tableStyle = 'border-collapse: collapse; width: 100%;';
+            $headerCellStyle = 'background-color: #FFD700; color: white; text-align: left; padding: 8px;';
+            $cellStyle = 'border: 1px solid #FFD700; padding: 8px;';
+            $rowStyle = 'border-bottom: 1px solid #FFD700;';
 
-            $table = '<table>';
-            $table .= '<tr><th>Discount Code</th><th>Discount Value</th><th>Used Date</th></tr>';
-            $table .= '<tr><td>' . $code . '</td><td>' . $dis . '</td><td>' . $date . '</td></tr>';
+            $table = '<table style="' . $tableStyle . '">';
+            $table .= '<tr><th style="' . $headerCellStyle . '">Discount Code</th><th style="' . $headerCellStyle . '">Discount Value</th><th style="' . $headerCellStyle . '">Used Date</th></tr>';
+            $table .= '<tr style="' . $rowStyle . '"><td style="' . $cellStyle . '">' . $code . '</td><td style="' . $cellStyle . '">' . $dis . '</td><td style="' . $cellStyle . '">' . $date . '</td></tr>';
             $table .= '</table>';
 
             $response = $client->request('POST', 'https://api.eu.mailgun.net/v3/goldencard.com.jo/messages', [
@@ -110,6 +114,7 @@ class AuthController extends Controller
                     'html' => '<p>Your discount details:</p>' . $table,
                 ],
             ]);
+
 
 
 
