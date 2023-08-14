@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use GuzzleHttp\Client;
 
 
 class AuthController extends Controller
@@ -54,7 +55,35 @@ class AuthController extends Controller
             'user' => UserResource::make(Auth::user()),
         ]]);
     }
+    public function sendEmail($to, $text)
+    {
+        // dd('hi');
+        try {
+            // $to = $request->input('to');
+            // $data['message']='fdfdf';
+            // $data['to']=$to;
+            // Mail::to($to)->send(new SendEmail($data));
+            // return 'Email sent successfully!';
+            $client = new \GuzzleHttp\Client();
 
+            $response = $client->request('POST', 'https://api.eu.mailgun.net/v3/goldencard.com.jo/messages', [
+            'auth' => ['api', env('MAILGUN_SECRET')],
+                'form_params' => [
+                    'from' => 'Golden Card <goldencard@goldencard.com.jo>',
+                    'to' => $to,
+                    'subject' => 'test',
+                    'text' => 'Hi'. $text.', welcome to Golden Card',
+                ],
+            ]);
+
+
+
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            // handle the exception here
+            return $e->getMessage();
+        }
+
+    }
 
 
     public function store(UserRequest $request)
@@ -94,6 +123,8 @@ class AuthController extends Controller
 
             if ($user) {
                 // return $this->returnData( 'user', UserResource::make($user), '');
+
+               $this->sendEmail($user->email,$user->name);
 
                 return response(['status' => true, 'code' => 200, 'msg' => __('User created succesfully'), 'data' => [
                     'token' => $accessToken,
