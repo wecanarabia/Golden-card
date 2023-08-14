@@ -16,6 +16,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\ApiController;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use GuzzleHttp\Client;
 
 
 class OfferController extends ApiController
@@ -34,40 +35,45 @@ class OfferController extends ApiController
     }
 
 
-    // public function sendEmail($to,$code,$dis,$text)
-    // {
-    //     // dd('hi');
-    //     try {
-    //         // $to = $request->input('to');
-    //         // $data['message']='fdfdf';
-    //         // $data['to']=$to;
-    //         // Mail::to($to)->send(new SendEmail($data));
-    //         // return 'Email sent successfully!';
-    //         $client = new \GuzzleHttp\Client();
+    public function sendEmail($to,$code,$dis,$text)
+    {
+        // dd('hi');
+        try {
+            // $to = $request->input('to');
+            // $data['message']='fdfdf';
+            // $data['to']=$to;
+            // Mail::to($to)->send(new SendEmail($data));
+            // return 'Email sent successfully!';
+            $client = new \GuzzleHttp\Client();
 
-    //         $table = '<table>';
-    //         $table .= '<tr><th>Discount Code</th><th>Discount Value</th><th>Used Date</th></tr>';
-    //         $table .= '<tr><td>' . $code . '</td><td>' . $dis . '</td><td>' . $date . '</td></tr>';
-    //         $table .= '</table>';
+            $tableStyle = 'border-collapse: collapse; width: 100%;';
+            $headerCellStyle = 'background-color: goldenrod; color: white; text-align: left; padding: 8px;';
+            $cellStyle = 'border: 1px solid goldenrod; padding: 8px;';
+            $rowStyle = 'border-bottom: 1px solid goldenrod;';
 
-    //         $response = $client->request('POST', 'https://api.eu.mailgun.net/v3/goldencard.com.jo/messages', [
-    //             'auth' => ['api', env('MAILGUN_SECRET')],
-    //             'form_params' => [
-    //                 'from' => 'Golden Card <goldencard@goldencard.com.jo>',
-    //                 'to' => $to,
-    //                 'subject' => 'Test',
-    //                 'html' => '<p>Your discount details:</p>' . $table,
-    //             ],
-    //         ]);
+            $table = '<table style="' . $tableStyle . '">';
+            $table .= '<tr><th style="' . $headerCellStyle . '">Discount Code</th><th style="' . $headerCellStyle . '">Discount Value</th><th style="' . $headerCellStyle . '">Used Date</th></tr>';
+            $table .= '<tr style="' . $rowStyle . '"><td style="' . $cellStyle . '">' . $code . '</td><td style="' . $cellStyle . '">' . $dis . '</td><td style="' . $cellStyle . '">' . $date . '</td></tr>';
+            $table .= '</table>';
+
+                $response = $client->request('POST', 'https://api.eu.mailgun.net/v3/goldencard.com.jo/messages', [
+                    'auth' => ['api', env('MAILGUN_SECRET')],
+                    'form_params' => [
+                        'from' => 'Golden Card <goldencard@goldencard.com.jo>',
+                        'to' => $to,
+                        'subject' => 'Code',
+                        'html' => '<p>Your discount details:</p>' . $table,
+                    ],
+                ]);
 
 
 
-    //     } catch (\GuzzleHttp\Exception\ClientException $e) {
-    //         // handle the exception here
-    //         return $e->getMessage();
-    //     }
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            // handle the exception here
+            return $e->getMessage();
+        }
 
-    // }
+    }
 
     public function edit($id,Request $request){
 
@@ -98,6 +104,8 @@ class OfferController extends ApiController
               $voucher->user_id = Auth::user()->id;
               $voucher->branch_id = $request->branch_id;
               $voucher->save();
+
+              $this->sendEmail(Auth::user()->email,$voucher->code,$offer->discount_value,$voucher->created_at);
 
            return $this->returnData('data', new VoucherResource( $voucher ), __('Updated succesfully'));
             }
