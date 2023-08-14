@@ -35,7 +35,7 @@ class OfferController extends ApiController
     }
 
 
-    public function sendEmail($to,$code,$dis,$text)
+    public function sendEmail($to,$code,$dis,$date)
     {
         // dd('hi');
         try {
