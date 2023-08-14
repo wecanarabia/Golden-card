@@ -55,37 +55,7 @@ class AuthController extends Controller
             'user' => UserResource::make(Auth::user()),
         ]]);
     }
-    // public function sendEmail($to, $text)
-    // {
-    //     // dd('hi');
-    //     try {
-    //         // $to = $request->input('to');
-    //         // $data['message']='fdfdf';
-    //         // $data['to']=$to;
-    //         // Mail::to($to)->send(new SendEmail($data));
-    //         // return 'Email sent successfully!';
-    //         $client = new \GuzzleHttp\Client();
-
-    //         $response = $client->request('POST', 'https://api.eu.mailgun.net/v3/goldencard.com.jo/messages', [
-    //         'auth' => ['api', env('MAILGUN_SECRET')],
-    //             'form_params' => [
-    //                 'from' => 'Golden Card <goldencard@goldencard.com.jo>',
-    //                 'to' => $to,
-    //                 'subject' => 'test',
-    //                 'text' => 'Hi '. $text .', welcome to Golden Card',
-    //             ],
-    //         ]);
-
-
-
-    //     } catch (\GuzzleHttp\Exception\ClientException $e) {
-    //         // handle the exception here
-    //         return $e->getMessage();
-    //     }
-
-    // }
-
-    public function sendEmail($to,$code,$dis,$date)
+    public function sendEmail($to, $text)
     {
         // dd('hi');
         try {
@@ -95,14 +65,18 @@ class AuthController extends Controller
             // Mail::to($to)->send(new SendEmail($data));
             // return 'Email sent successfully!';
             $client = new \GuzzleHttp\Client();
+
             $tableStyle = 'border-collapse: collapse; width: 100%;';
             $headerCellStyle = 'background-color: #FFD700; color: white; text-align: left; padding: 8px;';
             $cellStyle = 'border: 1px solid #FFD700; padding: 8px;';
-            $rowStyle = 'border-bottom: 1px solid #FFD700;';
+            $messageStyle = 'font-size: 18px; margin-bottom: 10px;';
 
             $table = '<table style="' . $tableStyle . '">';
-            $table .= '<tr><th style="' . $headerCellStyle . '">Discount Code</th><th style="' . $headerCellStyle . '">Discount Value</th><th style="' . $headerCellStyle . '">Used Date</th></tr>';
-            $table .= '<tr style="' . $rowStyle . '"><td style="' . $cellStyle . '">' . $code . '</td><td style="' . $cellStyle . '">' . $dis . '</td><td style="' . $cellStyle . '">' . $date . '</td></tr>';
+            $table .= '<tr><th style="' . $headerCellStyle . '">Welcome to Golden Card</th></tr>';
+            $table .= '<tr><td style="' . $cellStyle . '">';
+            $table .= '<p style="' . $messageStyle . '">Hi ' . $text . ',</p>';
+            $table .= '<p style="' . $messageStyle . '">Thank you for joining Golden Card!</p>';
+            $table .= '</td></tr>';
             $table .= '</table>';
 
             $response = $client->request('POST', 'https://api.eu.mailgun.net/v3/goldencard.com.jo/messages', [
@@ -110,12 +84,10 @@ class AuthController extends Controller
                 'form_params' => [
                     'from' => 'Golden Card <goldencard@goldencard.com.jo>',
                     'to' => $to,
-                    'subject' => 'Test',
-                    'html' => '<p>Your discount details:</p>' . $table,
+                    'subject' => 'Welcome',
+                    'html' => $table,
                 ],
             ]);
-
-
 
 
         } catch (\GuzzleHttp\Exception\ClientException $e) {
@@ -124,6 +96,8 @@ class AuthController extends Controller
         }
 
     }
+
+
 
     public function store(UserRequest $request)
     {
@@ -164,8 +138,8 @@ class AuthController extends Controller
                 // return $this->returnData( 'user', UserResource::make($user), '');
 
 
-            //    $this->sendEmail($user->email,$user->first_name);
-            $this->sendEmail($user->email,"234hdg",'2,5','22-9-87');
+               $this->sendEmail($user->email,$user->first_name);
+            // $this->sendEmail($user->email,"234hdg",'2,5','22-9-87');
 
                 return response(['status' => true, 'code' => 200, 'msg' => __('User created succesfully'), 'data' => [
                     'token' => $accessToken,
