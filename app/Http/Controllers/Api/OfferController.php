@@ -27,9 +27,47 @@ class OfferController extends ApiController
         $this->repositry =  new Repository($this->model);
     }
 
+
+
     public function save( Request $request ){
         return $this->store( $request->all() );
     }
+
+
+    // public function sendEmail($to,$code,$dis,$text)
+    // {
+    //     // dd('hi');
+    //     try {
+    //         // $to = $request->input('to');
+    //         // $data['message']='fdfdf';
+    //         // $data['to']=$to;
+    //         // Mail::to($to)->send(new SendEmail($data));
+    //         // return 'Email sent successfully!';
+    //         $client = new \GuzzleHttp\Client();
+
+    //         $table = '<table>';
+    //         $table .= '<tr><th>Discount Code</th><th>Discount Value</th><th>Used Date</th></tr>';
+    //         $table .= '<tr><td>' . $code . '</td><td>' . $dis . '</td><td>' . $date . '</td></tr>';
+    //         $table .= '</table>';
+
+    //         $response = $client->request('POST', 'https://api.eu.mailgun.net/v3/goldencard.com.jo/messages', [
+    //             'auth' => ['api', env('MAILGUN_SECRET')],
+    //             'form_params' => [
+    //                 'from' => 'Golden Card <goldencard@goldencard.com.jo>',
+    //                 'to' => $to,
+    //                 'subject' => 'Test',
+    //                 'html' => '<p>Your discount details:</p>' . $table,
+    //             ],
+    //         ]);
+
+
+
+    //     } catch (\GuzzleHttp\Exception\ClientException $e) {
+    //         // handle the exception here
+    //         return $e->getMessage();
+    //     }
+
+    // }
 
     public function edit($id,Request $request){
 

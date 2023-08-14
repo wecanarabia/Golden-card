@@ -55,10 +55,38 @@ class AuthController extends Controller
             'user' => UserResource::make(Auth::user()),
         ]]);
     }
-    public function sendEmail($to, $text)
-    {
-        $lines = explode("\n", 'Hi'. $text .',\nWelcome to Golden Card');
+    // public function sendEmail($to, $text)
+    // {
+    //     // dd('hi');
+    //     try {
+    //         // $to = $request->input('to');
+    //         // $data['message']='fdfdf';
+    //         // $data['to']=$to;
+    //         // Mail::to($to)->send(new SendEmail($data));
+    //         // return 'Email sent successfully!';
+    //         $client = new \GuzzleHttp\Client();
 
+    //         $response = $client->request('POST', 'https://api.eu.mailgun.net/v3/goldencard.com.jo/messages', [
+    //         'auth' => ['api', env('MAILGUN_SECRET')],
+    //             'form_params' => [
+    //                 'from' => 'Golden Card <goldencard@goldencard.com.jo>',
+    //                 'to' => $to,
+    //                 'subject' => 'test',
+    //                 'text' => 'Hi '. $text .', welcome to Golden Card',
+    //             ],
+    //         ]);
+
+
+
+    //     } catch (\GuzzleHttp\Exception\ClientException $e) {
+    //         // handle the exception here
+    //         return $e->getMessage();
+    //     }
+
+    // }
+
+    public function sendEmail($to,$code,$dis,$date)
+    {
         // dd('hi');
         try {
             // $to = $request->input('to');
@@ -68,13 +96,18 @@ class AuthController extends Controller
             // return 'Email sent successfully!';
             $client = new \GuzzleHttp\Client();
 
+            $table = '<table>';
+            $table .= '<tr><th>Discount Code</th><th>Discount Value</th><th>Used Date</th></tr>';
+            $table .= '<tr><td>' . $code . '</td><td>' . $dis . '</td><td>' . $date . '</td></tr>';
+            $table .= '</table>';
+
             $response = $client->request('POST', 'https://api.eu.mailgun.net/v3/goldencard.com.jo/messages', [
-            'auth' => ['api', env('MAILGUN_SECRET')],
+                'auth' => ['api', env('MAILGUN_SECRET')],
                 'form_params' => [
                     'from' => 'Golden Card <goldencard@goldencard.com.jo>',
                     'to' => $to,
-                    'subject' => 'Welcome',
-                    'text' => implode("\n",$lines),
+                    'subject' => 'Test',
+                    'html' => '<p>Your discount details:</p>' . $table,
                 ],
             ]);
 
@@ -86,7 +119,6 @@ class AuthController extends Controller
         }
 
     }
-
 
     public function store(UserRequest $request)
     {
@@ -127,7 +159,8 @@ class AuthController extends Controller
                 // return $this->returnData( 'user', UserResource::make($user), '');
 
 
-               $this->sendEmail($user->email,$user->first_name);
+            //    $this->sendEmail($user->email,$user->first_name);
+            $this->sendEmail($user->email,"234hdg",'2,5','22-9-87');
 
                 return response(['status' => true, 'code' => 200, 'msg' => __('User created succesfully'), 'data' => [
                     'token' => $accessToken,
