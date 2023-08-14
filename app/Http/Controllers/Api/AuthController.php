@@ -57,6 +57,8 @@ class AuthController extends Controller
     }
     public function sendEmail($to, $text)
     {
+        $lines = explode("\n", 'Hi'. $text .',\nWelcome to Golden Card');
+
         // dd('hi');
         try {
             // $to = $request->input('to');
@@ -71,8 +73,8 @@ class AuthController extends Controller
                 'form_params' => [
                     'from' => 'Golden Card <goldencard@goldencard.com.jo>',
                     'to' => $to,
-                    'subject' => 'test',
-                    'text' => 'Hi'. $text.', welcome to Golden Card',
+                    'subject' => 'Welcome',
+                    'text' => implode("\n",$lines),
                 ],
             ]);
 
@@ -124,7 +126,8 @@ class AuthController extends Controller
             if ($user) {
                 // return $this->returnData( 'user', UserResource::make($user), '');
 
-               $this->sendEmail($user->email,$user->name);
+
+               $this->sendEmail($user->email,$user->first_name);
 
                 return response(['status' => true, 'code' => 200, 'msg' => __('User created succesfully'), 'data' => [
                     'token' => $accessToken,
