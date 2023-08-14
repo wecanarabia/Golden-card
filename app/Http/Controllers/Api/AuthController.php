@@ -67,8 +67,8 @@ class AuthController extends Controller
             $client = new \GuzzleHttp\Client();
 
             $tableStyle = 'border-collapse: collapse; width: 100%;';
-            $headerCellStyle = 'background-color: #FFD700; color: white; text-align: left; padding: 8px;';
-            $cellStyle = 'border: 1px solid #FFD700; padding: 8px;';
+            $headerCellStyle = 'background-color: goldenrod; color: white; text-align: left; padding: 8px;';
+            $cellStyle = 'border: 1px solid goldenrod; padding: 8px;';
             $messageStyle = 'font-size: 18px; margin-bottom: 10px;';
 
             $table = '<table style="' . $tableStyle . '">';
