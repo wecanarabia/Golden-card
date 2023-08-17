@@ -75,7 +75,7 @@ class SubscriptionController extends ApiController
 
 
                             $plan=Plan::find($request->plan_id);
-                            $price= $plan->price - $code->value;
+                            // $price= $plan->price - $code->value;
 
                             $discount = $plan->price * ($code->value / 100);
                             $price = $plan->price - $discount;
@@ -155,6 +155,18 @@ class SubscriptionController extends ApiController
         $subscriptions = Subscription::where('user_id',$user_id)->paginate(10) ;
         return $this->returnData('data',  MySubscriptionResource::collection( $subscriptions ), __('Get  succesfully'));
 
+    }
+
+
+    public function viewSubs($order_number)
+    {
+        $model = Subscription::where('order_number',$order_number)->first();
+
+        if ($model) {
+            return $this->returnData('data', new $this->resource( $model ), __('Get  succesfully'));
+        }
+
+        return $this->returnError(__('Sorry! Failed to get !'));
     }
 
 
