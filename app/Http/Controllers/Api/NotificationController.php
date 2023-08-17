@@ -39,7 +39,7 @@ class NotificationController extends ApiController
 
 
         // $notifications = Notification::where('user_id',Auth::user()->id)->orderBy('created_at', 'DESC')->get();
-        $notifications = Notification::orderBy('created_at', 'DESC')->get();
+        $notifications = Notification::orderBy('created_at', 'DESC')->paginate(10);
         return $this->returnData('data',  NotificationResource::collection( $notifications ), __('Get  succesfully'));
 
     }
