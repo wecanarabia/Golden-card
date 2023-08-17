@@ -59,11 +59,7 @@ class AuthController extends Controller
     {
         // dd('hi');
         try {
-            // $to = $request->input('to');
-            // $data['message']='fdfdf';
-            // $data['to']=$to;
-            // Mail::to($to)->send(new SendEmail($data));
-            // return 'Email sent successfully!';
+
             $client = new \GuzzleHttp\Client();
 
             $tableStyle = 'border-collapse: collapse; width: 100%;';
