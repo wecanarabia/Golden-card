@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\PlanController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ServiceSubcategoryController;
+use App\Http\Controllers\Api\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -270,5 +271,16 @@ Route::post('subscription-create', [SubscriptionController::class, 'save']);
 Route::get('subscription/{id}', [SubscriptionController::class, 'view']);
 Route::get('subscription/delete/{id}', [SubscriptionController::class, 'delete']);
 Route::post('subscription/edit/{id}', [SubscriptionController::class, 'edit']);
+
+//view sub by order number
+Route::get('view-subscription/{order_number}', [SubscriptionController::class, 'viewSubs']);
+
+
+  //Transaction
+  Route::get('transactions', [TransactionController::class, 'list']);
+  Route::post('transaction-create', [TransactionController::class, 'save']);
+  Route::get('transaction/{order_number}', [TransactionController::class, 'viewTrans']);
+  Route::get('transaction/delete/{order_number}', [TransactionController::class, 'deleteTrans']);
+  Route::post('transaction/edit/{id}', [TransactionController::class, 'edit']);
 
 });

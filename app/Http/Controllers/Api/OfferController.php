@@ -16,6 +16,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\ApiController;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use GuzzleHttp\Client;
 
 
 class OfferController extends ApiController
@@ -27,8 +28,88 @@ class OfferController extends ApiController
         $this->repositry =  new Repository($this->model);
     }
 
+
+
     public function save( Request $request ){
         return $this->store( $request->all() );
+    }
+
+
+    // public function sendEmail($to,$code,$dis,$date)
+    // {
+    //     // dd('hi');
+    //     try {
+    //         // $to = $request->input('to');
+    //         // $data['message']='fdfdf';
+    //         // $data['to']=$to;
+    //         // Mail::to($to)->send(new SendEmail($data));
+    //         // return 'Email sent successfully!';
+    //         $client = new \GuzzleHttp\Client();
+
+    //         $tableStyle = 'border-collapse: collapse; width: 100%;';
+    //         $headerCellStyle = 'background-color: goldenrod; color: white; text-align: left; padding: 8px;';
+    //         $cellStyle = 'border: 1px solid goldenrod; padding: 8px;';
+    //         $rowStyle = 'border-bottom: 1px solid goldenrod;';
+
+    //         $table = '<table style="' . $tableStyle . '">';
+    //         $table .= '<tr><th style="' . $headerCellStyle . '">Discount Code</th><th style="' . $headerCellStyle . '">Discount Value</th><th style="' . $headerCellStyle . '">Used Date</th></tr>';
+    //         $table .= '<tr style="' . $rowStyle . '"><td style="' . $cellStyle . '">' . $code . '</td><td style="' . $cellStyle . '">' . $dis . '</td><td style="' . $cellStyle . '">' . $date . '</td></tr>';
+    //         $table .= '</table>';
+
+    //             $response = $client->request('POST', 'https://api.eu.mailgun.net/v3/goldencard.com.jo/messages', [
+    //                 'auth' => ['api', env('MAILGUN_SECRET')],
+    //                 'form_params' => [
+    //                     'from' => 'Golden Card <goldencard@goldencard.com.jo>',
+    //                     'to' => $to,
+    //                     'subject' => 'Code',
+    //                     'html' => '<p>Your discount details:</p>' . $table,
+    //                 ],
+    //             ]);
+
+
+
+    //     } catch (\GuzzleHttp\Exception\ClientException $e) {
+    //         // handle the exception here
+    //         return $e->getMessage();
+    //     }
+
+    // }
+
+    public function sendEmail($to, $name, $lname, $service, $branch, $desc, $oname, $code, $dis, $date)
+    {
+        try {
+            $client = new \GuzzleHttp\Client();
+
+            $tableStyle = 'border-collapse: collapse; width: 100%;';
+            $headerCellStyle = 'background-color: goldenrod; color: white; text-align: left; padding: 8px;';
+            $cellStyle = 'border: 1px solid goldenrod; padding: 8px;';
+            $rowStyle = 'border-bottom: 1px solid goldenrod;';
+
+            $table = '<table style="' . $tableStyle . '">';
+            $table .= '<tr><th style="' . $headerCellStyle . '">Voucher Name</th><th style="' . $headerCellStyle . '">Merchant</th><th style="' . $headerCellStyle . '">Description</th><th style="' . $headerCellStyle . '">Save Amount</th></tr>';
+            $table .= '<tr style="' . $rowStyle . '"><td style="' . $cellStyle . '">' . $oname . '</td><td style="' . $cellStyle . '">' . $service . '</td><td style="' . $cellStyle . '">' . $desc . '</td><td style="' . $cellStyle . '">' . $dis . '</td></tr>';
+            $table .= '</table>';
+
+            $content = '<p>Dear ' . $name . ' ' . $lname . ',<br>The Voucher was redeemed at ' . $date . ' at ' . $service . ' - ' . $branch . '<br>With the code: ' . $code . '</p>' . $table;
+            $content .= '<p>Golden Card</p>';
+
+            $response = $client->request('POST', 'https://api.eu.mailgun.net/v3/goldencard.com.jo/messages', [
+                'auth' => ['api', env('MAILGUN_SECRET')],
+                'form_params' => [
+                    'from' => 'Golden Card <goldencard@goldencard.com.jo>',
+                    'to' => $to,
+                    'subject' => 'Code',
+                    'html' => $content,
+                ],
+            ]);
+
+            // Add a success message if needed
+            // return 'Email sent successfully!';
+
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            // handle the exception here
+            return $e->getMessage();
+        }
     }
 
     public function edit($id,Request $request){
@@ -60,6 +141,8 @@ class OfferController extends ApiController
               $voucher->user_id = Auth::user()->id;
               $voucher->branch_id = $request->branch_id;
               $voucher->save();
+
+              $this->sendEmail(Auth::user()->email,Auth::user()->first_name,Auth::user()->last_name,Branch::find($request->branch_id)->service?->name,Branch::find($request->branch_id)->name,$offer->description,$offer->name,$voucher->code,$offer->discount_value,$voucher->created_at);
 
            return $this->returnData('data', new VoucherResource( $voucher ), __('Updated succesfully'));
             }

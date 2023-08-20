@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use GuzzleHttp\Client;
 
 
 class AuthController extends Controller
@@ -53,6 +54,43 @@ class AuthController extends Controller
             'token' => $accessToken,
             'user' => UserResource::make(Auth::user()),
         ]]);
+    }
+    public function sendEmail($to, $text)
+    {
+        // dd('hi');
+        try {
+
+            $client = new \GuzzleHttp\Client();
+
+            $tableStyle = 'border-collapse: collapse; width: 100%;';
+            $headerCellStyle = 'background-color: goldenrod; color: white; text-align: left; padding: 8px;';
+            $cellStyle = 'border: 1px solid goldenrod; padding: 8px;';
+            $messageStyle = 'font-size: 18px; margin-bottom: 10px;';
+
+            $table = '<table style="' . $tableStyle . '">';
+            $table .= '<tr><th style="' . $headerCellStyle . '">Welcome to Golden Card</th></tr>';
+            $table .= '<tr><td style="' . $cellStyle . '">';
+            $table .= '<p style="' . $messageStyle . '">Hi ' . $text . ',</p>';
+            $table .= '<p style="' . $messageStyle . '">Thank you for joining Golden Card!</p>';
+            $table .= '</td></tr>';
+            $table .= '</table>';
+
+            $response = $client->request('POST', 'https://api.eu.mailgun.net/v3/goldencard.com.jo/messages', [
+                'auth' => ['api', env('MAILGUN_SECRET')],
+                'form_params' => [
+                    'from' => 'Golden Card <goldencard@goldencard.com.jo>',
+                    'to' => $to,
+                    'subject' => 'Welcome',
+                    'html' => $table,
+                ],
+            ]);
+
+
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            // handle the exception here
+            return $e->getMessage();
+        }
+
     }
 
 
@@ -94,6 +132,10 @@ class AuthController extends Controller
 
             if ($user) {
                 // return $this->returnData( 'user', UserResource::make($user), '');
+
+
+               $this->sendEmail($user->email,$user->first_name);
+            // $this->sendEmail($user->email,"234hdg",'2,5','22-9-87');
 
                 return response(['status' => true, 'code' => 200, 'msg' => __('User created succesfully'), 'data' => [
                     'token' => $accessToken,
