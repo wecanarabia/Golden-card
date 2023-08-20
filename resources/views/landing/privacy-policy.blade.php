@@ -1,5 +1,48 @@
 <x-layouts.app>
-    <div data-elementor-type="wp-page" data-elementor-id="851" class="elementor elementor-851">
+    <header class="appie-header-area appie-header-area-rtl appie-sticky">
+        <div class="container">
+          <div class="header-nav-box">
+            <div class="row align-items-center">
+              <div class="col-lg-2 col-md-4 col-sm-5 col-6 order-1 order-sm-1">
+                <div class="appie-logo-box text-right">
+                  <a href="#">
+                    <img src="{{ asset('assets/images/logo.png')}}" alt="">
+                  </a>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-1 col-sm-1 order-3 order-sm-2">
+                <div class="appie-header-main-menu">
+                  <ul>
+                    <li>
+                      <a href="{{ route('landing') }}">@lang('landing.HOME')</a>
+                    </li>
+
+                    @if (app()->getLocale()==='ar')
+                        <li><a rel="alternate" hreflang="en" href="{{ LaravelLocalization::getLocalizedURL('en', null, [], true) }}">
+                            {{ LaravelLocalization::getSupportedLocales()['en']['native'] }}</a>
+                        </li>
+                    @else
+                        <li><a rel="alternate" hreflang="ar" href="{{ LaravelLocalization::getLocalizedURL('ar', null, [], true) }}">
+                            {{ LaravelLocalization::getSupportedLocales()['ar']['native'] }}</a>
+                        </li>
+                    @endif
+
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-4  col-md-7 col-sm-6 col-6 order-2 order-sm-3">
+                <div class="appie-btn-box text-left">
+                  <a class="main-btn mr-30" style="background-color: #D5A559" href="{{ route('dash.login-page') }}">@lang('landing.JOINPARTNERS')</a>
+                  <div class="toggle-btn ml-30 canvas_open d-lg-none d-block">
+                    <i class="fa fa-bars"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+    <div data-elementor-type="wp-page" data-elementor-id="851" class="elementor elementor-851 mt-5">
         <section
             class="elementor-section elementor-top-section elementor-element elementor-element-82ec2f4 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
             data-id="82ec2f4" data-element_type="section" data-settings="{background_background:classic}">

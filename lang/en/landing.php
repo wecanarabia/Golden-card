@@ -5,7 +5,7 @@ return[
     'FEATURES'=>'Features',
     'PRICES'=>'Prices',
     'LOGIN'=>'Login',
-    'JOINPARTNERS'=>'Join our partners',
+    'JOINPARTNERS'=>'Partners portal',
     'HELLO'=>'Hello and welcome',
     'GCAPP'=>'In Golden card pplicatopn',
     'AWESOMEDISCOUNTS'=>'Awesome and multiple discounts from various shops follow them first and don\'t miss the opportunity',

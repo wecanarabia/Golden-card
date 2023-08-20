@@ -64,10 +64,8 @@
             <span>@lang('landing.HELLO')</span>
             <h1 class="appie-title">@lang('landing.GCAPP')</h1>
             <p>@lang('landing.AWESOMEDISCOUNTS')</p>
-            <ul>
-              <li><a href="#"><i class="fab fa-apple"></i>@lang('landing.IOSDOWNLOAD')</a></li>
-              <li><a class="item-2" href="https://play.google.com/store/apps/details?id=com.goldencard.wecan"><i class="fab fa-google-play"></i>@lang('landing.ANDROIDDOWNLOAD')</a></li>
-            </ul>
+           <a class="main-btn d-inline-block m-2" href="#"><i class="fab fa-apple"></i>@lang('landing.IOSDOWNLOAD')</a>
+              <a class="main-btn d-inline-block"  href="https://play.google.com/store/apps/details?id=com.goldencard.wecan"><i class="fab fa-google-play"></i>@lang('landing.ANDROIDDOWNLOAD')</a>
           </div>
         </div>
         <div class="col-lg-6">
@@ -113,7 +111,7 @@
             data-wow-delay="200ms">
             <div class="icon">
               <img src="{{ asset('assets/images/icon/1.png')}}" alt="">
-              <span>{{ $data['restaurant_count'] }}</span>
+              {{-- <span>{{ $data['restaurant_count'] }}</span> --}}
             </div>
             <h4 class="appie-title">@lang('landing.RESTAURANTS')</h4>
             <p>@lang('landing.RESTAURANTSDESC')</p>
@@ -124,7 +122,7 @@
             data-wow-delay="400ms">
             <div class="icon">
               <img src="{{ asset('assets/images/icon/2.png')}}" alt="">
-              <span>{{ $data['salon_count'] }}</span>
+              {{-- <span>{{ $data['salon_count'] }}</span> --}}
             </div>
             <h4 class="appie-title">@lang('landing.SALONS')</h4>
             <p>@lang('landing.SALONSDESC')</p>
@@ -135,7 +133,7 @@
             data-wow-delay="600ms">
             <div class="icon">
               <img src="{{ asset('assets/images/icon/3.png')}}" alt="">
-              <span>{{ $data['hotel_count'] }}</span>
+              {{-- <span>{{ $data['hotel_count'] }}</span> --}}
             </div>
             <h4 class="appie-title">@lang('landing.HOTELS')</h4>
             <p>@lang('landing.HOTELSDESC')</p>
@@ -146,7 +144,7 @@
             data-wow-delay="800ms">
             <div class="icon">
               <img src="{{ asset('assets/images/icon/4.png')}}" alt="">
-              <span>{{ $data['shop_count'] }}</span>
+              {{-- <span>{{ $data['shop_count'] }}</span> --}}
             </div>
             <h4 class="appie-title">@lang('landing.STORES')</h4>
             <p>@lang('landing.STORESDESC')</p>
@@ -295,7 +293,7 @@
               <div @class(["pricing-one__single","cente","text-right"=>app()->getLocale()==='ar'])>
                 <div class="pricig-heading">
                   <h6>{{ $plan->name }}</h6>
-                  <div class="price-range"><sup>$</sup> <span>{{ $plan->price }}</span>
+                  <div class="price-range"><sup>JOD</sup> <span>{{ $plan->price }}</span>
                     <p>{{ $plan->period }} Days</p>
                   </div>
                 </div>
