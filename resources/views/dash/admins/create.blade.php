@@ -61,7 +61,7 @@
                                         <div class="col-xl-8 mb-3">
                                             <label class="form-label">Role<span class="text-danger">*</span></label>
                                             <select class="default-select form-control" name="role_id">
-                                                <option value="" data-display="Select">Role</option>
+                                                <option value="" data-display="Select">Add Role</option>
                                                 @foreach ($roles as $role)
                                                 <option value="{{ $role->id }}" @selected(old('role_id') == $role->id)>{{ $role->name }}</option>
                                                 @endforeach
