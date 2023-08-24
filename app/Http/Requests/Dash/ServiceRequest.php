@@ -33,7 +33,7 @@ class ServiceRequest extends FormRequest
             'phone' => 'required|min:9|regex:/^([0-9\s\-\+\(\)]*)$/|unique:services,phone,'.$this->id,
             'code'=>'required|min:4|max:255|unique:services,code,'.$this->id,
             'logo'=>'required_without:id|mimes:jpg,jpeg,gif,png|max:4000',
-            'ipan' => 'required|min:4|max:255',
+            'ipan' => 'nullable|min:4|max:255',
             'first_contact' => 'nullable|min:4|max:255',
             'second_contact' => 'nullable|min:4|max:255',
             'subcategories'=>'array|min:1',

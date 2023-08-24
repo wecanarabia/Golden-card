@@ -39,7 +39,7 @@ class ServiceRequest extends FormRequest
             'lat'=>'nullable|numeric',
             'long'=>'nullable|numeric',
             'location'=>'nullable|min:0|max:255',
-            'ipan' => 'required|min:4|max:255',
+            'ipan' => 'nullable|min:4|max:255',
             'profit_margin' => 'required|numeric',
             'classification' => 'required|integer',
         ];
