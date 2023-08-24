@@ -226,7 +226,7 @@
                                                                                             class="text-secondary">{{ $code->offer->name }}</span></a>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <span>{{ $code->user->first_name }}</span>
+                                                                                    <span>{{ $code?->user?->first_name }}</span>
                                                                                 </td>
                                                                                 <td>
                                                                                     <a
