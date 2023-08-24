@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Dash;
 
+use App\Rules\RolePermissopn;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RoleRequest extends FormRequest
@@ -23,7 +24,7 @@ class RoleRequest extends FormRequest
     {
         return [
             'name' => 'required|min:4|max:255',
-            "permissions"=>"required|array|min:1",
+            "permissions"=>["required","array","min:1",new RolePermissopn],
         ];
     }
 }

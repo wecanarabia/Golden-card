@@ -23,7 +23,7 @@ return[
     ],
 
     'service'=>[
-        'control'=>'Full Control',
         'view'=>'View Only',
+        'control'=>'Full Control',
     ]
 ];
