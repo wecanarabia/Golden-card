@@ -63,9 +63,11 @@
                                                                                     class="text-secondary">{{ $code->offer->name }}</span></a>
                                                                         </td>
                                                                         <td>
+                                                                            @if($code->user)
                                                                             <a
                                                                                 href="{{ route('admin.users.show', $code->user->id) }}">
                                                                                 <span>{{ $code->user->first_name }}</span></a>
+                                                                                @endif
                                                                         </td>
                                                                         <td>
                                                                             <a
