@@ -17,6 +17,9 @@
                 <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $service->name }} </a></li>
             </ol>
             <a class="text-primary fs-13" href="{{ route('admin.services.index') }}" >{{  __('Services') }}</a>
+            <a class="text-primary fs-13 my-2" href="{{ route('admin.partners.branch-create'$service->id) }}">+ Add Branches</a>
+            <a class="text-primary fs-13 my-2" href="{{ route('admin.partners.images-create'$service->id) }}">+ Add Images</a>
+
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -25,6 +28,7 @@
                         <div class="card-body p-0">
                             <div class="offcanvas-body">
                                 <div class="container-fluid">
+                                <x-admin-layouts.alerts />
                                 <h4 class="heading mb-5"> {{ $service->name }}</h4>
 
                                     <p class="mb-3"><strong>English title : </strong> {{ $service->getTranslation('name', 'en') }}</p>
@@ -147,7 +151,6 @@
                         <div class="card-body p-0">
                             <div class="offcanvas-body">
                                 <div class="container-fluid">
-                                    <x-admin-layouts.alerts />
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
                                             <h4 class="heading mb-0"> {{ __('Offers') }}</h4>
@@ -237,7 +240,6 @@
                         <div class="card-body p-0">
                             <div class="offcanvas-body">
                                 <div class="container-fluid">
-                                    <x-admin-layouts.alerts />
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
                                             <h4 class="heading mb-0"> {{ __('Service Images') }}</h4>
@@ -311,7 +313,6 @@
                         <div class="card-body p-0">
                             <div class="offcanvas-body">
                                 <div class="container-fluid">
-                                    <x-admin-layouts.alerts />
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
                                             <h4 class="heading mb-0"> {{ __('Subcategories') }}</h4>

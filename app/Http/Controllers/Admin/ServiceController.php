@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Area;
 use App\Models\Role;
 use App\Models\Offer;
+use App\Models\Branch;
 use App\Models\Service;
 use App\Models\Voucher;
 use App\Models\Category;
+use App\Models\Subcategory;
+use App\Models\ImageService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use App\Http\Requests\Dash\BranchRequest;
 use App\Http\Requests\Admin\ServiceRequest;
-use App\Models\Subcategory;
+use App\Http\Requests\Dash\ServiceImageRequest;
 
 class ServiceController extends Controller
 {
@@ -58,7 +63,7 @@ class ServiceController extends Controller
 
         $service->subcategories()->attach($request->subcategories);
 
-        return redirect()->route('admin.services.index')
+        return redirect()->route('admin.services.show',$service->id)
                         ->with('success','Partner has been added successfully');
     }
 
@@ -125,7 +130,7 @@ class ServiceController extends Controller
 
         $service->subcategories()->sync($request->subcategories);
 
-        return redirect()->route('admin.services.index')
+        return redirect()->route('admin.services.show',$service->id)
                         ->with('success','Partner has been updated successfully');
     }
 
@@ -141,4 +146,75 @@ class ServiceController extends Controller
 
         return redirect()->route('admin.services.index')->with('success','Partner has been removed successfully');
     }
+
+    public function createBranch($id){
+        if (Auth::user()->can('all-services')) {
+            $service = Service::findOrFail($id);
+        }elseif(Auth::user()->can('services')){
+            $service = Service::where('admin_id',Auth::user()->id)->findOrFail($id);;
+        }
+        $areas = Area::all();
+        return view('admin.services.add-branches',compact('service',areas));
+    }
+    public function storeBranch(BranchRequest $request,$id){
+        if (Auth::user()->can('all-services')) {
+            $service = Service::findOrFail($id);
+        }elseif(Auth::user()->can('services')){
+            $service = Service::where('admin_id',Auth::user()->id)->findOrFail($id);;
+        }
+        $request['service_id']=$service->id;
+        $request['name']=['en'=>$request->english_name,'ar'=>$request->arabic_name];
+        Branch::create($request->except([
+            'english_name',
+            'arabic_name',
+        ]));
+        return redirect()->route('admin.services.show',$service->id)
+                        ->with('success','Branch has been added successfully');
+    }
+
+    public function createImages($id){
+        if (Auth::user()->can('all-services')) {
+            $service = Service::findOrFail($id);
+        }elseif(Auth::user()->can('services')){
+            $service = Service::where('admin_id',Auth::user()->id)->findOrFail($id);;
+        }
+        return view('admin.services.add-images',compact('service'));
+
+    }
+
+public function storeImages(ServiceImageRequest $request,$id){
+    if (Auth::user()->can('all-services')) {
+        $service = Service::findOrFail($id);
+    }elseif(Auth::user()->can('services')){
+        $service = Service::where('admin_id',Auth::user()->id)->findOrFail($id);;
+    }
+    $request['service_id']=$service->id;
+    if(ImageService::where('service_id',$request->service_id)->count()<5){
+
+    foreach($request->images as $image) {
+        if(ImageService::where('service_id',$request->service_id)->count()<5){
+            if (ImageService::where('service_id',$request->service_id)->count()==0) {
+                $order = 1;
+            }else{
+                $order = ImageService::where('service_id',$request->service_id)->max('order')+1;
+            }
+            ImageService::create([
+                'image'=>$image,
+                'order'=>$order,
+                'service_id'=>$request->service_id,
+            ]);
+        }elseif(ImageService::where('service_id',$request->service_id)->count()==5){
+            return redirect()->route('admin.services.show',$service->id)
+            ->with('success','Images has been added successfully');
+        }
+    }
+    return redirect()->route('admin.services.show',$service->id)
+                    ->with('success','Images has been added successfully');
+    }else{
+        return redirect()->back()
+                    ->with('info','Maximum allowed number of images is 5 images');
+
+    };
+
+}
 }

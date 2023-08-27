@@ -62,6 +62,11 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         'show'=>'services.show',
         'destroy'=>'services.destroy',
         ])->middleware('can:services');
+        Route::get('partners/{id}/add-branch',[ServiceController::class,'createBranch'])->name('partners.branch-create')->middleware('can:services');
+        Route::post('partners/{id}/store-branch',[ServiceController::class,'storeBranch'])->name('partners.branch-store')->middleware('can:services');
+        Route::get('partners/{id}/add-images',[ServiceController::class,'createImages'])->name('partners.images-create')->middleware('can:services');
+        Route::post('partners/{id}/store-images',[ServiceController::class,'storeImages'])->name('partners.images-store')->middleware('can:services');
+
         Route::resource('branches', BranchController::class)->middleware('can:services');
         Route::resource('plans', PlanController::class)->middleware('can:plans');
         Route::resource('promo-codes', PromoCodeController::class)->middleware('can:user-codes');
