@@ -16,9 +16,9 @@
                 </li>
                 <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $service->name }} </a></li>
             </ol>
+            <a class="text-primary fs-13" href="{{ route('admin.partners.branch-create',$service->id) }}">+ Add Branches</a>
+            <a class="text-primary fs-13" href="{{ route('admin.partners.images-create',$service->id) }}">+ Add Images</a>
             <a class="text-primary fs-13" href="{{ route('admin.services.index') }}" >{{  __('Services') }}</a>
-            <a class="text-primary fs-13 my-2" href="{{ route('admin.partners.branch-create'$service->id) }}">+ Add Branches</a>
-            <a class="text-primary fs-13 my-2" href="{{ route('admin.partners.images-create'$service->id) }}">+ Add Images</a>
 
         </div>
         <div class="container-fluid">

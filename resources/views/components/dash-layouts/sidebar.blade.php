@@ -87,7 +87,8 @@
                     </a>
                 </li>
 
-                <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                <li @class(['mm-active'=>Request::is('dash/admins/*')||Request::is('dash/roles/*')])>
+                <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <div class="menu-icon">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -102,9 +103,11 @@
                         <span class="nav-text">Admins & Permissions</span>
                     </a>
                     <ul aria-expanded="false" class="mm-collapse">
-                        <li><a href="{{ route('dash.admins.index') }}">Admins</a></li>
+                        <li @class(['mm-active'=>Request::is('dash/admins/*')])
+                        ><a @class(['mm-active'=>Request::is('dash/admins/*')]) href="{{ route('dash.admins.index') }}">Admins</a></li>
 
-                        <li><a href="{{ route('dash.roles.index') }}">Permissions</a></li>
+                        <li @class(['mm-active'=>Request::is('dash/roles/*')])
+                        ><a @class(['mm-active'=>Request::is('dash/roles/*')]) href="{{ route('dash.roles.index') }}">Permissions</a></li>
                     </ul>
                 </li>
             @endcan

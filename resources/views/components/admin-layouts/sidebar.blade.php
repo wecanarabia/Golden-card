@@ -47,7 +47,8 @@
 					</li>
                     @endcan
                     @if(Auth::user()?->can('admins')||Auth::user()?->can('roles'))
-                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                    <li @class(['mm-active'=>Request::is("admin/admins/*")||Request::is("admin/roles/*")])>
+                    <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 						<div class="menu-icon">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path fill-rule="evenodd" clip-rule="evenodd" d="M10.986 14.0673C7.4407 14.0673 4.41309 14.6034 4.41309 16.7501C4.41309 18.8969 7.4215 19.4521 10.986 19.4521C14.5313 19.4521 17.5581 18.9152 17.5581 16.7693C17.5581 14.6234 14.5505 14.0673 10.986 14.0673Z" stroke="#888888" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -58,10 +59,12 @@
 						</a>
                         <ul aria-expanded="false" class="mm-collapse">
                             @can('admins')
-                            <li><a href="{{ route('admin.admins.index') }}">Admins</a></li>
+                            <li @class(['mm-active'=>Request::is('admin/admins/*')])
+                            ><a @class(['mm-active'=>Request::is('admin/admins/*')]) href="{{ route('admin.admins.index') }}">Admins</a></li>
                             @endcan
                             @can('roles')
-                            <li><a href="{{ route('admin.roles.index') }}">Permissions</a></li>
+                            <li @class(['mm-active'=>Request::is('admin/roles/*')])
+                            ><a @class(['mm-active'=>Request::is('admin/roles/*')]) href="{{ route('admin.roles.index') }}">Permissions</a></li>
                             @endcan
                         </ul>
 					</li>
@@ -96,19 +99,23 @@
 					</li>
                     @endcan
                     @can('categories')
-                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                    <li @class(['mm-active'=>Request::is('admin/categories/*')||Request::is('admin/subcategories/*')])
+                    ><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 						<div class="menu-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888888" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg></div>
                         <span class="nav-text">Categories</span>
 						</a>
                         <ul aria-expanded="false" class="mm-collapse">
-                            <li><a href="{{ route('admin.categories.index') }}">Categories</a></li>
-                            <li><a href="{{ route('admin.subcategories.index') }}">Subcategories</a></li>
+                            <li @class(['mm-active'=>Request::is('admin/categories/*')])
+                            ><a @class(['mm-active'=>Request::is('admin/categories/*')]) href="{{ route('admin.categories.index') }}">Categories</a></li>
+                            <li @class(['mm-active'=>Request::is('admin/subcategories/*')])
+                            ><a @class(['mm-active'=>Request::is('admin/subcategories/*')]) href="{{ route('admin.subcategories.index') }}">Subcategories</a></li>
                         </ul>
 					</li>
                     @endcan
                     @can('services')
-                    <li>
+                    <li @class(['mm-active'=>Request::is('admin/partners/*')||Request::is('admin/branches/*')||Request::is('admin/partner-images/*')||Request::is('admin/offers/*')||Request::is('admin/vouchers/*')])
+                        >
                         <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 						<div class="menu-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888888" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M21 12H3M12 3v18"/></svg>
@@ -116,11 +123,16 @@
                             <span class="nav-text">Partner Section</span>
 						</a>
                         <ul aria-expanded="false" class="mm-collapse">
-							<li><a href="{{ route('admin.services.index') }}">Partners</a></li>
-							<li><a href="{{ route('admin.service-images.index') }}">Images</a></li>
-							<li><a href="{{ route('admin.branches.index') }}">Branches</a></li>
-							<li><a href="{{ route('admin.offers.index') }}">Offers</a></li>
-							<li><a href="{{ route('admin.vouchers.index') }}">Vouchers</a></li>
+							<li @class(['mm-active'=>Request::is('admin/partners/*')])
+                            ><a @class(['mm-active'=>Request::is('admin/partners/*')]) href="{{ route('admin.services.index') }}">Partners</a></li>
+							<li @class(['mm-active'=>Request::is('admin/partner-images/*')])
+                            ><a @class(['mm-active'=>Request::is('admin/partner-images/*')]) href="{{ route('admin.service-images.index') }}">Images</a></li>
+							<li @class(['mm-active'=>Request::is('admin/branches/*')])
+                            ><a @class(['mm-active'=>Request::is('admin/branches/*')]) href="{{ route('admin.branches.index') }}">Branches</a></li>
+							<li @class(['mm-active'=>Request::is('admin/offers/*')])
+                            ><a @class(['mm-active'=>Request::is('admin/offers/*')]) href="{{ route('admin.offers.index') }}">Offers</a></li>
+							<li @class(['mm-active'=>Request::is('admin/vouchers/*')])
+                            ><a @class(['mm-active'=>Request::is('admin/vouchers/*')]) href="{{ route('admin.vouchers.index') }}">Vouchers</a></li>
                         </ul>
 
 					</li>
@@ -149,7 +161,7 @@
 					</li>
                     @endcan
                     @can('user-codes')
-                    <li>
+                    <li @class(['mm-active'=>Request::is('admin/promo-codes/*')||Request::is('admin/user-codes/*')])>
                         <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <div class="menu-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888888" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V6l-3-4H6zM3.8 6h16.4M16 10a4 4 0 1 1-8 0"/></svg>
@@ -157,8 +169,10 @@
                             <span class="nav-text">Individual Codes</span>
 						</a>
                         <ul aria-expanded="false" class="mm-collapse">
-							<li><a href="{{ route('admin.promo-codes.index') }}">Promo Codes</a></li>
-							<li><a href="{{ route('admin.user-codes.index') }}">User Codes</a></li>
+							<li @class(['mm-active'=>Request::is('admin/promo-codes/*')])
+                            ><a @class(['mm-active'=>Request::is('admin/promo-codes/*')]) href="{{ route('admin.promo-codes.index') }}">Promo Codes</a></li>
+							<li @class(['mm-active'=>Request::is('admin/user-codes/*')])
+                            ><a @class(['mm-active'=>Request::is('admin/user-codes/*')]) href="{{ route('admin.user-codes.index') }}">User Codes</a></li>
 
                         </ul>
 					</li>

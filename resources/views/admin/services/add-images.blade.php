@@ -1,4 +1,4 @@
-<x-dash-layouts.dash-app>
+<x-admin-layouts.admin-app>
     <!--**********************************
         Content body start
     ***********************************-->
@@ -30,10 +30,10 @@
                                 <h4 class="heading mb-0"> {{ __('Add images') }}</h4>
                                 <x-admin-layouts.alerts />
 
-                            <form method="POST" action="{{ route('dash.partners.images-store') }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('admin.partners.images-store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
-
+                                    <input type="hidden" name="service_id" value="{{ $service->id }}">
 
                                     <div class="col-xl-8 mb-3">
                                         <label for="images" class="form-label">Images<span class="text-danger">*</span></label>
@@ -67,4 +67,4 @@
         Content body end
     ***********************************-->
 
-</x-dash-layouts.dash-app>
+</x-admin-layouts.admin-app>

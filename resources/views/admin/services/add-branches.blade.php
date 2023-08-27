@@ -1,4 +1,4 @@
-<x-dash-layouts.dash-app>
+<x-admin-layouts.admin-app>
     <!--**********************************
         Content body start
     ***********************************-->
@@ -29,9 +29,11 @@
                                 <div class="container-fluid">
                                 <h4 class="heading mb-0"> {{ __('Add Branch') }}</h4>
 
-                            <form method="POST" action="{{ route('admin.partners.branch-store',$service->id) }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('admin.partners.branch-store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
+                                    <input type="hidden" name="service_id" value="{{ $service->id }}">
+
                                     <div class="col-xl-8 mb-3">
                                         <label for="exampleFormControlInputfirst" class="form-label">Location-En<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="exampleFormControlInputfirst" name="english_name" placeholder="English Name" value="{{ old('english_name') }}">
@@ -98,4 +100,4 @@
         Content body end
     ***********************************-->
 
-</x-dash-layouts.dash-app>
+</x-admin-layouts.admin-app>

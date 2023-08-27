@@ -154,9 +154,11 @@ class ServiceController extends Controller
             $service = Service::where('admin_id',Auth::user()->id)->findOrFail($id);;
         }
         $areas = Area::all();
-        return view('admin.services.add-branches',compact('service',areas));
+        return view('admin.services.add-branches',compact('service','areas'));
     }
-    public function storeBranch(BranchRequest $request,$id){
+    public function storeBranch(BranchRequest $request){
+        $id = $request->service_id;
+
         if (Auth::user()->can('all-services')) {
             $service = Service::findOrFail($id);
         }elseif(Auth::user()->can('services')){
@@ -182,13 +184,13 @@ class ServiceController extends Controller
 
     }
 
-public function storeImages(ServiceImageRequest $request,$id){
+public function storeImages(ServiceImageRequest $request){
+    $id = $request->service_id;
     if (Auth::user()->can('all-services')) {
         $service = Service::findOrFail($id);
     }elseif(Auth::user()->can('services')){
         $service = Service::where('admin_id',Auth::user()->id)->findOrFail($id);;
     }
-    $request['service_id']=$service->id;
     if(ImageService::where('service_id',$request->service_id)->count()<5){
 
     foreach($request->images as $image) {
