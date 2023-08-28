@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\File;
 use App\Http\Requests\Dash\BranchRequest;
 use App\Http\Requests\Admin\ServiceRequest;
 use App\Http\Requests\Dash\ServiceImageRequest;
+use Stevebauman\Location\Facades\Location;
 
 class ServiceController extends Controller
 {
@@ -41,6 +42,11 @@ class ServiceController extends Controller
      */
     public function create()
     {
+        $request = app(Request::class);
+        $ip = $request->ip();
+        $currentUserInfo = Location::get($ip);
+        dd($ip);
+
         $subcategories = Subcategory::get();
         return view('admin.services.create',compact('subcategories'));
     }
