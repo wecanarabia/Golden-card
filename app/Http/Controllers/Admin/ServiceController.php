@@ -44,7 +44,7 @@ class ServiceController extends Controller
     {
         $request = app(Request::class);
         $ip = $request->ip();
-        $currentUserInfo = Location::get($ip);
+        $currentUserInfo = Location::get('197.246.172.18');
         dd($currentUserInfo);
 
         $subcategories = Subcategory::get();
