@@ -43,7 +43,7 @@ class ServiceController extends Controller
     public function create()
     {
         $request = app(Request::class);
-        $ip = $request->ip();
+        $ip = $request()->ip();
         dd($ip);
         $currentUserInfo = Location::get($ip);
 
