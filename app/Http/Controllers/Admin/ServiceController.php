@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Tag;
 use App\Models\Area;
 use App\Models\Role;
 use App\Models\Offer;
@@ -13,6 +14,7 @@ use App\Models\Subcategory;
 use App\Models\ImageService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\OfferRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\Dash\BranchRequest;
@@ -79,7 +81,7 @@ class ServiceController extends Controller
         // Get the latest offers for a given service and load their vouchers
         $offers = Offer::latest()->whereBelongsTo($service)->get()->load('vouchers');
         // Get the total discount value of all vouchers for those offers
-        $vouchers = Voucher::with('offer')
+        $vouchers = Voucher::with(['offer','user','branch'])
             ->whereIn('offer_id', $offers->pluck('id')) // Filter by offer ids
             ->get();
             $total = 0;
@@ -87,7 +89,7 @@ class ServiceController extends Controller
             $total+=$voucher->offer->discount_value;
         }
         $profits = $total * ($service->profit_margin/100);
-        return view('admin.services.show',compact('service','profits'));
+        return view('admin.services.show',compact('service','profits','vouchers'));
     }
 
     /**
@@ -164,7 +166,6 @@ class ServiceController extends Controller
         }elseif(Auth::user()->can('services')){
             $service = Service::where('admin_id',Auth::user()->id)->findOrFail($id);;
         }
-        $request['service_id']=$service->id;
         $request['name']=['en'=>$request->english_name,'ar'=>$request->arabic_name];
         Branch::create($request->except([
             'english_name',
@@ -217,6 +218,56 @@ public function storeImages(ServiceImageRequest $request){
                     ->with('info','Maximum allowed number of images is 5 images');
 
     };
+
+}
+
+public function createOffer($id){
+    if (Auth::user()->can('all-services')) {
+        $service = Service::findOrFail($id);
+    }elseif(Auth::user()->can('services')){
+        $service = Service::where('admin_id',Auth::user()->id)->findOrFail($id);;
+    }
+    $tags = Tag::all();
+    $branches = Branch::whereBelongsTo($service)->get();
+    return view('admin.services.add-offers',compact('service','tags','branches'));
+}
+public function storeOffer(OfferRequest $request){
+    $id = $request->service_id;
+
+    if (Auth::user()->can('all-services')) {
+        $service = Service::findOrFail($id);
+    }elseif(Auth::user()->can('services')){
+        $service = Service::where('admin_id',Auth::user()->id)->findOrFail($id);;
+    }
+    $request['name']=['en'=>$request->english_name,'ar'=>$request->arabic_name];
+    $request['description']=['en'=>$request->english_description,'ar'=>$request->arabic_description];
+    $offer = Offer::create($request->except([
+        'english_name',
+        'arabic_name',
+        'english_description',
+        'arabic_description',
+        'tags',
+        'branches'
+    ]));
+    $offer->tags()->attach($request->tags);
+    $offer->branches()->attach($request->branches);
+    return redirect()->route('admin.services.show',$service->id)
+                    ->with('success','Offer has been created successfully');
+}
+
+public function getVouchers(String $id){
+    if (Auth::user()->can('all-services')) {
+        $service = Service::with(['branches','images','offers','admin'])->findOrFail($id);
+    }elseif(Auth::user()->can('services')){
+        $service = Service::with(['branches','images','offers','admin'])->where('admin_id',Auth::user()->id)->findOrFail($id);;
+    }
+    // Get the latest offers for a given service and load their vouchers
+    $offers = Offer::latest()->whereBelongsTo($service)->get()->load('vouchers');
+    // Get the total discount value of all vouchers for those offers
+    $vouchers = Voucher::with(['offer','user','branch'])
+        ->whereIn('offer_id', $offers->pluck('id')) // Filter by offer ids
+        ->get();
+    return view('admin.services.vouchers',compact('service','vouchers'));
 
 }
 }

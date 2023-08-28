@@ -28,6 +28,43 @@ class OfferController extends Controller
         return view('admin.offers.index',compact('data'));
     }
 
+
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function create()
+    {
+
+        $services = Service::whereStatus(1)->get();
+
+        $tags = Tag::all();
+        $branches = Branch::all();
+        return view('admin.offers.create',compact('branches','tags','services'));
+    }
+
+    public function store(OfferRequest $request)
+    {
+
+
+        $request['name']=['en'=>$request->english_name,'ar'=>$request->arabic_name];
+        $request['description']=['en'=>$request->english_description,'ar'=>$request->arabic_description];
+        $offer = Offer::create($request->except([
+            'english_name',
+            'arabic_name',
+            'english_description',
+            'arabic_description',
+            'tags',
+            'branches',
+
+        ]));
+        $offer->tags()->attach($request->tags);
+        $offer->branches()->attach($request->branches);
+        
+        return redirect()->route('admin.offers.index')
+                        ->with('success','Offer has been created successfully');
+    }
+
     public function show(string $id)
     {
         if (Auth::user()->can('all-services')) {
@@ -82,9 +119,18 @@ class OfferController extends Controller
             'branches',
         ]));
         $offer->tags()->sync($request->tags);
-        $offer->branches()->sync($request->branches);
+        if($offer->branches()->count()>0){
+            $offer->branches()->sync($request->branches);
+        }else{
+            $offer->branches()->attach($request->branches);
+        }
 
         return redirect()->route('admin.offers.index')
                         ->with('success','Offer has been updated successfully');
+    }
+    public function getBranches($serviceId)
+    {
+        $branches = Branch::where('service_id', $serviceId)->get();
+        return response()->json(['branches' => $branches]);
     }
 }

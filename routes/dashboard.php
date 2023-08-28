@@ -50,7 +50,9 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         Route::resource('tags', TagController::class)->except(['show'])->middleware('can:tags');
         Route::resource('features', FeatureController::class)->except(['show'])->middleware('can:features');
         Route::resource('notifications', NotificationController::class)->except(['edit','update'])->middleware('can:notifications');
-        Route::resource('offers', OfferController::class)->except(['create','store'])->middleware('can:services');
+        Route::resource('offers', OfferController::class)->middleware('can:services');
+        Route::GET('offers/branches/{serviceId}', [OfferController::class,'getBranches'])->middleware('can:services');
+
         Route::resource('categories', CategoryController::class)->middleware('can:categories');
         Route::resource('subcategories', SubCategoryController::class)->middleware('can:categories');
         Route::resource('transactions', TransactionController::class)->only(['index','show','destroy'])->middleware('can:transactions');
@@ -66,6 +68,9 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         Route::post('partners/store-branch',[ServiceController::class,'storeBranch'])->name('partners.branch-store')->middleware('can:services');
         Route::get('partners/{id}/add-images',[ServiceController::class,'createImages'])->name('partners.images-create')->middleware('can:services');
         Route::post('partners/store-images',[ServiceController::class,'storeImages'])->name('partners.images-store')->middleware('can:services');
+        Route::get('partners/{id}/add-offer',[ServiceController::class,'createOffer'])->name('partners.offer-create')->middleware('can:services');
+        Route::post('partners/store-offer',[ServiceController::class,'storeOffer'])->name('partners.offer-store')->middleware('can:services');
+        Route::get('partners/{id}/vouchers',[ServiceController::class,'getVouchers'])->name('partners.vouchers')->middleware('can:services');
 
         Route::resource('branches', BranchController::class)->middleware('can:services');
         Route::resource('plans', PlanController::class)->middleware('can:plans');

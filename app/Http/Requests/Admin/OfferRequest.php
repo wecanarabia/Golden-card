@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Models\Service;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class OfferRequest extends FormRequest
@@ -21,6 +23,7 @@ class OfferRequest extends FormRequest
      */
     public function rules(): array
     {
+        $services = Service::pluck('id')->toArray();
         return [
             'english_name' => 'required|min:4|max:255',
             'arabic_name' => 'required|min:4|max:255',
@@ -33,6 +36,7 @@ class OfferRequest extends FormRequest
             'start_date'=>'required|date',
             'end_date'=>'required|date',
             'status'=>'nullable|in:0,1,2,3',
+            'service_id'=>[ 'required_without:id', Rule::in($services)],
             'tags'=>'array|min:1',
             'tags.*'=>'numeric|exists:tags,id',
             'branches'=>'array|min:1',
@@ -53,6 +57,7 @@ class OfferRequest extends FormRequest
             'arabic_name' => 'Arabic Name',
             'english_description' => 'English Description',
             'arabic_description' => 'Arabic Description',
+            'service_id' => 'Partner',
         ];
     }
 
