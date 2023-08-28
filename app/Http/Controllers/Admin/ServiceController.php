@@ -44,8 +44,8 @@ class ServiceController extends Controller
     {
         $request = app(Request::class);
         $ip = $request->ip();
-        $currentUserInfo = Location::get($ip);
         dd($ip);
+        $currentUserInfo = Location::get($ip);
 
         $subcategories = Subcategory::get();
         return view('admin.services.create',compact('subcategories'));
