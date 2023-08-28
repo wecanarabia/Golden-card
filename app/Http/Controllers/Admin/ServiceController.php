@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\File;
 use App\Http\Requests\Dash\BranchRequest;
 use App\Http\Requests\Admin\ServiceRequest;
 use App\Http\Requests\Dash\ServiceImageRequest;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 use Stevebauman\Location\Facades\Location;
 
 class ServiceController extends Controller
@@ -42,9 +43,8 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $request = app(Request::class);
-        $ip = $request->ip();
-        $currentUserInfo = Location::get('197.246.172.18');
+        $ip = FacadesRequest::getClientIp(true);
+        $currentUserInfo = Location::get($ip);
         dd($currentUserInfo);
 
         $subcategories = Subcategory::get();
