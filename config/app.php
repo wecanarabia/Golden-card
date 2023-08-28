@@ -170,7 +170,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         \Laravel\Passport\PassportServiceProvider::class,
-        Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class
+        Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class,
+        Stevebauman\Location\LocationServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -186,6 +187,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'Location' => 'Stevebauman\Location\Facades\Location',
     ])->toArray(),
 
 ];
