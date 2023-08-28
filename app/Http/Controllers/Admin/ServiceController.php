@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\File;
 use App\Http\Requests\Dash\BranchRequest;
 use App\Http\Requests\Admin\ServiceRequest;
 use App\Http\Requests\Dash\ServiceImageRequest;
-use Illuminate\Support\Facades\Request as FacadesRequest;
 use Stevebauman\Location\Facades\Location;
 
 class ServiceController extends Controller
@@ -43,7 +42,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $ip = FacadesRequest::getClientIp(true);
+        $ip = file_get_contents('https://api.ipify.org');
         $currentUserInfo = Location::get($ip);
         dd($currentUserInfo);
 
