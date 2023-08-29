@@ -87,6 +87,8 @@
 
 
                                     <div class="col-xl-8 mb-3">
+                                        <button type="button" id="my-location" class="btn btn-info  me-1 float-end">My location</button>
+
                                         <input type="submit" class="btn btn-primary me-1" value='Save'>
                                     </div>
 

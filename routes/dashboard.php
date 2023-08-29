@@ -52,7 +52,6 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         Route::resource('notifications', NotificationController::class)->except(['edit','update'])->middleware('can:notifications');
         Route::resource('offers', OfferController::class)->middleware('can:services');
         Route::get('offers/branches/{serviceId}', [OfferController::class,'getBranches'])->middleware('can:services');
-        Route::get('partners/location', [ServiceController::class,'getLocation'])->name('partners.location')->middleware('can:services');
 
         Route::resource('categories', CategoryController::class)->middleware('can:categories');
         Route::resource('subcategories', SubCategoryController::class)->middleware('can:categories');

@@ -66,43 +66,29 @@
     <script src="{{ asset('xhtml/js/plugins-init/chartjs-init.js') }}"></script>
 
         <script>
-               $('#my-location').on( "click",function() {
-            $.ajax({
-                url: "{{ route('admin.partners.location') }}",
-                type: 'GET',
-                dataType: 'json',
-                success: function(data) {
-                    console.log(data);
-                    var lat = data.lat;
-                    var long = data.long;
-                    initMap(lat, long);
+             $('#my-location').on( "click",function() {
+  if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(getPosition);
+          } else {
+             x.innerHTML = "Geolocation is not supported by this browser.";
+      }
 
-                },
-                error: function(xhr, status, error) {
-                    console.log(error);
-                }
-            });
-        });
-        function initMap(lat,long) {
-            google.maps.event.addDomListener(map, 'click', function(event) {
-                var myLatLng = event.latLng;
-                var lat = myLatLng.lat();
-                var lng = myLatLng.lng();
-
-                var myLatLng = {lat: parseFloat(lat), lng: parseFloat(long)};
-
-                var map = new google.maps.Map(document.getElementById('address-map'), {
-                    zoom: 4,
+      function getPosition(position) {
+           var lat = position.coords.latitude;
+           var long = position.coords.longitude;
+           var myLatLng = {lat: parseFloat(lat), lng: parseFloat(long)};
+           var map = new google.maps.Map(document.getElementById('address-map'), {
+                    zoom: 15,
                     center: myLatLng
                 });
-
-}
                 var marker = new google.maps.Marker({
                     position: myLatLng,
                     map: map,
                 });
-            }
-            }
+       }
+    });
+
+
         </script>
 
 

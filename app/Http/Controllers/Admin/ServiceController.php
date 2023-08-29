@@ -151,11 +151,7 @@ class ServiceController extends Controller
 
         return redirect()->route('admin.services.index')->with('success','Partner has been removed successfully');
     }
-    public function getLocation(){
 
-        $currentUserInfo = Location::get($_SERVER["HTTP_CF_CONNECTING_IP"]);
-        return response()->json(['lat'=>$currentUserInfo->latitude,'long'=>$currentUserInfo->longitude]);
-    }
 
     public function createBranch($id){
         if (Auth::user()->can('all-services')) {
