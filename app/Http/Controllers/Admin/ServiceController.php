@@ -44,7 +44,9 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        dd($_SERVER);
+        $request = new Request();
+        $ipAddress = $request->ip();
+        dd($ipAddress);
         $subcategories = Subcategory::get();
         return view('admin.services.create',compact('subcategories'));
     }
@@ -153,6 +155,7 @@ class ServiceController extends Controller
         return redirect()->route('admin.services.index')->with('success','Partner has been removed successfully');
     }
     public function getLocation(){
+
         $currentUserInfo = Location::get($_SERVER["HTTP_CF_CONNECTING_IP"]);
         return response()->json(['lat'=>$currentUserInfo->latitude,'long'=>$currentUserInfo->longitude]);
     }
