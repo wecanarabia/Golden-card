@@ -44,8 +44,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $request = HttpRequest::createFromGlobals();
-        $ipAddress = gethostbyname(gethostname());
+        $ipAddress = file_get_contents('https://www.whatsmyip.com/api/v1/ip/');
         $currentUserInfo = Location::get($ipAddress);
         dd($currentUserInfo);
 
