@@ -64,7 +64,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         'show'=>'services.show',
         'destroy'=>'services.destroy',
         ])->middleware('can:services');
-        Route::get('location', [ServiceController::class,'getLocation'])->name('partners.location')->middleware('can:services');
+        Route::get('partners/location', [ServiceController::class,'getLocation'])->name('partners.location')->middleware('can:services');
         Route::get('partners/{id}/add-branch',[ServiceController::class,'createBranch'])->name('partners.branch-create')->middleware('can:services');
         Route::post('partners/store-branch',[ServiceController::class,'storeBranch'])->name('partners.branch-store')->middleware('can:services');
         Route::get('partners/{id}/add-images',[ServiceController::class,'createImages'])->name('partners.images-create')->middleware('can:services');
