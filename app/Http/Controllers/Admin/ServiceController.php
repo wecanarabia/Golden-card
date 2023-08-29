@@ -21,6 +21,8 @@ use App\Http\Requests\Dash\BranchRequest;
 use App\Http\Requests\Admin\ServiceRequest;
 use App\Http\Requests\Dash\ServiceImageRequest;
 use Stevebauman\Location\Facades\Location;
+use Symfony\Component\HttpFoundation\Request as HttpRequest;
+
 
 class ServiceController extends Controller
 {
@@ -42,8 +44,9 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $ip = $_SERVER['REMOTE_ADDR'];
-        $currentUserInfo = Location::get($_SERVER['REMOTE_ADDR']);
+        $request = HttpRequest::createFromGlobals();
+        $ipAddress = $request->getClientIp();
+        $currentUserInfo = Location::get($ipAddress);
         dd($currentUserInfo);
 
         $subcategories = Subcategory::get();
