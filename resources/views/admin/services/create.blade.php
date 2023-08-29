@@ -205,8 +205,15 @@
                     success: function(data) {
                         var lat = data.lat;
                         var long = data.long;
+                        initMap(lat, long);
 
-                        function initMap(lat,long) {
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            });
+            function initMap(lat,long) {
                     var myLatLng = {lat: lat, lng: long};
 
                     var map = new google.maps.Map(document.getElementById('address-map'), {
@@ -217,16 +224,8 @@
                     var marker = new google.maps.Marker({
                         position: myLatLng,
                         map: map,
-                        title: 'Hello World!'
                     });
                     }
-                    },
-                    error: function(xhr, status, error) {
-                        console.log(error);
-                    }
-                });
-            });
-
     </script>
     @endpush
     <!--**********************************
