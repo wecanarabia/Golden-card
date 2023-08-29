@@ -206,7 +206,7 @@
                         var lat = data.lat;
                         var long = data.long;
 
-                        function initMap() {
+                        function initMap(lat,long) {
                     var myLatLng = {lat: lat, lng: long};
 
                     var map = new google.maps.Map(document.getElementById('address-map'), {
