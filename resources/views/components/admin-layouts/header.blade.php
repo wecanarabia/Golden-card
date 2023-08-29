@@ -10,11 +10,12 @@
 	<meta name="description" content="Golden Card">
 	<meta property="og:title" content="Golden Card">
 	<meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
 	<!-- PAGE TITLE HERE -->
 	<title>Golden Card</title>
 	<!-- FAVICONS ICON -->
-    
+
 	<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 	<link rel="shortcut icon" type="image/png" href="images/favicon.png">
 	<link href="{{ asset('xhtml/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
