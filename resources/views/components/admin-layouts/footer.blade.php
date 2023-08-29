@@ -83,7 +83,7 @@
             });
         });
         function initMap(lat,long) {
-                var myLatLng = {lat: lat, lng: long};
+                var myLatLng = {lat: parseFloat(lat), lng: parseFloat(long)};
 
                 var map = new google.maps.Map(document.getElementById('address-map'), {
                     zoom: 4,
