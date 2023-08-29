@@ -44,6 +44,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
+        dd(Location::get($_SERVER["HTTP_CF_CONNECTING_IP"]));
         $subcategories = Subcategory::get();
         return view('admin.services.create',compact('subcategories'));
     }
