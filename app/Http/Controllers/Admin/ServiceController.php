@@ -44,7 +44,6 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        dd($_SERVER);
         $subcategories = Subcategory::get();
         return view('admin.services.create',compact('subcategories'));
     }
