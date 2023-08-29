@@ -197,7 +197,7 @@
     @push('javasc')
     <script>
 
-            $('body').on( "click",'#my-location',function() {
+            $('#my-location').on( "click",function() {
                 $.ajax({
                     url: "{{ route('admin.partners.location')}}",
                     type: 'GET',
