@@ -34,6 +34,7 @@
                                     <p class="mb-3"><strong>Total Active Copones : </strong> {{ $actives->count() }}</p>
                                     <p class="mb-3"><strong>Total InActive Copones : </strong> {{ $InActives->count() }}</p>
                                     <p class="mb-3"><strong>Status :</strong> {{ $subscription->status==1?'Active':'InActive' }}</p>
+                                    <p class="mb-3"><strong>Date OF Activation :</strong> {{ $subscription->date_of_activation}}</p>
 
                                 </div>
 
