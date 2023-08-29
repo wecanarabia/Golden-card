@@ -105,7 +105,7 @@ class EnterpriseSubscriptionController extends Controller
         $subscription = EnterpriseSubscription::findOrFail($id);
 
         if ($request->status==1&&$subscription->status==0) {
-            $request['date_of_activation'] = Carbon::now()->date;
+            $request['date_of_activation'] = Carbon::now();
         }
         $subscription->update($request->all());
 
