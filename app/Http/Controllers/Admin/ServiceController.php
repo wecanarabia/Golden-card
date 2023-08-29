@@ -44,8 +44,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $ipAddress = request()->ip();
-        dd($ipAddress);
+        dd($_SERVER);
         $subcategories = Subcategory::get();
         return view('admin.services.create',compact('subcategories'));
     }
