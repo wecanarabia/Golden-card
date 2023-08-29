@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Repositories\Repository;
 use App\Http\Requests\TransactionRequest;
 use App\Http\Resources\TransactionResource;
+use App\Http\Resources\PromocodeResource;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ApiController;
 
@@ -287,7 +288,16 @@ class TransactionController extends ApiController
     }
 
 
+    public function viewCopon($code)
+    {
 
+    $code=PromoCode::where('code', $code)->first();
+        if ($code) {
+            return $this->returnData('data',new PromocodeResource( $code ), __('Get  succesfully'));
+        }
+
+        return $this->returnError(__('Sorry! Failed to get !'));
+    }
 
 
 }
