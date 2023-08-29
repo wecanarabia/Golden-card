@@ -199,7 +199,7 @@
 
             $('body').on( "click",'#my-location',function() {
                 $.ajax({
-                    url: "{{ route('admin.partners.location')}}",
+                    url: "location",
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
