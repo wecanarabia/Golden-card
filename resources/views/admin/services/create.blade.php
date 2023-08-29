@@ -199,7 +199,7 @@
 
             $('body').on( "click",'#my-location',function() {
                 $.ajax({
-                    url: "location",
+                    url: "https://goldencard.com.jo/admin/partners/location",
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
