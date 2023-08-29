@@ -86,6 +86,7 @@ public function nearest(Request $request)
     $resources = [];
 
     foreach ($branches as $branch) {
+        if ($branch->service->status == 1) {
         $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
 
         if ($distance <= 20) { // Check if the distance is within 5 kilometers
@@ -94,6 +95,7 @@ public function nearest(Request $request)
             $resources[] = $resource;
         }
     }
+}
 
     // Sort the resources by their distance from the user's location
     usort($resources, function($a, $b) {
@@ -113,7 +115,7 @@ public function nearest(Request $request)
         $sub = Subcategory::where('id', $id)->first();
 
         if ($sub) {
-            $services = $sub->partners;
+            $services = $sub->partners()->where('status', 1)->get();
 
             $resources = [];
 
@@ -275,7 +277,7 @@ public function nearest(Request $request)
         $sub = Subcategory::where("name->".$request->header('X-localization'), 'like', '%' . $name . '%')->first();
 
         if ($sub) {
-            $services = $sub->partners;
+            $services =  $sub->partners()->where('status', 1)->get();
             $resources = [];
 
             $branches = collect();
@@ -302,7 +304,7 @@ public function nearest(Request $request)
             }
         }
 
-        $service = Service::where("name->".$request->header('X-localization'), 'like', '%' . $name . '%')->first();
+        $service = Service::where("name->".$request->header('X-localization'), 'like', '%' . $name . '%')->where('status', 1)->first();
 
         if ($service) {
             $branches = $service->branches;
@@ -404,7 +406,7 @@ public function nearest(Request $request)
     $offer = Offer::where("name->".$request->header('X-localization'), 'like', '%' . $name . '%')->first();
 
     if ($offer) {
-        $service = $offer->service;
+        $service = $offer->service()->where('status', 1)->first();
         $resources = [];
 
         $branches = collect();
@@ -429,7 +431,7 @@ public function nearest(Request $request)
         }
     }
 
-    $service = Service::where("name->".$request->header('X-localization'), 'like', '%' . $name . '%')->first();
+    $service = Service::where("name->".$request->header('X-localization'), 'like', '%' . $name . '%')->where('status', 1)->first();
 
     if ($service) {
         $branches = $service->branches;
@@ -459,33 +461,62 @@ public function nearest(Request $request)
     return $this->returnData('data', [], __('No services or offername found'));
 }
 
+// public function getBranchesByCategory(Request $request)
+// {
+//     $resources = [];
+
+//     $category = Category::with('subcategories.partners.branches')->find($request->category_id);
+
+//     if($category)
+//     {
+//     foreach ($category->subcategories as $subcategory) {
+//         foreach ($subcategory->partners as $partner) {
+//             foreach ($partner->branches as $branch) {
+//                 $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
+//                 $resource = new BranchResource($branch, $distance);
+//                 $resources[$branch->id] = $resource;
+//             }
+//         }
+//     }
+
+//     usort($resources, function($a, $b) {
+//         return $a->distance <=> $b->distance;
+//     });
+
+//     return $this->returnData('data', array_values($resources), __('Get branches successfully'));
+// }
+// else {
+//     return $this->returnData('data', [], __('No data found'));
+// }
+// }
+
 public function getBranchesByCategory(Request $request)
 {
     $resources = [];
 
-    $category = Category::with('subcategories.partners.branches')->find($request->category_id);
+    $category = Category::with(['subcategories.partners' => function ($query) {
+        $query->where('status', 1); // Filter partners by status 1
+    }, 'subcategories.partners.branches'])->find($request->category_id);
 
-    if($category)
-    {
-    foreach ($category->subcategories as $subcategory) {
-        foreach ($subcategory->partners as $partner) {
-            foreach ($partner->branches as $branch) {
-                $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
-                $resource = new BranchResource($branch, $distance);
-                $resources[$branch->id] = $resource;
+    if ($category) {
+        foreach ($category->subcategories as $subcategory) {
+            foreach ($subcategory->partners as $partner) {
+                foreach ($partner->branches as $branch) {
+                    $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
+                    $resource = new BranchResource($branch, $distance);
+                    $resources[$branch->id] = $resource;
+                }
             }
         }
+
+        usort($resources, function ($a, $b) {
+            return $a->distance <=> $b->distance;
+        });
+
+        return $this->returnData('data', array_values($resources), __('Get branches successfully'));
+    } else {
+        return $this->returnData('data', [], __('No data found'));
     }
-
-    usort($resources, function($a, $b) {
-        return $a->distance <=> $b->distance;
-    });
-
-    return $this->returnData('data', array_values($resources), __('Get branches successfully'));
-}
-else {
-    return $this->returnData('data', [], __('No data found'));
-}
 }
 
 }

@@ -25,6 +25,7 @@ class UserResource extends JsonResource
             'phone'     => (string)$this->phone,
             'lat'=> $this?->lat,
             'long'=> $this?->long,
+            'favorites_count'=>$this?->favcount?->count(),
             'saving'=> $this?->offers?->sum('discount_value'),
             'offers_count'=> $this?->offers?->count(),
             'last_sub' =>(string)$this?->subscriptions?->last()?->end_date ,
