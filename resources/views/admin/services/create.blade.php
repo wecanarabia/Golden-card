@@ -176,6 +176,8 @@
 
                                        </div>
                                     <div class="col-xl-8 mb-3">
+                                        <button type="button" id="my-location" class="btn btn-info  me-1 float-end">My location</button>
+
                                         <input type="submit" class="btn btn-primary me-1" value='Save'>
                                     </div>
 
@@ -192,7 +194,41 @@
             </div>
         </div>
     </div>
+    @push('javasc')
+    <script>
 
+            $('body').on( "click",'#my-location',function() {
+                $.ajax({
+                    url: "{{ route('admin.partners.location')}}",
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        var lat = data.lat;
+                        var long = data.long;
+
+                        function initMap() {
+                    var myLatLng = {lat: lat, lng: long};
+
+                    var map = new google.maps.Map(document.getElementById('address-map'), {
+                        zoom: 4,
+                        center: myLatLng
+                    });
+
+                    var marker = new google.maps.Marker({
+                        position: myLatLng,
+                        map: map,
+                        title: 'Hello World!'
+                    });
+                    }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+    </script>
+    @endpush
     <!--**********************************
         Content body end
     ***********************************-->
