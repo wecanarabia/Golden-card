@@ -72,6 +72,7 @@
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
+                    console.log(data);
                     var lat = data.lat;
                     var long = data.long;
                     initMap(lat, long);
