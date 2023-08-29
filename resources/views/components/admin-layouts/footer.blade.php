@@ -64,8 +64,38 @@
     <script src="{{ asset('xhtml/vendor/jqvmap/js/jquery.vmap.usa.js') }}"></script>
     <script src="{{ asset('xhtml/vendor/chart.js/Chart.bundle.min.js') }}"></script>
     <script src="{{ asset('xhtml/js/plugins-init/chartjs-init.js') }}"></script>
-    
 
+        <script>
+               $('#my-location').on( "click",function() {
+            $.ajax({
+                url: "{{ route('admin.partners.location') }}",
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var lat = data.lat;
+                    var long = data.long;
+                    initMap(lat, long);
+
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+        function initMap(lat,long) {
+                var myLatLng = {lat: lat, lng: long};
+
+                var map = new google.maps.Map(document.getElementById('address-map'), {
+                    zoom: 4,
+                    center: myLatLng
+                });
+
+                var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                });
+            }
+        </script>
 
 
 
