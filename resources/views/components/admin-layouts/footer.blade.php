@@ -68,7 +68,7 @@
         <script>
                $('#my-location').on( "click",function() {
             $.ajax({
-                url: "{{ route('admin.partners.location') }}",
+                url: "https://goldencard.com.jo/admin/partners/location",
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
