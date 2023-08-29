@@ -38,7 +38,13 @@ class ServiceController extends ApiController
 
     }
 
+    public function services(){
 
+
+        $data=Service::where('status',1)->get();
+        return $this->returnData('data',  ServiceResource::collection( $data ), __('Get  succesfully'));
+
+       }
 
 
 
@@ -203,6 +209,81 @@ class ServiceController extends ApiController
 // }
 
 
+// public function searchS(Request $request)
+// {
+//     $resources = [];
+
+//     $query = Branch::query();
+
+//     $tagIds = $request->tags;
+//     $featureIds = $request->features;
+//     $categoryIds = $request->categories;
+//     $areaIds = $request->areas;
+
+//     if ($tagIds && $featureIds && empty($categoryIds) && empty($areaIds)) {
+//         // Return all branches based on tags and features
+//         $tagQuery = Branch::whereHas('offers.tags', function ($tagSubquery) use ($tagIds) {
+//             $tagSubquery->whereIn('tags.id', $tagIds);
+//         });
+
+//         $featureQuery = Branch::whereHas('service.subcategories.category.features', function ($featureSubquery) use ($featureIds) {
+//             $featureSubquery->whereIn('features.id', $featureIds);
+//         });
+
+//         $branches = $tagQuery->orWhereIn('id', $featureQuery->pluck('id'))->get();
+//     } else {
+//         if ($tagIds) {
+//             $query->whereHas('offers.tags', function ($tagSubquery) use ($tagIds) {
+//                 $tagSubquery->whereIn('tags.id', $tagIds);
+//             });
+//         }
+
+//         if ($featureIds) {
+//             $query->whereHas('service.subcategories.category.features', function ($featureSubquery) use ($featureIds) {
+//                 $featureSubquery->whereIn('features.id', $featureIds);
+//             });
+//         }
+
+//         if ($categoryIds) {
+//             $query->whereHas('service.subcategories', function ($subquery) use ($categoryIds) {
+//                 $subquery->whereIn('category_id', $categoryIds);
+//             });
+//         }
+
+//         if ($areaIds) {
+//             $query->whereIn('area_id', $areaIds);
+//         }
+
+//         $branches = $query->get();
+//     }
+
+//     $latUser = $request->lat_user;
+//     $longUser = $request->long_user;
+//     $perPage = $request->input('per_page', 10); // Number of results per page
+
+//     $branches = $branches->sortBy(function ($branch) use ($latUser, $longUser) {
+//         return $this->distance($latUser, $longUser, $branch->lat, $branch->long);
+//     });
+
+//     $currentPage = $request->input('page', 1);
+//     $offset = ($currentPage - 1) * $perPage;
+//     $paginatedBranches = new LengthAwarePaginator(
+//         $branches->slice($offset, $perPage),
+//         $branches->count(),
+//         $perPage,
+//         $currentPage,
+//         ['path' => $request->url(), 'query' => $request->query()]
+//     );
+
+//     foreach ($paginatedBranches as $branch) {
+//         $distance = $this->distance($latUser, $longUser, $branch->lat, $branch->long);
+//         $resource = new BranchResource($branch, $distance);
+//         $resources[] = $resource;
+//     }
+
+//     return $this->returnData('data', $resources, __('Get branches successfully'));
+// }
+
 public function searchS(Request $request)
 {
     $resources = [];
@@ -251,6 +332,11 @@ public function searchS(Request $request)
         $branches = $query->get();
     }
 
+    // Filter branches belonging to services with status 1
+    $branches = $branches->filter(function ($branch) {
+        return $branch->service->status == 1;
+    });
+
     $latUser = $request->lat_user;
     $longUser = $request->long_user;
     $perPage = $request->input('per_page', 10); // Number of results per page
@@ -277,6 +363,147 @@ public function searchS(Request $request)
 
     return $this->returnData('data', $resources, __('Get branches successfully'));
 }
+
+// public function searchInCatOrSub(Request $request)
+// {
+
+//        //filter in specific category
+//  if($request->is_category == 1){
+//     $resources = [];
+
+//     $query = Branch::query();
+
+//     $tagIds = $request->tags;
+//     $featureIds = $request->features;
+//     $categoryId = $request->category_id;
+
+//     if ($tagIds) {
+//         $query->whereHas('offers.tags', function ($tagSubquery) use ($tagIds) {
+//             $tagSubquery->whereIn('tags.id', $tagIds);
+//         });
+//     }
+
+//     if ($featureIds) {
+//         $query->whereHas('service.subcategories.category.features', function ($featureSubquery) use ($featureIds) {
+//             $featureSubquery->whereIn('features.id', $featureIds);
+//         });
+//     }
+
+//     if ($categoryId) {
+//         $query->where(function ($categorySubquery) use ($categoryId) {
+//             $categorySubquery
+//                 ->whereHas('service.subcategories.category', function ($subCategorySubquery) use ($categoryId) {
+//                     $subCategorySubquery->where('categories.id', $categoryId);
+//                 })
+//                 ->orWhereHas('offers.tags', function ($tagSubquery) use ($categoryId) {
+//                     $tagSubquery->where('tags.id', $categoryId);
+//                 });
+//         });
+//     }
+
+//     if ($request->filled('areas')) {
+//         $areaIds = $request->areas;
+//         $query->whereIn('area_id', $areaIds);
+//     }
+
+//     $latUser = $request->lat_user;
+//     $longUser = $request->long_user;
+//     $perPage = $request->input('per_page', 10); // Number of results per page
+
+//     $branches = $query->get()->sortBy(function ($branch) use ($latUser, $longUser) {
+//         return $this->distance($latUser, $longUser, $branch->lat, $branch->long);
+//     });
+
+//     $currentPage = $request->input('page', 1);
+//     $offset = ($currentPage - 1) * $perPage;
+//     $paginatedBranches = new LengthAwarePaginator(
+//         $branches->slice($offset, $perPage),
+//         $branches->count(),
+//         $perPage,
+//         $currentPage,
+//         ['path' => $request->url(), 'query' => $request->query()]
+//     );
+
+//     foreach ($paginatedBranches as $branch) {
+//         $distance = $this->distance($latUser, $longUser, $branch->lat, $branch->long);
+//         $resource = new BranchResource($branch, $distance);
+//         $resources[] = $resource;
+//     }
+
+//     return $this->returnData('data', $resources, __('Get branches successfully'));
+
+// }
+
+//    //filter in specific subcategory
+//    if($request->is_category == 0){
+
+//     $resources = [];
+
+//     $query = Branch::query();
+
+//     $tagIds = $request->tags;
+//     $featureIds = $request->features;
+//     $subcategoryId = $request->subcategory_id;
+
+//     if ($tagIds) {
+//         $query->whereHas('offers.tags', function ($tagSubquery) use ($tagIds) {
+//             $tagSubquery->whereIn('tags.id', $tagIds);
+//         });
+//     }
+
+//     if ($featureIds) {
+//         $query->whereHas('service.subcategories.category.features', function ($featureSubquery) use ($featureIds) {
+//             $featureSubquery->whereIn('features.id', $featureIds);
+//         });
+//     }
+
+//     if ($subcategoryId) {
+//         $query->where(function ($subcategorySubquery) use ($subcategoryId) {
+//             $subcategorySubquery
+//                 ->whereHas('service.subcategories', function ($subquery) use ($subcategoryId) {
+//                     $subquery->where('subcategories.id', $subcategoryId);
+//                 })
+//                 ->orWhereHas('offers.tags', function ($tagSubquery) use ($subcategoryId) {
+//                     $tagSubquery->where('tags.id', $subcategoryId);
+//                 });
+//         });
+//     }
+
+//     if ($request->filled('areas')) {
+//         $areaIds = $request->areas;
+//         $query->whereIn('area_id', $areaIds);
+//     }
+
+//     $latUser = $request->lat_user;
+//     $longUser = $request->long_user;
+//     $perPage = $request->input('per_page', 10); // Number of results per page
+
+//     $branches = $query->get()->sortBy(function ($branch) use ($latUser, $longUser) {
+//         return $this->distance($latUser, $longUser, $branch->lat, $branch->long);
+//     });
+
+//     $currentPage = $request->input('page', 1);
+//     $offset = ($currentPage - 1) * $perPage;
+//     $paginatedBranches = new LengthAwarePaginator(
+//         $branches->slice($offset, $perPage),
+//         $branches->count(),
+//         $perPage,
+//         $currentPage,
+//         ['path' => $request->url(), 'query' => $request->query()]
+//     );
+
+//     foreach ($paginatedBranches as $branch) {
+//         $distance = $this->distance($latUser, $longUser, $branch->lat, $branch->long);
+//         $resource = new BranchResource($branch, $distance);
+//         $resources[] = $resource;
+//     }
+
+//     return $this->returnData('data', $resources, __('Get branches successfully'));
+
+
+//    }
+
+// }
 
 public function searchInCatOrSub(Request $request)
 {
@@ -327,6 +554,11 @@ public function searchInCatOrSub(Request $request)
     $branches = $query->get()->sortBy(function ($branch) use ($latUser, $longUser) {
         return $this->distance($latUser, $longUser, $branch->lat, $branch->long);
     });
+
+    $branches = $branches->filter(function ($branch) {
+        return $branch->service->status == 1;
+    });
+
 
     $currentPage = $request->input('page', 1);
     $offset = ($currentPage - 1) * $perPage;
@@ -395,6 +627,11 @@ public function searchInCatOrSub(Request $request)
     $branches = $query->get()->sortBy(function ($branch) use ($latUser, $longUser) {
         return $this->distance($latUser, $longUser, $branch->lat, $branch->long);
     });
+
+    $branches = $branches->filter(function ($branch) {
+        return $branch->service->status == 1;
+    });
+
 
     $currentPage = $request->input('page', 1);
     $offset = ($currentPage - 1) * $perPage;

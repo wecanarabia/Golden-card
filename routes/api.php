@@ -191,7 +191,7 @@ Route::get('area/delete/{id}', [AreaController::class, 'delete']);
 Route::post('area/edit/{id}', [AreaController::class, 'edit']);
 
 //Service
-Route::get('services', [ServiceController::class, 'list']);
+Route::get('services', [ServiceController::class, 'services']);
 Route::post('service-create', [ServiceController::class, 'save']);
 Route::get('service/{id}', [ServiceController::class, 'view']);
 Route::get('service/delete/{id}', [ServiceController::class, 'delete']);
@@ -283,4 +283,6 @@ Route::get('view-subscription/{order_number}', [SubscriptionController::class, '
   Route::get('transaction/delete/{order_number}', [TransactionController::class, 'deleteTrans']);
   Route::post('transaction/edit/{id}', [TransactionController::class, 'edit']);
 
+  //viewCopon
+  Route::get('promocode/{code}', [TransactionController::class, 'viewCopon']);
 });
