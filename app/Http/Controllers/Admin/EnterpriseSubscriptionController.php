@@ -36,7 +36,7 @@ class EnterpriseSubscriptionController extends Controller
     public function store(EnterpriseSubscriptionRequest $request)
     {
         if ($request->status==1) {
-            $request['date_of_activation'] = Carbon::now()->date;
+            $request['date_of_activation'] = Carbon::now();
         }
         $subscription=EnterpriseSubscription::create($request->all());
         $name_arr = explode(" ",$request->enterprise_name);
