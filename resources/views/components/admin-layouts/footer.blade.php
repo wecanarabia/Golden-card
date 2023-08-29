@@ -84,20 +84,24 @@
             });
         });
         function initMap(lat,long) {
+            google.maps.event.addDomListener(map, 'click', function(event) {
+                var myLatLng = event.latLng;
+                var lat = myLatLng.lat();
+                var lng = myLatLng.lng();
 
+                var myLatLng = {lat: parseFloat(lat), lng: parseFloat(long)};
 
                 var map = new google.maps.Map(document.getElementById('address-map'), {
                     zoom: 4,
                     center: myLatLng
                 });
-                var position = map.getPosition();
-                var latitude = position.latitude;
-                var longitude = position.longitude;
-                var myLatLng = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
+
+}
                 var marker = new google.maps.Marker({
                     position: myLatLng,
                     map: map,
                 });
+            }
             }
         </script>
 
