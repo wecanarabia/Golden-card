@@ -42,7 +42,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $ip = file_get_contents('https://api.ipify.org');
+        $ip = $_SERVER['REMOTE_ADDR'];
         $currentUserInfo = Location::get($_SERVER['REMOTE_ADDR']);
         dd($currentUserInfo);
 
