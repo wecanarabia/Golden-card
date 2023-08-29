@@ -44,13 +44,9 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        // $ipAddress = file_get_contents('https://api.ipify.org?format=json');
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://api.ipify.org/');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $ipAddress = curl_exec($ch);
+        $ipAddress = file_get_contents('https://api.ipify.org');
         dd($ipAddress);
-        $currentUserInfo = Location::get($ipAddress);
+        $currentUserInfo = Location::get($_SERVER['REMOTE_ADDR']);
         dd($currentUserInfo);
 
         $subcategories = Subcategory::get();
