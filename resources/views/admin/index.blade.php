@@ -26,6 +26,9 @@
 
         </div>
         <div class="container-fluid">
+        @can('dashboard')
+
+
             <div class="row">
                 <div class="col-xl-9 wid-100">
                     <div class="row">
@@ -354,5 +357,6 @@
                 </div>
 
             </div>
+            @endcan
         </div>
 </x-admin-layouts.admin-app>
