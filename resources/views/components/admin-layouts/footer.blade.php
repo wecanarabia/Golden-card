@@ -84,13 +84,16 @@
             });
         });
         function initMap(lat,long) {
-                var myLatLng = {lat: parseFloat(lat), lng: parseFloat(long)};
+
 
                 var map = new google.maps.Map(document.getElementById('address-map'), {
                     zoom: 4,
                     center: myLatLng
                 });
-
+                var position = map.getPosition();
+                var latitude = position.latitude;
+                var longitude = position.longitude;
+                var myLatLng = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
                 var marker = new google.maps.Marker({
                     position: myLatLng,
                     map: map,
