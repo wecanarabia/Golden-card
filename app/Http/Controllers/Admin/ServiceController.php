@@ -44,10 +44,6 @@ class ServiceController extends Controller
      */
     public function create()
     {
-   
-        $currentUserInfo = Location::get($_SERVER['HTTP_CF_CONNECTING_IP']);
-        dd($currentUserInfo);
-
         $subcategories = Subcategory::get();
         return view('admin.services.create',compact('subcategories'));
     }
@@ -277,4 +273,9 @@ public function getVouchers(String $id){
     return view('admin.services.vouchers',compact('service','vouchers'));
 
 }
+
+    public function getLocation(){
+        $currentUserInfo = Location::get($_SERVER['HTTP_CF_CONNECTING_IP']);
+        return response()->json(['lat'=>$currentUserInfo->latitude,'long'=>$currentUserInfo->longitude]);
+    }
 }
