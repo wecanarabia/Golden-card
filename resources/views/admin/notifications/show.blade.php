@@ -32,7 +32,7 @@
                                     <p class="mb-3"><strong>English body : </strong> {!! $notification->getTranslation('body', 'en') !!}</p>
                                     <p class="mb-3"><strong>Arabic body :</strong> {!! $notification->getTranslation('body', 'ar') !!}</p>
                                     <p class="mb-3"><strong>Date : </strong> {{ $notification->date_time }}</p>
-                                    <p class="mb-3"><strong>Status : </strong> {{ ($notification->sent==1?'sent':$notification->sent==2)?'On Progress':'Pending' }}</p>
+                                    <p class="mb-3"><strong>Status : </strong> {{ $notification->sent==1?'sent':($notification->sent==2?'On Progress':'Pending' )}}</p>
                                     <p class="mb-3"><strong>Sending Times : </strong> {{ $notification->sending_times }}</p>
                                     @if ($notification->sending_times == 'Multible Times')
                                         <p class="mb-3"><strong>Number Of Times : </strong> {{ $notification->number_of_times }}</p>

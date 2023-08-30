@@ -62,7 +62,7 @@
 
                                                                         <td><span>{{ $notification->date_time }}</span>
                                                                         </td>
-                                                                        <td><span>{{ ($notification->sent==1?'sent':$notification->sent==2)?'On Progress':'Pending' }}</span>
+                                                                        <td><span>{{ $notification->sent==1?'sent':($notification->sent==2?'On Progress':'Pending') }}</span>
                                                                         </td>
                                                                          <td><span>{{ $notification->sending_times }}</span>
                                                                         </td>
