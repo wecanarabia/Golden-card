@@ -43,7 +43,7 @@ class SendNotification extends Command
                 if ($notification->number_of_times>0) {
                     if (Carbon::parse($notification->date_time)->lt(Carbon::now())||Carbon::parse($notification->date_time)->eq(Carbon::now())) {
                         $number_of_times = $notification->number_of_times-1;
-                        $date_time = $notification->date_time->addHours($notification->scheduale_time);
+                        $date_time = Carbon::parse($notification->date_time)->addHours((int)$notification->scheduale_time);
                         $notification->update([
                             'number_of_times'=>$number_of_times,
                             'date_time'=>$date_time,
