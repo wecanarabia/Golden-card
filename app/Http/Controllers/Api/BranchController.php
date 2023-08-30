@@ -519,4 +519,80 @@ public function getBranchesByCategory(Request $request)
     }
 }
 
+   public function getBranchesByCatOrSub(Request $request){
+
+        if($request->is_category == 0)
+        {
+
+            $sub = Subcategory::where('id', $request->subcategory_id)->first();
+
+            if ($sub) {
+                $services = $sub->partners()->where('status', 1)->get();
+
+                $resources = [];
+
+                foreach ($services as $service) {
+                    $serviceBranches = $service->branches;
+
+                    foreach ($serviceBranches as $branch) {
+                        $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
+
+                        $resource = new BranchResource($branch, $distance);
+
+                        $resources[] = $resource;
+                    }
+                }
+
+                // Sort the resources by their distance from the user's location
+                usort($resources, function($a, $b) {
+                    return $a->distance <=> $b->distance;
+                });
+
+                $perPage = 10;
+                $currentPage = $request->input('page', 1);
+                $pagedResources = array_slice($resources, ($currentPage - 1) * $perPage, $perPage);
+
+                return $this->returnData('data', $pagedResources, __('Get branches successfully'));
+
+            }
+
+            return $this->returnError(__('Sorry! Failed to get branches'));
+
+        }
+
+        if($request->is_category == 1)
+        {
+            $resources = [];
+
+            $category = Category::with(['subcategories.partners' => function ($query) {
+                $query->where('status', 1); // Filter partners by status 1
+            }, 'subcategories.partners.branches'])->find($request->category_id);
+
+            if ($category) {
+                foreach ($category->subcategories as $subcategory) {
+                    foreach ($subcategory->partners as $partner) {
+                        foreach ($partner->branches as $branch) {
+                            $distance = $this->distance($request->lat_user, $request->long_user, $branch->lat, $branch->long);
+                            $resource = new BranchResource($branch, $distance);
+                            $resources[$branch->id] = $resource;
+                        }
+                    }
+                }
+
+                usort($resources, function ($a, $b) {
+                    return $a->distance <=> $b->distance;
+                });
+
+                $perPage = 10;
+                $currentPage = $request->input('page', 1);
+                $pagedResources = array_slice($resources, ($currentPage - 1) * $perPage, $perPage);
+
+                return $this->returnData('data', $pagedResources, __('Get branches successfully'));
+            }
+
+        }
+
+   }
+
+
 }
