@@ -23,15 +23,23 @@ class NotificationRequest extends FormRequest
     {
 
         return [
-            'title' => 'required|min:4|max:255',
-            'body' => 'required|min:4|max:10000',
+            'english_title' => 'required|min:4|max:255',
+            'arabic_title' => 'required|min:4|max:255',
+            'english_body' => 'required|min:4|max:10000',
+            'arabic_body' => 'required|min:4|max:10000',
             'date_time' => 'required|after:now',
-
+            'sending_times'=>'required|in:One Time,Multible Times',
+            'number_of_times'=>'required_if:sending_times,Multible Times|numeric|min:1',
+            'scheduale_time'=>'required_if:sending_times,Multible Times|numeric|min:1',
         ];
     }
     public function attributes(): array
     {
         return [
+            'english_title' => 'English Title',
+            'arabic_title' => 'Arabic Title',
+            'english_body' => 'English Body',
+            'arabic_body' => 'Arabic Body',
             'date_time' => 'Sending Date',
 
         ];

@@ -46,8 +46,9 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th>Title</th>
-                                                                    <th>Sending time</th>
+                                                                    <th>Sending Date</th>
                                                                     <th>Status</th>
+                                                                    <th>Sending Times</th>
 
 
                                                                     <th>actions</th>
@@ -61,7 +62,9 @@
 
                                                                         <td><span>{{ $notification->date_time }}</span>
                                                                         </td>
-                                                                        <td><span>{{ $notification->sent == 1 ? 'sent' : 'pending' }}</span>
+                                                                        <td><span>{{ ($notification->sent==1?'sent':$notification->sent==2)?'On Progress':'Pending' }}</span>
+                                                                        </td>
+                                                                         <td><span>{{ $notification->sending_times }}</span>
                                                                         </td>
                                                                         <td>
                                                                             <div class="dropdown">

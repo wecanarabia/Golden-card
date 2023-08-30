@@ -35,7 +35,17 @@ class NotificationController extends Controller
      */
     public function store(NotificationRequest $request)
     {
-        $notification=Notification::create($request->all());
+        if ($request->sending_times == "One Time") {
+            $request['number_of_times']=1;
+        }
+        $request['title']=['en'=>$request->english_title,'ar'=>$request->arabic_title];
+        $request['body']=['en'=>$request->english_body,'ar'=>$request->arabic_body];
+        $notification=Notification::create($request->except([
+            'english_title',
+            'arabic_title',
+            'english_body',
+            'arabic_body',
+        ]));
         // $FcmToken = User::pluck('device_token')->all();
 
 

@@ -27,10 +27,17 @@
                                 <div class="container-fluid">
                                 <h4 class="heading mb-5"> {{ $notification->title }}</h4>
 
-                                    <p class="mb-3"><strong>Title : </strong> {{ $notification->title }}</p>
-                                    <p class="mb-3"><strong>body : </strong> {{ $notification->body }}</p>
-                                    <p class="mb-3"><strong>Sending time : </strong> {{ $notification->date_time }}</p>
-                                    <p class="mb-3"><strong>Status : </strong> {{ $notification->sent==1?'sent':'pending' }}</p>
+                                    <p class="mb-3"><strong>English Title : </strong> {{ $notification->getTranslation('title', 'en') }}</p>
+                                    <p class="mb-3"><strong>Arabic Title : </strong> {{ $notification->getTranslation('title', 'ar') }}</p>
+                                    <p class="mb-3"><strong>English body : </strong> {!! $notification->getTranslation('body', 'en') !!}</p>
+                                    <p class="mb-3"><strong>Arabic body :</strong> {!! $notification->getTranslation('body', 'ar') !!}</p>
+                                    <p class="mb-3"><strong>Date : </strong> {{ $notification->date_time }}</p>
+                                    <p class="mb-3"><strong>Status : </strong> {{ ($notification->sent==1?'sent':$notification->sent==2)?'On Progress':'Pending' }}</p>
+                                    <p class="mb-3"><strong>Sending Times : </strong> {{ $notification->sending_times }}</p>
+                                    @if ($notification->sending_times == 'Multible Times')
+                                        <p class="mb-3"><strong>Number Of Times : </strong> {{ $notification->number_of_times }}</p>
+                                        <p class="mb-3"><strong>Scedule Time : </strong> {{ $notification->scheduale_time }}</p>
+                                    @endif
 
                         </div>
                         </div>
