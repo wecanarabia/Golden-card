@@ -215,6 +215,9 @@ Route::get('branch/delete/{id}', [BranchController::class, 'delete']);
 Route::post('branch/edit/{id}', [BranchController::class, 'edit']);
 
 
+//getBranchesByCatOrSub
+Route::post('branches-by-categories', [BranchController::class, 'getBranchesByCatOrSub']);
+
 //nearbyBranches
 Route::post('nearby-branches', [BranchController::class, 'nearbyBranches']);
 
@@ -284,5 +287,5 @@ Route::get('view-subscription/{order_number}', [SubscriptionController::class, '
   Route::post('transaction/edit/{id}', [TransactionController::class, 'edit']);
 
   //viewCopon
-  Route::get('promocode/{code}', [TransactionController::class, 'viewCopon']);
+  Route::post('promocode', [TransactionController::class, 'viewCopon']);
 });

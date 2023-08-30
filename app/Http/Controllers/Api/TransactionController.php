@@ -288,15 +288,69 @@ class TransactionController extends ApiController
     }
 
 
-    public function viewCopon($code)
+    public function viewCopon(Request $request)
     {
 
-    $code=PromoCode::where('code', $code)->first();
-        if ($code) {
-            return $this->returnData('data',new PromocodeResource( $code ), __('Get  succesfully'));
-        }
+    $code=PromoCode::where('code', $request->code)->first();
 
-        return $this->returnError(__('Sorry! Failed to get !'));
+        $today = today()->format('Y-m-d');
+
+        if($code){
+            if($today <= $code->end_date && $today >= $code->start_date && $code->status == 1)
+            {
+
+                $user_code=UserCode::where('promo_code_id',$code->id)->count();
+                if($user_code < $code->num_of_users)
+                {
+                    if($code->type == "fixed")
+                    {
+
+
+                        $plan=Plan::find($request->plan_id);
+                        $price= $plan->price - $code->value;;
+
+
+                        return $this->returnSuccessMessage($price);
+
+
+
+                    }
+
+                    if($code->type == "percentage")
+                    {
+
+
+                        $plan=Plan::find($request->plan_id);
+                        // $price= $plan->price - $code->value;
+
+                        $discount = $plan->price * ($code->value / 100);
+                        $price = $plan->price - $discount;
+
+
+
+
+                        return $this->returnSuccessMessage($price);
+
+
+                    }
+
+                }
+
+                $code->update([
+                    'status' => 0,
+                ]);
+        return $this->returnError('Soory ! The number of times this coupon has been used has expired!');
+            }
+
+            $code->update([
+                'status' => 0,
+            ]);
+        return $this->returnError('Soory ! Coupon date has expired or not start yet!');
+
+        }
+   return $this->returnError('Soory ! code not correct!');
+
+
     }
 
 
