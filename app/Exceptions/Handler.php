@@ -44,15 +44,15 @@ class Handler extends ExceptionHandler
         //         return response()->view('errors.'.'406', [], 404);
         //     }
         // }
-        if ($exception instanceof ModelNotFoundException || $exception instanceof MethodNotAllowedHttpException) {
-            if (Request::is('admin/*')){
-                return abort('404');
-            }else if (Request::is('dash/*')){
-                return abort('405');
-            }else if (Request::is('/*')){
-                return abort('406');
-            }
-        }
+        // if ($exception instanceof ModelNotFoundException || $exception instanceof MethodNotAllowedHttpException) {
+        //     if (Request::is('admin/*')){
+        //         return abort('405');
+        //     }else if (Request::is('dash/*')){
+        //         return abort('404');
+        //     }else if (Request::is('/*')){
+        //         return abort('406');
+        //     }
+        // }
 
         return parent::render($request, $exception);
     }
