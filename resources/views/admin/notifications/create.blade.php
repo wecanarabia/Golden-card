@@ -97,7 +97,7 @@
                                     <div id="shedualing" class="d-none">
                                         <div class="col-xl-8 mb-3">
                                             <label class="form-label">Number Of Times<span class="text-danger">*</span></label>
-                                            <input type="number" min="1" value="1" class="form-control" name="number_of_times" value="{{ old('number_of_times') }}">
+                                            <input type="number" min="2" value="2" class="form-control" name="number_of_times" value="{{ old('number_of_times') }}">
                                             @error('number_of_times')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror

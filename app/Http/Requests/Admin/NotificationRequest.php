@@ -29,7 +29,7 @@ class NotificationRequest extends FormRequest
             'arabic_body' => 'required|min:4|max:10000',
             'date_time' => 'required|after:now',
             'sending_times'=>'required|in:One Time,Multible Times',
-            'number_of_times'=>'required_if:sending_times,Multible Times|numeric|min:1',
+            'number_of_times'=>'required_if:sending_times,Multible Times|numeric|min:2',
             'scheduale_time'=>'required_if:sending_times,Multible Times|numeric|min:1',
         ];
     }
