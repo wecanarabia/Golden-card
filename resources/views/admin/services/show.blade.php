@@ -452,11 +452,16 @@
                                                                     <tr>
                                                                         <td>{{ $code->code }}</td>
                                                                         <td>
+                                                                            @if ($code->offer)
+
+
                                                                             <a
                                                                                 href="{{ route('admin.offers.show', $code->offer->id) }}"><span
                                                                                     class="text-secondary">{{ $code->offer->name }}</span></a>
+                                                                                    @endif
                                                                         </td>
                                                                         <td>
+
                                                                             @if($code->user)
                                                                             <a
                                                                                 href="{{ route('admin.users.show', $code->user->id) }}">
@@ -464,9 +469,13 @@
                                                                                 @endif
                                                                         </td>
                                                                         <td>
+                                                                            @if ($code->branch)
+
                                                                             <a
                                                                                 href="{{ route('admin.branches.show', $code->branch->id) }}"><span
                                                                                     class="text-secondary">{{ $code->branch->name }}</span></a>
+                                                                                   @endif                                                                             @if ($code->code)
+
                                                                         </td>
                                                                         <td></td>
 

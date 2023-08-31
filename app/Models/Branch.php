@@ -27,6 +27,14 @@ class Branch extends Model
         });
     }
 
+    protected static function booted()
+    {
+        static::deleted(function ($category) {
+            if($category->vouchers) $category->vouchers()->delete();
+
+        });
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';
@@ -46,6 +54,11 @@ class Branch extends Model
     public function offers(){
 
         return $this->belongsToMany(Offer::class,'branch__offers','branch_id','offer_id');
+    }
+
+    public function vouchers(){
+
+        return $this->belongsToMany(Voucher::class);
     }
 
 }

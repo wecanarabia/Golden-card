@@ -70,10 +70,13 @@
                                                                                 @endif
                                                                         </td>
                                                                         <td>
+                                                                            @if ($code->branch)
+
                                                                             <a
                                                                                 href="{{ route('admin.branches.show', $code->branch->id) }}"><span
                                                                                     class="text-secondary">{{ $code->branch->name }}</span></a>
-                                                                        </td>
+                                                                                    @endif
+                                                                                </td>
                                                                         <td></td>
 
                                                                     </tr>
