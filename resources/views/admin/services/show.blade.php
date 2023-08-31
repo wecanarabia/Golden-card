@@ -474,7 +474,7 @@
                                                                             <a
                                                                                 href="{{ route('admin.branches.show', $code->branch->id) }}"><span
                                                                                     class="text-secondary">{{ $code->branch->name }}</span></a>
-                                                                                   @endif                                                                             @if ($code->code)
+                                                                                   @endif                                                                             
 
                                                                         </td>
                                                                         <td></td>
