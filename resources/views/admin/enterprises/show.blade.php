@@ -52,7 +52,7 @@
                                     {{-- <x-admin-layouts.alerts /> --}}
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
-                                            <h4 class="heading mb-0"> {{ __('Enterprise InActive Copones') }}</h4>
+                                            <h4 class="heading mb-0"> {{ __('Enterprise Used Copones') }}</h4>
                                         </div>
                                         <table class="table">
                                             <thead>
@@ -60,6 +60,7 @@
 
                                                     <th>User</th>
                                                     <th>Code</th>
+                                                    <th>Date Of Activation</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -80,6 +81,7 @@
                                                             @endif
                                                         </td>
                                                         <td>{{ $copone->code}}</td>
+                                                        <td>{{ $copone->updated_at}}</td>
                                                         <td></td>
                                                     </tr>
 
