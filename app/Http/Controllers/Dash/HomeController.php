@@ -23,7 +23,7 @@ class HomeController extends Controller
     public function index($period=null)
     {
         if (Auth::user()->can('view')||Auth::user()->can('control')) {
-        if ($period=='') {
+        if ($period=='today') {
             $date = Carbon::now();
         }elseif ($period == 'week') {
             $date = Carbon::now()->subWeek();
