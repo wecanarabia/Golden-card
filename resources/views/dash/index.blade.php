@@ -200,7 +200,7 @@
                                             {{-- <x-admin-layouts.alerts /> --}}
                                             <div class="table-responsive active-projects manage-client">
                                                 <div class="tbl-caption">
-                                                    <h4 class="heading mb-0"> {{ __('Vouchers') }}</h4>
+                                                    <h4 class="heading mb-0"> {{ __('Latest 5 used Vouchers') }}</h4>
                                                 </div>
 
                                                 <table class="table">
