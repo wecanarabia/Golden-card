@@ -89,7 +89,7 @@
 										<div class="depostit-card-media d-flex justify-content-between style-1">
 											<div>
 												<h6>Total Vouchers</h6>
-												<h3>{{ $data['vouchers_count']->count() }}</h3>
+												<h3>{{ $data['vouchers_count']->count()??0 }}</h3>
                                                 <p>Saving value {{ $data['saving_value'] }} JD</p>
 											</div>
 											<div class="icon-box bg-primary-light">
