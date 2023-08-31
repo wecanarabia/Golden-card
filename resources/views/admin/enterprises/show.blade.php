@@ -60,7 +60,7 @@
 
                                                     <th>User</th>
                                                     <th>Code</th>
-                                                    <th>Date Of Activation</th>
+                                                    <th>Usage Date</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
