@@ -23,7 +23,7 @@ class Subcat implements ValidationRule
         foreach ($value as $sub) {
             $sub = Subcategory::where('category_id',$this->category_id)->find($sub);
             if (!$sub) {
-                $fail('The :attribute is not belongs to merchant type, please select merchant type from select box to see it\'s Subcategories.');
+                $fail('The :attribute (Sub Type) is not belongs to merchant type, please select merchant type from select box to see it\'s Subcategories.');
             }
         }
     }

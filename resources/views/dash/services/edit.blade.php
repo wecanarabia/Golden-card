@@ -146,7 +146,7 @@
                                                             </div>
 
                                                             <div id="cats-list" class="col-xl-8 mb-3">
-                                                                <label class="form-label">Type</label>
+                                                                <label class="form-label">Sub Types</label>
                                                                 <div id="sub_id">
                                                                     @foreach ($subcategories as $subcategory)
                                                                         <input type="checkbox" class="form-input" value="{{ $subcategory->id }}" name="subcategories[]" @checked(in_array($subcategory->id,old( 'subcategories',$service?->subcategories?->pluck('id')->toArray())))> {{ $subcategory->name }}<br>

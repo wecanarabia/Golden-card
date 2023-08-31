@@ -356,7 +356,7 @@
                                     <x-admin-layouts.alerts />
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
-                                            <h4 class="heading mb-0"> {{ __('partner Categories') }}</h4>
+                                            <h4 class="heading mb-0"> {{ __('partner Sub Types') }}</h4>
                                         </div>
                                         <div class="tab-content" id="myTabContent">
                                             <div class="tab-pane fade show active" id="Preview" role="tabpanel"
