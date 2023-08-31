@@ -23,9 +23,9 @@ class NotificationRequest extends FormRequest
     public function rules(): array
     {
         if ($this->sending_times == 'One Time') {
-            $request['number_of_times']=1;
-            $request['sent']=1;
-            $request['date_time']=Carbon::now()->addMinutes(2);
+            $this['number_of_times']=1;
+            $this['sent']=1;
+            $this['date_time']=Carbon::now()->addMinute();
         }
         return [
             'english_title' => 'required|min:4|max:255',
