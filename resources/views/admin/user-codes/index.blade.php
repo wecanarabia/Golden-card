@@ -60,14 +60,20 @@
                                                             <span>{{ $code->end_date }}</span>
                                                         </td> --}}
                                                                         <td>
+                                                                            @if ($code->subscription)
                                                                             <a
-                                                                                href="{{ route('admin.subscriptions.show', $code->subscription->id) }}">
-                                                                                <span>{{ $code->subscription->user->first_name }}</span></a>
+                                                                            href="{{ route('admin.subscriptions.show', $code->subscription->id) }}">
+                                                                            <span>{{ $code->subscription->user->first_name }}</span></a>
+                                                                            @endif
+
                                                                         </td>
                                                                         <td>
+                                                                            @if ($code->promo_code)
                                                                             <a
-                                                                                href="{{ route('admin.promo-codes.show', $code->promo_code->id) }}"><span
-                                                                                    class="text-secondary">{{ $code->promo_code->code }}</span></a>
+                                                                            href="{{ route('admin.promo-codes.show', $code->promo_code->id) }}"><span
+                                                                                class="text-secondary">{{ $code->promo_code->code }}</span></a>
+                                                                            @endif
+
                                                                         </td>
                                                                         <td></td>
                                                                         {{--

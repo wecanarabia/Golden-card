@@ -10,7 +10,7 @@ class UserCodeController extends Controller
 {
     public function index()
     {
-        $data = UserCode::has('subscription')->with(['subscription','promo_code'])->latest()->get();
+        $data = UserCode::with(['subscription','promo_code'])->latest()->get();
         return view('admin.user-codes.index',compact('data'));
     }
 }
