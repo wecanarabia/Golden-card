@@ -21,6 +21,7 @@ class HomeController extends Controller
     }
     public function index($period=null)
     {
+        if (Auth::user()->can('view')||Auth::user()->can('control')) {
         if ($period==null) {
             $date = Carbon::now();
         }elseif ($period == 'week') {
@@ -42,5 +43,8 @@ class HomeController extends Controller
             $data['saving_value']+=$voucher->offer->discount_value;
         }
         return view('dash.index',compact('data','service'));
+    }else{
+        return view('dash.index');
+    }
     }
 }

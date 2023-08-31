@@ -67,13 +67,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-xl-8 mb-3">
-                                        <label for="exampleFormControlInputsecond" class="form-label">Sending Time<span class="text-danger">*</span></label>
-                                        <input type="datetime-local" class="form-control" id="exampleFormControlInputsecond" name="date_time" value="{{ old('date_time') }}">
-                                        @error('date_time')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+
 
                                     <div class="col-xl-8 mb-3">
                                         <label class="form-label">Sending Times<span class="text-danger">*</span></label>
@@ -95,6 +89,13 @@
                                     </div>
 
                                     <div id="shedualing" class="d-none">
+                                        <div class="col-xl-8 mb-3">
+                                            <label for="exampleFormControlInputsecond" class="form-label">Sending Time<span class="text-danger">*</span></label>
+                                            <input type="datetime-local" class="form-control" id="exampleFormControlInputsecond" name="date_time" value="{{ old('date_time') }}">
+                                            @error('date_time')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                         <div class="col-xl-8 mb-3">
                                             <label class="form-label">Number Of Times<span class="text-danger">*</span></label>
                                             <input type="number" min="2" value="2" class="form-control" name="number_of_times" value="{{ old('number_of_times') }}">

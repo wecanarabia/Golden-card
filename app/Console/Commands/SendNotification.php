@@ -32,12 +32,7 @@ class SendNotification extends Command
     {
         $notifications = Notification::whereDate('date_time', Carbon::now()->format('Y-m-d'))->whereSent(0)->orWhere('sent',2)->get();
         foreach ($notifications as $notification) {
-            if ($notification->sending_times=='One Time') {
-                if (Carbon::parse($notification->date_time)->lt(Carbon::now())||Carbon::parse($notification->date_time)->eq(Carbon::now())) {
-                    $notification->update(['sent'=>1]);
-                    $this->send($notification->body, $notification->title,$notification->date_time, $many = true);
-                }
-            }
+           
 
             if ($notification->sending_times=='Multible Times') {
                 if ($notification->number_of_times>0) {

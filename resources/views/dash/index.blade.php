@@ -19,6 +19,7 @@
 				</ol>
 			</div>
 			<div class="container-fluid">
+                @can('view')
 				<div class="row">
                     <div class="col-xl-9 wid-100">
 						<div class="row">
@@ -260,6 +261,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+                @endcan
 
+            </div>
 </x-dash-layouts.dash-app>

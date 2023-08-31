@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\NotificationRequest;
 use App\Models\User;
 use App\Traits\NotificationTrait;
+use Carbon\Carbon;
 
 class NotificationController extends Controller
 {
@@ -35,8 +36,11 @@ class NotificationController extends Controller
      */
     public function store(NotificationRequest $request)
     {
+
         if ($request->sending_times == "One Time") {
             $request['number_of_times']=1;
+            $request['sent']=1;
+            $request['date_time']=Carbon::now();
         }
         $request['title']=['en'=>$request->english_title,'ar'=>$request->arabic_title];
         $request['body']=['en'=>$request->english_body,'ar'=>$request->arabic_body];
@@ -46,8 +50,10 @@ class NotificationController extends Controller
             'english_body',
             'arabic_body',
         ]));
-        // $FcmToken = User::pluck('device_token')->all();
 
+        if ($notification->sending_times=='One Time') {
+                $this->send($notification->body, $notification->title,$notification->date_time, $many = true);
+        }
 
 
         return redirect()->route('admin.notifications.index')
