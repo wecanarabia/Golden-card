@@ -37,7 +37,7 @@ class HomeController extends Controller
         $data['offers']=Offer::whereBelongsTo($service)->get();
         $data['active_offers']=Offer::whereStatus(1)->whereBelongsTo($service)->get();
         $data['popular_offers']=Offer::withCount('vouchers')->whereBelongsTo($service)->orderBy('vouchers_count')->limit(10)->get();
-        $data['vouchers_count']=Voucher::whereDate('created_at','>=',$date)->whereIn('offer_id',$data['offers']->pluck('id'))->get();
+        $data['vouchers_count']=Voucher::whereDate('created_at','>=',$date)->whereIn('offer_id',$data['offers']->pluck('id'))->get()??[];
         $data['vouchers']=Voucher::whereIn('offer_id',$data['offers']->pluck('id'))->latest()->limit(5)->get();
         $data['saving_value'] = 0;
         foreach ($data['vouchers_count'] as $voucher) {
