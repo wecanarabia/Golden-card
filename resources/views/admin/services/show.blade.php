@@ -49,6 +49,8 @@
                                     <p class="mb-3"><strong>Latitude :</strong> {{ $service->lat }}</p>
                                     <p class="mb-3"><strong>Longitude :</strong> {{ $service->long }}</p>
                                     <p class="mb-3"><strong>Classification :</strong> {{ $service->classification }}</p>
+                                    <p class="mb-3"><strong>Merchant Type :</strong> <a href="{{ route('admin.categories.show', $service?->subcategories()?->first()->category->id) }}">
+                                        {{ $service?->subcategories()?->first()->category->name }}</a></p>
                                     <p class="mb-3"><strong>Created At :</strong> {{ $service?->created_at }}</p>
 
                                     <img class="card-img-bottom img-thumbnail mb-3" style="width: 500px" src="{{ asset( $service->logo ) }}" alt="{{ $service->name }}">

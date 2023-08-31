@@ -69,6 +69,8 @@
                                                         {{ $service->getTranslation('description', 'en') }}</p>
                                                     <p class="mb-3"><strong>Arabic Description : </strong>
                                                         {{ $service->getTranslation('description', 'ar') }}</p>
+                                                    <p class="mb-3"><strong>Merchant Type : </strong>
+                                                        {{ $service?->subcategories()?->first()?->category?->name }}</p>
                                                     <p class="mb-3"><strong>Code :</strong> {{ $service->code }}</p>
                                                     <img class="card-img-bottom img-thumbnail mb-3" style="width: 500px"
                                                         src="{{ asset($service->logo) }}"

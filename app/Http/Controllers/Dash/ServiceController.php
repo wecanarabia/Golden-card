@@ -36,7 +36,9 @@ class ServiceController extends Controller
     {
         $service = Service::whereSlug($service)->firstOrFail();
         $subcategories = Subcategory::get();
-        return view('dash.services.edit',compact('service','subcategories'));
+        $categories = Category::get();
+
+        return view('dash.services.edit',compact('service','categories','subcategories'));
 
     }
 
@@ -62,6 +64,7 @@ class ServiceController extends Controller
             'english_description',
             'arabic_description',
             'subcategories',
+            'category_id',
         ]));
         $service->subcategories()->sync($request->subcategories);
 
