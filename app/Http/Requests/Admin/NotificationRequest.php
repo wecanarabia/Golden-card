@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class NotificationRequest extends FormRequest
@@ -21,13 +22,17 @@ class NotificationRequest extends FormRequest
      */
     public function rules(): array
     {
-
+        if ($this->sending_times == 'One Time') {
+            $request['number_of_times']=1;
+            $request['sent']=1;
+            $request['date_time']=Carbon::now()->addMinute();
+        }
         return [
             'english_title' => 'required|min:4|max:255',
             'arabic_title' => 'required|min:4|max:255',
             'english_body' => 'required|min:4|max:10000',
             'arabic_body' => 'required|min:4|max:10000',
-            'date_time' => 'required_if:sending_times,Multible Times|nullable',
+            'date_time' => 'required_if:sending_times,Multible Times|after:now',
             'sending_times'=>'required|in:One Time,Multible Times',
             'number_of_times'=>'required_if:sending_times,Multible Times|numeric|min:2',
             'scheduale_time'=>'required_if:sending_times,Multible Times|numeric|min:1',

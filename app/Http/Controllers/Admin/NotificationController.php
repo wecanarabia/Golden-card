@@ -37,11 +37,7 @@ class NotificationController extends Controller
     public function store(NotificationRequest $request)
     {
 
-        if ($request->sending_times == "One Time") {
-            $request['number_of_times']=1;
-            $request['sent']=1;
-            $request['date_time']=Carbon::now();
-        }
+    
         $request['title']=['en'=>$request->english_title,'ar'=>$request->arabic_title];
         $request['body']=['en'=>$request->english_body,'ar'=>$request->arabic_body];
         $notification=Notification::create($request->except([
