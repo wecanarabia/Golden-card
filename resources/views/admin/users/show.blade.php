@@ -166,8 +166,10 @@
                                                             <span>{{ $copone->end_date }}</span>
                                                         </td> --}}
                                                         <td>
+                                                            @if ($copone->enterprise)
                                                             <a href="{{ route('admin.enterprises.show', $copone->enterprise->id) }}">
                                                             <span>{{ $copone->enterprise->enterprise_name }}</span></a>
+                                                            @endif
                                                         </td>
                                                         <td>
                                                             @if(!empty($copone->user))
