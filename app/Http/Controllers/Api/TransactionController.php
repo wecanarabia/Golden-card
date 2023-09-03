@@ -288,70 +288,120 @@ class TransactionController extends ApiController
     }
 
 
-    public function viewCopon(Request $request)
-    {
+//     public function viewCopon(Request $request)
+//     {
 
-    $code=PromoCode::where('code', $request->code)->first();
+//     $code=PromoCode::where('code', $request->code)->first();
 
-        $today = today()->format('Y-m-d');
+//         $today = today()->format('Y-m-d');
 
-        if($code){
-            if($today <= $code->end_date && $today >= $code->start_date && $code->status == 1)
-            {
+//         if($code){
+//             if($today <= $code->end_date && $today >= $code->start_date && $code->status == 1)
+//             {
 
-                $user_code=UserCode::where('promo_code_id',$code->id)->count();
-                if($user_code < $code->num_of_users)
-                {
-                    if($code->type == "fixed")
-                    {
-
-
-                        $plan=Plan::find($request->plan_id);
-                        $price= $plan->price - $code->value;;
+//                 $user_code=UserCode::where('promo_code_id',$code->id)->count();
+//                 if($user_code < $code->num_of_users)
+//                 {
+//                     if($code->type == "fixed")
+//                     {
 
 
-                        return $this->returnSuccessMessage($price);
+//                         $plan=Plan::find($request->plan_id);
+//                         $price= $plan->price - $code->value;;
+
+
+//                         return $this->returnSuccessMessage($price);
 
 
 
+//                     }
+
+//                     if($code->type == "percentage")
+//                     {
+
+
+//                         $plan=Plan::find($request->plan_id);
+//                         // $price= $plan->price - $code->value;
+
+//                         $discount = $plan->price * ($code->value / 100);
+//                         $price = $plan->price - $discount;
+
+
+
+
+//                         return $this->returnSuccessMessage($price);
+
+
+//                     }
+
+//                 }
+
+//                 $code->update([
+//                     'status' => 0,
+//                 ]);
+//         return $this->returnError('Soory ! The number of times this coupon has been used has expired!');
+//             }
+
+//             $code->update([
+//                 'status' => 0,
+//             ]);
+//         return $this->returnError('Soory ! Coupon date has expired or not start yet!');
+
+//         }
+//    return $this->returnError('Soory ! code not correct!');
+
+
+//     }
+
+public function viewCopon(Request $request)
+{
+    $code = PromoCode::where('code', $request->code)->first();
+    $today = today()->format('Y-m-d');
+    $prices = [];
+
+    if ($code) {
+        if ($today <= $code->end_date && $today >= $code->start_date && $code->status == 1) {
+
+            $user_code = UserCode::where('promo_code_id', $code->id)->count();
+            if ($user_code < $code->num_of_users) {
+                $plans = Plan::where('id', '!=', 4)->get();
+
+                foreach ($plans as $plan) {
+                    if ($code->type == "fixed") {
+                        $price = $plan->price - $code->value;
+                        $prices[] = [
+                            'plan_id' => $plan->id,
+                            'price' => $price
+                        ];
                     }
 
-                    if($code->type == "percentage")
-                    {
-
-
-                        $plan=Plan::find($request->plan_id);
-                        // $price= $plan->price - $code->value;
-
+                    if ($code->type == "percentage") {
                         $discount = $plan->price * ($code->value / 100);
                         $price = $plan->price - $discount;
-
-
-
-
-                        return $this->returnSuccessMessage($price);
-
-
+                        $prices[] = [
+                            'plan_id' => $plan->id,
+                            'price' => $price
+                        ];
                     }
-
                 }
 
-                $code->update([
-                    'status' => 0,
-                ]);
-        return $this->returnError('Soory ! The number of times this coupon has been used has expired!');
+                // Return the array of prices and plan IDs
+                return $this->returnSuccessMessage($prices);
             }
 
             $code->update([
                 'status' => 0,
             ]);
-        return $this->returnError('Soory ! Coupon date has expired or not start yet!');
-
+            return $this->returnError('Sorry! The number of times this coupon has been used has expired!');
         }
-   return $this->returnError('Soory ! code not correct!');
 
-
+        $code->update([
+            'status' => 0,
+        ]);
+        return $this->returnError('Sorry! Coupon date has expired or not started yet!');
     }
 
+    return $this->returnError('Sorry! Code is not correct!');
+}
 
 }
