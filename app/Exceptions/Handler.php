@@ -38,6 +38,7 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
+<<<<<<< HEAD
         // if ($this->isHttpException($exception)) {
         //     if ($exception->getStatusCode() == 404 ) {
         //         view()->share('is405Page', true);
@@ -53,6 +54,23 @@ class Handler extends ExceptionHandler
         //         return abort('406');
         //     }
         // }
+=======
+        if ($this->isHttpException($exception)) {
+            if ($exception->getStatusCode() == 404 ) {
+                view()->share('is405Page', true);
+                return response()->view('errors.'.'406', [], 404);
+            }
+        }
+        if ($exception instanceof ModelNotFoundException || $exception instanceof MethodNotAllowedHttpException) {
+            if (Request::is('admin/*')){
+                return abort('405');
+            }else if (Request::is('dash/*')){
+                return abort('404');
+            }else if (Request::is('/*')){
+                return abort('406');
+            }
+        }
+>>>>>>> cafed43cbc684b5cd12871a046f5b39ee5c5595d
 
         return parent::render($request, $exception);
     }

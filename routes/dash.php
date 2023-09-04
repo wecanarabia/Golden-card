@@ -32,5 +32,6 @@ Route::group(['prefix'=>'dash','as'=>'dash.'],function (){
         // Route::get('/{any}', function($any){
         //     return abort('404');
         // })->where('any', '.*');
+
     });
 });

@@ -91,5 +91,6 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         // Route::get('/{any}', function($any){
         //     return abort('405');
         // })->where('any', '.*');
+
     });
 });
