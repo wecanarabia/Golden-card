@@ -29,4 +29,3 @@ Route::get('/conditions', function () {
     return view('landing');
 })->name('conditions');
 
-
