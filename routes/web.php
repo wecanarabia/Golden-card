@@ -28,3 +28,4 @@ Route::get('/privacy', function () {
 Route::get('/conditions', function () {
     return view('landing');
 })->name('conditions');
+

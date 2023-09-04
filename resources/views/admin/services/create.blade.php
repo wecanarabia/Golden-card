@@ -117,20 +117,26 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    <div class="col-xl-8 mb-3">
+                                        <label class="form-label">Merchant Type<span class="text-danger">*</span></label>
+                                        <select class="default-select form-control wide mb-3" name="category_id" id="category_id" tabindex="null">
+                                            <option selected disabled>Choose merchant type</option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
+										</select>
+                                        @error('category_id')
+                                            <div class="text-danger">{{ $message }}</div>
+                                         @enderror
+                                    </div>
 
                                     <div id="cats-list" class="col-xl-8 mb-3">
                                         <label class="form-label">Subcategories<span class="text-danger">*</span></label>
-                                    <div class="dropdown bootstrap-select show-tick default-select form-control wide">
-                                        <select name="subcategories[]" multiple="" class="default-select form-control wide" tabindex="null">
-                                            @if (count($subcategories)>0)
-                                                @foreach ($subcategories as $subcategory)
-                                                    <option value="{{ $subcategory->id }}" @selected(in_array($subcategory->id,old('subcategories',[])))>{{ $subcategory->name }}</option>
-                                                @endforeach
-                                            @else
-                                                <option selected>Add Subcategories It's required</option>
-                                            @endif
-                                        </select>
-                                    </div>
+                                        <div id="sub_id">
+                                            @foreach ($subcategories as $subcategory)
+                                                <input type="checkbox" class="form-input" value="{{ $subcategory->id }}" name="subcategories[]" @selected(in_array($subcategory->id,old( 'subcategories',[])))> {{ $subcategory->name }}<br>
+                                            @endforeach
+                                        </div>
                                     @error('subcategories')
                                     <div class="text-danger">{{ $message }}</div>
                                      @enderror
@@ -176,6 +182,8 @@
 
                                        </div>
                                     <div class="col-xl-8 mb-3">
+                                        <button type="button" id="my-location" class="btn btn-info  me-1 float-end">My location</button>
+
                                         <input type="submit" class="btn btn-primary me-1" value='Save'>
                                     </div>
 
@@ -196,5 +204,27 @@
     <!--**********************************
         Content body end
     ***********************************-->
+    @push('javasc')
+    <script>
 
+            $('#category_id').change(function() {
+                var categoryId = $(this).val();
+                $.ajax({
+                    url: 'sucats/' + categoryId,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        var subcats = data.subcats;
+
+                        // Populate the branches select box
+                        $('#sub_id').html('');
+                        $.each(subcats, function(index, value) {
+                            $('#sub_id').append(' <input type="checkbox" class="form-input" name="subcategories[]" value="' + value.id + '"> ' + value["name"]["en"]+"<br>");
+                        });
+                    }
+                });
+            });
+
+    </script>
+    @endpush
 </x-admin-layouts.admin-app>

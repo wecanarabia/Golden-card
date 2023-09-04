@@ -9,7 +9,7 @@
                 <li>
                     <h5 class="bc-title">{{ $service->name }}</h5>
                 </li>
-                <li class="breadcrumb-item"><a href="{{ route('dash.home') }}">
+                <li class="breadcrumb-item"><a href="{{ route('dash.home','today') }}">
                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -69,6 +69,8 @@
                                                         {{ $service->getTranslation('description', 'en') }}</p>
                                                     <p class="mb-3"><strong>Arabic Description : </strong>
                                                         {{ $service->getTranslation('description', 'ar') }}</p>
+                                                    <p class="mb-3"><strong>Merchant Type : </strong>
+                                                        {{ $service?->subcategories()?->first()?->category?->name }}</p>
                                                     <p class="mb-3"><strong>Code :</strong> {{ $service->code }}</p>
                                                     <img class="card-img-bottom img-thumbnail mb-3" style="width: 500px"
                                                         src="{{ asset($service->logo) }}"
@@ -354,7 +356,7 @@
                                     <x-admin-layouts.alerts />
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
-                                            <h4 class="heading mb-0"> {{ __('partner Categories') }}</h4>
+                                            <h4 class="heading mb-0"> {{ __('partner Sub Types') }}</h4>
                                         </div>
                                         <div class="tab-content" id="myTabContent">
                                             <div class="tab-pane fade show active" id="Preview" role="tabpanel"

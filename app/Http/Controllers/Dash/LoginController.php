@@ -16,7 +16,7 @@ class LoginController extends Controller
 
      $remember_me = $request->has('remember_me') ? true : false;
      if (auth()->guard('service')->attempt(['email'=>$request->input('email'),'password'=>$request->input('password')],$remember_me)||auth()->guard('service_admin')->attempt(['email'=>$request->input('email'),'password'=>$request->input('password')],$remember_me)){
-         return redirect()->route('dash.home');
+         return redirect()->route('dash.home','today');
      }
      return redirect()->back()->withInput()->with(['error'=>__('Invalid credintials')]);
     }

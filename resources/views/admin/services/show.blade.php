@@ -49,6 +49,8 @@
                                     <p class="mb-3"><strong>Latitude :</strong> {{ $service->lat }}</p>
                                     <p class="mb-3"><strong>Longitude :</strong> {{ $service->long }}</p>
                                     <p class="mb-3"><strong>Classification :</strong> {{ $service->classification }}</p>
+                                    <p class="mb-3"><strong>Merchant Type :</strong> <a href="{{ route('admin.categories.show', $service?->subcategories()?->first()->category->id) }}">
+                                        {{ $service?->subcategories()?->first()->category->name }}</a></p>
                                     <p class="mb-3"><strong>Created At :</strong> {{ $service?->created_at }}</p>
 
                                     <img class="card-img-bottom img-thumbnail mb-3" style="width: 500px" src="{{ asset( $service->logo ) }}" alt="{{ $service->name }}">
@@ -450,11 +452,16 @@
                                                                     <tr>
                                                                         <td>{{ $code->code }}</td>
                                                                         <td>
+                                                                            @if ($code->offer)
+
+
                                                                             <a
                                                                                 href="{{ route('admin.offers.show', $code->offer->id) }}"><span
                                                                                     class="text-secondary">{{ $code->offer->name }}</span></a>
+                                                                                    @endif
                                                                         </td>
                                                                         <td>
+
                                                                             @if($code->user)
                                                                             <a
                                                                                 href="{{ route('admin.users.show', $code->user->id) }}">
@@ -462,9 +469,13 @@
                                                                                 @endif
                                                                         </td>
                                                                         <td>
+                                                                            @if ($code->branch)
+
                                                                             <a
                                                                                 href="{{ route('admin.branches.show', $code->branch->id) }}"><span
                                                                                     class="text-secondary">{{ $code->branch->name }}</span></a>
+                                                                                   @endif                                                                             
+
                                                                         </td>
                                                                         <td></td>
 

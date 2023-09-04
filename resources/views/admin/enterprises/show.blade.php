@@ -34,6 +34,7 @@
                                     <p class="mb-3"><strong>Total Active Copones : </strong> {{ $actives->count() }}</p>
                                     <p class="mb-3"><strong>Total InActive Copones : </strong> {{ $InActives->count() }}</p>
                                     <p class="mb-3"><strong>Status :</strong> {{ $subscription->status==1?'Active':'InActive' }}</p>
+                                    <p class="mb-3"><strong>Date OF Activation :</strong> {{ $subscription->date_of_activation}}</p>
 
                                 </div>
 
@@ -51,7 +52,7 @@
                                     {{-- <x-admin-layouts.alerts /> --}}
                                     <div class="table-responsive active-projects manage-client">
                                         <div class="tbl-caption">
-                                            <h4 class="heading mb-0"> {{ __('Enterprise InActive Copones') }}</h4>
+                                            <h4 class="heading mb-0"> {{ __('Enterprise Used Copones') }}</h4>
                                         </div>
                                         <table class="table">
                                             <thead>
@@ -59,6 +60,7 @@
 
                                                     <th>User</th>
                                                     <th>Code</th>
+                                                    <th>Usage Date</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -79,6 +81,7 @@
                                                             @endif
                                                         </td>
                                                         <td>{{ $copone->code}}</td>
+                                                        <td>{{ $copone->updated_at}}</td>
                                                         <td></td>
                                                     </tr>
 

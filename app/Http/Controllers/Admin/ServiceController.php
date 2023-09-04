@@ -45,7 +45,9 @@ class ServiceController extends Controller
     public function create()
     {
         $subcategories = Subcategory::get();
-        return view('admin.services.create',compact('subcategories'));
+        $categories = Category::get();
+
+        return view('admin.services.create',compact('subcategories','categories'));
     }
 
     /**
@@ -64,6 +66,7 @@ class ServiceController extends Controller
             'english_description',
             'arabic_description',
             'subcategories',
+            'category_id'
         ]));
 
         $service->subcategories()->attach($request->subcategories);
@@ -106,7 +109,8 @@ class ServiceController extends Controller
             $service = Service::where('admin_id',Auth::user()->id)->findOrFail($id);;
         }
         $subcategories = Subcategory::get();
-        return view('admin.services.edit',compact('service','subcategories'));
+        $categories = Category::get();
+        return view('admin.services.edit',compact('service','categories','subcategories'));
     }
 
     /**
@@ -131,6 +135,7 @@ class ServiceController extends Controller
             'english_description',
             'arabic_description',
             'subcategories',
+            'category_id' 
         ]));
 
         $service->subcategories()->sync($request->subcategories);
@@ -151,6 +156,7 @@ class ServiceController extends Controller
 
         return redirect()->route('admin.services.index')->with('success','Partner has been removed successfully');
     }
+
 
     public function createBranch($id){
         if (Auth::user()->can('all-services')) {
@@ -274,8 +280,5 @@ public function getVouchers(String $id){
 
 }
 
-    public function getLocation(){
-        $currentUserInfo = Location::get($_SERVER['HTTP_CF_CONNECTING_IP']);
-        return response()->json(['lat'=>$currentUserInfo->latitude,'long'=>$currentUserInfo->longitude]);
-    }
+
 }

@@ -19,6 +19,7 @@
 				</ol>
 			</div>
 			<div class="container-fluid">
+                @can('view')
 				<div class="row">
                     <div class="col-xl-9 wid-100">
 						<div class="row">
@@ -88,7 +89,7 @@
 										<div class="depostit-card-media d-flex justify-content-between style-1">
 											<div>
 												<h6>Total Vouchers</h6>
-												<h3>{{ $data['vouchers_count']->count() }}</h3>
+												<h3>{{ $data['vouchers_count']?->count()??0 }}</h3>
                                                 <p>Saving value {{ $data['saving_value'] }} JD</p>
 											</div>
 											<div class="icon-box bg-primary-light">
@@ -199,7 +200,7 @@
                                             {{-- <x-admin-layouts.alerts /> --}}
                                             <div class="table-responsive active-projects manage-client">
                                                 <div class="tbl-caption">
-                                                    <h4 class="heading mb-0"> {{ __('Vouchers') }}</h4>
+                                                    <h4 class="heading mb-0"> {{ __('Latest 5 used Vouchers') }}</h4>
                                                 </div>
 
                                                 <table class="table">
@@ -260,6 +261,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+                @endcan
 
+            </div>
 </x-dash-layouts.dash-app>

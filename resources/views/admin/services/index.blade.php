@@ -51,6 +51,7 @@
                                                                     <th>Phone</th>
                                                                     <th>Status</th>
                                                                     <th>Admin</th>
+                                                                    <th>Merchant Type</th>
                                                                     <th>Classification</th>
                                                                     <th>Created At</th>
 
@@ -79,6 +80,11 @@
                                                                         </td>
                                                                         <td>
                                                                             <span>{{ $service?->admin?->name }}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span><a href="{{ route('admin.categories.show', $service?->subcategories()?->first()->category->id) }}">
+                                                                                {{ $service?->subcategories()?->first()->category->name }}</a>
+                                                                                </span>
                                                                         </td>
                                                                         <td>
                                                                             <span>{{ $service->classification }}</span>

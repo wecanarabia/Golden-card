@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests\Dash;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Password;
-use Illuminate\Validation\Rule;
+use App\Rules\Subcat;
 use App\Models\Category;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
+use Illuminate\Foundation\Http\FormRequest;
+
 class ServiceRequest extends FormRequest
 {
     /**
@@ -36,8 +38,9 @@ class ServiceRequest extends FormRequest
             'ipan' => 'nullable|min:4|max:255',
             'first_contact' => 'nullable|min:4|max:255',
             'second_contact' => 'nullable|min:4|max:255',
-            'subcategories'=>'array|min:1',
+            'subcategories'=>['required','array','min:1',new Subcat($this->category_id)],
             'subcategories.*'=>'required|exists:subcategories,id',
+            'category_id'=>'required|exists:categories,id',
         ];
     }
 
@@ -50,6 +53,8 @@ class ServiceRequest extends FormRequest
             'arabic_description' => 'Arabic Description',
             'first_contact'=>'First Contact',
             'second_contact'=>'Second Contact',
+            'category_id' => 'Merchant Type',
+
         ];
     }
 }

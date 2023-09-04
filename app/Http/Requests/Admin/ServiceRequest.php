@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use App\Models\Category;
+use App\Rules\Subcat;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
@@ -33,8 +34,8 @@ class ServiceRequest extends FormRequest
             'password' => ['required_without:id', 'nullable',Password::min(8)],
             'phone' => 'required|min:9|regex:/^([0-9\s\-\+\(\)]*)$/|unique:services,phone,'.$this->id,
             'code'=>'required|min:4|max:255|unique:services,code,'.$this->id,
-            'subcategories'=>'array|min:1',
-            'subcategories.*'=>'required|exists:subcategories,id',            'logo'=>'required_without:id|mimes:jpg,jpeg,gif,png|max:4000',
+            'subcategories'=>['required','array','min:1',new Subcat($this->category_id)],
+            'subcategories.*'=>['required','exists:subcategories,id'],            'logo'=>'required_without:id|mimes:jpg,jpeg,gif,png|max:4000',
             'status'=>'nullable|in:0,1',
             'lat'=>'nullable|numeric',
             'long'=>'nullable|numeric',
@@ -42,6 +43,8 @@ class ServiceRequest extends FormRequest
             'ipan' => 'nullable|min:4|max:255',
             'profit_margin' => 'required|numeric',
             'classification' => 'required|integer',
+            'category_id'=>'required|exists:categories,id',
+
         ];
     }
 
@@ -53,6 +56,7 @@ class ServiceRequest extends FormRequest
             'profit_margin' => 'Profit Margin',
             'english_description' => 'English Description',
             'arabic_description' => 'Arabic Description',
+            'category_id' => 'Merchant Type',
         ];
     }
 }

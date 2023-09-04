@@ -9,7 +9,7 @@
                 <li>
                     <h5 class="bc-title">{{ $service->name }}</h5>
                 </li>
-                <li class="breadcrumb-item"><a href="{{ route('dash.home') }}">
+                <li class="breadcrumb-item"><a href="{{ route('dash.home','today') }}">
                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -132,17 +132,26 @@
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
+                                                            <div class="col-xl-8 mb-3">
+                                                                <label class="form-label">Merchant Type<span class="text-danger">*</span></label>
+                                                                <select class="default-select form-control wide mb-3" name="category_id" id="category_id" tabindex="null">
+                                                                    <option selected disabled>Choose merchant type</option>
+                                                                    @foreach ($categories as $category)
+                                                                        <option value="{{ $category->id }}" @selected(old('category_id',$service?->subcategories()?->first()?->category_id)==$category->id)>{{ $category->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                @error('category_id')
+                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                 @enderror
+                                                            </div>
 
                                                             <div id="cats-list" class="col-xl-8 mb-3">
-                                                                <label class="form-label">Type</label>
-                                                            <div class="dropdown bootstrap-select show-tick default-select form-control wide">
-                                                                <select name="subcategories[]" multiple="" class="default-select form-control wide" tabindex="null">
-                                                                        @foreach ($subcategories as $subcategory)
-                                                                            <option value="{{ $subcategory->id }}" @selected(in_array($subcategory->id,old('subcategories',$service?->subcategories?->pluck('id')->toArray())))>{{ $subcategory->name }}</option>
-                                                                        @endforeach
-
-                                                                </select>
-                                                            </div>
+                                                                <label class="form-label">Sub Types*</label>
+                                                                <div id="sub_id">
+                                                                    @foreach ($subcategories as $subcategory)
+                                                                        <input type="checkbox" class="form-input" value="{{ $subcategory->id }}" name="subcategories[]" @checked(in_array($subcategory->id,old( 'subcategories',$service?->subcategories?->pluck('id')->toArray())))> {{ $subcategory->name }}<br>
+                                                                    @endforeach
+                                                                </div>
 
 
                                                             @error('subcategories')
@@ -274,5 +283,27 @@
     <!--**********************************
         Content body end
     ***********************************-->
+    @push('javasc')
+    <script>
 
+            $('#category_id').change(function() {
+                var categoryId = $(this).val();
+                $.ajax({
+                    url: '/admin/partners/sucats/' + categoryId ,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        var subcats = data.subcats;
+
+                        // Populate the branches select box
+                        $('#sub_id').html('');
+                        $.each(subcats, function(index, value) {
+                            $('#sub_id').append(' <input type="checkbox" class="form-input" name="subcategories[]" value="' + value.id + '"> ' + value["name"]["en"]+"<br>");
+                        });
+                    }
+                });
+            });
+
+    </script>
+    @endpush
 </x-dash-layouts.dash-app>
