@@ -29,9 +29,9 @@ Route::group(['prefix'=>'dash','as'=>'dash.'],function (){
         Route::get('/{service:slug}/edit',[ServiceController::class, 'edit'])->name('services.edit');
         Route::put('/{service:slug}',[ServiceController::class, 'update'])->name('services.update');
         Route::get('home/{period?}',[HomeController::class, 'index'])->name('home');
-        // Route::get('/{any}', function($any){
-        //     return abort('404');
-        // })->where('any', '.*');
+        Route::get('/{any}', function($any){
+            return abort('404');
+        })->where('any', '.*');
 
     });
 });
