@@ -77,10 +77,10 @@ class User extends Authenticatable
         return $this->hasMany(Voucher::class)->paginate(10);
     }
 
-    public function notifications(){
+    // public function notifications(){
 
-        return $this->hasMany(Notification::class);
-    }
+    //     return $this->hasMany(Notification::class);
+    // }
 
     public function favorites(){
         return $this->belongsToMany(Offer::class,'favorites','user_id','offer_id')->paginate(10);
