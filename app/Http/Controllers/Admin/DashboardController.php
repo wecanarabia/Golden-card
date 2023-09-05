@@ -21,6 +21,7 @@ class DashboardController extends Controller
 {
     public function index($period = null)
     {
+        if (Auth::user()->can('dashboard')) {
         if ($period == null) {
             $date = Carbon::now();
         } elseif ($period == 'week') {
@@ -91,6 +92,9 @@ class DashboardController extends Controller
 
         $data['chart'] = $this->getEarningChart();
         return view('admin.index', compact('data'));
+    }else{
+        return view('admin.index');
+    }
     }
 
     public function getProfits($service)

@@ -20,6 +20,7 @@ return[
         'enterprises'=>'Enterprises',
         'roles'=>'Roles',
         'transactions'=>'Transactions',
+        'dashboard'=>'Dashboard',
     ],
 
     'service'=>[

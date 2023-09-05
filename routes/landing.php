@@ -14,4 +14,5 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
         Route::get('/{any}', function($any){
             return abort('406');
         })->where('any', '.*');
+
 });

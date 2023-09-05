@@ -17,6 +17,6 @@ class UserCode extends Model
 
     public function subscription()
     {
-        return $this->belongsTo(subscription::class);
+        return $this->belongsTo(Subscription::class);
     }
 }

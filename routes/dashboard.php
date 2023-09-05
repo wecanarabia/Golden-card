@@ -33,6 +33,8 @@ use App\Http\Controllers\Admin\TransactionController;
 Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
     Route::get('/login',[AdminLoginController::class, 'getLogin'])->name('login-page');
     Route::post('/send-login',[AdminLoginController::class, 'postLogin'])->name('login');
+    Route::get('partners/sucats/{serviceId}', [SubCategoryController::class,'getSubs'])->middleware("auth:admin,service,service_admin")->name("partners.subcats");
+
     Route::group(['middleware'=>'auth:admin'],function () {
         Route::get('/logout',[AdminLoginController::class, 'logout'])->name('logout');
         Route::get('/dashboard/{period?}',[DashboardController::class, 'index'])->name('dashboard');
@@ -51,7 +53,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         Route::resource('features', FeatureController::class)->except(['show'])->middleware('can:features');
         Route::resource('notifications', NotificationController::class)->except(['edit','update'])->middleware('can:notifications');
         Route::resource('offers', OfferController::class)->middleware('can:services');
-        Route::GET('offers/branches/{serviceId}', [OfferController::class,'getBranches'])->middleware('can:services');
+        Route::get('offers/branches/{serviceId}', [OfferController::class,'getBranches'])->middleware('can:services');
 
         Route::resource('categories', CategoryController::class)->middleware('can:categories');
         Route::resource('subcategories', SubCategoryController::class)->middleware('can:categories');
@@ -89,5 +91,6 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function (){
         Route::get('/{any}', function($any){
             return abort('405');
         })->where('any', '.*');
+
     });
 });

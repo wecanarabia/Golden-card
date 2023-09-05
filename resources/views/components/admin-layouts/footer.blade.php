@@ -64,8 +64,32 @@
     <script src="{{ asset('xhtml/vendor/jqvmap/js/jquery.vmap.usa.js') }}"></script>
     <script src="{{ asset('xhtml/vendor/chart.js/Chart.bundle.min.js') }}"></script>
     <script src="{{ asset('xhtml/js/plugins-init/chartjs-init.js') }}"></script>
-    
 
+        <script>
+             $('#my-location').on( "click",function() {
+  if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(getPosition);
+          } else {
+             x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+
+      function getPosition(position) {
+           var lat = position.coords.latitude;
+           var long = position.coords.longitude;
+           var myLatLng = {lat: parseFloat(lat), lng: parseFloat(long)};
+           var map = new google.maps.Map(document.getElementById('address-map'), {
+                    zoom: 15,
+                    center: myLatLng
+                });
+                var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                });
+       }
+    });
+
+
+        </script>
 
 
 

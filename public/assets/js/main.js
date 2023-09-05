@@ -33,7 +33,7 @@ $(window).load(function(){
 
     $(window).on('load', function() {
         handlePreloader();
-    }); 
+    });
 
 
     jQuery(document).on('ready', function () {
@@ -401,7 +401,7 @@ $(window).load(function(){
 
 
 
-        /*===============================  
+        /*===============================
              counter up
         ================================*/
 
@@ -428,7 +428,7 @@ $(window).load(function(){
         });
 
 
-    
+
 
 
 
@@ -450,7 +450,7 @@ $(window).load(function(){
         //Animate the scroll to yop
         jQuery('.back-to-top').on('click', function (event) {
             event.preventDefault();
-             
+
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
 
@@ -458,13 +458,13 @@ $(window).load(function(){
             scrollTop: 0,
         }, 1500);
 
-       
+
         });
 
 
 
 
-        //===== Search 
+        //===== Search
 
         $('.search-open').on('click', function () {
             $('.search-box').addClass('open')
@@ -474,7 +474,7 @@ $(window).load(function(){
             $('.search-box').removeClass('open')
         });
 
-        //===== Shopping Cart 
+        //===== Shopping Cart
 
         $('.amm-shopping-cart-open').on('click', function () {
             $('.amm-shopping-cart-canvas').addClass('open')
@@ -502,7 +502,7 @@ $(window).load(function(){
         $('.canvas_open').on('click', function(){
             $('.offcanvas_menu_wrapper,.off_canvars_overlay').addClass('active')
         });
-        
+
         $('.canvas_close,.off_canvars_overlay').on('click', function(){
             $('.offcanvas_menu_wrapper,.off_canvars_overlay').removeClass('active')
         });
@@ -511,9 +511,9 @@ $(window).load(function(){
         var $offcanvasNav = $('.offcanvas_main_menu'),
             $offcanvasNavSubMenu = $offcanvasNav.find('.sub-menu');
         $offcanvasNavSubMenu.parent().prepend('<span class="menu-expand"><i class="fa fa-angle-down"></i></span>');
-        
+
         $offcanvasNavSubMenu.slideUp();
-        
+
         $offcanvasNav.on('click', 'li a, li .menu-expand', function(e) {
             var $this = $(this);
             if ( ($this.parent().attr('class').match(/\b(menu-item-has-children|has-children|has-sub-menu)\b/)) && ($this.attr('href') === '#' || $this.hasClass('menu-expand')) ) {
@@ -552,8 +552,8 @@ $(window).load(function(){
 
 
 
+     
 
-        
 
 
     });

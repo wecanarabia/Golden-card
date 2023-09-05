@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\EnterpriseSubscription;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Admin\EnterpriseSubscriptionRequest;
+use Carbon\Carbon;
 
 class EnterpriseSubscriptionController extends Controller
 {
@@ -34,7 +35,9 @@ class EnterpriseSubscriptionController extends Controller
      */
     public function store(EnterpriseSubscriptionRequest $request)
     {
-
+        if ($request->status==1) {
+            $request['date_of_activation'] = Carbon::now();
+        }
         $subscription=EnterpriseSubscription::create($request->all());
         $name_arr = explode(" ",$request->enterprise_name);
         if (count($name_arr)>1) {
@@ -98,9 +101,12 @@ class EnterpriseSubscriptionController extends Controller
      */
     public function update(EnterpriseSubscriptionRequest $request, string $id)
     {
+
         $subscription = EnterpriseSubscription::findOrFail($id);
 
-
+        if ($request->status==1&&$subscription->status==0) {
+            $request['date_of_activation'] = Carbon::now();
+        }
         $subscription->update($request->all());
 
         return redirect()->route('admin.enterprises.index')
