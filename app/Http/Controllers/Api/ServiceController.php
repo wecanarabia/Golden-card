@@ -505,18 +505,163 @@ public function searchS(Request $request)
 
 // }
 
+// public function searchInCatOrSub(Request $request)
+// {
+
+//        //filter in specific category
+//  if($request->is_category == 1){
+//     $resources = [];
+
+//     $query = Branch::query();
+
+//     $tagIds = $request->tags;
+//     $featureIds = $request->features;
+//     $categoryId = $request->category_id;
+
+//     if ($tagIds) {
+//         $query->whereHas('offers.tags', function ($tagSubquery) use ($tagIds) {
+//             $tagSubquery->whereIn('tags.id', $tagIds);
+//         });
+//     }
+
+//     if ($featureIds) {
+//         $query->whereHas('service.subcategories.category.features', function ($featureSubquery) use ($featureIds) {
+//             $featureSubquery->whereIn('features.id', $featureIds);
+//         });
+//     }
+
+//     if ($categoryId) {
+//         $query->where(function ($categorySubquery) use ($categoryId) {
+//             $categorySubquery
+//                 ->whereHas('service.subcategories.category', function ($subCategorySubquery) use ($categoryId) {
+//                     $subCategorySubquery->where('categories.id', $categoryId);
+//                 })
+//                 ->orWhereHas('offers.tags', function ($tagSubquery) use ($categoryId) {
+//                     $tagSubquery->where('tags.id', $categoryId);
+//                 });
+//         });
+//     }
+
+//     if ($request->filled('areas')) {
+//         $areaIds = $request->areas;
+//         $query->whereIn('area_id', $areaIds);
+//     }
+
+//     $latUser = $request->lat_user;
+//     $longUser = $request->long_user;
+//     $perPage = $request->input('per_page', 10); // Number of results per page
+
+//     $branches = $query->get()->sortBy(function ($branch) use ($latUser, $longUser) {
+//         return $this->distance($latUser, $longUser, $branch->lat, $branch->long);
+//     });
+
+//     $branches = $branches->filter(function ($branch) {
+//         return $branch->service->status == 1;
+//     });
+
+
+//     $currentPage = $request->input('page', 1);
+//     $offset = ($currentPage - 1) * $perPage;
+//     $paginatedBranches = new LengthAwarePaginator(
+//         $branches->slice($offset, $perPage),
+//         $branches->count(),
+//         $perPage,
+//         $currentPage,
+//         ['path' => $request->url(), 'query' => $request->query()]
+//     );
+
+//     foreach ($paginatedBranches as $branch) {
+//         $distance = $this->distance($latUser, $longUser, $branch->lat, $branch->long);
+//         $resource = new BranchResource($branch, $distance);
+//         $resources[] = $resource;
+//     }
+
+//     return $this->returnData('data', $resources, __('Get branches successfully'));
+
+// }
+
+//    //filter in specific subcategory
+//    if($request->is_category == 0){
+
+//     $resources = [];
+
+//     $query = Branch::query();
+
+//     $tagIds = $request->tags;
+//     $featureIds = $request->features;
+//     $subcategoryId = $request->subcategory_id;
+
+//     if ($tagIds) {
+//         $query->whereHas('offers.tags', function ($tagSubquery) use ($tagIds) {
+//             $tagSubquery->whereIn('tags.id', $tagIds);
+//         });
+//     }
+
+//     if ($featureIds) {
+//         $query->whereHas('service.subcategories.category.features', function ($featureSubquery) use ($featureIds) {
+//             $featureSubquery->whereIn('features.id', $featureIds);
+//         });
+//     }
+
+//     if ($subcategoryId) {
+//         $query->where(function ($subcategorySubquery) use ($subcategoryId) {
+//             $subcategorySubquery
+//                 ->whereHas('service.subcategories', function ($subquery) use ($subcategoryId) {
+//                     $subquery->where('subcategories.id', $subcategoryId);
+//                 })
+//                 ->orWhereHas('offers.tags', function ($tagSubquery) use ($subcategoryId) {
+//                     $tagSubquery->where('tags.id', $subcategoryId);
+//                 });
+//         });
+//     }
+
+//     if ($request->filled('areas')) {
+//         $areaIds = $request->areas;
+//         $query->whereIn('area_id', $areaIds);
+//     }
+
+//     $latUser = $request->lat_user;
+//     $longUser = $request->long_user;
+//     $perPage = $request->input('per_page', 10); // Number of results per page
+
+//     $branches = $query->get()->sortBy(function ($branch) use ($latUser, $longUser) {
+//         return $this->distance($latUser, $longUser, $branch->lat, $branch->long);
+//     });
+
+//     $branches = $branches->filter(function ($branch) {
+//         return $branch->service->status == 1;
+//     });
+
+
+//     $currentPage = $request->input('page', 1);
+//     $offset = ($currentPage - 1) * $perPage;
+//     $paginatedBranches = new LengthAwarePaginator(
+//         $branches->slice($offset, $perPage),
+//         $branches->count(),
+//         $perPage,
+//         $currentPage,
+//         ['path' => $request->url(), 'query' => $request->query()]
+//     );
+
+//     foreach ($paginatedBranches as $branch) {
+//         $distance = $this->distance($latUser, $longUser, $branch->lat, $branch->long);
+//         $resource = new BranchResource($branch, $distance);
+//         $resources[] = $resource;
+//     }
+
+//     return $this->returnData('data', $resources, __('Get branches successfully'));
+
+
+//    }
+
+// }
+
 public function searchInCatOrSub(Request $request)
 {
-
-       //filter in specific category
- if($request->is_category == 1){
     $resources = [];
-
     $query = Branch::query();
-
     $tagIds = $request->tags;
     $featureIds = $request->features;
-    $categoryId = $request->category_id;
 
     if ($tagIds) {
         $query->whereHas('offers.tags', function ($tagSubquery) use ($tagIds) {
@@ -530,26 +675,32 @@ public function searchInCatOrSub(Request $request)
         });
     }
 
-    if ($categoryId) {
-        $query->where(function ($categorySubquery) use ($categoryId) {
-            $categorySubquery
-                ->whereHas('service.subcategories.category', function ($subCategorySubquery) use ($categoryId) {
-                    $subCategorySubquery->where('categories.id', $categoryId);
-                })
-                ->orWhereHas('offers.tags', function ($tagSubquery) use ($categoryId) {
-                    $tagSubquery->where('tags.id', $categoryId);
-                });
-        });
+    $latUser = $request->lat_user;
+    $longUser = $request->long_user;
+    $perPage = $request->input('per_page', 10); // Number of results per page
+
+    if ($request->is_category == 1) {
+        $categoryId = $request->category_id;
+
+        if ($categoryId) {
+            $query->whereHas('service.subcategories.category', function ($categorySubquery) use ($categoryId) {
+                $categorySubquery->where('categories.id', $categoryId);
+            });
+        }
+    } else {
+        $subcategoryId = $request->subcategory_id;
+
+        if ($subcategoryId) {
+            $query->whereHas('service.subcategories', function ($subCategorySubquery) use ($subcategoryId) {
+                $subCategorySubquery->where('subcategories.id', $subcategoryId);
+            });
+        }
     }
 
     if ($request->filled('areas')) {
         $areaIds = $request->areas;
         $query->whereIn('area_id', $areaIds);
     }
-
-    $latUser = $request->lat_user;
-    $longUser = $request->long_user;
-    $perPage = $request->input('per_page', 10); // Number of results per page
 
     $branches = $query->get()->sortBy(function ($branch) use ($latUser, $longUser) {
         return $this->distance($latUser, $longUser, $branch->lat, $branch->long);
@@ -558,7 +709,6 @@ public function searchInCatOrSub(Request $request)
     $branches = $branches->filter(function ($branch) {
         return $branch->service->status == 1;
     });
-
 
     $currentPage = $request->input('page', 1);
     $offset = ($currentPage - 1) * $perPage;
@@ -577,83 +727,6 @@ public function searchInCatOrSub(Request $request)
     }
 
     return $this->returnData('data', $resources, __('Get branches successfully'));
-
-}
-
-   //filter in specific subcategory
-   if($request->is_category == 0){
-
-    $resources = [];
-
-    $query = Branch::query();
-
-    $tagIds = $request->tags;
-    $featureIds = $request->features;
-    $subcategoryId = $request->subcategory_id;
-
-    if ($tagIds) {
-        $query->whereHas('offers.tags', function ($tagSubquery) use ($tagIds) {
-            $tagSubquery->whereIn('tags.id', $tagIds);
-        });
-    }
-
-    if ($featureIds) {
-        $query->whereHas('service.subcategories.category.features', function ($featureSubquery) use ($featureIds) {
-            $featureSubquery->whereIn('features.id', $featureIds);
-        });
-    }
-
-    if ($subcategoryId) {
-        $query->where(function ($subcategorySubquery) use ($subcategoryId) {
-            $subcategorySubquery
-                ->whereHas('service.subcategories', function ($subquery) use ($subcategoryId) {
-                    $subquery->where('subcategories.id', $subcategoryId);
-                })
-                ->orWhereHas('offers.tags', function ($tagSubquery) use ($subcategoryId) {
-                    $tagSubquery->where('tags.id', $subcategoryId);
-                });
-        });
-    }
-
-    if ($request->filled('areas')) {
-        $areaIds = $request->areas;
-        $query->whereIn('area_id', $areaIds);
-    }
-
-    $latUser = $request->lat_user;
-    $longUser = $request->long_user;
-    $perPage = $request->input('per_page', 10); // Number of results per page
-
-    $branches = $query->get()->sortBy(function ($branch) use ($latUser, $longUser) {
-        return $this->distance($latUser, $longUser, $branch->lat, $branch->long);
-    });
-
-    $branches = $branches->filter(function ($branch) {
-        return $branch->service->status == 1;
-    });
-
-
-    $currentPage = $request->input('page', 1);
-    $offset = ($currentPage - 1) * $perPage;
-    $paginatedBranches = new LengthAwarePaginator(
-        $branches->slice($offset, $perPage),
-        $branches->count(),
-        $perPage,
-        $currentPage,
-        ['path' => $request->url(), 'query' => $request->query()]
-    );
-
-    foreach ($paginatedBranches as $branch) {
-        $distance = $this->distance($latUser, $longUser, $branch->lat, $branch->long);
-        $resource = new BranchResource($branch, $distance);
-        $resources[] = $resource;
-    }
-
-    return $this->returnData('data', $resources, __('Get branches successfully'));
-
-
-   }
-
 }
 
 
