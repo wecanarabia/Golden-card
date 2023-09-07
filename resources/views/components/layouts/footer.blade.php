@@ -42,7 +42,7 @@
                     <h4 class="title">@lang('landing.CONTACT')</h4>
                     <ul>
                         <li><a href="#"><i class="fal fa-envelope"></i>info@goldencard.com.jo</a></li>
-                        <li><a href="#"><i class="fal fa-phone"></i> +(962) 79 000 0000</a></li>
+                        <li><a href="#"><i class="fal fa-phone"></i> +(962) 0789997993</a></li>
                         <li><a href="#"><i class="fal fa-map-marker-alt"></i>@lang('landing.ADDRESS')</a></li>
                     </ul>
                 </div>
@@ -53,7 +53,7 @@
                 <div class="footer-copyright d-flex align-items-center justify-content-between pt-35">
                     <div class="apps-download-btn">
                     <ul>
-                        <li><a href="#"><i class="fab fa-apple"></i>@lang('landing.IOSDOWNLOAD')</a></li>
+                        <li><a href="https://apps.apple.com/jo/app/golden-card/id6450652034"><i class="fab fa-apple"></i>@lang('landing.IOSDOWNLOAD')</a></li>
                         <li><a class="item-2"  href="https://play.google.com/store/apps/details?id=com.goldencard.wecan"><i class="fab fa-google-play"></i>@lang('landing.ANDROIDDOWNLOAD')</a></li>
                     </ul>
                     <div class="copyright-text">

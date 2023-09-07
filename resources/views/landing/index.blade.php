@@ -64,8 +64,8 @@
             <span>@lang('landing.HELLO')</span>
             <h1 class="appie-title">@lang('landing.GCAPP')</h1>
             <p>@lang('landing.AWESOMEDISCOUNTS')</p>
-           <a class="main-btn d-inline-block m-2" href="#"><i class="fab fa-apple"></i>@lang('landing.IOSDOWNLOAD')</a>
-              <a class="main-btn d-inline-block"  href="https://play.google.com/store/apps/details?id=com.goldencard.wecan"><i class="fab fa-google-play"></i>@lang('landing.ANDROIDDOWNLOAD')</a>
+           <a class="main-btn d-inline-block m-2" href="https://apps.apple.com/jo/app/golden-card/id6450652034"><i class="fab fa-apple"></i> @lang('landing.IOSDOWNLOAD')</a>
+              <a class="main-btn d-inline-block"  href="https://play.google.com/store/apps/details?id=com.goldencard.wecan"><i class="fab fa-google-play"></i> @lang('landing.ANDROIDDOWNLOAD')</a>
           </div>
         </div>
         <div class="col-lg-6">

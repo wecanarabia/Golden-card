@@ -46,7 +46,7 @@ return[
     'FAQS2'=>'Some frequently asked questions and our answers to them',
     'GOLFENCARD'=>'Golden Card Discounts and Offers Application',
     'CONTACT'=>'Contact Us',
-    'ADDRESS'=>'Jordan, Amman, Gardens Street',
+    'ADDRESS'=>'Jordan, Amman',
     'RIGHTS'=>' All rights reserved © Golden Card Application '.\Carbon\Carbon::now()->year.' - Programming and design by ',
     'WECAN'=>'We Can',
     'LINKS'=>'Useful Links',
