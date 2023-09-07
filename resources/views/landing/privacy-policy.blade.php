@@ -6,7 +6,7 @@
               <div class="col-lg-2 col-md-4 col-sm-5 col-6 order-1 order-sm-1">
                 <div class="appie-logo-box text-right">
                   <a href="#">
-                    <img src="{{ asset('assets/images/logo.png')}}" alt="">
+                    <img src="{{ asset('assets/images/logo_dark.png')}}" alt="">
                   </a>
                 </div>
               </div>
