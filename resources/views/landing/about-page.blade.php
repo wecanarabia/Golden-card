@@ -70,7 +70,7 @@
                                     <h2 @class([
                                         'elementor-heading-title',
                                         'elementor-size-default',
-                                        'mt-2',
+                                        'mt-4',
                                         'text-right' => app()->getLocale() === 'ar',
                                     ])>@lang('landing.COMPANY')</h2>
                                 </div>
