@@ -66,6 +66,7 @@
                                     <h2 @class([
                                         'elementor-heading-title',
                                         'elementor-size-default',
+                                        'mt-2',
                                         'text-right' => app()->getLocale() === 'ar',
                                     ])>@lang('landing.PRIVACY')</h2>
                                 </div>
