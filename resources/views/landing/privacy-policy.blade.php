@@ -16,6 +16,12 @@
                     <li>
                       <a href="{{ route('landing') }}">@lang('landing.HOME')</a>
                     </li>
+                    <li>
+                        <a href="{{ route('about') }}">@lang('landing.ABOUT')</a>
+                      </li>
+                        <li>
+                        <a href="{{ route('conditions') }}">@lang('landing.CONDITIONS')</a>
+                      </li>
 
                     @if (app()->getLocale()==='ar')
                         <li><a rel="alternate" hreflang="en" href="{{ LaravelLocalization::getLocalizedURL('en', null, [], true) }}">
