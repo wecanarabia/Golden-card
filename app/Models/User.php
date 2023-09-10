@@ -64,7 +64,7 @@ class User extends Authenticatable
 
     public function paginationoffers(){
 
-        return $this->belongsToMany(Offer::class,'vouchers','user_id','offer_id')->paginate(10);
+        return $this->belongsToMany(Offer::class,'vouchers','user_id','offer_id')->orderBy('id', 'desc')->paginate(10);
     }
 
     public function vouchers(){
@@ -74,7 +74,7 @@ class User extends Authenticatable
 
     public function paginationvouchers(){
 
-        return $this->hasMany(Voucher::class)->paginate(10);
+        return $this->hasMany(Voucher::class)->orderBy('id', 'desc')->paginate(10);
     }
 
     // public function notifications(){
@@ -83,7 +83,7 @@ class User extends Authenticatable
     // }
 
     public function favorites(){
-        return $this->belongsToMany(Offer::class,'favorites','user_id','offer_id')->paginate(10);
+        return $this->belongsToMany(Offer::class,'favorites','user_id','offer_id')->orderBy('id', 'desc')->paginate(10);
     }
 
     public function favcount(){
