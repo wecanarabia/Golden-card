@@ -22,18 +22,19 @@
         </div>
 
         <div class="container-fluid">
-            <div>
-                <a class="btn btn-info my-2 float-end" href="{{ route('admin.partners.branch-create',$service->id) }}">+ Add Branch</a>
-                <a class="btn btn-info my-2 float-end" href="{{ route('admin.partners.images-create',$service->id) }}">+ Add Images</a>
-                <a class="btn btn-info my-2 float-end" href="{{ route('admin.partners.offer-create',$service->id) }}">+ Add Offer</a>
-                <a class="btn btn-info my-2 float-end" href="{{ route('admin.partners.vouchers',$service->id) }}" >{{  __('Vouchers') }}</a>
-            </div>
+
                        <div class="row">
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-body p-0">
                             <div class="offcanvas-body">
                                 <div class="container-fluid">
+                                    <div>
+                                        <a class="btn btn-info my-2 float-end" href="{{ route('admin.partners.branch-create',$service->id) }}">+ Add Branch</a>
+                                        <a class="btn btn-info my-2 float-end" href="{{ route('admin.partners.images-create',$service->id) }}">+ Add Images</a>
+                                        <a class="btn btn-info my-2 float-end" href="{{ route('admin.partners.offer-create',$service->id) }}">+ Add Offer</a>
+                                        <a class="btn btn-info my-2 float-end" href="{{ route('admin.partners.vouchers',$service->id) }}" >{{  __('Vouchers') }}</a>
+                                    </div>
                                 <x-admin-layouts.alerts />
                                 <h4 class="heading mb-5"> {{ $service->name }}</h4>
 
