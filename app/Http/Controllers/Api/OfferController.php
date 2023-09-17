@@ -30,6 +30,15 @@ class OfferController extends ApiController
 
 
 
+    public function offers(){
+
+
+        $data=Offer::where('status',1)->get();
+        return $this->returnData('data',  OfferResource::collection( $data ), __('Get  succesfully'));
+
+       }
+
+
     public function save( Request $request ){
         return $this->store( $request->all() );
     }
@@ -176,14 +185,25 @@ class OfferController extends ApiController
     }
 
 
+    // public function getOffersByBranch($id)
+    // {
+
+    //     $offers = Branch::find($id)->offers;
+
+    //     return $this->returnData('data',  OfferResource::collection( $offers ), __('Get  succesfully'));
+
+    // }
+
+
+
     public function getOffersByBranch($id)
-    {
+{
+    $offers = Offer::where('branch_id', $id)
+                   ->where('status', 1)
+                   ->get();
 
-        $offers = Branch::find($id)->offers;
-
-        return $this->returnData('data',  OfferResource::collection( $offers ), __('Get  succesfully'));
-
-    }
+    return $this->returnData('data', OfferResource::collection($offers), __('Get successfully'));
+}
 
     public function myOffers()
     {
