@@ -83,7 +83,7 @@ class Service extends Authenticatable
 
     public function offers()
     {
-        return $this->hasMany(Offer::class);
+        return $this->hasMany(Offer::class)->where('status', 1);
     }
 
     public function admin()
