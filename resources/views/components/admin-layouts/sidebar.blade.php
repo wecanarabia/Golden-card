@@ -131,8 +131,8 @@
                             ><a @class(['mm-active'=>Request::is('admin/branches/*')]) href="{{ route('admin.branches.index') }}">Branches</a></li>
 							<li @class(['mm-active'=>Request::is('admin/offers/*')])
                             ><a @class(['mm-active'=>Request::is('admin/offers/*')]) href="{{ route('admin.offers.index') }}">Offers</a></li>
-							<li @class(['mm-active'=>Request::is('admin/vouchers/*')])
-                            ><a @class(['mm-active'=>Request::is('admin/vouchers/*')]) href="{{ route('admin.vouchers.index') }}">Vouchers</a></li>
+							{{-- <li @class(['mm-active'=>Request::is('admin/vouchers/*')])
+                            ><a @class(['mm-active'=>Request::is('admin/vouchers/*')]) href="{{ route('admin.vouchers.index') }}">Vouchers</a></li> --}}
                         </ul>
 
 					</li>

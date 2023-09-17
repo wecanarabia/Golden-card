@@ -116,7 +116,7 @@
                                                 <div class="container-fluid">
                                                     <h4 class="heading mb-5"> {{ $service->name }}</h4>
 
-                                                    <p class="mb-3"><strong>Ipan : </strong> {{ $service->ipan }}</p>
+                                                    <p class="mb-3"><strong>IPAN : </strong> {{ $service->ipan }}</p>
 
                                                 </div>
 

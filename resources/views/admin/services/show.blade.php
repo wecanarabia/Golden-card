@@ -44,7 +44,7 @@
                                     <p class="mb-3"><strong>Admin :</strong> {{ $service?->admin?->name}}</p>
                                     <p class="mb-3"><strong>Profit margin : </strong> {{ $service->profit_margin }}%</p>
                                     <p class="mb-3"><strong>Profits : </strong> {{ $profits }}</p>
-                                    <p class="mb-3"><strong>Ipan : </strong> {{ $service->ipan }}</p>
+                                    <p class="mb-3"><strong>IPAN : </strong> {{ $service->ipan }}</p>
                                     <p class="mb-3"><strong>Location : </strong> {{ $service->location }}</p>
                                     <p class="mb-3"><strong>Latitude :</strong> {{ $service->lat }}</p>
                                     <p class="mb-3"><strong>Longitude :</strong> {{ $service->long }}</p>
@@ -474,7 +474,7 @@
                                                                             <a
                                                                                 href="{{ route('admin.branches.show', $code->branch->id) }}"><span
                                                                                     class="text-secondary">{{ $code->branch->name }}</span></a>
-                                                                                   @endif                                                                             
+                                                                                   @endif
 
                                                                         </td>
                                                                         <td></td>

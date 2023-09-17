@@ -110,7 +110,7 @@
                                             @enderror
                                         </div>
                                         <div class="col-xl-8 mb-3">
-                                            <label for="exampleFormControlInputthird" class="form-label">Ipan<span class="text-danger">*</span></label>
+                                            <label for="exampleFormControlInputthird" class="form-label">IPAN</label>
                                             <input type="text" class="form-control" id="exampleFormControlInputthird" name="ipan" value="{{ old('ipan',$service->ipan) }}">
                                             @error('ipan')
                                                 <div class="text-danger">{{ $message }}</div>
