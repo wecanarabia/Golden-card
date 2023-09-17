@@ -18,7 +18,7 @@ class NotificationController extends Controller
      */
     public function index()
     {
-        $data = Notification::with('user')->latest()->get();
+        $data = Notification::latest()->get();
         return view('admin.notifications.index',compact('data'));
     }
 
@@ -37,7 +37,7 @@ class NotificationController extends Controller
     public function store(NotificationRequest $request)
     {
 
-    
+
         $request['title']=['en'=>$request->english_title,'ar'=>$request->arabic_title];
         $request['body']=['en'=>$request->english_body,'ar'=>$request->arabic_body];
         $notification=Notification::create($request->except([
@@ -61,7 +61,7 @@ class NotificationController extends Controller
      */
     public function show(string $id)
     {
-        $notification = Notification::with('user')->findOrFail($id);
+        $notification = Notification::findOrFail($id);
         return view('admin.notifications.show',compact('notification'));
     }
 
