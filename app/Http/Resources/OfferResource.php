@@ -41,6 +41,7 @@ class OfferResource extends JsonResource
             // 'sum_uses'=> Voucher::where('offer_id', $this->id)->count(),
             'service_id' => $this->service?->id,
             'service_name' => $this->service?->name,
+            'service_logo' => $this->service?->logo,
             'branches' => BranchResource::collection($this?->branches),
 
 
