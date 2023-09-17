@@ -28,7 +28,13 @@
             <a href="{{ route('dash.home') }}" class="brand-logo">
                 <img src="{{ asset('assets/images/logo.png')}}" alt="" width="150">
             </a>
-
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="line"></span>
+					<span class="line"></span>
+					<span class="line"></span>
+                </div>
+            </div>
         </div>
         <!--**********************************
             Nav header end
