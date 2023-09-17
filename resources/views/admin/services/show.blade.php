@@ -16,14 +16,15 @@
                 </li>
                 <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $service->name }} </a></li>
             </ol>
-            <a class="text-primary fs-13" href="{{ route('admin.partners.branch-create',$service->id) }}">+ Add Branch</a>
-            <a class="text-primary fs-13" href="{{ route('admin.partners.images-create',$service->id) }}">+ Add Images</a>
-            <a class="text-primary fs-13" href="{{ route('admin.partners.offer-create',$service->id) }}">+ Add Offer</a>
-            <a class="text-primary fs-13" href="{{ route('admin.partners.vouchers',$service->id) }}" >{{  __('Vouchers') }}</a>
+
             <a class="text-primary fs-13" href="{{ route('admin.services.index') }}" >{{  __('Services') }}</a>
 
         </div>
         <div class="container-fluid">
+            <a class="btn btn-info my-2" href="{{ route('admin.partners.branch-create',$service->id) }}">+ Add Branch</a>
+            <a class="btn btn-info my-2" href="{{ route('admin.partners.images-create',$service->id) }}">+ Add Images</a>
+            <a class="btn btn-info my-2" href="{{ route('admin.partners.offer-create',$service->id) }}">+ Add Offer</a>
+            <a class="btn btn-info my-2" href="{{ route('admin.partners.vouchers',$service->id) }}" >{{  __('Vouchers') }}</a>
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card">
