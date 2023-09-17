@@ -24,7 +24,7 @@ class FeatureController extends Controller
      */
     public function create()
     {
-        $categories = Category::parent()->get();
+        $categories = Category::all();
         return view('admin.features.create',compact('categories'));
     }
 
@@ -52,7 +52,7 @@ class FeatureController extends Controller
     public function edit(string $id)
     {
         $feature = Feature::findOrFail($id);
-        $categories = Category::parent()->get();
+        $categories = Category::all();
         return view('admin.features.edit',compact('feature','categories'));
     }
 

@@ -23,12 +23,11 @@ class FeatureRequest extends FormRequest
      */
     public function rules(): array
     {
-        $categories = Category::parent()->pluck('id')->toArray();
 
         return [
             'english_name' => 'required|min:4|max:255',
             'arabic_name' => 'required|min:4|max:255',
-            'category_id'=>['required', Rule::in($categories)],
+            'category_id'=>['required', "exists:categories,id"],
         ];
     }
     public function attributes(): array
