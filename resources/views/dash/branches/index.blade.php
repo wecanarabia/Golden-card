@@ -7,9 +7,9 @@
         <div class="page-titles">
             <ol class="breadcrumb">
                 <li>
-                    <h5 class="bc-title">{{ __('Branches','today') }}</h5>
+                    <h5 class="bc-title">{{ __('Branches') }}</h5>
                 </li>
-                <li class="breadcrumb-item"><a href="{{ route('dash.home') }}">
+                <li class="breadcrumb-item"><a href="{{ route('dash.home','today') }}">
                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path

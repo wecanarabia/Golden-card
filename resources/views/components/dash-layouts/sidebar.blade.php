@@ -5,7 +5,7 @@
     <div class="deznav-scroll">
         <ul class="metismenu" id="menu">
             <li class="menu-title">Golden Card</li>
-            <li><a href="{{ route('dash.home') }}" aria-expanded="false">
+            <li><a href="{{ route('dash.home','today') }}" aria-expanded="false">
                     <div class="menu-icon">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
