@@ -30,7 +30,15 @@ class OfferController extends ApiController
 
 
 
-    public function offers(){
+    public function list(){
+
+
+        $data=Offer::where('status',1)->get();
+        return $this->returnData('data',  OfferResource::collection( $data ), __('Get  succesfully'));
+
+       }
+
+       public function offers(){
 
 
         $data=Offer::where('status',1)->get();
@@ -163,7 +171,7 @@ class OfferController extends ApiController
                 'status' => 0 ,
             ]);
 
-        }
+            }
 
             return $this->returnError(__('Sorry! The offer time has expired or you have used up the allowed times !'));
           }
@@ -178,7 +186,7 @@ class OfferController extends ApiController
     public function branchesOfOffer($id)
     {
 
-        $bran = Offer::find($id)->branches;
+        $bran = Offer::whereStatus(1)->find($id)->branches;
 
         return $this->returnData('data',  BranchResource::collection( $bran ), __('Get  succesfully'));
 
