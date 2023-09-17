@@ -206,7 +206,7 @@ class OfferController extends ApiController
 
     public function getOffersByBranch($id)
 {
-    $offers = Offer::wheereHas('branches',function($q)use($id){$q->where('branch_id', $id);})
+    $offers = Offer::whereHas('branches',function($q)use($id){$q->where('branch_id', $id);})
                    ->where('status', 1)
                    ->get();
 
