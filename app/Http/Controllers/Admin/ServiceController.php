@@ -74,7 +74,7 @@ class ServiceController extends Controller
         $role->name="View";
         $role->roleable_id=$service->id;
         $role->roleable_type=get_class(app(Service::class));
-        $role->permissions=json_encode((array)array_keys(config('global.service'),'view'));
+        $role->permissions=json_encode((array)array_keys(config('global.service'),'View Only'));
         $role->save();
 
         $role = new Role();
