@@ -70,7 +70,19 @@ class ServiceController extends Controller
         ]));
 
         $service->subcategories()->attach($request->subcategories);
+        $role = new Role();
+        $role->name="View";
+        $role->roleable_id=$service->id;
+        $role->roleable_type=get_class(app(Service::class));
+        $role->permissions=json_encode((array)config('global.service')['view']);
+        $role->save();
 
+        $role = new Role();
+        $role->name="Full Control";
+        $role->roleable_id=$service->id;
+        $role->roleable_type=get_class(app(Service::class));
+        $role->permissions=json_encode((array)config('global.service'));
+        $role->save();
         return redirect()->route('admin.services.show',$service->id)
                         ->with('success','Partner has been added successfully');
     }
@@ -95,6 +107,7 @@ class ServiceController extends Controller
             $total+=$voucher->offer->discount_value;
         }
         $profits = $total * ($service->profit_margin/100);
+
         return view('admin.services.show',compact('service','profits','vouchers'));
     }
 
@@ -135,7 +148,7 @@ class ServiceController extends Controller
             'english_description',
             'arabic_description',
             'subcategories',
-            'category_id' 
+            'category_id'
         ]));
 
         $service->subcategories()->sync($request->subcategories);

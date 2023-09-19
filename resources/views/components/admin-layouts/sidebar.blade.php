@@ -125,10 +125,10 @@
                         <ul aria-expanded="false" class="mm-collapse">
 							<li @class(['mm-active'=>Request::is('admin/partners/*')])
                             ><a @class(['mm-active'=>Request::is('admin/partners/*')]) href="{{ route('admin.services.index') }}">Partners</a></li>
-							<li @class(['mm-active'=>Request::is('admin/partner-images/*')])
+							{{-- <li @class(['mm-active'=>Request::is('admin/partner-images/*')])
                             ><a @class(['mm-active'=>Request::is('admin/partner-images/*')]) href="{{ route('admin.service-images.index') }}">Images</a></li>
 							<li @class(['mm-active'=>Request::is('admin/branches/*')])
-                            ><a @class(['mm-active'=>Request::is('admin/branches/*')]) href="{{ route('admin.branches.index') }}">Branches</a></li>
+                            ><a @class(['mm-active'=>Request::is('admin/branches/*')]) href="{{ route('admin.branches.index') }}">Branches</a></li> --}}
 							<li @class(['mm-active'=>Request::is('admin/offers/*')])
                             ><a @class(['mm-active'=>Request::is('admin/offers/*')]) href="{{ route('admin.offers.index') }}">Offers</a></li>
 							{{-- <li @class(['mm-active'=>Request::is('admin/vouchers/*')])
