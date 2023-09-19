@@ -74,14 +74,14 @@ class ServiceController extends Controller
         $role->name="View";
         $role->roleable_id=$service->id;
         $role->roleable_type=get_class(app(Service::class));
-        $role->permissions=json_encode((array)config('global.service')['view']);
+        $role->permissions=json_encode((array)array_keys(config('global.service'),'view'));
         $role->save();
 
         $role = new Role();
         $role->name="Full Control";
         $role->roleable_id=$service->id;
         $role->roleable_type=get_class(app(Service::class));
-        $role->permissions=json_encode((array)config('global.service'));
+        $role->permissions=json_encode((array)array_keys(config('global.service')));
         $role->save();
         return redirect()->route('admin.services.show',$service->id)
                         ->with('success','Partner has been added successfully');
