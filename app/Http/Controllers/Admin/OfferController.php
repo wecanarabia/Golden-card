@@ -23,6 +23,9 @@ class OfferController extends Controller
             $data = Offer::with('service')->latest()->get();
         }elseif(Auth::user()->can('services')){
             $services = Service::where('admin_id',Auth::user()->id)->latest()->get();
+            if (is_null($services)) {
+                $data=collect([]);
+            }
             $data = Offer::latest()->with('service')->orderBy('service_id')->whereBelongsTo($services)->get();
         }
         return view('admin.offers.index',compact('data'));
@@ -60,7 +63,7 @@ class OfferController extends Controller
         ]));
         $offer->tags()->attach($request->tags);
         $offer->branches()->attach($request->branches);
-        
+
         return redirect()->route('admin.offers.index')
                         ->with('success','Offer has been created successfully');
     }
