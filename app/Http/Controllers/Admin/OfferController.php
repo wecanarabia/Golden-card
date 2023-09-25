@@ -25,8 +25,9 @@ class OfferController extends Controller
             $services = Service::where('admin_id',Auth::user()->id)->latest()->get();
             if (is_null($services)) {
                 $data=collect([]);
+            }else{
+                $data = Offer::latest()->with('service')->orderBy('service_id')->whereBelongsTo($services)->get();
             }
-            $data = Offer::latest()->with('service')->orderBy('service_id')->whereBelongsTo($services)->get();
         }
         return view('admin.offers.index',compact('data'));
     }
