@@ -23,7 +23,7 @@ class OfferController extends Controller
             $data = Offer::with('service')->latest()->get();
         }elseif(Auth::user()->can('services')){
             $services = Service::where('admin_id',Auth::user()->id)->latest()->get();
-            if (empty($services)) {
+            if ($services) {
                 $data=collect([]);
             }else{
                 $data = Offer::latest()->with('service')->orderBy('service_id')->whereBelongsTo($services)->get();
