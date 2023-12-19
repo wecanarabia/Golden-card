@@ -3,10 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -46,6 +47,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $appends = ['save_val'];
 
     public function subscriptions()
     {
@@ -111,6 +114,24 @@ class User extends Authenticatable
             if($user->offers()->count()>0) $user->offers()->detach();
 
         });
+    }
+
+    public function saveVal(): Attribute
+    {
+        $total=0;
+        if (!empty($this->vouchers)) {
+
+                foreach($this->vouchers as $voucher){
+                    $total+=$voucher->offer->discount_value;
+                }
+                return Attribute::make(
+                    get: fn (int|null $value) =>$total,
+                );
+            }else{
+                return Attribute::make(
+                    get: fn (int|null $value) =>$total,
+                );
+            }
     }
 
 }

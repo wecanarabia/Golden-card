@@ -34,7 +34,7 @@
                                     <p class="mb-3"><strong>Latitude :</strong> {{ $user->lat }}</p>
                                     <p class="mb-3"><strong>Longitude :</strong> {{ $user->long }}</p>
                                     <p class="mb-3"><strong>Join Date :</strong> {{ \Carbon\Carbon::parse($user->created_at)->format('Y-m-d') }}</p>
-                                    <p class="mb-3"><strong>Total Saving :</strong> {{ $user['saving'] }}</p>
+                                    <p class="mb-3"><strong>Total Saving :</strong> {{ $user->save_val }}</p>
                                     @if(!empty($user->subscription))
                                     <p class="mb-3"><strong>Subscreption Expiry date :</strong> {{ $user->subscription->end_date }}</p>
                                     <p class="mb-3"><strong>Type :</strong>

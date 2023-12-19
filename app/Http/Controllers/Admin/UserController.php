@@ -15,20 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::with('subscription')->paginate(10);
-
-        foreach ($data as $user) {
-            if (!empty($user->vouchers)) {
-                $total=0;
-                foreach($user->vouchers as $voucher){
-                    $total+=$voucher->offer->discount_value;
-                }
-                $user['saving']=$total;
-            }else{
-                $user['saving']=0;
-            }
-
-        }
+        $data = User::with('subscription')->get();
         return view('admin.users.index',compact('data'));
     }
 
@@ -59,13 +46,6 @@ class UserController extends Controller
     public function show(string $id)
     {
         $user = User::with(['subscriptions','subscription','enterprise_copnes'])->findOrFail($id);
-        if (!empty($user->vouchers)) {
-            $total=0;
-            foreach($user->vouchers as $voucher){
-                $total+=$voucher->offer->discount_value;
-            }
-            $user['saving']=$total;
-        }
         return view('admin.users.show',compact('user'));
     }
 
